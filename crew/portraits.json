@@ -1,0 +1,277 @@
+{
+ "goal": "image",
+ "model": "FLUX.2 Klein 4B (Apache-2.0)",
+ "options": {
+  "aspect": "1:1",
+  "mode": "quality"
+ },
+ "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+ "members": {
+  "master": {
+   "name": "Comfy Prime",
+   "prompt": "Stylized 3D animated character portrait of an original cuddly round mascot: a plump soft golden plush robot with a smooth dome head, very large kind emerald eyes, a small warm smile, gently glowing cheeks, two small rounded ear pods, a short antenna topped with a softly glowing gold and green orb, wearing a cozy chunky knitted emerald scarf. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 1007,
+   "sha256": "a4cc4ba1c66068b9beae53e4bfcacb29b6b58a425cca3b922d6ca78763c3b25a"
+  },
+  "flux-2-klein": {
+   "name": "Noisy Nick",
+   "prompt": "Stylized 3D animated character portrait of a loud laughing rock drummer with spiky black hair, a stubbly chin, big headphones around his neck and a studded denim jacket, mouth wide open in a laugh. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 110,
+   "sha256": "9216cb7dab3a1cfc6f76f42df042de51e3d6e3e0e54714df5cb7e00df3898f86"
+  },
+  "minimax-h3": {
+   "name": "Loss Larry",
+   "prompt": "Stylized 3D animated character portrait of a lovable droopy-eared basset hound with sad sweet eyes and a small hopeful smile, wearing a rumpled shirt and a loose crooked tie. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 116,
+   "sha256": "f9f52c651f288b2e875f902c7ecc1e27b4ab082338693dd961e017f330b45421"
+  },
+  "ltx-video-ltx-2": {
+   "name": "Epoch Eddie",
+   "prompt": "Stylized 3D animated character portrait of a lanky young watchmaker with tousled brown hair, a brass jeweller's loupe over one eye, a waistcoat decorated with tiny gears and a gold pocket watch chain. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 115,
+   "sha256": "41b495dcd345de0b9d08b667b3398bb6bf060ecb0d9c8591c3901869b9ced589"
+  },
+  "wan-2-2": {
+   "name": "Mish Mike",
+   "prompt": "Stylized 3D animated character portrait of a quirky man in a wildly mismatched patchwork coat, an odd striped scarf and a clashing patchwork newsboy cap, wearing round glasses with one gold lens and one green lens. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 130,
+   "sha256": "f1ce07514bdab4dba8be2e58dd629d6dade7f21a6602588a0b94cdacf9bea068"
+  },
+  "music-song-models": {
+   "name": "Momentum Max",
+   "prompt": "Stylized 3D animated character portrait of a big joyful rhinoceros in a gold and green track jacket, a sweatband around his head and chunky headphones around his neck, grinning. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 117,
+   "sha256": "154d40a84ff0899c5ab23b2caab368c13a9b3c69737daaea488d5b7c5e5dd0dd"
+  },
+  "anima": {
+   "name": "Captain Checkpoint",
+   "prompt": "Stylized 3D animated character portrait of a jolly ship captain with a big grey beard and weathered rosy cheeks, a navy captain's hat with gold braid and a navy peacoat with brass buttons. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 102,
+   "sha256": "d28bed81bf8294b09d77ab914a0cbc8015596c0feebe9b899ed97d84fdc5acd0"
+  },
+  "3d-trellis-hunyuan3d-sam3d-mesh": {
+   "name": "Professor Latent",
+   "prompt": "Stylized 3D animated character portrait of a kindly elderly professor with wild white hair, bushy eyebrows, round gold spectacles, a tweed jacket and a green bow tie, a tiny glowing wireframe cube hovering beside his shoulder. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 101,
+   "sha256": "a720b0953a26e5a04b789a32c52448e2353a1e1790bb8d83041c965459157a1c"
+  },
+  "audio-fx-separation-foley-models": {
+   "name": "Lady LoRA",
+   "prompt": "Stylized 3D animated character portrait of a graceful noblewoman with long auburn braids, a slim gold circlet, pearl earrings and a high-collared emerald velvet gown. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 103,
+   "sha256": "ccd77fd7d492ad1e5a07bedaaf29ab2bd0b6b9ae287c03013a712b38443d0b4a"
+  },
+  "chroma": {
+   "name": "Sir Sampler-Alot",
+   "prompt": "Stylized 3D animated character portrait of a cheerful knight with a raised visor, a curled ginger moustache, polished gold and charcoal plate armor and a tall green plume on his helmet. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 104,
+   "sha256": "5bf52611e0cdb2e9c4becb75e3465feb88f9d93911f1268bb2c5ba2634cce81f"
+  },
+  "cogvideox-mochi-cosmos-svd-animatediff-older-video": {
+   "name": "Dr. Denoise",
+   "prompt": "Stylized 3D animated character portrait of a gentle middle-aged doctor with warm brown skin, neat grey temples, round glasses, a crisp white coat and a stethoscope around his neck. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 105,
+   "sha256": "b4249a1b2a5dd632148da7d3c577c3dd644c45738b7fd4175454384ceeecbc9c"
+  },
+  "depth-normals-pose": {
+   "name": "Madame Attention",
+   "prompt": "Stylized 3D animated character portrait of a theatrical grand dame with a sleek black bob, enormous attentive eyes, dramatic eyelashes, gold opera glasses on a chain and a high black velvet collar. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 106,
+   "sha256": "c5887cfc49ac19ae44562f9d5bfdfea4a89dc9a1fa915e221c608044aceaf22f"
+  },
+  "dreamx-creator": {
+   "name": "Bit Bandit",
+   "prompt": "Stylized 3D animated character portrait of a cheeky raccoon with a natural black eye mask and a sly grin, a knotted charcoal bandana around his neck and a small flat cap. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 107,
+   "sha256": "5665379c284040457eab57d053207aa4e73105f796ef22723421e8dbc387abf1"
+  },
+  "faces-identity-portrait-animation": {
+   "name": "Tensor Tilly",
+   "prompt": "Stylized 3D animated character portrait of a bright-eyed young woman engineer with freckles, two copper-red pigtails, gold-rimmed safety goggles on her forehead and grease-stained overalls. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 108,
+   "sha256": "60d414f2fc48a06a5ade7613f63c3890bcc913ceac81be652292b231a51c330f"
+  },
+  "flux-1-dev-schnell-kontext-fill": {
+   "name": "Seedling",
+   "prompt": "Stylized 3D animated character portrait of a tiny sprout creature with a round chubby seed-shaped body of smooth green and gold, huge sparkling eyes and two small leaves growing from the top of its head. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 109,
+   "sha256": "319d75e62d3dfdaaf81242f1bd417d94ff4024ab2278f0f2f3e123ec049136f0"
+  },
+  "hidream": {
+   "name": "Pixel Pete",
+   "prompt": "Stylized 3D animated character portrait of a cheerful young man whose hair and beard are made of small square voxels in gold and green, with square-rimmed glasses and a hoodie with a blocky pixel pattern. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 111,
+   "sha256": "8ccf6e7e7bc47827caf6fc36013a68240da41fbfe181851599f72a5e148eb8c4"
+  },
+  "hunyuanvideo-framepack": {
+   "name": "Gradient Grace",
+   "prompt": "Stylized 3D animated character portrait of an elegant woman with long flowing hair that fades smoothly from gold at the roots to emerald at the tips, soft brown skin and a paint-flecked artist's smock. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 112,
+   "sha256": "c51d85f1454770683fc832e9afe18942cafe790f6079a9c2dba80a3b1ef4ec8f"
+  },
+  "kandinsky-omnigen-ovis-hunyuanimage": {
+   "name": "Kernel Kate",
+   "prompt": "Stylized 3D animated character portrait of a spirited woman with huge fluffy golden curls like popcorn, dimples, a striped paper vendor's cap and a cream and gold striped vest. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 113,
+   "sha256": "056a1706d4e28076e4e95daf10587b6ab90c624acc3940cf4fd0b61b4d3d0736"
+  },
+  "krea-2": {
+   "name": "Batch Betty",
+   "prompt": "Stylized 3D animated character portrait of a jolly round-cheeked baker woman with flour on her nose, a tall white baker's hat, rolled sleeves and a gold-checked apron. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 114,
+   "sha256": "e4a1e3c2a27dd57d871bb068d854f7b9df5567c2d72324a8269b0e6e3109f1b9"
+  },
+  "pony-illustrious-noobai": {
+   "name": "Adam Alex",
+   "prompt": "Stylized 3D animated character portrait of a friendly young artist with short silver undercut hair, a gold apple-shaped pin on a paint-stained denim jacket and a relaxed half smile. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 118,
+   "sha256": "9e4eb232c818b04d4c29c3bdfed65326da85d1b161b1c82725f062d2cfd13377"
+  },
+  "prism-longcat-void-joyai-video": {
+   "name": "SGD Sam",
+   "prompt": "Stylized 3D animated character portrait of a rugged mountain guide with a ruddy sun-worn face and a short dark beard, a wool beanie, a coil of climbing rope over one shoulder and a green expedition jacket. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 119,
+   "sha256": "7fda19aed5c2b49c4ffb8f47d41c77a7d8e9730dd940344b0cddb2edec7380e3"
+  },
+  "qwen-image-qwen-image-edit": {
+   "name": "Backprop Ben",
+   "prompt": "Stylized 3D animated character portrait of a friendly backstage prop master with a salt-and-pepper beard, a flat cap, a pencil behind his ear and suspenders over a rolled-sleeve shirt. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 120,
+   "sha256": "9fe1c5d3beb32c8516a90a20cca64ba1360a5745bc86593b6103920e58111044"
+  },
+  "sam-segmentation-matting": {
+   "name": "Forward Faye",
+   "prompt": "Stylized 3D animated character portrait of a daring vintage aviator woman with short dark hair, a leather flying cap with goggles pushed up, a sheepskin collar and a flowing gold scarf. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 121,
+   "sha256": "7526d841a5a3bb2a0a79241347a5463ce19868d52456d1685134a392a2d06486"
+  },
+  "sd-1-5": {
+   "name": "Dropout Dan",
+   "prompt": "Stylized 3D animated character portrait of a laid-back young man with a messy mop of brown hair, sleepy half-closed eyes and a lopsided grin, an old hoodie and a graduation cap sitting crooked with the tassel in his face. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 122,
+   "sha256": "36f56a7426cae7e0a89943f6603715788ac97a817a09ad45404fdab10ddc504f"
+  },
+  "sd3-sd3-5": {
+   "name": "BatchNorm Bob",
+   "prompt": "Stylized 3D animated character portrait of a very tidy office manager with a perfectly combed side parting, thin-rimmed glasses, a short-sleeved shirt, a neatly knotted tie and a row of pens in his breast pocket. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 123,
+   "sha256": "bd9b31a69c401845ae98ea3fe05b15b5e09989c6af4820965b8c4695b5e6093f"
+  },
+  "sdxl": {
+   "name": "ReLU Rita",
+   "prompt": "Stylized 3D animated character portrait of a confident skateboarder woman with brown skin, short curly hair under a scuffed gold helmet, a cocky smile and a green bomber jacket. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 124,
+   "sha256": "04fd1304469828dd0750b15220d86b73aa917b9eab18b0ec6d97f8d7891e6546"
+  },
+  "tts-voice-models": {
+   "name": "Softmax Sally",
+   "prompt": "Stylized 3D animated character portrait of a gentle soft-spoken radio host with wavy strawberry-blonde hair and a fluffy cream cardigan, with a big vintage studio microphone beside her face. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 125,
+   "sha256": "27f61526e79e56f349cb51cd2c242665a60476d20373005611ccfa4a37b6f6c6"
+  },
+  "upscale-restore-models": {
+   "name": "Sigmoid Steve",
+   "prompt": "Stylized 3D animated character portrait of a friendly emerald green snake curved in an elegant S shape, with round gold spectacles, a tiny gold bow tie and a smile. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 126,
+   "sha256": "f8c63148de0697b45aa80be7426c6b4054f14aad4ec38e801b1c4d1acda90639"
+  },
+  "vlm-captioning-tagging": {
+   "name": "Tanh Tina",
+   "prompt": "Stylized 3D animated character portrait of a sun-tanned beach photographer woman with sun-bleached hair and freckles, a wide straw hat and a vintage camera strap around her neck. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 127,
+   "sha256": "933d4efd839fa8e857a84d96bb130d34495d4112337fec5aeb387f02ff8e6ebe"
+  },
+  "wan-version-not-stated": {
+   "name": "GELU Gary",
+   "prompt": "Stylized 3D animated character portrait of a suave man with a towering glossy gel-sculpted pompadour, a thin moustache and an open-collared retro shirt. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 128,
+   "sha256": "8c97342a058b702a775ab97e8e5eaa86da59eba89c16e5d0afd1b33d3572dc14"
+  },
+  "wan-2-1": {
+   "name": "Swish Sue",
+   "prompt": "Stylized 3D animated character portrait of a tall cheerful basketball player woman with dark skin, big puffy hair buns, a gold headband and a plain green jersey. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 129,
+   "sha256": "3208f8f44b8b00847d8fa3b72b1e6b4ae1898ed830356c751bdd42cb09d99a93"
+  },
+  "z-image-lumina2": {
+   "name": "GLU Greg",
+   "prompt": "Stylized 3D animated character portrait of a cheerful craft teacher with a round bald head, a thick brown beard with paper scraps and glitter stuck in it and a glue-spotted knit sweater. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 131,
+   "sha256": "872c2b50964bf42db202540dad2869d3b59dd9276f836180074bedf8f40fe3be"
+  },
+  "text-encoders": {
+   "name": "LayerNorm Lou",
+   "prompt": "Stylized 3D animated character portrait of an arctic explorer bundled in many visible layers, a scarf over a parka over a fleece over a sweater, a fur-lined hood, a rosy nose and a frosty moustache. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 132,
+   "sha256": "88bb2dc125e61507fa7fb473c4666c9538800ee73a70a65e092f53c3e5cd2728"
+  },
+  "vae": {
+   "name": "GroupNorm Gus",
+   "prompt": "Stylized 3D animated character portrait of a dignified walrus orchestra conductor with long ivory tusks and bushy whiskers, a black tailcoat, a white bow tie and a gold lapel pin. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 133,
+   "sha256": "a649aac2216f68ec586faee255b8f6125c98adfaa7398ffc1691dfc4c42554a4"
+  },
+  "vision": {
+   "name": "InstanceNorm Ida",
+   "prompt": "Stylized 3D animated character portrait of a wise little owl with huge round amber eyes, tiny gold half-moon reading glasses on her beak, soft speckled feathers and a delicate lace collar. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 134,
+   "sha256": "9d8548cbc032268ec6d32516abce7dd67f4c957acce94995a2abab51bb18f8a6"
+  },
+  "lora": {
+   "name": "Convolution Carl",
+   "prompt": "Stylized 3D animated character portrait of an eccentric inventor with an enormous spiral-curled moustache, swirling orange hair, a spiral-patterned bow tie and brass lenses stacked over one eye. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 135,
+   "sha256": "c6290fddee0806a4eb1a579f64e4966458e8588fdb26607ab8fc0e3d6127624a"
+  },
+  "controlnet": {
+   "name": "Pooling Paul",
+   "prompt": "Stylized 3D animated character portrait of a sunny otter lifeguard with wet fur, a white stripe of sunscreen on his nose, a whistle around his neck and a gold and green rescue float over his shoulder. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 136,
+   "sha256": "1b3450fee1c0bbd002d7eb9d45db4b21002de156fcf8753e1d29f84c6877a12e"
+  },
+  "upscaler": {
+   "name": "Upscale Uma",
+   "prompt": "Stylized 3D animated character portrait of a very posh elegant older woman with a silver updo, a gold statement necklace, a faux-fur collar and a jeweled lorgnette held up near one eye. Head and shoulders, centered, facing the camera with a warm friendly expression, appealing rounded shapes, big expressive eyes, soft detailed shading. Plain dark charcoal studio background. Bright gold rim light outlining the head and shoulders, soft emerald green fill light from one side. Polished animated feature film render. No text, no logos, no watermark.",
+   "negative": "text, letters, logo, watermark, signature, photorealistic photo, blurry, deformed face, extra eyes, extra limbs",
+   "seed": 137,
+   "sha256": "dbbdd046a0a02bb3e4fc4b0fc0ed7b2dfb06496863f48b4a1ce3f752c22985ce"
+  }
+ }
+}

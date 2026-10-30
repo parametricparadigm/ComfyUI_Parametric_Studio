@@ -1,0 +1,1 @@
+{"jobs": [], "presets": {"every morning at 8": "0 8 * * *", "every evening at 6": "0 18 * * *", "every hour": "0 * * * *", "every Monday at 9": "0 9 * * 1", "every Friday at 5": "0 17 * * 5", "every weekend morning": "0 9 * * 6,0", "every night at 2": "0 2 * * *"}}

@@ -1,0 +1,1 @@
+{"tts": {"model": "speaches-ai/Kokoro-82M-v1.0-ONNX-fp16", "voices": 28}, "stt": {"model": "Systran/faster-distil-whisper-large-v3"}, "local": true, "llm": "awake"}

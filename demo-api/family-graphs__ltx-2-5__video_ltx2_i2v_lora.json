@@ -1,0 +1,1 @@
+{"family": "LTX-2.5", "slug": "ltx-2-5", "name": "video_ltx2_i2v_lora", "title": "Squish Anything with LTX-2 I2V and LoRA", "format": "api", "graph": {"75": {"class_type": "SaveVideo", "inputs": {"filename_prefix": "video/LTX-2", "format": "mp4", "format.codec": "auto", "codec": "auto"}}}, "problems": []}
