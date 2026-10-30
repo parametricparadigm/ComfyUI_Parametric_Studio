@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "comfyui-parametric-studio"
+version = "0.1.0"
+description = "A local studio for open-weights image, video and music models on ComfyUI, plus the PSN custom nodes."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+    "pydantic",
+    "numpy",
+    "pillow",
+    "brotli",
+    "apscheduler",
+    "huggingface_hub[hf_xet]",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-xdist", "pytest-timeout", "httpx"]
+sdk = ["comfy-sdk>=0.5"]
+nodes = ["torch", "cryptography"]
+
+[project.urls]
+Licence = "https://www.gnu.org/licenses/agpl-3.0.html"
+
+# This repository runs from a checkout (python -m studio.server, or as a ComfyUI custom node folder).
+# It is not published as a wheel, so no packages are declared here.
+[tool.setuptools]
+packages = []
+
+[tool.comfy]
+DisplayName = "Parametric Studio"
+
+[tool.uv]
+package = false

@@ -1,0 +1,59 @@
+{
+ "code": "CU-312",
+ "title": "KV cache and autoregressive decoding",
+ "level": "300",
+ "questions": [
+  {
+   "q": "What is the primary computational benefit of using a KV cache in autoregressive decoding?",
+   "options": [
+    "It reduces the total generation time from quadratic O(N^2) to linear O(N) by avoiding recomputation of past tokens.",
+    "It eliminates the need for GPU memory by storing keys and values on the CPU.",
+    "It allows the model to generate multiple tokens in parallel without any sequential dependency.",
+    "It reduces the dimension of the key vectors (d_k) to speed up matrix multiplication."
+   ],
+   "answer": "It reduces the total generation time from quadratic O(N^2) to linear O(N) by avoiding recomputation of past tokens.",
+   "why": "The lesson states that without caching, recomputing history leads to O(N^2) total work, while the KV cache transforms this into a linear process by storing previous Key and Value projections."
+  },
+  {
+   "q": "In the context of the KV cache mechanism described, what is the time-space trade-off involved?",
+   "options": [
+    "We spend memory (space) to store the past Keys and Values, which saves computation (time) in future steps.",
+    "We spend computation (time) to compress the cache, which saves memory (space) for the model weights.",
+    "We spend memory (space) to store the entire hidden state history, which saves the need for attention scores.",
+    "We spend computation (time) to recompute the cache, which saves memory (space) by discarding old tokens."
+   ],
+   "answer": "We spend memory (space) to store the past Keys and Values, which saves computation (time) in future steps.",
+   "why": "The lesson explicitly defines this as a 'classic time-space trade-off' where memory is spent to store the past to save computation in the future."
+  },
+  {
+   "q": "According to the lesson, why is it valid to store the Key ($K_j$) and Value ($V_j$) vectors for previous tokens ($j < t$) in the cache?",
+   "options": [
+    "Because they are constant and do not change as new tokens are generated.",
+    "Because they are smaller in dimension than the Query vectors.",
+    "Because they are computed using a different set of weights than the current token.",
+    "Because they are only needed for the first few tokens of the sequence."
+   ],
+   "answer": "Because they are constant and do not change as new tokens are generated.",
+   "why": "The lesson states: 'The critical insight is that $K_j$ and $V_j$ for $j < t$ are constant. They do not change. Therefore, storing them is valid.'"
+  },
+  {
+   "q": "In the ComfyUI codebase, which class in `comfy/text_encoders/llama.py` is dedicated to KV cache management?",
+   "options": [
+    "FixedKV",
+    "LinearKV",
+    "BaseGenerate",
+    "MMDiT"
+   ],
+   "answer": "FixedKV",
+   "why": "The lesson states: 'In `comfy/text_encoders/llama.py`, we find the class `FixedKV`. This class is dedicated to KV cache management.'"
+  },
+  {
+   "q": "In the lab results, what does the assertion `cache_consistency = True` verify about the KV cache update process?",
+   "options": [
+    null
+   ],
+   "answer": "It verifies that the first 10 rows of the updated cache exactly match the old cache, proving that the historical data was preserved and not modified or corrupted during the append operation.",
+   "why": "The lesson explains that `cache_consistency = True` confirms that 'the historical data in the cache was preserved exactly during the update' and that 'we are not modifying history, only appending to it.'"
+  }
+ ]
+}

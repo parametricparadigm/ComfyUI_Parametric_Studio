@@ -1,0 +1,12 @@
+{
+ "title": "Evaluating video: a flicker metric",
+ "level": "400",
+ "char": "frame",
+ "hook": "Learn to quantify visual stability by calculating the temporal variance of pixel intensities to detect flicker in generated video sequences.",
+ "code": "CU-411",
+ "prereq": [
+  "CU-404"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

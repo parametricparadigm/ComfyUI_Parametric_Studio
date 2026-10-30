@@ -1,0 +1,62 @@
+{
+ "code": "CU-401",
+ "title": "Writing a custom node with the V3 API",
+ "level": "400",
+ "questions": [
+  {
+   "q": "Which two methods must a V3 node define?",
+   "options": [
+    "define_schema and execute",
+    "__init__ and forward",
+    "INPUT_TYPES and FUNCTION",
+    "validate_inputs and check_lazy_status"
+   ],
+   "answer": "define_schema and execute",
+   "why": "The others are optional."
+  },
+  {
+   "q": "How does ComfyUI find the nodes in a V3 pack?",
+   "options": [
+    "It scans for classes named Node",
+    "From a JSON file",
+    "It calls comfy_entrypoint, then get_node_list on the extension it returns",
+    "From the folder name"
+   ],
+   "answer": "It calls comfy_entrypoint, then get_node_list on the extension it returns",
+   "why": "Read from nodes.py."
+  },
+  {
+   "q": "Why must a node not change an input tensor in place?",
+   "options": [
+    "It is slower",
+    "The same object may be cached and handed to other nodes",
+    "PyTorch forbids it",
+    "It breaks the seed"
+   ],
+   "answer": "The same object may be cached and handed to other nodes",
+   "why": "A change in place corrupts the result for every other consumer and for the cache."
+  },
+  {
+   "q": "What should validate_inputs return for a bad value?",
+   "options": [
+    "False only",
+    "A string describing the problem",
+    "An exception class",
+    "None"
+   ],
+   "answer": "A string describing the problem",
+   "why": "The contract is bool or str, per the type annotation in _io.py. The lab returns the string."
+  },
+  {
+   "q": "Your node reads a file named by a widget, and the file changes on disk. What makes it rerun?",
+   "options": [
+    "Nothing can",
+    "A larger cache",
+    "A fingerprint_inputs that returns the file's hash",
+    "Lazy inputs"
+   ],
+   "answer": "A fingerprint_inputs that returns the file's hash",
+   "why": "The fingerprint joins the cache key, as CU-221 shows."
+  }
+ ]
+}

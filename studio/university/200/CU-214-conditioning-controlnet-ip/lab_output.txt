@@ -1,0 +1,6 @@
+RESULT img2img_corr_s0.2 = 0.980135
+RESULT img2img_corr_s0.5 = 0.937208
+RESULT img2img_corr_s0.8 = 0.836198
+RESULT img2img_corr_s1.0 = 0.70812
+RESULT inpaint_max_diff_preserved = 0
+RESULT inpaint_mean_diff_inpainted = 1.45028

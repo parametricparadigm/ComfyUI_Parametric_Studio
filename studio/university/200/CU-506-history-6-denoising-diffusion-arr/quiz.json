@@ -1,0 +1,52 @@
+{
+ "code": "CU-506",
+ "title": "History 6: Denoising diffusion arrives (DDPM, 2020)",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the original DDPM formulation, what does the parameter $\\beta_t$ represent?",
+   "options": [
+    "The standard deviation of the Gaussian noise",
+    "The variance of the noise added at step $t$",
+    "The log-SNR of the current step",
+    "The mean of the data distribution"
+   ],
+   "answer": "The variance of the noise added at step $t$",
+   "why": "The lesson explicitly states: '$\\beta_t$ is the variance of the noise added at step $t$. This is the \"noise schedule.\"'"
+  },
+  {
+   "q": "According to the lesson, why is the closed-form solution $x_t = \\sqrt{\\bar{\\alpha}_t} x_0 + \\sqrt{1 - \\bar{\\alpha}_t} \\epsilon$ crucial for training efficiency?",
+   "options": [
+    "It allows the model to skip steps and sample $x_t$ directly from $x_0$ for any $t$",
+    "It eliminates the need for a neural network entirely",
+    "It ensures the noise level remains constant throughout the process",
+    "It converts the stochastic process into a deterministic ODE"
+   ],
+   "answer": "It allows the model to skip steps and sample $x_t$ directly from $x_0$ for any $t$",
+   "why": "The text states: 'This allows us to sample $x_t$ directly from $x_0$ for any $t$, which is crucial for training efficiency.'"
+  },
+  {
+   "q": "In the provided lab simulation, what was the calculated mean of the data after 100 steps of diffusion?",
+   "options": null,
+   "answer": "2.07672",
+   "why": "The lab output section explicitly lists: 'RESULT mean_after = 2.07672'."
+  },
+  {
+   "q": "Which function in ComfyUI's `comfy/k_diffusion/sampling.py` is described as implementing Algorithm 2 from Karras et al., 2022?",
+   "options": [
+    "get_sigmas_vp",
+    "model_wrapper",
+    "sample_euler",
+    "NoiseScheduleVP"
+   ],
+   "answer": "sample_euler",
+   "why": "The lesson states: 'The `sample_euler` function then uses these sigmas to perform the reverse ODE integration' and later clarifies it 'implements Algorithm 2 from Karras et al., 2022'."
+  },
+  {
+   "q": "Why is it incorrect to assume the forward diffusion process is reversible without training a model?",
+   "options": null,
+   "answer": "Because the noise is random, so you must train a model to predict the noise based on the noisy input rather than simply subtracting the added noise.",
+   "why": "The 'Common mistakes' section states: 'You cannot simply subtract the noise you added. The noise is random. You must train a model to *predict* the noise based on the noisy input.'"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+RESULT full_attn_shape = torch.Size([10, 4])
+RESULT updated_K_shape = torch.Size([11, 4])
+RESULT updated_V_shape = torch.Size([11, 4])
+RESULT new_token_output = -0.0775429
+RESULT cache_consistency = True

@@ -1,0 +1,6 @@
+RESULT single_layer_rf = 3
+RESULT total_rf_2_layers = 7
+RESULT input_spatial = 7
+RESULT output_spatial = 3
+RESULT center_pixel_1 = 0.726815
+RESULT center_pixel_2 = 0.726815

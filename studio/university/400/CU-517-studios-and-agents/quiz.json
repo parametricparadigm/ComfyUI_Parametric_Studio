@@ -1,0 +1,52 @@
+{
+ "code": "CU-517",
+ "title": "History 17: Studios and agents: when models became pipelines",
+ "level": "400",
+ "questions": [
+  {
+   "q": "What is the primary purpose of the `TopologicalSort` mechanism in the ComfyUI execution engine?",
+   "options": [
+    "To minimize the memory usage of the GPU during inference",
+    "To determine the execution order so that all upstream dependencies produce outputs before a node executes",
+    "To validate that all data types between nodes are compatible",
+    "To cache the results of nodes that have not changed inputs"
+   ],
+   "answer": "To determine the execution order so that all upstream dependencies produce outputs before a node executes",
+   "why": "The lesson states that TopologicalSort determines the execution order for a DAG such that for every edge (u, v), u appears before v, ensuring upstream dependencies have produced their outputs."
+  },
+  {
+   "q": "How is the cache key (K) derived to determine if a node should be skipped?",
+   "options": [
+    "K = H(node_id, input_hash)",
+    "K = H(output_tensor, timestamp)",
+    "K = H(node_name, gpu_memory_usage)",
+    "K = H(prompt_text, seed_value)"
+   ],
+   "answer": "K = H(node_id, input_hash)",
+   "why": "The lesson explicitly defines the cache key formula as K = H(node_id, input_hash), where H is a hash function."
+  },
+  {
+   "q": "In the context of `comfy_api_nodes`, what are the three state transitions the execution engine must handle for asynchronous agent execution?",
+   "options": null,
+   "answer": "Submit, Wait, Resolve",
+   "why": "The lesson lists the state transitions for asynchronous agent execution as: 1. Submit (Send request), 2. Wait (Poll for status), 3. Resolve (Retrieve result or handle failure)."
+  },
+  {
+   "q": "Which specific function in `comfy_execution/validation.py` is used to check for cycles in the graph?",
+   "options": [
+    "validate_node_input",
+    "check_dependencies",
+    "validate_loops",
+    "resolve_conflicts"
+   ],
+   "answer": "validate_loops",
+   "why": "The lesson states that `comfy_execution/validation.py` uses `validate_loops` to ensure the graph is acyclic."
+  },
+  {
+   "q": "Based on the lab results provided, what is the final output value of Node C, and what calculation does it represent?",
+   "options": null,
+   "answer": "174, which represents 164 + 10",
+   "why": "The lab output shows `RESULT node_c = 174`, and the explanation states this proves Node C correctly consumed the output of Node B (164 + 10 = 174)."
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "title": "Model merging: weighted, SLERP, task arithmetic",
+ "level": "400",
+ "char": "tune",
+ "hook": "Why averaging weights can work and when it fails.",
+ "code": "CU-403",
+ "prereq": [
+  "CU-212"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

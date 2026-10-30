@@ -1,0 +1,12 @@
+{
+ "title": "Temporal consistency and optical flow basics",
+ "level": "300",
+ "char": "frame",
+ "hook": "Learn how to keep your AI videos from jittering by mastering the math behind motion estimation.",
+ "code": "CU-315",
+ "prereq": [
+  "CU-215"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

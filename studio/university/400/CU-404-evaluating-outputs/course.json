@@ -1,0 +1,12 @@
+{
+ "title": "Evaluating outputs: metrics, checks and their limits",
+ "level": "400",
+ "char": "tune",
+ "hook": "What PSNR, SSIM-style and embedding scores tell you, and what they cannot.",
+ "code": "CU-404",
+ "prereq": [
+  "CU-106"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

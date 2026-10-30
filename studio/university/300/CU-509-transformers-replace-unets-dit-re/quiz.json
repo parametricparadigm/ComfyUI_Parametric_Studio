@@ -1,0 +1,52 @@
+{
+ "code": "CU-509",
+ "title": "History 9: Transformers replace U-Nets: DiT and rectified flow",
+ "level": "300",
+ "questions": [
+  {
+   "q": "What is the primary geometric advantage of rectified flow over standard diffusion models?",
+   "options": [
+    "It uses curved trajectories to better capture complex data distributions.",
+    "It allows the model to take large steps during inference because the path is a straight line.",
+    "It eliminates the need for any time discretization during the training phase.",
+    "It reduces the number of parameters required in the U-Net backbone."
+   ],
+   "answer": "It allows the model to take large steps during inference because the path is a straight line.",
+   "why": "The lesson states that straight paths can be simulated exactly without time discretization errors, meaning large steps can be taken during inference, and a single Euler step can suffice."
+  },
+  {
+   "q": "In the context of the DiT architecture described in the lesson, how is spatial information maintained within the transformer blocks?",
+   "options": [
+    "Through the inherent properties of convolutional kernels.",
+    "By using skip connections from the U-Net structure.",
+    "Via explicit positional embeddings such as Rotary Positional Embeddings (RoPE) or sincos embeddings.",
+    "By relying on the global receptive field of self-attention alone."
+   ],
+   "answer": "Via explicit positional embeddings such as Rotary Positional Embeddings (RoPE) or sincos embeddings.",
+   "why": "The 'Common mistakes' section notes that spatial information is not inherent in the convolution kernel and must be explicitly encoded using functions like `get_2d_sincos_pos_embed` or `apply_rotary_emb`."
+  },
+  {
+   "q": "According to the lab results provided in the lesson, what is the calculated velocity vector when the start point is (0, 0) and the end point is (1, 1)?",
+   "options": null,
+   "answer": "1 1",
+   "why": "The lab output explicitly states `RESULT velocity = 1 1`, which corresponds to the calculation $v = x_1 - x_0$."
+  },
+  {
+   "q": "Which specific class in the ComfyUI codebase is identified as the main entry point for Multi-Modal Diffusion Transformer models like SD3/Flux?",
+   "options": [
+    "HunYuanDiT",
+    "AceStepDiTModel",
+    "MMDiT",
+    "DismantledBlock"
+   ],
+   "answer": "MMDiT",
+   "why": "The 'In ComfyUI' section states: 'The class `MMDiT` is the main entry point for Multi-Modal Diffusion Transformer models (like SD3/Flux).'"
+  },
+  {
+   "q": "Why does the lesson argue that DiT is not merely a 'faster U-Net'?",
+   "options": null,
+   "answer": "Because it is a different architectural paradigm that relies on global attention and patch tokens rather than local convolutions and skip connections.",
+   "why": "The 'Common mistakes' section explicitly states: 'Do not think of DiT as a \"faster U-Net.\" It is a different architectural paradigm. U-Nets rely on local convolutions and skip connections; DiTs rely on global attention and patch tokens.'"
+  }
+ ]
+}

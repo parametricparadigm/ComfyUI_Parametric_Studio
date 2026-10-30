@@ -1,0 +1,52 @@
+{
+ "code": "CU-309",
+ "title": "Positional encodings in 2D and 3D",
+ "level": "300",
+ "questions": [
+  {
+   "q": "What is the primary reason positional encodings are necessary for Transformer models?",
+   "options": [
+    "To increase the computational speed of the attention mechanism",
+    "Because self-attention is permutation-invariant and the model is blind to token order or spatial position",
+    "To reduce the memory footprint of the model during training",
+    "To convert integer coordinates into floating-point numbers for better precision"
+   ],
+   "answer": "Because self-attention is permutation-invariant and the model is blind to token order or spatial position",
+   "why": "The lesson states that self-attention is a permutation-invariant operation where the model is 'blind to order' and does not know which token is first or last, making positional encodings necessary to inject spatial or temporal information."
+  },
+  {
+   "q": "According to the lesson, what is the dimension of the 2D positional encoding vector $E_{2d}$ when constructed using the formula $[\\sin(x \\cdot f), \\cos(x \\cdot f), \\sin(y \\cdot f), \\cos(y \\cdot f)]$?",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "6"
+   ],
+   "answer": "4",
+   "why": "The 'Under the hood' section explicitly states that the 2D encoding vector $E_{2d}$ results in a vector of dimension 4, consisting of two components for x and two for y."
+  },
+  {
+   "q": "In the provided lab results, what is the specific vector value for the 3D positional encoding at the coordinate $(x=0, y=0, z=0)$?",
+   "options": null,
+   "answer": "[0.0, 1.0, 0.0, 1.0, 0.0, 1.0]",
+   "why": "The 'Lab' section shows the result `enc_3d_first = [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]` and explains that since all coordinates are 0, all sine terms are 0 and all cosine terms are 1."
+  },
+  {
+   "q": "Why are sinusoidal functions (sine and cosine) chosen for positional encodings according to the 'intuition' section?",
+   "options": [
+    "They are the only functions that can handle negative coordinates",
+    "They are periodic and allow the encoding of a shifted position to be computed as a linear transformation of the original position",
+    "They produce unbounded values which help with numerical stability",
+    "They are computationally cheaper than linear functions"
+   ],
+   "answer": "They are periodic and allow the encoding of a shifted position to be computed as a linear transformation of the original position",
+   "why": "The lesson explains that sine and cosine are used because they are periodic and, more importantly, the encoding of position $pos + k$ can be computed as a linear transformation of the encoding of position $pos$, which allows the attention mechanism to easily compute relative distances."
+  },
+  {
+   "q": "Which ComfyUI module contains the class `VideoRopePosition3DEmb` that implements 3D Rotary Position Embeddings (RoPE) for video sequences?",
+   "options": null,
+   "answer": "comfy/ldm/cosmos/position_embedding.py",
+   "why": "The 'In ComfyUI' section lists item 3, stating that `comfy/ldm/cosmos/position_embedding.py` contains the class `VideoRopePosition3DEmb` which implements 3D RoPE for video sequences."
+  }
+ ]
+}

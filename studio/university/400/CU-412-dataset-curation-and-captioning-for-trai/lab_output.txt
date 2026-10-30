@@ -1,0 +1,6 @@
+Original counts: {'a red car': 3, 'a blue sky': 1, 'a green tree': 1}
+Most frequent caption: a red car with count 3
+RESULT norm_freq_a_red_car = 0.6
+RESULT norm_freq_a_blue_sky = 0.2
+RESULT norm_freq_a_green_tree = 0.2
+RESULT balanced_sample = ['a blue sky', 'a red car', 'a green tree']

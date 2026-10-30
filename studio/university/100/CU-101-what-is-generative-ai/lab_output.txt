@@ -1,0 +1,11 @@
+fitted mixture: weights 0.308 0.692  means -2.020 1.485  stds 0.301 0.496   truth: .300 .700  -2.000 1.500  .300 .500
+
+model        numbers stored  new samples  W1 to truth  log-likelihood on unseen data
+copier       2000            0.000        0.0665       undefined: it gives unseen values no density
+one Gaussian 2               1.000        0.6521       -1.9255
+mixture      5               1.000        0.0612       -1.1826
+the truth itself                                       -1.1812
+
+share of one-Gaussian samples in the empty gap between the modes (-1 < x < 0.5): 0.326   truth: 0.016
+
+why images need more: a 512x512 RGB image has 256^(3*512*512) possible values, a number with 1,893,916 digits

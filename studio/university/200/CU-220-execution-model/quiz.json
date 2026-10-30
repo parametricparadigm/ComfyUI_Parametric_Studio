@@ -1,0 +1,62 @@
+{
+ "code": "CU-220",
+ "title": "The execution model: what runs, and in what order",
+ "level": "200",
+ "questions": [
+  {
+   "q": "A node is on the canvas but nothing downstream uses it, and it is not an output. What happens?",
+   "options": [
+    "It does not run",
+    "It runs first",
+    "It runs last",
+    "The prompt is rejected"
+   ],
+   "answer": "It does not run",
+   "why": "Execution walks back from output nodes, so it is never reached."
+  },
+  {
+   "q": "What does the server report for a graph with no output node?",
+   "options": [
+    "dependency_cycle",
+    "return_type_mismatch",
+    "prompt_no_outputs",
+    "missing_node_type"
+   ],
+   "answer": "prompt_no_outputs",
+   "why": "Set by validate_prompt in execution.py."
+  },
+  {
+   "q": "Two outputs exist, and one has an invalid ancestor. What happens?",
+   "options": [
+    "The whole prompt always fails",
+    "The valid output still runs, and the other is dropped",
+    "Both run with default values",
+    "The invalid node is skipped silently and its output still runs"
+   ],
+   "answer": "The valid output still runs, and the other is dropped",
+   "why": "validate_prompt only fails when no output is left, and it reports node_errors for the rest."
+  },
+  {
+   "q": "Why can a node with a lazy input be visited twice?",
+   "options": [
+    "On the first visit it says which inputs it needs and goes back in the list as pending",
+    "Because the cache missed",
+    "Because of the GPU",
+    "Because the graph has a cycle"
+   ],
+   "answer": "On the first visit it says which inputs it needs and goes back in the list as pending",
+   "why": "check_lazy_status names the inputs, make_input_strong_link adds blockers, and the result is PENDING."
+  },
+  {
+   "q": "What does ux_friendly_pick_node change?",
+   "options": [
+    "Total run time",
+    "Which nodes run",
+    "The order among ready nodes, so results appear sooner",
+    "Which outputs are valid"
+   ],
+   "answer": "The order among ready nodes, so results appear sooner",
+   "why": "Its comment says it has no effect on overall length of execution."
+  }
+ ]
+}

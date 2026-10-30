@@ -1,0 +1,12 @@
+{
+ "code": "CU-223",
+ "title": "App Mode: a graph with a form on top",
+ "level": "200",
+ "prereq": [
+  "CU-109",
+  "CU-220"
+ ],
+ "char": "graph",
+ "hook": "App Mode shows chosen inputs and outputs of a workflow as a simple form. The graph underneath does not change.",
+ "code_refs": []
+}

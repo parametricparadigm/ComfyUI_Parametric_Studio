@@ -1,0 +1,62 @@
+{
+ "code": "CU-505",
+ "title": "History 5: CLIP and contrastive learning",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What is the primary mechanism CLIP uses to align images and text in a shared vector space?",
+   "options": [
+    "Training a classifier to predict from a fixed list of 1,000 categories",
+    "Contrastive learning that pulls correct pairs together and pushes incorrect pairs apart",
+    "Using a diffusion model to generate text from image noise",
+    "Applying a fixed geometric transformation to all image vectors"
+   ],
+   "answer": "Contrastive learning that pulls correct pairs together and pushes incorrect pairs apart",
+   "why": "The lesson states that CLIP uses contrastive learning with the rule to 'Pull together the embeddings of an image and its correct caption' and 'Push apart the embeddings of an image and every other caption in the batch.'"
+  },
+  {
+   "q": "In the CLIP mechanism, why are image and text vectors normalized to unit length before computing similarity?",
+   "options": [
+    "To ensure the model compares direction (semantic meaning) rather than magnitude (intensity)",
+    "To reduce the computational cost of the dot product calculation",
+    "To prevent the temperature parameter from becoming too high",
+    "To ensure the batch size N remains constant"
+   ],
+   "answer": "To ensure the model compares direction (semantic meaning) rather than magnitude (intensity)",
+   "why": "The 'Under the hood' section explains that normalization 'ensures we are comparing direction (semantic meaning) rather than magnitude (intensity).'"
+  },
+  {
+   "q": "What is the typical value of the temperature parameter (τ) used in CLIP, and what is its function?",
+   "options": [
+    "0.5; it increases the magnitude of the vectors",
+    "0.07; it sharpens the probability distribution to make the model more confident in distinctions",
+    "1.0; it ensures the loss function is symmetric",
+    "0.99; it prevents the model from becoming brittle"
+   ],
+   "answer": "0.07; it sharpens the probability distribution to make the model more confident in distinctions",
+   "why": "The lesson states that τ is 'typically 0.07 in CLIP' and that dividing by it 'sharpens the probability distribution, making the model more confident in its distinctions.'"
+  },
+  {
+   "q": "How is the total CLIP loss (L) calculated from the individual directional losses?",
+   "options": [
+    "By taking the maximum value of the image-to-text and text-to-image losses",
+    "By summing the image-to-text and text-to-image losses and multiplying by 2",
+    "By taking the average of the image-to-text direction and the text-to-image direction",
+    "By subtracting the text-to-image loss from the image-to-text loss"
+   ],
+   "answer": "By taking the average of the image-to-text direction and the text-to-image direction",
+   "why": "The formula provided in the lesson is L = 1/2 (L_I→T + L_T→I), which is the average of the two directional losses."
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what is a consequence of computing dot products on unnormalized vectors?",
+   "options": [
+    "The model will fail to tokenize the text prompts correctly",
+    "A 'loud' image with a high norm will match everything because magnitude is measured alongside direction",
+    "The temperature parameter will automatically adjust to compensate for the error",
+    "The similarity matrix will become non-symmetric"
+   ],
+   "answer": "A 'loud' image with a high norm will match everything because magnitude is measured alongside direction",
+   "why": "The lesson warns that if you compute dot products on unnormalized vectors, 'you are measuring magnitude as well as direction. A \"loud\" image (high norm) will match everything.'"
+  }
+ ]
+}

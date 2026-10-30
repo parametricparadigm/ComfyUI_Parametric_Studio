@@ -1,0 +1,54 @@
+# Long Wan clips (SVI)
+
+> From the author's earlier studio, cleaned for publication: private paths, ports and some lines were removed, so a step may read short and a screen it names may not exist here. Status in this studio: Tested on the author's old stack.
+
+
+## Purpose / when to use it
+- One still becomes one long continuous shot: 1-3 chained Wan 2.2 clips of 81 frames, stitched into up to 233 frames
+  (14.6 s at 16 fps). Each clip continues from the previous clip's latent and stays anchored to the still.
+- Use it for 10-15 s of continuous motion. For talking scenes with sound, use H3 long video (`video-h3-pipelines.md`).
+
+## Step-by-step in the studio UI
+1. Video tab → "Wan 2.2 · SVI 2.0 PRO long video".
+2. Drop the start still in `image`.
+3. Prompt = clip 1's action. Fill `clip_2` and `clip_3` with what happens next (a new action each).
+4. Chips: clips 3 (default, the proof) / 2 / 1; aspect auto (follows the still) / 9:16 / 16:9.
+5. Generate.
+
+## Optimal settings (pinned in the graph)
+| Setting | Value | Source |
+|---|---|---|
+| Base | Wan 2.2 I2V A14B fp8 KJ experts | [tested] `e_wsp_svipro_lora` |
+| SVI LoRA | `SVI_v2_PRO_Wan2.2-I2V-A14B_{HIGH,LOW}_lora_rank_128_fp16` 1.0 / 1.0 (essential: without it the chain falls apart from clip 1) | [tested] `e_wsp_svipro_none` vs `_lora` |
+| Accelerators | lightx2v v1030 high **0.6**, v1 low 1.0 | [tested]; [documented] "reduce LightX2V usage … 480p" (SVI README) |
+| Sampler | 4 steps 2+2 KSamplerAdvanced, euler/simple, CFG 1, shift 5 | [tested] |
+| Chain | `WanImageToVideoSVIPro`: anchor = the still, prev_samples = the previous clip, motion_latent_count 1; seed +1000 per clip; first 5 frames of clips 2+ dropped | [tested] |
+| Size | 480x832 (9:16, rendered); 832x480 for a landscape still (pp's size, not rendered) | [tested] / [inference] |
+
+## Decode chip (standard / fast / preview)
+`decode`: **standard** (default, the tested graph), **fast** = LightVAE Pro (1.45-1.5x decode, same quality as standard vs the source; finals), **preview** = LightVAE Lite (2.8-3x decode, 1-3.6 dB softer; drafts). Only the decode changes; the encode stays the stock Wan 2.1 VAE. All three clip decodes switch; the chain passes latents, never decoded frames, so the clips themselves are unchanged. Until  a local port has restarted with the LightVAE pack a fast/preview job renders standard with a card note. Numbers and details: [video-wan-decode.md](video-wan-decode.md).
+
+## Prompting rules
+- One action per clip. The proof gave all three clips one shared prompt and clip 3 drifted (she sat on the sideboard):
+  the studio repeats the previous prompt for an empty `clip_N` field and notes it on the result.
+  `clip_2` / `clip_3` go as typed.
+- Rules page read on every job: the Wan 2.2 I2V HIGH expert's page under `a local folder`.
+
+## Guards and gates
+- The text guard reads the prompt and both clip fields; the output guard checks every frame of the stitched result.
+
+## Time and VRAM
+- 66 s for 3 clips warm (both experts already resident); add 130-190 s for a cold load. Port peak 74.8 GiB: the
+  studio budgets 75 GiB + the 4 GiB floor, so little else fits beside it.
+
+## Known pitfalls
+- More than 3 clips is untested (not offered). SVI 2.0 non-Pro ghosts on a single clip and is not wired.
+- 1- and 2-clip chains are the proof's first clips with the later nodes removed (same seeds and links), not separate
+  renders.
+
+## Evidence
+- `a local folder` (the template, node for node; a test
+  compares them) and `a local folder` row `e_wsp_svipro_lora`: 65.9 s, 76550 MiB port.
+- KB `audits/BEST_OPTIONS_2026-10-10/wan.md` "Long video (SVI)"; `the author's build notes "Long video" CONFIRMED.
+- Upstream: https://github.com/vita-epfl/Stable-Video-Infinity (MIT), Kijai's ComfyUI-native conversion
+  https://huggingface.co/Kijai/WanVideo_comfy/tree/main/LoRAs/Stable-Video-Infinity/v2.0.

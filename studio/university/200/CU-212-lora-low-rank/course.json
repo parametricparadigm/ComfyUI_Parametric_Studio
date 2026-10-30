@@ -1,0 +1,12 @@
+{
+ "title": "LoRA: low-rank adaptation",
+ "level": "200",
+ "char": "tune",
+ "hook": "Why two skinny matrices can change a giant one.",
+ "code": "CU-212",
+ "prereq": [
+  "CU-210"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

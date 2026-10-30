@@ -1,0 +1,10 @@
+RESULT valid = VALID
+RESULT unknown_class = Node 1 has unknown class_type: NonExistentNode
+RESULT missing_input = Node 1 (KSampler) missing required input: steps
+RESULT bad_link = Node 1 input model links to non-existent node: 99
+RESULT cycle = Graph contains a cycle
+RESULT valid = VALID
+RESULT unknown_class = Node 1 has unknown class_type: NonExistentNode
+RESULT missing_input = Node 1 (KSampler) missing required input: steps
+RESULT bad_link = Node 1 input model links to non-existent node: 99
+RESULT cycle = Graph contains a cycle

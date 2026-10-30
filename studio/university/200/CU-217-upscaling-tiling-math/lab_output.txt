@@ -1,0 +1,7 @@
+RESULT scale_x = 2
+RESULT scale_y = 2
+RESULT n_tiles_x = 3
+RESULT n_tiles_y = 3
+RESULT tile_coords_x = [[0, 512], [448, 960], [896, 1024]]
+RESULT tile_coords_y = [[0, 512], [448, 960], [896, 1024]]
+RESULT grid_sum = 9

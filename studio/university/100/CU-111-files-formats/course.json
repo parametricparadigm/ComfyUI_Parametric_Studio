@@ -1,0 +1,10 @@
+{
+ "title": "Files and formats: PNG metadata, MP4, WAV, safetensors",
+ "level": "100",
+ "char": "bits",
+ "hook": "Discover how ComfyUI reads and writes the invisible data that makes your images and models work.",
+ "code": "CU-111",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

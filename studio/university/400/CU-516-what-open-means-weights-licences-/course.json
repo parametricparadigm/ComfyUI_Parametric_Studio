@@ -1,0 +1,10 @@
+{
+ "title": "History 16: What open means: weights, licences and the ecosystem",
+ "level": "400",
+ "char": "graph",
+ "hook": "Explore the legal and technical boundaries of open-source AI by dissecting how model weights, licenses, and community contributions shape the ComfyUI ecosystem.",
+ "code": "CU-516",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

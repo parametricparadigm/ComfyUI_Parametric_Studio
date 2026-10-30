@@ -1,0 +1,12 @@
+{
+ "title": "Inpainting masks and edge blending",
+ "level": "200",
+ "char": "graph",
+ "hook": "Master the art of seamless image editing by learning how to mathematically feather mask edges for natural transitions.",
+ "code": "CU-213",
+ "prereq": [
+  "CU-214"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

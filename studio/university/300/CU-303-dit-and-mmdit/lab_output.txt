@@ -1,0 +1,5 @@
+RESULT token_count_16x16 = 64
+RESULT num_tokens_512 = 1024
+RESULT num_tokens_1024 = 4096
+RESULT identity_check = True
+RESULT modulated_diff = 1.38815

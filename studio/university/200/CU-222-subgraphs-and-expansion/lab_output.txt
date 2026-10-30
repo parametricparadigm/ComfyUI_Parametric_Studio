@@ -1,0 +1,7 @@
+what the server receives:
+{"1": {"class_type": "Loader", "inputs": {"name": "m"}}, "5:2": {"class_type": "Sample", "inputs": {"steps": 20, "model": ["1", 0]}}, "5:3": {"class_type": "Sample", "inputs": {"steps": 8, "model": ["1", 0], "latent": ["5:2", 0]}}, "7": {"class_type": "Save", "inputs": {"latent": ["5:3", 0]}}}
+the server sees 4 nodes and no sub-graph node at all
+
+expansion: result 13  nodes after running: ['a', 'r', 'r.1', 'r.2', 'r.3']  parents: {'r.1': 'r', 'r.2': 'r', 'r.3': 'r'}
+functions that ran: ['Const', 'AddOne', 'AddOne', 'AddOne']
+the same node with times=50: result 50 , graph grew to 52 nodes

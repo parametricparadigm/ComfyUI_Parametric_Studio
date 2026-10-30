@@ -1,0 +1,19 @@
+first run          ran: ['ckpt', 'pos', 'neg', 'lat', 'smp', 'dec', 'out']
+same graph again   ran: []
+seed changed       ran: ['smp', 'dec', 'out']
+prompt changed     ran: ['pos', 'smp', 'dec', 'out']
+steps changed      ran: ['smp', 'dec', 'out']
+all ids renamed    ran: []
+
+file node, first   ran: ['f', 'out']
+file unchanged     ran: []
+file edited on disk ran: ['f', 'out']
+NaN == NaN: False   so a key holding NaN never matches, and the node always runs
+same inputs, not_idempotent, two nodes: keys equal? False
+same inputs, ordinary node, two nodes: keys equal? True
+
+policy         nodes run over A B A B   (7 per full run)
+classic        16
+lru 100        10
+lru 4          16
+none           28

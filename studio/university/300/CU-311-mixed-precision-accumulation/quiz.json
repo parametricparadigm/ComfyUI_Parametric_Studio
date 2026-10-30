@@ -1,0 +1,52 @@
+{
+ "code": "CU-311",
+ "title": "Mixed precision: where accumulation hides",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, why is fp16 considered a trap for gradient accumulation in training?",
+   "options": [
+    "Because fp16 has a larger exponent range than fp32, causing overflow.",
+    "Because small gradient values can fall below the resolution of the running sum and vanish due to the limited mantissa.",
+    "Because fp16 cannot represent negative numbers, which are common in gradients.",
+    "Because fp16 requires more VRAM than fp32 during the accumulation phase."
+   ],
+   "answer": "Because small gradient values can fall below the resolution of the running sum and vanish due to the limited mantissa.",
+   "why": "The lesson explains that fp16 has a 10-bit mantissa, meaning it has limited resolution. When adding small numbers (gradients) to a large running sum, the small numbers may not be significant enough to change the result, effectively vanishing."
+  },
+  {
+   "q": "What is the machine epsilon (epsilon_mach) for fp16 as stated in the lesson?",
+   "options": [
+    "Approximately 1.2 x 10^-7",
+    "Approximately 9.8 x 10^-4",
+    "Approximately 6.1 x 10^-5",
+    "Approximately 1.0 x 10^-4"
+   ],
+   "answer": "Approximately 9.8 x 10^-4",
+   "why": "The 'Under the hood' section explicitly lists the machine epsilon for fp16 as approximately 9.8 x 10^-4."
+  },
+  {
+   "q": "In the lab results, what was the calculated difference (grad_accum_diff) between the fp16 and fp32 accumulated gradients over 10 batches?",
+   "options": null,
+   "answer": "0.121216",
+   "why": "The lab output section explicitly states: 'RESULT grad_accum_diff = 0.121216'."
+  },
+  {
+   "q": "How does ComfyUI handle the potential precision loss in linear layers when fp16 is not safe?",
+   "options": [
+    "It automatically converts all weights to fp64 for every operation.",
+    "It disables all mixed precision features on unsupported hardware.",
+    "It uses a full-precision matrix multiplication fallback to fp32.",
+    "It raises an error and stops the inference process."
+   ],
+   "answer": "It uses a full-precision matrix multiplication fallback to fp32.",
+   "why": "The lesson mentions that unit tests verify that the system 'respects the full-precision matrix multiplication fallback' and that 'if the hardware or the operation is not safe in fp16, ComfyUI falls back to fp32'."
+  },
+  {
+   "q": "According to the lesson, what is the recommended precision for storing weights to save VRAM versus the precision for computation in critical training scenarios?",
+   "options": null,
+   "answer": "Weights can be stored in fp16 to save VRAM, but should be cast to fp32 for computation (specifically matrix multiplications/gradient accumulation) if accuracy is critical.",
+   "why": "The 'Common mistakes' section states: 'Weights can be stored in fp16 to save VRAM, but they should be cast to fp32 for matrix multiplications if accuracy is critical.' Additionally, the 'In ComfyUI' section notes that LazyCastingParam allows weights to be cast on-the-fly."
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+ "title": "Reproducibility and provenance: hashing graphs and seeds",
+ "level": "400",
+ "char": "graph",
+ "hook": "Learn how to cryptographically fingerprint your ComfyUI workflows and seeds to ensure bit-perfect reproducibility across different machines and sessions.",
+ "code": "CU-415",
+ "prereq": [
+  "CU-105",
+  "CU-405"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

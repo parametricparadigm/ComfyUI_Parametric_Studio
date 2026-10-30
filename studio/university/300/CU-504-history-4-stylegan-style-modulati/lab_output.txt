@@ -1,0 +1,3 @@
+RESULT original_norm = 23.5065
+RESULT modulated_norm = 34.7404
+RESULT modulation_factor_mean = 1.06246

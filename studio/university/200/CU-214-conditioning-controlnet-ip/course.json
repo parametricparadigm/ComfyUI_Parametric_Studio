@@ -1,0 +1,12 @@
+{
+ "title": "Conditioning: img2img, inpaint, ControlNet, IP-Adapter",
+ "level": "200",
+ "char": "graph",
+ "hook": "Every way of telling the model more than a prompt.",
+ "code": "CU-214",
+ "prereq": [
+  "CU-106"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

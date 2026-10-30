@@ -1,0 +1,4 @@
+RESULT cross_attention_output_shape = torch.Size([1, 4, 8])
+RESULT joint_attention_output_shape = torch.Size([1, 7, 8])
+RESULT cross_attention_first_token = 1.50523
+RESULT joint_attention_first_token = -0.681057

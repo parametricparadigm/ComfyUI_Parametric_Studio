@@ -1,0 +1,7 @@
+RESULT fp16_sum = 1
+RESULT fp32_sum = 1.0001
+RESULT fp32_accumulated = 0.1
+RESULT fp16_accumulated = 0.100037
+RESULT fp16_error = 3.66211e-05
+RESULT fp32_error = 2.83122e-08
+RESULT grad_accum_diff = 0.121216

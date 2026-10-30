@@ -1,0 +1,52 @@
+{
+ "code": "CU-412",
+ "title": "Dataset curation and captioning for training",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, why does a model that only generates 'a red car' but fails on 'a crimson automobile' represent a data curation problem rather than a model architecture problem?",
+   "options": [
+    "The model architecture is too small to handle complex color variations.",
+    "The dataset is biased, causing the model to overfit to specific phrasing rather than generalizing to the concept.",
+    "The text encoder used in ComfyUI does not support synonyms.",
+    "The image resolution was too low to capture the nuance of the color crimson."
+   ],
+   "answer": "The dataset is biased, causing the model to overfit to specific phrasing rather than generalizing to the concept.",
+   "why": "The lesson states: 'If your dataset is biased, your model will be biased... If one caption appears far more frequently than others, the model will overfit to that specific phrasing. It will become rigid, failing to generalize to new prompts... This is not a model architecture problem; it is a data curation problem.'"
+  },
+  {
+   "q": "In the provided lab output, what is the normalized frequency (norm_freq) for the caption 'a blue sky'?",
+   "options": [
+    "0.333",
+    "0.6",
+    "0.2",
+    "0.1"
+   ],
+   "answer": "0.2",
+   "why": "The lab output explicitly states: 'RESULT norm_freq_a_blue_sky = 0.2'."
+  },
+  {
+   "q": "What is the formula for calculating the normalized probability distribution P(c) for a caption c, given the total number of images N?",
+   "options": null,
+   "answer": "P(c) = f(c) / N",
+   "why": "The lesson defines the normalized probability as P(c) = f(c) / sum(f(k)) and notes that sum(f(k)) = N, therefore P(c) = f(c) / N."
+  },
+  {
+   "q": "According to the 'Common mistakes' section, why is balancing by image count misleading if you want to prevent overfitting to specific text?",
+   "options": [
+    "Image count does not account for the number of unique captions describing those images.",
+    "Image count is always higher than caption frequency.",
+    "ComfyUI automatically balances by image count, so manual balancing is redundant.",
+    "Rare captions are always associated with high-resolution images."
+   ],
+   "answer": "Image count does not account for the number of unique captions describing those images.",
+   "why": "The lesson states: 'If you have 100 images of \"a red car\" but 50 unique captions describing them... balancing by image count is misleading. You must balance by caption string frequency if you want to prevent overfitting to specific text.'"
+  },
+  {
+   "q": "What is the ideal normalized frequency (norm_freq) for each caption in a perfectly balanced dataset with 3 unique captions?",
+   "options": null,
+   "answer": "~0.333",
+   "why": "The analysis of results states: 'In a balanced dataset with 3 unique captions, each would ideally have a norm_freq of ~0.333.'"
+  }
+ ]
+}

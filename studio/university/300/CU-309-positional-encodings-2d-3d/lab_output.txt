@@ -1,0 +1,4 @@
+RESULT enc_2d_shape = torch.Size([1, 4, 4, 4])
+RESULT enc_2d_first = [0.0, 1.0, 0.0, 1.0]
+RESULT enc_3d_shape = torch.Size([1, 2, 4, 4, 6])
+RESULT enc_3d_first = [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]

@@ -1,0 +1,14 @@
+{
+ "code": "CU-203",
+ "title": "Score matching, Tweedie and the SDE view",
+ "level": "200",
+ "prereq": [
+  "CU-202"
+ ],
+ "char": "denoise",
+ "hook": "Why predicting noise is the same as learning the gradient of the data density, proved numerically.",
+ "code_refs": [
+  "comfy/k_diffusion/sampling.py:to_d",
+  "comfy/k_diffusion/sampling.py:sample_euler"
+ ]
+}

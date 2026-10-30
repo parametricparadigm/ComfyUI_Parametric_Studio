@@ -1,0 +1,4 @@
+RESULT d_real = 0.24014
+RESULT d_fake = 0.253844
+RESULT loss_d = 1.71936
+RESULT loss_g = 1.37103

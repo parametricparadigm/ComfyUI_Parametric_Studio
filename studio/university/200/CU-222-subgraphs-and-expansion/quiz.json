@@ -1,0 +1,51 @@
+{
+ "code": "CU-222",
+ "title": "Sub-graphs and node expansion",
+ "level": "200",
+ "questions": [
+  {
+   "q": "Why can a sub-graph node not be executed as it stands?",
+   "options": [
+    "It is too large",
+    "Its type is a UUID, not a class known to the server, so validation would reject it",
+    "It has no inputs",
+    "It needs a GPU"
+   ],
+   "answer": "Its type is a UUID, not a class known to the server, so validation would reject it",
+   "why": "validate_prompt looks up class_type in NODE_CLASS_MAPPINGS. The flattening happens before the prompt arrives."
+  },
+  {
+   "q": "What does node expansion do?",
+   "options": [
+    "A node returns new nodes that the engine runs during the same prompt",
+    "It groups nodes on the canvas",
+    "It makes latents larger",
+    "It loads a model"
+   ],
+   "answer": "A node returns new nodes that the engine runs during the same prompt",
+   "why": "The result holds an expand graph, and those nodes become ephemeral nodes."
+  },
+  {
+   "q": "What is the id format of nodes inside a sub-graph at execution time?",
+   "options": [
+    "A UUID only",
+    "Colon-separated, such as 1:2:3",
+    "Always a plain integer",
+    "The class name"
+   ],
+   "answer": "Colon-separated, such as 1:2:3",
+   "why": "Per the Subgraph Developer Guide."
+  },
+  {
+   "q": "How can a graph without cycles do a loop?",
+   "options": [
+    "It cannot, ever",
+    "With a larger cache",
+    "A node can expand into as many steps as it decides at run time",
+    "With a negative prompt"
+   ],
+   "answer": "A node can expand into as many steps as it decides at run time",
+   "why": "The lab's Repeat node creates 3 or 50 nodes from a single node."
+  }
+ ]
+}

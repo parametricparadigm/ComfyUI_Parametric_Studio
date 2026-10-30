@@ -1,0 +1,7 @@
+RESULT rank_of_update = 2
+RESULT frobenius_norm_update = 0.0424775
+RESULT frobenius_norm_original = 3.65944
+RESULT max_diff_effective = 0
+RESULT original_params = 16
+RESULT lora_params = 16
+RESULT relative_error = 0.0116076

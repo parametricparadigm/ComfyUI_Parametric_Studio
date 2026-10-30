@@ -1,0 +1,13 @@
+{
+ "title": "Agents on ComfyUI: tools, verification, side-effect safety",
+ "level": "400",
+ "char": "graph",
+ "hook": "Letting a model drive the graph without letting it break things.",
+ "code": "CU-405",
+ "prereq": [
+  "CU-102",
+  "CU-401"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

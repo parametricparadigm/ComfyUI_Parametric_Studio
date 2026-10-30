@@ -1,0 +1,12 @@
+{
+ "title": "Profiling memory and time on a GPU (with a CPU model of it)",
+ "level": "400",
+ "char": "tune",
+ "hook": "Learn to predict GPU memory bottlenecks by simulating tensor lifecycles and operation costs on your CPU.",
+ "code": "CU-416",
+ "prereq": [
+  "CU-305"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

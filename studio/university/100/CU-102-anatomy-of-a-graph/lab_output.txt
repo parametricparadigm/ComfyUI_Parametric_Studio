@@ -1,0 +1,6 @@
+RESULT execution_order = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+RESULT recompute_count_full = 7
+RESULT G_value = 23
+RESULT recompute_count_changed_B = 6
+RESULT G_value_after_B_change = 44
+RESULT all_asserts_passed = True

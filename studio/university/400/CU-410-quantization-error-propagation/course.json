@@ -1,0 +1,12 @@
+{
+ "title": "Quantization error propagation through layers",
+ "level": "400",
+ "char": "bits",
+ "hook": "Discover how tiny rounding errors in low-bit weights can snowball into significant output drift as they pass through deep neural networks.",
+ "code": "CU-410",
+ "prereq": [
+  "CU-211"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

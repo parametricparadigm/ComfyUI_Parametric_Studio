@@ -1,0 +1,52 @@
+{
+ "code": "CU-308",
+ "title": "Speed: distillation, caching, compile, fewer steps",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the formula for the total Number of Function Evaluations (NFE) when Classifier-Free Guidance (CFG) is enabled?",
+   "options": [
+    "NFE = S",
+    "NFE = 2S",
+    "NFE = S / 2",
+    "NFE = S + 1"
+   ],
+   "answer": "NFE = 2S",
+   "why": "The lesson states: 'If CFG is enabled, CFG_enabled = 1, so NFE = 2S.' This is because the model runs twice per step (once with prompt, once without)."
+  },
+  {
+   "q": "In the context of Progressive Distillation, what is the specific relationship between the target model $M_k$ and the previous model $M_{2k}$?",
+   "options": [
+    "$M_k$ is trained to match the output of $M_{2k}$ but with half the steps.",
+    "$M_k$ is a smaller version of $M_{2k}$ with fewer parameters.",
+    "$M_k$ doubles the noise level of $M_{2k}$.",
+    "$M_k$ replaces the attention mechanism of $M_{2k}$."
+   ],
+   "answer": "$M_k$ is trained to match the output of $M_{2k}$ but with half the steps.",
+   "why": "The lesson defines Progressive Distillation as 'training a new model to match the output of a previous model, but with half the steps' and shows the approximation $M_k(x_t, t) \\approx M_{2k}(x_t, t)$."
+  },
+  {
+   "q": "What is the primary mechanism by which Node Caching in ComfyUI reduces computation time?",
+   "options": [
+    "It compiles Python code into optimized CUDA kernels.",
+    "It skips the execution of a node if its inputs have not changed since the last run.",
+    "It reduces the number of sampling steps required for generation.",
+    "It compresses the Key and Value tensors in the attention mechanism."
+   ],
+   "answer": "It skips the execution of a node if its inputs have not changed since the last run.",
+   "why": "The lesson explains Node Caching: 'If a node's inputs have not changed, its output is identical... If Inputs_new == Inputs_old, then Output_new = Output_old. We skip f.'"
+  },
+  {
+   "q": "Based on the lab results provided, what is the error reduction factor when increasing the ODE solve from 1 step to 4 steps?",
+   "options": null,
+   "answer": "7.72686",
+   "why": "The lab results explicitly state: 'RESULT error_reduction_factor = 7.72686' and the text confirms 'Going from 1 step to 4 steps reduces the error by a factor of ~7.7.'"
+  },
+  {
+   "q": "Why does the lesson advise against judging the performance of `torch.compile` based on the first run?",
+   "options": null,
+   "answer": "Because `torch.compile` has a first-run overhead where it compiles the graph, making the first run slower than subsequent runs.",
+   "why": "The 'Common mistakes' section states: 'Compile Overhead: torch.compile has a first-run overhead. It compiles the graph on the first run. Subsequent runs are faster. Do not judge performance on the first run.'"
+  }
+ ]
+}

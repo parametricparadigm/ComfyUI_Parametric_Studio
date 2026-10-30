@@ -1,0 +1,13 @@
+{
+ "title": "Video VAEs and receptive fields",
+ "level": "300",
+ "char": "latent",
+ "hook": "Discover how Video VAEs compress temporal dimensions and why understanding receptive fields is key to controlling motion artifacts.",
+ "code": "CU-316",
+ "prereq": [
+  "CU-215",
+  "CU-201"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

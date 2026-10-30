@@ -1,0 +1,52 @@
+{
+ "code": "CU-409",
+ "title": "Distillation math: teacher, student, consistency",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary engineering goal of distillation in production pipelines?",
+   "options": [
+    "To increase the maximum resolution of the generated images",
+    "To compress the 'thinking time' of a diffusion model to reduce latency and compute",
+    "To merge multiple models to improve aesthetic quality",
+    "To eliminate the need for a teacher model entirely"
+   ],
+   "answer": "To compress the 'thinking time' of a diffusion model to reduce latency and compute",
+   "why": "The lesson states that 'Distillation is the engineering discipline that lets us compress the \"thinking time\" of a diffusion model' and that 'latency is money' in production pipelines."
+  },
+  {
+   "q": "In the 1D lab simulation described, what was the calculated improvement ratio of the student model compared to the teacher model?",
+   "options": [
+    "0.91047",
+    "1.08953",
+    "1.58950",
+    "10.0"
+   ],
+   "answer": "1.08953",
+   "why": "The lab output explicitly lists 'RESULT improvement_ratio = 1.08953'."
+  },
+  {
+   "q": "What is the mathematical formula for the student model's heuristic approximation of the clean data ($x_0$) in the simplified 1D lab?",
+   "options": null,
+   "answer": "$x_0 \\approx \\frac{x_t}{1 + \\sigma^2}$",
+   "why": "The lesson defines the student model in the lab as using the heuristic approximation '$x_0 \\approx \\frac{x_t}{1 + \\sigma^2}$'."
+  },
+  {
+   "q": "Why does the teacher model accumulate higher error in the lab simulation despite taking 100 careful steps?",
+   "options": [
+    "The teacher model uses a non-linear schedule that is incompatible with the student",
+    "Each step adds a small amount of random noise, and these errors accumulate over the 100 steps",
+    "The teacher model is intentionally trained to be less accurate to test the student",
+    "The teacher model fails to converge to the valley floor due to a lack of consistency loss"
+   ],
+   "answer": "Each step adds a small amount of random noise, and these errors accumulate over the 100 steps",
+   "why": "The lesson explains that the teacher's high error is because 'each step adds a small amount of random noise... and these errors accumulate. The teacher is \"wandering\" around the true value.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what happens if the teacher model uses a Karras schedule but the student is trained on a linear schedule?",
+   "options": null,
+   "answer": "The consistency loss will fail, and the student will learn to jump to the wrong place.",
+   "why": "The lesson states: 'If your teacher uses a Karras schedule... but your student is trained on a linear schedule, the consistency loss will fail. The student will learn to jump to the wrong place.'"
+  }
+ ]
+}

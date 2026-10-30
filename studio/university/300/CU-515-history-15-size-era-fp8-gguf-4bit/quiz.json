@@ -1,0 +1,52 @@
+{
+ "code": "CU-515",
+ "title": "History 15: The size era: FP8, GGUF and 4-bit formats arrive",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary trade-off made when using lower-bit formats like FP8, GGUF, or 4-bit integers?",
+   "options": [
+    "Trading a tiny amount of precision for a massive amount of capacity",
+    "Trading model speed for higher accuracy",
+    "Trading storage space for increased model complexity",
+    "Trading hardware compatibility for better visual output"
+   ],
+   "answer": "Trading a tiny amount of precision for a massive amount of capacity",
+   "why": "The 'Why this matters' section explicitly states: 'We are trading a tiny amount of precision for a massive amount of capacity.'"
+  },
+  {
+   "q": "In the provided lab results, what was the calculated Mean Absolute Error (MAE) for the INT4 quantization?",
+   "options": [
+    "0.00696983",
+    "0.0371411",
+    "0.125481",
+    "0.18"
+   ],
+   "answer": "0.125481",
+   "why": "The 'Lab' section lists the exact result: `RESULT int4_error = 0.125481`."
+  },
+  {
+   "q": "What specific behavior does the `comfy_quant` module exhibit if a GPU does not support INT8 compute, as described in the 'In ComfyUI' section?",
+   "options": null,
+   "answer": "It quietly reverts to full precision to ensure stability and prevent crashes.",
+   "why": "The text states: 'The test... ensures that if your GPU doesn't support INT8 compute, ComfyUI doesn't crash. It quietly reverts to full precision.'"
+  },
+  {
+   "q": "Based on the lab analysis, why are 4-bit models often described as requiring 'smoothing' or 'calibration' techniques, whereas 8-bit models are often 'drop-in' replacements?",
+   "options": [
+    "Because 4-bit models use a coarser grid, resulting in an error roughly 18 times larger than INT8",
+    "Because 4-bit models require more VRAM than 8-bit models",
+    "Because 8-bit models cannot be loaded into standard PyTorch modules",
+    "Because 4-bit models are incompatible with the GGUF format"
+   ],
+   "answer": "Because 4-bit models use a coarser grid, resulting in an error roughly 18 times larger than INT8",
+   "why": "The 'Lab' section notes that the INT4 error is 'roughly 18 times larger' than the INT8 error and concludes: 'This mathematical reality is why 4-bit models often require \"smoothing\" or \"calibration\" techniques... whereas 8-bit models are often \"drop-in\" replacements.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what is a key reason not to judge a quantization format solely by its bit count?",
+   "options": null,
+   "answer": "Because sophisticated formats like GGUF Q4_K_M use block-wise scaling and outlier handling, making them better than naive quantization of the same bit count.",
+   "why": "The text states: 'Don't judge a format by its bit count alone; judge it by its quantization algorithm,' citing that modern formats use 'block-wise scaling and outlier handling' which makes them superior to naive rounding."
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "code": "CU-219",
+ "title": "Depth and edge preprocessors: Sobel by hand",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the context of the Sobel operator, what does a vertical edge in an image primarily produce?",
+   "options": [
+    "A strong vertical gradient (Gy)",
+    "A strong horizontal gradient (Gx)",
+    "Zero gradient in both directions",
+    "A diagonal gradient (Gx + Gy)"
+   ],
+   "answer": "A strong horizontal gradient (Gx)",
+   "why": "The lesson states under 'Common mistakes' that a vertical edge produces a horizontal gradient (Gx) because the gradient points in the direction of maximum increase in intensity, which is perpendicular to the edge."
+  },
+  {
+   "q": "Why is the Sobel operator considered ideal for preprocessing in ComfyUI workflows compared to heavy neural networks like DepthAnything3Net?",
+   "options": [
+    "It uses learned parameters to adapt to image content",
+    "It requires millions of operations per pixel",
+    "It is computationally trivial and provides a robust approximation of gradients at almost no cost",
+    "It produces higher resolution depth maps than neural networks"
+   ],
+   "answer": "It is computationally trivial and provides a robust approximation of gradients at almost no cost",
+   "why": "The 'Why this matters' and 'Under the hood' sections explain that Sobel is computationally trivial, runs in a single pass, and requires only 9 multiplications and 8 additions per pixel, making it negligible compared to Transformer backbones."
+  },
+  {
+   "q": "In the provided lab example with a 3x3 image having a vertical edge (left column 0.0, right two columns 1.0), what was the calculated horizontal gradient (Gx) at the center pixel?",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "4"
+   ],
+   "answer": "4",
+   "why": "The 'Lab' section explicitly states 'RESULT gx_center = 4' and explains the calculation: (-1*0 -2*0 -1*0) + (1*1 + 2*1 + 1*1) = 4."
+  },
+  {
+   "q": "What is the mathematical formula for the final edge magnitude M(x, y) in the Sobel operator?",
+   "options": null,
+   "answer": "M(x, y) = sqrt(Gx(x, y)^2 + Gy(x, y)^2)",
+   "why": "The 'Under the hood' section defines the final edge magnitude M as the Euclidean norm of the gradient vector, given by the formula M(x, y) = sqrt(Gx(x, y)^2 + Gy(x, y)^2)."
+  },
+  {
+   "q": "According to the lesson, what is a common mistake regarding the relationship between edge orientation and gradient direction?",
+   "options": null,
+   "answer": "Confusing gradient direction with edge orientation, specifically expecting a vertical edge to trigger a vertical gradient (Gy) instead of a horizontal gradient (Gx).",
+   "why": "The 'Common mistakes' section lists 'Confusing Gradient Direction with Edge Orientation' as the first mistake, noting that students often expect a vertical edge to trigger Gy, but it actually produces Gx."
+  }
+ ]
+}

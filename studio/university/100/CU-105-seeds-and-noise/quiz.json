@@ -1,0 +1,57 @@
+{
+ "code": "CU-105",
+ "title": "Seeds, noise and determinism",
+ "level": "100",
+ "questions": [
+  {
+   "q": "In the context of ComfyUI and diffusion models, what is the primary function of the seed?",
+   "options": [
+    "It determines the resolution of the output image.",
+    "It sets the initial condition of the noise field, making the generation process deterministic.",
+    "It controls the speed of the sampling process.",
+    "It defines the text prompt used for generation."
+   ],
+   "answer": "It sets the initial condition of the noise field, making the generation process deterministic.",
+   "why": "The lesson states that 'The seed is the initial condition of your noise field' and that 'The process of sampling noise N is deterministic given the seed.'"
+  },
+  {
+   "q": "Why might two images generated with the same prompt and same seed look different if generated on different hardware (e.g., CPU vs. GPU)?",
+   "options": [
+    "The model weights are different on different hardware.",
+    "The prompt is interpreted differently by the CPU and GPU.",
+    "Floating-point errors can accumulate, leading to slight differences in results.",
+    "The seed is automatically changed on different hardware."
+   ],
+   "answer": "Floating-point errors can accumulate, leading to slight differences in results.",
+   "why": "The 'Common mistakes' section notes that 'In very long diffusion chains, floating-point errors can accumulate. This is why results might differ slightly between different hardware (CPU vs. GPU) even with the same seed.'"
+  },
+  {
+   "q": "What is the specific function of `get_sigmas_karras` in the ComfyUI codebase?",
+   "options": [
+    "It generates the initial Gaussian noise tensor.",
+    "It implements the Euler method for solving the stochastic differential equation.",
+    "It constructs the noise schedule proposed by Karras et al. (2022).",
+    "It manages the PyTorch generator state."
+   ],
+   "answer": "It constructs the noise schedule proposed by Karras et al. (2022).",
+   "why": "The lesson explicitly lists `get_sigmas_karras` as a key function that 'Constructs the noise schedule proposed by Karras et al. (2022).'"
+  },
+  {
+   "q": "According to the lab results, what were the approximate mean and standard deviation of the generated noise tensor?",
+   "options": null,
+   "answer": "Mean: 0.0630417, Standard Deviation: 0.988765",
+   "why": "The lab results section explicitly lists 'RESULT noise_mean = 0.0630417' and 'RESULT noise_std = 0.988765'."
+  },
+  {
+   "q": "Why is the `sample_euler_ancestral` sampler considered less deterministic than `sample_euler` even with a fixed seed?",
+   "options": [
+    "It uses a different noise distribution than Gaussian.",
+    "It introduces new noise at each step, which may not be fully controlled by the initial seed alone.",
+    "It requires a higher number of sampling steps.",
+    "It ignores the seed parameter entirely."
+   ],
+   "answer": "It introduces new noise at each step, which may not be fully controlled by the initial seed alone.",
+   "why": "The lesson states that `sample_euler_ancestral` 'introduces new noise at each step, making the process less deterministic even with a fixed seed (unless the noise generator is also controlled per-step).'"
+  }
+ ]
+}

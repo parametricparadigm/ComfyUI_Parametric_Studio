@@ -1,0 +1,16 @@
+{
+ "code": "CU-301",
+ "title": "Attention from scratch",
+ "level": "300",
+ "prereq": [
+  "CU-103",
+  "CU-104"
+ ],
+ "char": "attn",
+ "hook": "Scaled dot-product attention in six lines, why the square root of d is there, and how a prompt reaches a pixel.",
+ "code_refs": [
+  "comfy/ldm/modules/attention.py:class CrossAttention",
+  "comfy/ldm/modules/attention.py:optimized_attention",
+  "comfy/ldm/flux/math.py:def attention"
+ ]
+}

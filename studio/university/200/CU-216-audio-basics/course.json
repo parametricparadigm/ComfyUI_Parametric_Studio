@@ -1,0 +1,10 @@
+{
+ "title": "Audio and music basics: waveforms to spectrograms",
+ "level": "200",
+ "char": "sound",
+ "hook": "Sample rate, Nyquist, STFT and why audio models work on spectrograms or latents.",
+ "code": "CU-216",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

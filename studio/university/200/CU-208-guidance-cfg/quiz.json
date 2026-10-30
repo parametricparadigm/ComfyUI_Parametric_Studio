@@ -1,0 +1,62 @@
+{
+ "code": "CU-208",
+ "title": "Guidance: CFG and what it really does",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What does `cfg_function` compute?",
+   "options": [
+    "D_cond · cfg",
+    "D_uncond + (D_cond − D_uncond) · cfg",
+    "The unscaled difference of the two predictions",
+    "(D_cond + D_uncond) / cfg"
+   ],
+   "answer": "D_uncond + (D_cond − D_uncond) · cfg",
+   "why": "Read directly from comfy/samplers.py."
+  },
+  {
+   "q": "Ho and Salimans' w = 6.5 corresponds to which ComfyUI cfg?",
+   "options": [
+    "5.5",
+    "6.5",
+    "7.5",
+    "13"
+   ],
+   "answer": "7.5",
+   "why": "They write (1+w)ε_c − wε_u, so cfg = w + 1."
+  },
+  {
+   "q": "Does sampling with CFG draw from p(x) p(c|x)^cfg?",
+   "options": [
+    "Yes, exactly",
+    "Yes, when the schedule is Karras",
+    "No, in general the guided field is not the score of that density's noised versions",
+    "Only with Euler"
+   ],
+   "answer": "No, in general the guided field is not the score of that density's noised versions",
+   "why": "Stated by Ho and Salimans, Bradley and Nakkiran, and Chidambaram et al. The lab's samples at 7.5 sit a full unit past the tilted mean."
+  },
+  {
+   "q": "What does cfg = 1 do to the cost per step?",
+   "options": [
+    "One model call, because the unconditional run is skipped",
+    "Two model calls",
+    "Zero model calls",
+    "It doubles the VRAM"
+   ],
+   "answer": "One model call, because the unconditional run is skipped",
+   "why": "sampling_function sets uncond to None when cond_scale is close to 1."
+  },
+  {
+   "q": "Which is the most honest account of why CFG works so well?",
+   "options": [
+    "It is proven to sample the sharpened posterior",
+    "It is empirically good, and its theory is still being worked out",
+    "It removes all model error",
+    "It is a form of quantization"
+   ],
+   "answer": "It is empirically good, and its theory is still being worked out",
+   "why": "The motivation is heuristic, and recent papers offer partial explanations rather than a settled answer."
+  }
+ ]
+}

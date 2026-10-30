@@ -1,0 +1,62 @@
+{
+ "code": "CU-224",
+ "title": "The API: queue, watch, fetch",
+ "level": "200",
+ "questions": [
+  {
+   "q": "A graph has an unknown node. When do you find out?",
+   "options": [
+    "In the response to POST /prompt, with status 400",
+    "After the sampler finishes",
+    "Never",
+    "On the next restart"
+   ],
+   "answer": "In the response to POST /prompt, with status 400",
+   "why": "Validation runs inside the POST handler."
+  },
+  {
+   "q": "How do you know a job has finished, following the official example?",
+   "options": [
+    "A fixed timeout",
+    "An executing event with a null node and your prompt_id",
+    "The file appears on disk",
+    "The queue length is 1"
+   ],
+   "answer": "An executing event with a null node and your prompt_id",
+   "why": "script_examples/websockets_api_example.py uses this test."
+  },
+  {
+   "q": "You queue the same prompt twice. What does the second run send?",
+   "options": [
+    "Nothing at all",
+    "The full progress events again",
+    "execution_cached with all nodes, and executed for the output node, with no progress",
+    "An error"
+   ],
+   "answer": "execution_cached with all nodes, and executed for the output node, with no progress",
+   "why": "Nothing runs, but emit_cached_output still reports the files."
+  },
+  {
+   "q": "Which call gives the inputs and outputs of every node?",
+   "options": [
+    "GET /queue",
+    "GET /object_info",
+    "GET /history",
+    "POST /free"
+   ],
+   "answer": "GET /object_info",
+   "why": "server.py defines this route. Clients use it to build forms and check models."
+  },
+  {
+   "q": "How do you download a result?",
+   "options": [
+    "From the websocket",
+    "With POST /prompt",
+    "GET /view with filename, subfolder and type",
+    "It cannot be downloaded"
+   ],
+   "answer": "GET /view with filename, subfolder and type",
+   "why": "The executed event or history gives those three values."
+  }
+ ]
+}

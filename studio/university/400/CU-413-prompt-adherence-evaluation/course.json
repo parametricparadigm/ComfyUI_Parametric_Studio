@@ -1,0 +1,12 @@
+{
+ "title": "Prompt adherence evaluation",
+ "level": "400",
+ "char": "tune",
+ "hook": "Learn to quantify how well your generated images actually match the text prompts using deterministic CPU-based metrics.",
+ "code": "CU-413",
+ "prereq": [
+  "CU-404"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

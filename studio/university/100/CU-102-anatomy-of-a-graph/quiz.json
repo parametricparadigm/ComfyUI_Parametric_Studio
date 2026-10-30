@@ -1,0 +1,62 @@
+{
+ "code": "CU-102",
+ "title": "Anatomy of a ComfyUI graph",
+ "level": "100",
+ "questions": [
+  {
+   "q": "In the context of ComfyUI's execution graph, what is the primary purpose of topological sorting?",
+   "options": [
+    "To minimize the memory usage of the cache",
+    "To determine the strict order in which nodes must be executed based on dependencies",
+    "To validate that all data types match between connected nodes",
+    "To clear the cache when a model file is changed on disk"
+   ],
+   "answer": "To determine the strict order in which nodes must be executed based on dependencies",
+   "why": "The lesson states that topological sorting is used to find a strict order where tasks with no prerequisites are done first, unlocking subsequent layers, ensuring that a node only runs after its inputs are ready."
+  },
+  {
+   "q": "According to the lesson, what happens to the cache for a node's descendants when that node's input changes (e.g., a new seed is set)?",
+   "options": [
+    "The entire cache is cleared immediately",
+    "The cache for the changed node and all its descendants is invalidated (marked as dirty)",
+    "The cache for the changed node is kept, but descendants are recalculated",
+    "The cache is only invalidated if the model file on disk is also changed"
+   ],
+   "answer": "The cache for the changed node and all its descendants is invalidated (marked as dirty)",
+   "why": "The 'Invalidation' section explains that when a node changes, the engine must invalidate the cache for that node and all its descendants (Desc(x)) because their input signatures have changed."
+  },
+  {
+   "q": "Which file in the `comfy_execution` folder contains the `TopologicalSort` and `ExecutionList` classes?",
+   "options": [
+    "comfy_execution/caching.py",
+    "comfy_execution/validation.py",
+    "comfy_execution/graph.py",
+    "comfy_execution/progress.py"
+   ],
+   "answer": "comfy_execution/graph.py",
+   "why": "The 'In ComfyUI' section explicitly lists `comfy_execution/graph.py` as containing `TopologicalSort` and `ExecutionList`."
+  },
+  {
+   "q": "In the Lab simulation, why was the recompute count 6 after changing the value of node B, instead of 7?",
+   "options": [
+    "Node A was skipped because its inputs did not change, so only B and its descendants were recalculated",
+    "Node G was skipped because it was already cached from the previous run",
+    "The engine failed to detect the change in B, so it only ran the remaining nodes",
+    "Nodes C and D were skipped because they are constants"
+   ],
+   "answer": "Node A was skipped because its inputs did not change, so only B and its descendants were recalculated",
+   "why": "The Lab results explain that changing B meant the engine did not recompute A (since A's inputs were unchanged). It only recomputed B and its descendants (C, D, E, F, G), totaling 6 nodes."
+  },
+  {
+   "q": "What is the consequence of creating a loop (cycle) in a ComfyUI workflow graph?",
+   "options": [
+    "The graph will execute in an infinite loop until manually stopped",
+    "The `validate_loops` function will reject the graph, preventing execution",
+    "The cache will be automatically cleared to prevent data corruption",
+    "The topological sort will randomly select an order to break the cycle"
+   ],
+   "answer": "The `validate_loops` function will reject the graph, preventing execution",
+   "why": "The 'Common mistakes' section states that ComfyUI will reject the graph if `validate_loops` finds a cycle, as cycles are invalid in a standard execution graph."
+  }
+ ]
+}

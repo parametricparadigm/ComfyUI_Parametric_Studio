@@ -1,0 +1,18 @@
+x     E[x0|x] measured   x + sigma^2 score(x)
+-3.0  -2.0783            -2.0798
+-1.0  -1.2773            -1.2740
++0.0  +0.7392            +0.7366
++1.0  +1.3744            +1.3745
++2.5  +1.7014            +1.6998
+max |finite difference - score| on [-4,4]: 5.98e-11
+
+model         ESM       DSM       DSM-ESM
+s(x)=0        0.5197    1.0001    0.4804
+s(x)=-x       2.4972    2.9774    0.4802
+s(x)=sin(x)   0.9678    1.4472    0.4795
+s(x)=exact    0.0000    0.4797    0.4797
+
+RMS(net - true score) after training on DSM only: 0.0268   (RMS of the score itself: 0.7199)
+
+Wasserstein-1 to data   ODE: 0.0471   SDE: 0.0209   floor (two real samples): 0.0163
+same start, run twice   ODE RMS difference: 0.0000   SDE RMS difference: 2.3542

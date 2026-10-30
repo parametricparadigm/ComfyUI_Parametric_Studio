@@ -1,0 +1,7 @@
+RESULT full_params = 4096
+RESULT lora_params = 512
+RESULT max_diff_merged_unmerged = 1.9073486328125e-05
+RESULT linearity_diff = 0.0
+RESULT y_orig[0] = -14.354419708251953
+RESULT y_unmerged[0] = -0.45540618896484375
+RESULT y_merged[0] = -0.4554058909416199

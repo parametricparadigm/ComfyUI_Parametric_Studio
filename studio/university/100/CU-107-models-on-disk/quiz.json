@@ -1,0 +1,52 @@
+{
+ "code": "CU-107",
+ "title": "Models on disk: safetensors and families",
+ "level": "100",
+ "questions": [
+  {
+   "q": "What is the primary function of the JSON header in a safetensors file?",
+   "options": [
+    "To store the executable code required to run the model",
+    "To list every tensor by name, shape, data type, and byte location",
+    "To compress the raw weight data to reduce file size",
+    "To encrypt the model weights for security purposes"
+   ],
+   "answer": "To list every tensor by name, shape, data type, and byte location",
+   "why": "The lesson states that the header is a 'small JSON document... It lists every tensor (weight matrix) by name, its shape, its data type, and exactly where its bytes live in the file.'"
+  },
+  {
+   "q": "In the context of the lesson's lab, calculate the total byte size for a tensor with shape [2, 3] using float32 data type.",
+   "options": null,
+   "answer": "24 bytes",
+   "why": "The lesson explains that for float32, element size e=4. For shape [2,3], N=6. Byte size B_T = 6 * 4 = 24 bytes."
+  },
+  {
+   "q": "Why is the safetensors format considered 'safe' compared to traditional .ckpt files?",
+   "options": [
+    "It uses advanced encryption to prevent unauthorized access",
+    "It contains no executable code, preventing Python pickle exploits",
+    "It automatically validates the mathematical integrity of the weights",
+    "It requires a digital signature from the model creator"
+   ],
+   "answer": "It contains no executable code, preventing Python pickle exploits",
+   "why": "The lesson explicitly states: 'This is why safetensors is safe: it has no executable code. It’s just data. No Python pickle exploits.'"
+  },
+  {
+   "q": "Which class in ComfyUI is responsible for managing the state of model weights and tracking which weights are on GPU vs CPU?",
+   "options": [
+    "load_checkpoint_guess_config",
+    "LazyCastingParam",
+    "ModelPatcher",
+    "SafetensorsParser"
+   ],
+   "answer": "ModelPatcher",
+   "why": "The lesson identifies 'The ModelPatcher class in comfy/model_patcher.py is the core class managing the state of model weights. It tracks which weights are on GPU vs CPU.'"
+  },
+  {
+   "q": "According to the lesson, what is the specific risk associated with loading a F16 tensor as F32?",
+   "options": null,
+   "answer": "You will get garbage data",
+   "why": "The 'Common mistakes' section states: 'If you load a F16 tensor as F32, you’ll get garbage.'"
+  }
+ ]
+}

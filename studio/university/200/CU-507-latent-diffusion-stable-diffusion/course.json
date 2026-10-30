@@ -1,0 +1,12 @@
+{
+ "title": "History 7: Latent diffusion and Stable Diffusion (2022)",
+ "level": "200",
+ "char": "latent",
+ "hook": "Discover how Stable Diffusion revolutionized image generation by operating in a compressed latent space rather than raw pixels.",
+ "code": "CU-507",
+ "prereq": [
+  "CU-201"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

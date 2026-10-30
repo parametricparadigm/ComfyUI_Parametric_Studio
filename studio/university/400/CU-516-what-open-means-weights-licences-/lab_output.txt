@@ -1,0 +1,6 @@
+RESULT avg_transparency = 0.84
+RESULT is_open = True
+RESULT all_components_open = True
+RESULT open_ecosystem = True
+RESULT reproducibility_score = 0.990835
+RESULT community_score = 4.2

@@ -1,0 +1,10 @@
+{
+ "title": "Speed: distillation, caching, compile, fewer steps",
+ "level": "300",
+ "char": "denoise",
+ "hook": "Where the seconds go and how to get them back.",
+ "code": "CU-308",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

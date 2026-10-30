@@ -1,0 +1,20 @@
+{
+ "code": "CU-206",
+ "title": "Sigma schedules: where the steps go",
+ "level": "200",
+ "prereq": [
+  "CU-205"
+ ],
+ "char": "denoise",
+ "hook": "The scheduler chooses which noise levels the solver visits. Same model, same steps, different error.",
+ "code_refs": [
+  "comfy/samplers.py:simple_scheduler",
+  "comfy/samplers.py:normal_scheduler",
+  "comfy/samplers.py:beta_scheduler",
+  "comfy/samplers.py:kl_optimal_scheduler",
+  "comfy/samplers.py:ddim_scheduler",
+  "comfy/k_diffusion/sampling.py:get_sigmas_exponential",
+  "comfy/model_sampling.py:time_snr_shift",
+  "comfy/model_sampling.py:flux_time_shift"
+ ]
+}

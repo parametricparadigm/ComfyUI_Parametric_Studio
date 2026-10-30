@@ -1,0 +1,21 @@
+{
+ "code": "CU-201",
+ "title": "Latent space and the VAE",
+ "level": "200",
+ "prereq": [
+  "CU-101",
+  "CU-103"
+ ],
+ "char": "latent",
+ "hook": "Train a tiny VAE on a CPU, and see why the midpoint of two latents is a picture while the midpoint of two images is a ghost.",
+ "code_refs": [
+  "comfy/latent_formats.py:scale_factor",
+  "comfy/latent_formats.py:class SD15",
+  "comfy/latent_formats.py:class SDXL",
+  "comfy/latent_formats.py:class SD3",
+  "comfy/latent_formats.py:class Flux",
+  "nodes.py:class VAEDecode",
+  "nodes.py:class VAEEncode",
+  "comfy/sd.py:class VAE"
+ ]
+}

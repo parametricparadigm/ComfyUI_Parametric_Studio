@@ -1,0 +1,33 @@
+from    to      sigma_down  sigma_up   down^2+up^2  to^2
+14.0    8.0     4.5714      6.5652     64.0000      64.0000
+8.0     3.0     1.1250      2.7811     9.0000       9.0000
+3.0     1.0     0.3333      0.9428     1.0000       1.0000
+1.0     0.2     0.0400      0.1960     0.0400       0.0400
+
+steps  W1 euler   W1 ancestral
+10     0.2623     0.3801
+20     0.1163     0.1848
+40     0.0508     0.0911
+80     0.0393     0.0696
+320    0.0130     0.0129
+floor  0.0105
+
+same start, N against 2N steps, RMS change of the result
+N      euler     ancestral  ancestral(eta=0.5)
+10     0.2390    1.8318     1.2426
+20     0.1346    2.0005     1.4093
+40     0.0919    2.0825     1.4916
+80     0.0538    2.1061     1.5380
+160    0.0349    2.1342     1.5741
+
+SDE sampler on one fixed Brownian path, RMS change from N to 2N steps
+10     1.5425
+20     0.7444
+40     0.4525
+80     0.2652
+160    0.1799
+320    0.1328
+640    0.0658
+
+nudged start, same sampler seed: RMS change of the result   euler 0.3399   ancestral 0.0424
+biased denoiser, 80 steps, W1 to data   euler 0.2869   ancestral 0.4843

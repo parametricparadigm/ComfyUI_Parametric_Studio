@@ -1,0 +1,17 @@
+{
+ "code": "CU-205",
+ "title": "Samplers are ODE solvers",
+ "level": "200",
+ "prereq": [
+  "CU-203"
+ ],
+ "char": "denoise",
+ "hook": "Euler, Heun and DPM++ 2M written in five lines each, then measured against the exact answer.",
+ "code_refs": [
+  "comfy/k_diffusion/sampling.py:sample_euler",
+  "comfy/k_diffusion/sampling.py:sample_heun",
+  "comfy/k_diffusion/sampling.py:sample_dpmpp_2m",
+  "comfy/k_diffusion/sampling.py:get_sigmas_karras",
+  "comfy/samplers.py:KSAMPLER_NAMES"
+ ]
+}

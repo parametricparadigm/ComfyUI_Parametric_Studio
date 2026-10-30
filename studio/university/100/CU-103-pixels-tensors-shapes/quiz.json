@@ -1,0 +1,57 @@
+{
+ "code": "CU-103",
+ "title": "Pixels, tensors and shapes",
+ "level": "100",
+ "questions": [
+  {
+   "q": "According to the lesson, why is it necessary to clamp pixel values to the range [0, 1] after operations like normalization?",
+   "options": [
+    "To ensure the values are integers for storage",
+    "Because light cannot be negative or exceed 100% white in standard 8-bit space",
+    "To increase the resolution of the image",
+    "To convert the tensor from float32 to uint8"
+   ],
+   "answer": "Because light cannot be negative or exceed 100% white in standard 8-bit space",
+   "why": "The lesson states: 'Light cannot be negative. Light cannot be \"more than 100% white\" in standard 8-bit space. We must force these values back into the [0, 1] box.'"
+  },
+  {
+   "q": "In the context of PyTorch convolutions described in the lesson, what is the preferred tensor shape order for images?",
+   "options": [
+    "[B, H, W, C]",
+    "[B, C, H, W]",
+    "[C, B, H, W]",
+    "[H, W, B, C]"
+   ],
+   "answer": "[B, C, H, W]",
+   "why": "The lesson explicitly states: 'PyTorch convolutions prefer [B, C, H, W].'"
+  },
+  {
+   "q": "What is the mathematical formula provided in the lesson for scaling an integer pixel value $x$ (in range 0-255) to a float value $y$ (in range 0-1)?",
+   "options": null,
+   "answer": "y = x / 255.0",
+   "why": "The 'Under the hood' section defines the scaling mechanism with the formula: $y = \\frac{x}{255.0}$."
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what visual artifact occurs if you permute an image to [B, W, H, C] instead of [B, H, W, C] for a rectangular image?",
+   "options": [
+    "The image becomes all black",
+    "The image becomes all white",
+    "The image will be transposed or rotated 90 degrees",
+    "The image loses its color channels"
+   ],
+   "answer": "The image will be transposed or rotated 90 degrees",
+   "why": "The lesson states: 'If you permute to [B, W, H, C] instead of [B, H, W, C], your image will be transposed... a rectangular one will be rotated 90 degrees.'"
+  },
+  {
+   "q": "Why does the lesson advise converting `uint8` to `float32` once at the start and keeping it as float until the very end?",
+   "options": [
+    "Because `float32` uses less memory than `uint8`",
+    "Because converting back and forth loses precision",
+    "Because `uint8` cannot store negative numbers",
+    "Because `float32` is required for all PyTorch operations"
+   ],
+   "answer": "Because converting back and forth loses precision",
+   "why": "The lesson states: 'Converting back and forth loses precision. Do it once, at the start, and keep it as float until the very end.'"
+  }
+ ]
+}

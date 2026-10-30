@@ -1,0 +1,13 @@
+validation: None
+order: ['1', '2', '3', '4']  ran: ['Load', 'Text<a fox>', 'Sample', 'Save']
+
+why an orphan does not run: execution starts from output nodes, and node 9 feeds nothing
+no output node: prompt_no_outputs
+wrong type on a link: return_type_mismatch: node 4 input latent wants LATENT, got COND
+cycle: dependency_cycle: 4 -> 1 -> 2 -> 1
+unknown class: missing_node_type: Nope
+
+lazy switch, use_a=True  order: ['7?', '1', '2', '3', '7', '8']
+ran: ['Load', 'Text<a fox>', 'Sample', 'Switch', 'Save']
+lazy switch, use_a=False order: ['7?', '1', '5', '6', '7', '8']
+the same graph without lazy inputs: ['1', '2', '3', '5', '6', '7', '8'] (2 sampler runs)

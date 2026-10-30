@@ -1,0 +1,62 @@
+{
+ "code": "CU-221",
+ "title": "Caching: why changing the seed does not reload the model",
+ "level": "200",
+ "questions": [
+  {
+   "q": "You change only the seed. Which nodes run again in the standard graph?",
+   "options": [
+    "All of them",
+    "Only the save node",
+    "The sampler and everything downstream of it",
+    "The loader and the sampler"
+   ],
+   "answer": "The sampler and everything downstream of it",
+   "why": "The seed is part of the sampler's signature and so of every descendant's. Ancestors keep their keys."
+  },
+  {
+   "q": "You rename every node id. What happens?",
+   "options": [
+    "Nothing reruns",
+    "Everything reruns",
+    "Only output nodes rerun",
+    "Validation fails"
+   ],
+   "answer": "Nothing reruns",
+   "why": "Ancestors are numbered by position, so ids are not part of the key, except for not-idempotent nodes and those taking UNIQUE_ID."
+  },
+  {
+   "q": "What does a fingerprint of float(\"NaN\") do?",
+   "options": [
+    "Disables the node",
+    "Makes the node run every time, because NaN never equals itself",
+    "Crashes validation",
+    "Caches the node forever"
+   ],
+   "answer": "Makes the node run every time, because NaN never equals itself",
+   "why": "A key holding NaN cannot match a stored key."
+  },
+  {
+   "q": "What is the default cache policy in v0.43.0?",
+   "options": [
+    "Classic",
+    "LRU",
+    "None",
+    "RAM pressure"
+   ],
+   "answer": "RAM pressure",
+   "why": "main.py sets CacheType.RAM_PRESSURE unless --cache-classic, --cache-lru or --cache-none is given."
+  },
+  {
+   "q": "Two ordinary nodes have identical class and inputs. What happens?",
+   "options": [
+    "They always run separately",
+    "They have the same key, so they share one result",
+    "Validation rejects the graph",
+    "The second one is an error"
+   ],
+   "answer": "They have the same key, so they share one result",
+   "why": "The lab shows equal keys. Not-idempotent nodes add their id to avoid exactly this."
+  }
+ ]
+}

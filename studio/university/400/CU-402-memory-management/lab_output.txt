@@ -1,0 +1,25 @@
+minimum_inference_memory: 1.191 GB
+start, a 24 GB card                          free  24.00 GB   loaded: nothing
+encode the prompt                            free  19.00 GB   loaded: text_encoder 5.0
+    evict text_encoder (5.0 GB)
+sample                                       free  12.00 GB   loaded: unet 12.0
+decode                                       free  11.70 GB   loaded: unet 12.0, vae 0.3
+nothing evicted yet: models stay until room is needed, that is why a second run is fast
+    evict vae (0.3 GB)
+    evict unet (12.0 GB)
+now load a big video model                   free  10.00 GB   loaded: video_model 14.0
+
+start, an 8 GB card                          free   8.00 GB   loaded: nothing
+    unet does not fit: 4.61 of 12.00 GB on the GPU, the rest is streamed from RAM per layer
+a 12 GB model on 8 GB                        free   3.39 GB   loaded: unet(partial) 4.6
+
+model share on the GPU: 38%. It runs, and each step copies the rest across PCIe.
+
+weights: parameters x bytes per parameter
+  SD 1.x U-Net         fp32:   3.2 GB  fp16:   1.6 GB  fp8:   0.8 GB
+  SDXL U-Net           fp32:   9.7 GB  fp16:   4.8 GB  fp8:   2.4 GB
+
+latent memory alone, one fp32 16-channel latent
+  512px:    0.25 MB
+  1024px:    1.00 MB
+  2048px:    4.00 MB

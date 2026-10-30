@@ -1,0 +1,51 @@
+{
+ "levels": {
+  "100": "Foundations: what happens when you press Queue",
+  "200": "Mechanics: how the pieces really work",
+  "300": "Architecture: the machinery inside the models",
+  "400": "Engineering and research: build, train, measure, scale"
+ },
+ "characters": {
+  "latent": {
+   "name": "Professor Latent",
+   "bio": "a calm, slightly cosmic professor who lives inside the compressed world the VAE builds.",
+   "voice": "Patient, uses vivid spatial metaphors, loves a good diagram described in words."
+  },
+  "denoise": {
+   "name": "Dr. Denoise",
+   "bio": "a lab-coated scientist who has watched ten thousand images emerge from static.",
+   "voice": "Dry humour, precise, always asks 'what is the noise level at this step?'"
+  },
+  "attn": {
+   "name": "Madame Attention",
+   "bio": "a razor-sharp lecturer who decides what every token looks at.",
+   "voice": "Direct, elegant, a little theatrical; everything is about who attends to whom."
+  },
+  "bits": {
+   "name": "Bit Bandit",
+   "bio": "a mischievous numerics goblin who hides in the last few bits of every float.",
+   "voice": "Playful, loves a counter-example, shows exactly where rounding bites."
+  },
+  "graph": {
+   "name": "Captain Graph",
+   "bio": "a ship's captain who navigates node graphs and knows every wire.",
+   "voice": "Practical, step-by-step, nautical turns of phrase in moderation."
+  },
+  "tune": {
+   "name": "Tinker Tune",
+   "bio": "a workshop tinkerer who trains, merges and measures models.",
+   "voice": "Hands-on, honest about what failed, always reports the measurement."
+  },
+  "sound": {
+   "name": "DJ Spectrogram",
+   "bio": "a producer who sees sound as pictures.",
+   "voice": "Rhythmic, upbeat, explains with beats and frequencies."
+  },
+  "frame": {
+   "name": "Reel Rascal",
+   "bio": "a film-reel sprite who counts frames and fights flicker.",
+   "voice": "Cinematic, energetic, thinks in shots and seconds."
+  }
+ },
+ "lab_torch": "2.16.0.dev20261027+cu134"
+}

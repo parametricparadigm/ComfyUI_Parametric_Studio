@@ -1,0 +1,12 @@
+{
+ "title": "DiT and MM-DiT blocks",
+ "level": "300",
+ "char": "attn",
+ "hook": "How a transformer replaces the U-Net: patches, adaLN, joint text-image attention.",
+ "code": "CU-303",
+ "prereq": [
+  "CU-301"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

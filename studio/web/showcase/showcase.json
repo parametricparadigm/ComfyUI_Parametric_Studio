@@ -1,0 +1,493 @@
+[
+{
+"id": "s_foundry",
+"goal": "image",
+"kind": "image",
+"prompt": "A vast dark foundry, a river of molten gold pouring between black iron machines, sparks drifting through green-tinted haze, one tiny silhouetted worker for scale, anamorphic cinematic still, volumetric light",
+"options": {
+"aspect": "16:9",
+"mode": "quality"
+},
+"seconds": 10.4,
+"peak_vram_gib": 22.6,
+"src": "showcase/s_foundry.webp",
+"poster": "showcase/s_foundry.webp",
+"w": 1280,
+"h": 732
+},
+{
+"id": "s_portrait",
+"goal": "image",
+"kind": "image",
+"prompt": "Editorial portrait of an astronaut in a matte black suit with gold visor reflecting an emerald aurora, studio rim light, ultra detailed fabric texture, 85mm",
+"options": {
+"aspect": "2:3",
+"mode": "quality"
+},
+"seconds": 6.3,
+"peak_vram_gib": 22.5,
+"src": "showcase/s_portrait.webp",
+"poster": "showcase/s_portrait.webp",
+"w": 832,
+"h": 1216
+},
+{
+"id": "s_greenhouse",
+"goal": "image",
+"kind": "image",
+"prompt": "A colossal glass greenhouse at night glowing emerald from within, gold steel ribs, fog at ground level, lone figure with a lantern on the path, cinematic wide shot",
+"options": {
+"aspect": "16:9",
+"mode": "quality"
+},
+"seconds": 6.3,
+"peak_vram_gib": 22.5,
+"src": "showcase/s_greenhouse.webp",
+"poster": "showcase/s_greenhouse.webp",
+"w": 1280,
+"h": 732
+},
+{
+"id": "s_watch",
+"goal": "image",
+"kind": "image",
+"prompt": "Macro product photograph of an intricate mechanical watch movement in gold and black, tiny emerald jewels, shallow depth of field, dark studio background, luxury advertising",
+"options": {
+"aspect": "1:1",
+"mode": "quality"
+},
+"seconds": 9.3,
+"peak_vram_gib": 22.6,
+"src": "showcase/s_watch.webp",
+"poster": "showcase/s_watch.webp",
+"w": 1024,
+"h": 1024
+},
+{
+"id": "s_sneaker",
+"goal": "flux3",
+"kind": "image",
+"prompt": "A futuristic black and gold running sneaker floating above wet obsidian, emerald light trails behind it, splashes frozen in the air, high end product advertising photograph",
+"options": {
+"aspect": "3:2"
+},
+"seconds": 9.3,
+"peak_vram_gib": 23.6,
+"src": "showcase/s_sneaker.webp",
+"poster": "showcase/s_sneaker.webp",
+"w": 1216,
+"h": 832
+},
+{
+"id": "s_temple",
+"goal": "flux3",
+"kind": "image",
+"prompt": "An ancient jungle temple overgrown with luminous green moss, shafts of golden light through the canopy, mist, epic matte painting, ultra detailed",
+"options": {
+"aspect": "16:9"
+},
+"seconds": 9.3,
+"peak_vram_gib": 24.1,
+"src": "showcase/s_temple.webp",
+"poster": "showcase/s_temple.webp",
+"w": 1280,
+"h": 732
+},
+{
+"id": "s_mecha",
+"goal": "anime",
+"kind": "image",
+"prompt": "a towering black and gold mecha kneeling in a rain-soaked neon city, glowing green visor, a small pilot looking up at it",
+"options": {
+"aspect": "16:9",
+"style": "mecha",
+"mode": "quality"
+},
+"seconds": 40.0,
+"peak_vram_gib": 13.1,
+"src": "showcase/s_mecha.webp",
+"poster": "showcase/s_mecha.webp",
+"w": 1280,
+"h": 732
+},
+{
+"id": "s_ronin",
+"goal": "anime",
+"kind": "image",
+"prompt": "a lone ronin walking through a field of golden grass at dusk, fireflies rising, huge full moon behind her",
+"options": {
+"aspect": "2:3",
+"style": "90s",
+"mode": "quality"
+},
+"seconds": 6.3,
+"peak_vram_gib": 13.2,
+"src": "showcase/s_ronin.webp",
+"poster": "showcase/s_ronin.webp",
+"w": 832,
+"h": 1216
+},
+{
+"id": "v_h3_dragon",
+"goal": "h3_video",
+"kind": "video",
+"prompt": "A huge gold-scaled dragon slowly uncoils around a black stone tower during a thunderstorm, the camera sweeps upward past its glowing green eye, rain and lightning, deep rumbling thunder, epic cinematic.",
+"options": {
+"aspect": "16:9",
+"quality": "high",
+"seconds": 5,
+"speed": "fast"
+},
+"seconds": 66.4,
+"peak_vram_gib": 45.3,
+"src": "showcase/v_h3_dragon.mp4",
+"poster": "showcase/v_h3_dragon.webp",
+"w": 960,
+"h": 530
+},
+{
+"id": "v_h3_chef",
+"goal": "h3_video",
+"kind": "video",
+"prompt": "A chef in a dark kitchen flambes a pan, a tall column of golden fire lights up her focused face, the camera pushes in slowly, sizzling sounds and a low flame roar, cinematic shallow depth of field.",
+"options": {
+"aspect": "16:9",
+"quality": "high",
+"seconds": 5,
+"speed": "fast"
+},
+"seconds": 112.3,
+"peak_vram_gib": 45.4,
+"src": "showcase/v_h3_chef.mp4",
+"poster": "showcase/v_h3_chef.webp",
+"w": 960,
+"h": 530
+},
+{
+"id": "v_h3_foundry",
+"goal": "h3_animate",
+"kind": "video",
+"prompt": "Molten gold surges forward and sparks burst upward, the camera slowly pushes through the haze, heavy industrial rumble.",
+"options": {
+"aspect": "16:9",
+"quality": "high",
+"seconds": 5,
+"speed": "fast"
+},
+"seconds": 66.6,
+"peak_vram_gib": 46.8,
+"src": "showcase/v_h3_foundry.mp4",
+"poster": "showcase/v_h3_foundry.webp",
+"w": 960,
+"h": 530
+},
+{
+"id": "v_ltx_shatter",
+"goal": "video_ltx",
+"kind": "video",
+"prompt": "Slow motion, a black glass sphere shatters on a dark marble floor and thousands of shards turn into gold butterflies that fly toward the camera, dramatic VFX shot, crystalline sound.",
+"options": {
+"aspect": "16:9",
+"seconds": 6
+},
+"seconds": 57.8,
+"peak_vram_gib": 44.3,
+"src": "showcase/v_ltx_shatter.mp4",
+"poster": "showcase/v_ltx_shatter.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "v_ltx_portal",
+"goal": "video_ltx",
+"kind": "video",
+"prompt": "A swirling portal of green energy tears open in a rainy alley, gold sparks spill out and light the wet walls, a figure in a long coat steps back, the camera shakes, powerful VFX shot, deep electric hum.",
+"options": {
+"aspect": "16:9",
+"seconds": 6
+},
+"seconds": 54.4,
+"peak_vram_gib": 44.3,
+"src": "showcase/v_ltx_portal.mp4",
+"poster": "showcase/v_ltx_portal.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "v_ltx_ink",
+"goal": "video_ltx",
+"kind": "video",
+"prompt": "Macro shot, liquid gold and emerald ink collide in black water and bloom into huge swirling clouds, the camera drifts slowly, abstract title sequence, ambient drone.",
+"options": {
+"aspect": "16:9",
+"seconds": 6
+},
+"seconds": 21.3,
+"peak_vram_gib": 44.3,
+"src": "showcase/v_ltx_ink.mp4",
+"poster": "showcase/v_ltx_ink.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "v_ltx_greenhouse",
+"goal": "animate_ltx",
+"kind": "video",
+"prompt": "Fog rolls along the ground, the lantern flickers, the emerald glow pulses inside the glass, the camera cranes up slowly, night insects and distant wind.",
+"options": {
+"aspect": "16:9",
+"seconds": 6
+},
+"seconds": 33.6,
+"peak_vram_gib": 43.2,
+"src": "showcase/v_ltx_greenhouse.mp4",
+"poster": "showcase/v_ltx_greenhouse.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "v_ltx_watch",
+"goal": "animate_ltx",
+"kind": "video",
+"prompt": "The gears begin to turn and the balance wheel ticks, light glides across the gold, the camera moves in slowly, soft mechanical ticking.",
+"options": {
+"aspect": "1:1",
+"seconds": 6
+},
+"seconds": 21.3,
+"peak_vram_gib": 44.6,
+"src": "showcase/v_ltx_watch.mp4",
+"poster": "showcase/v_ltx_watch.webp",
+"w": 704,
+"h": 704
+},
+{
+"id": "v_wan_waves",
+"goal": "video",
+"kind": "video",
+"prompt": "Golden sunset waves crash in slow motion on black volcanic rocks, spray lit from behind, the camera pushes in low over the water.",
+"options": {
+"aspect": "16:9",
+"quality": "720p",
+"seconds": 5
+},
+"seconds": 105.4,
+"peak_vram_gib": 34.5,
+"src": "showcase/v_wan_waves.mp4",
+"poster": "showcase/v_wan_waves.webp",
+"w": 960,
+"h": 528
+},
+{
+"id": "a_score",
+"goal": "music",
+"kind": "audio",
+"prompt": "epic cinematic trailer score, deep brass, driving taiko drums, soaring strings, instrumental, building to a huge finish",
+"options": {
+"seconds": 60
+},
+"seconds": 18.4,
+"peak_vram_gib": 26.8,
+"src": "showcase/a_score.m4a",
+"poster": null,
+"w": 1,
+"h": 1
+},
+{
+"id": "recast_chef",
+"goal": "recast",
+"kind": "video",
+"prompt": "Recast the chef in the white jacket as the character in the picture",
+"options": {
+"aspect": "auto",
+"seconds": 5
+},
+"seconds": 522.9,
+"peak_vram_gib": 36.3,
+"src": "showcase/recast_chef.mp4",
+"poster": "showcase/recast_chef.webp",
+"w": 960,
+"h": 548
+},
+{
+"id": "vfx_clean_plate",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "Clean plate: paint the violinist out of a moving shot, no mask",
+"options": {
+"effect": "clean_plate",
+"aspect": "auto",
+"seconds": 4
+},
+"seconds": 49.0,
+"peak_vram_gib": 44.8,
+"src": "showcase/vfx_clean_plate.mp4",
+"poster": "showcase/vfx_clean_plate.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_flood",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "Flood the street: a fast flood of clear water up to her knees",
+"options": {
+"effect": "water",
+"intensity": "max",
+"aspect": "auto",
+"seconds": 5
+},
+"seconds": 62.7,
+"peak_vram_gib": 47.3,
+"src": "showcase/vfx_flood.mp4",
+"poster": "showcase/vfx_flood.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "reshoot_orbit_take",
+"goal": "reshoot",
+"kind": "video",
+"prompt": "A new take of the clip from its first frame: the camera orbits right",
+"options": {
+"camera": "orbit_right",
+"aspect": "auto",
+"quality": "high",
+"seconds": 5
+},
+"seconds": 147.2,
+"peak_vram_gib": 49.3,
+"src": "showcase/reshoot_orbit_take.mp4",
+"poster": "showcase/reshoot_orbit_take.webp",
+"w": 960,
+"h": 548
+},
+{
+"id": "director_wide",
+"goal": "director",
+"kind": "video",
+"prompt": "A lone traveller walks across a vast white salt flat toward a distant ring of light",
+"options": {
+"camera": "crane_up",
+"shot": "wide",
+"lens": "anamorphic",
+"lighting": "golden_hour",
+"mood": "epic",
+"aspect": "16:9",
+"quality": "high",
+"seconds": 5,
+"speed": "fast"
+},
+"seconds": 127.1,
+"peak_vram_gib": 45.6,
+"src": "showcase/director_wide.mp4",
+"poster": "showcase/director_wide.webp",
+"w": 960,
+"h": 530
+},
+{
+"id": "director_portrait",
+"goal": "director",
+"kind": "video",
+"prompt": "A dancer in a flowing emerald silk dress spins on a black mirrored stage",
+"options": {
+"camera": "orbit_right",
+"shot": "medium",
+"lens": "portrait_85mm",
+"lighting": "studio_rim",
+"mood": "dreamlike",
+"aspect": "9:16",
+"quality": "high",
+"seconds": 5,
+"speed": "fast"
+},
+"seconds": 67.3,
+"peak_vram_gib": 45.5,
+"src": "showcase/director_portrait.mp4",
+"poster": "showcase/director_portrait.webp",
+"w": 672,
+"h": 1216
+},
+{
+"id": "director_keyframes_bloom",
+"goal": "director_keyframes",
+"kind": "video",
+"prompt": "A tiny seedling grows into red poppies between two chosen frames",
+"options": {
+"camera": "pan_left",
+"lens": "standard_35mm",
+"lighting": "overcast",
+"mood": "serene",
+"aspect": "16:9",
+"quality": "high",
+"seconds": 5,
+"speed": "fast"
+},
+"seconds": 71.2,
+"peak_vram_gib": 48.0,
+"src": "showcase/director_keyframes_bloom.mp4",
+"poster": "showcase/director_keyframes_bloom.webp",
+"w": 960,
+"h": 530
+},
+{
+"id": "p_perfume",
+"goal": "product",
+"kind": "image",
+"prompt": "a matte black perfume bottle with a gold cap",
+"options": {
+"setting": "black glass",
+"light": "rim light",
+"aspect": "1:1"
+},
+"seconds": 44.5,
+"peak_vram_gib": 46.3,
+"src": "showcase/p_perfume.webp",
+"poster": "showcase/p_perfume.webp",
+"w": 1024,
+"h": 1024
+},
+{
+"id": "p_teapot",
+"goal": "product",
+"kind": "image",
+"prompt": "a hand-thrown ceramic teapot with an emerald glaze",
+"options": {
+"setting": "emerald moss",
+"light": "golden hour",
+"aspect": "3:2"
+},
+"seconds": 72.8,
+"peak_vram_gib": 94.8,
+"src": "showcase/p_teapot.webp",
+"poster": "showcase/p_teapot.webp",
+"w": 1216,
+"h": 832
+},
+{
+"id": "short_film",
+"goal": "recipe",
+"kind": "video",
+"prompt": "An old lamplighter rows through a flooded city at night, relighting its lanterns one by one until the whole skyline glows gold.",
+"options": {},
+"seconds": 689.8,
+"peak_vram_gib": 76.2,
+"src": "showcase/short_film.mp4",
+"poster": "showcase/short_film.webp",
+"w": 960,
+"h": 530
+},
+{
+"id": "music_video",
+"goal": "recipe",
+"kind": "video",
+"prompt": "Music Video Maker",
+"options": {},
+"seconds": 781.4,
+"peak_vram_gib": 68.6,
+"src": "showcase/music_video.mp4",
+"poster": "showcase/music_video.webp",
+"w": 960,
+"h": 530
+}
+]

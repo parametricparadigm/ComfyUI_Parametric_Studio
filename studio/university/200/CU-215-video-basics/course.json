@@ -1,0 +1,12 @@
+{
+ "title": "Video basics: frames, fps and temporal latents",
+ "level": "200",
+ "char": "frame",
+ "hook": "Time as another axis, and why video models compress it.",
+ "code": "CU-215",
+ "prereq": [
+  "CU-201"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

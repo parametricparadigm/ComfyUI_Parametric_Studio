@@ -1,0 +1,4 @@
+RESULT standard_steps = 50
+RESULT distilled_steps = 4
+RESULT speedup_factor = 12.5
+RESULT mse = 0.0104185

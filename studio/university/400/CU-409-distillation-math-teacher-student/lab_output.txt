@@ -1,0 +1,3 @@
+RESULT mse_teacher = 0.589503
+RESULT mse_student = 0.54106
+RESULT improvement_ratio = 1.08953

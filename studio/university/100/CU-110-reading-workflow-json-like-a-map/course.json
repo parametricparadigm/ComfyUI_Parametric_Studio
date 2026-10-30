@@ -1,0 +1,12 @@
+{
+ "title": "Reading a workflow JSON like a map",
+ "level": "100",
+ "char": "graph",
+ "hook": "Stop staring at the spaghetti code and start seeing the logical flow of your image generation pipeline.",
+ "code": "CU-110",
+ "prereq": [
+  "CU-102"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

@@ -1,0 +1,57 @@
+{
+ "code": "CU-216",
+ "title": "Audio and music basics: waveforms to spectrograms",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the lab described in the lesson, what is the calculated frequency resolution (width of each frequency bin) given a sample rate of 44100 Hz and a window size of 1024 samples?",
+   "options": [
+    "256 Hz",
+    "43.0664 Hz",
+    "1024 Hz",
+    "440 Hz"
+   ],
+   "answer": "43.0664 Hz",
+   "why": "The lesson states that freq_resolution is calculated as sr / n_fft. With sr = 44100 and n_fft = 1024, the calculation is 44100 / 1024 ≈ 43.0664 Hz."
+  },
+  {
+   "q": "According to the 'Under the hood' section, what is the purpose of multiplying a slice of the signal by a Hann window function before applying the DFT?",
+   "options": [
+    "To increase the sample rate of the signal",
+    "To taper the edges to zero to avoid leakage where energy from one frequency bleeds into another",
+    "To convert the signal from the time domain to the frequency domain",
+    "To remove all high-frequency noise from the audio"
+   ],
+   "answer": "To taper the edges to zero to avoid leakage where energy from one frequency bleeds into another",
+   "why": "The lesson explicitly states that the Hann window 'tapers the edges to zero to avoid \"leakage\" where energy from one frequency bleeds into another.'"
+  },
+  {
+   "q": "In the ComfyUI audio stack, which component is responsible for converting linear frequency magnitudes into the mel scale to mimic human hearing?",
+   "options": [
+    "BigVGANVocoder",
+    "AudioDiffusionTransformer",
+    "MelConverter",
+    "SA3AudioVAE"
+   ],
+   "answer": "MelConverter",
+   "why": "The lesson states: 'The MelConverter in autoencoder.py is a critical piece. It converts linear frequency magnitudes into the mel scale, which mimics human hearing.'"
+  },
+  {
+   "q": "Based on the lab results, why did the peak frequency for the synthesized 440 Hz tone appear at 430.664 Hz instead of exactly 440 Hz?",
+   "options": [
+    "The signal was corrupted by aliasing during synthesis.",
+    "The Hann window function distorted the frequency content.",
+    "The frequency resolution limits precision, so the peak falls in the nearest bin (bin 10).",
+    "The sample rate was too low to capture the 440 Hz frequency."
+   ],
+   "answer": "The frequency resolution limits precision, so the peak falls in the nearest bin (bin 10).",
+   "why": "The lesson explains that 440 / 43.0664 ≈ 10.21, so the peak falls in the 10th bin, which is 10 * 43.0664 = 430.664 Hz. This demonstrates the binning effect due to frequency resolution."
+  },
+  {
+   "q": "What is the Nyquist limit for a signal sampled at 10 kHz, and what happens to frequencies above this limit?",
+   "options": null,
+   "answer": "The Nyquist limit is 5000 Hz (or 5 kHz). Any frequency above this limit will 'fold back' into a lower frequency, a phenomenon known as aliasing.",
+   "why": "The lesson defines the Nyquist limit as sr / 2. For a 10 kHz sample rate, this is 5000 Hz. It further states that 'Any frequency above this limit will appear as a fake frequency below it' due to aliasing."
+  }
+ ]
+}

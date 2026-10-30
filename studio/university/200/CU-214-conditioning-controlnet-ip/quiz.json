@@ -1,0 +1,62 @@
+{
+ "code": "CU-214",
+ "title": "Conditioning: img2img, inpaint, ControlNet, IP-Adapter",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the context of img2img, what is the effect of setting the denoising strength (s) to 0?",
+   "options": [
+    "The output is a completely new image loosely guided by the original.",
+    "The output is identical to the input because no noise is added.",
+    "The output is a blurry version of the input.",
+    "The model fails to generate an image."
+   ],
+   "answer": "The output is identical to the input because no noise is added.",
+   "why": "The lesson states: 'If s = 0, we add no noise. The output is identical to the input.'"
+  },
+  {
+   "q": "According to the lesson, what specific architectural mechanism allows ControlNet to be trained without disrupting the pretrained weights of the main model?",
+   "options": [
+    "Decoupled cross-attention layers",
+    "Zero-initialized convolution layers (zero convolutions)",
+    "Binary mask blending",
+    "Gaussian noise scaling"
+   ],
+   "answer": "Zero-initialized convolution layers (zero convolutions)",
+   "why": "The text explains that the ControlNet mechanism involves 'zero convolutions (zero-initialized convolution layers) that allow the ControlNet to be trained without disrupting the pretrained weights of the main model.'"
+  },
+  {
+   "q": "In the inpainting formula I_out = M * I_orig + (1 - M) * I_gen, what does a mask value of M = 1 indicate for a specific pixel?",
+   "options": [
+    "The pixel should be replaced by the generated image content.",
+    "The pixel should be preserved from the original image.",
+    "The pixel should be set to zero.",
+    "The pixel should be blurred."
+   ],
+   "answer": "The pixel should be preserved from the original image.",
+   "why": "The lesson defines the mask M where 'M_{i,j} = 1 if pixel (i,j) should be preserved' and notes that 'where M=1, the output is exactly I_orig.'"
+  },
+  {
+   "q": "What is the key design feature of IP-Adapter that allows it to process image prompts independently from text prompts?",
+   "options": [
+    "A binary mask blending system",
+    "A decoupled cross-attention mechanism",
+    "A zero-convolution architecture",
+    "A high denoising strength setting"
+   ],
+   "answer": "A decoupled cross-attention mechanism",
+   "why": "The lesson states that the key design for IP-Adapter is a 'decoupled cross-attention mechanism' which 'separates the cross-attention layers for text features and image features.'"
+  },
+  {
+   "q": "Based on the lab results, what does the value 'inpaint_max_diff_preserved = 0' prove about the inpainting process?",
+   "options": [
+    "The generated content in the masked area is identical to the original.",
+    "The mask blending formula works perfectly, ensuring no pixels outside the mask are altered.",
+    "The diffusion model failed to generate any new content.",
+    "The input image was corrupted during the process."
+   ],
+   "answer": "The mask blending formula works perfectly, ensuring no pixels outside the mask are altered.",
+   "why": "The lesson interprets this result as proving that 'the mask blending formula M * I_orig works perfectly; no pixels outside the mask are altered.'"
+  }
+ ]
+}

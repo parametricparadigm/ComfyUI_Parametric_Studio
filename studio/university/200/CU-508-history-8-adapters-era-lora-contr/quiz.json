@@ -1,0 +1,52 @@
+{
+ "code": "CU-508",
+ "title": "History 8: Adapters era: LoRA and ControlNet",
+ "level": "200",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary functional difference between LoRA and ControlNet?",
+   "options": [
+    "LoRA changes the spatial structure of the image, while ControlNet changes the style or subject.",
+    "LoRA changes what the model generates (style, character, concept), while ControlNet changes how it generates it (spatial structure, pose, edges).",
+    "LoRA requires retraining the entire base model, while ControlNet only requires loading a new checkpoint.",
+    "LoRA is used for transformer-based models only, while ControlNet is used for UNet-based models only."
+   ],
+   "answer": "LoRA changes what the model generates (style, character, concept), while ControlNet changes how it generates it (spatial structure, pose, edges).",
+   "why": "The 'Why this matters' section explicitly states: 'LoRA... for changing what the model generates (style, character, concept), and ControlNet for changing how it generates it (spatial structure, pose, edges).'"
+  },
+  {
+   "q": "In the context of LoRA, what is the mathematical formula for the effective weight during inference?",
+   "options": null,
+   "answer": "W_effective = W + α · (A · B)",
+   "why": "The 'Under the hood' section defines the effective weight during inference as: 'W_effective = W + α · (A · B)'."
+  },
+  {
+   "q": "Why are 'zero convolutions' used in the ControlNet architecture?",
+   "options": [
+    "To reduce the VRAM usage of the ControlNet branch during inference.",
+    "To ensure the base model's pre-trained knowledge is not corrupted by noise from the new, untrained ControlNet branch at the start of training.",
+    "To allow the ControlNet to replace the base UNet's encoder layers entirely.",
+    "To increase the learning rate of the base model weights during fine-tuning."
+   ],
+   "answer": "To ensure the base model's pre-trained knowledge is not corrupted by noise from the new, untrained ControlNet branch at the start of training.",
+   "why": "The 'Under the hood' section explains that zero convolutions mean the ControlNet branch has 'no effect' on the base model at the start, ensuring 'the base model's pre-trained knowledge is not corrupted by noise from the new, untrained ControlNet branch.'"
+  },
+  {
+   "q": "In the provided lab results, what does the value `max_diff_effective = 0` verify?",
+   "options": [
+    "That the LoRA update has no impact on the final image quality.",
+    "That the calculation of W_effective = W + ΔW is numerically exact with no floating-point error.",
+    "That the rank of the update matrix is exactly 2.",
+    "That the relative error between the original and effective weights is 0%."
+   ],
+   "answer": "That the calculation of W_effective = W + ΔW is numerically exact with no floating-point error.",
+   "why": "The 'Lab' section breakdown states: 'RESULT max_diff_effective = 0: This verifies that our calculation of W_effective = W + ΔW is numerically exact. There is no floating-point error in the reconstruction.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what is a recommended starting range for the rank (r) when training a LoRA?",
+   "options": null,
+   "answer": "r=16 or r=32",
+   "why": "The 'Common mistakes' section advises: 'Start with r=16 or r=32 and measure.'"
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "code": "CU-403",
+ "title": "Model merging: weighted, SLERP, task arithmetic",
+ "level": "400",
+ "questions": [
+  {
+   "q": "What is the primary computational advantage of model merging (creating a 'model soup') over using an ensemble of models?",
+   "options": [
+    "It requires less VRAM and compute during inference because it results in a single checkpoint.",
+    "It allows for real-time fine-tuning during the inference process.",
+    "It eliminates the need for a base model entirely.",
+    "It automatically corrects hallucinations without any manual intervention."
+   ],
+   "answer": "It requires less VRAM and compute during inference because it results in a single checkpoint.",
+   "why": "The lesson states that unlike an ensemble, which doubles VRAM and compute by running multiple models, a merged model is a single checkpoint where you pay the cost once at merge time and then just run one model."
+  },
+  {
+   "q": "In the context of Task Arithmetic, how is the 'task vector' defined?",
+   "options": [
+    "The sum of the weights of the fine-tuned model and the base model.",
+    "The difference between the fine-tuned model and the base model ($W_{fine} - W_{base}$).",
+    "The average of the weights of two different fine-tuned models.",
+    "The L2 norm of the fine-tuned model's weights."
+   ],
+   "answer": "The difference between the fine-tuned model and the base model ($W_{fine} - W_{base}$).",
+   "why": "The lesson explicitly defines the task vector $V$ as $V = W_{fine} - W_{base}$, describing it as the difference between the fine-tuned model and the base model."
+  },
+  {
+   "q": "Why is SLERP (Spherical Linear Interpolation) often preferred over linear interpolation for merging models where weight magnitude carries semantic meaning?",
+   "options": [
+    "It is computationally cheaper than linear interpolation.",
+    "It preserves the magnitude (norm) of the weights, avoiding the 'shrinkage' effect toward the origin.",
+    "It assumes the path between weights is a straight line through the center of the sphere.",
+    "It automatically scales the output to zero to prevent overfitting."
+   ],
+   "answer": "It preserves the magnitude (norm) of the weights, avoiding the 'shrinkage' effect toward the origin.",
+   "why": "The lesson explains that linear interpolation can cause the resulting vector to have a smaller norm (shrink toward the origin), while SLERP, when scaled to the average norm, perfectly preserves the magnitude of the weights."
+  },
+  {
+   "q": "According to the lab results, what was the norm of the SLERP merged vector, and how did it compare to the average of the parent norms?",
+   "options": null,
+   "answer": "The norm was 3.49621, which was exactly equal to the average of the parent norms.",
+   "why": "The lab results show `RESULT norm_slerp = 3.49621`. The analysis states that the average of the parent norms is $(3.61211 + 3.38031) / 2 = 3.49621$, confirming that SLERP perfectly preserved the magnitude."
+  },
+  {
+   "q": "What is a common mistake when using SLERP that can result in a model producing black images?",
+   "options": [
+    "Using a scalar weight ($\\alpha$) greater than 1.",
+    "Forgetting to scale the unit vector output back to the average norm of the inputs.",
+    "Adding the task vectors instead of interpolating the full weights.",
+    "Using a base model that has not been fine-tuned."
+   ],
+   "answer": "Forgetting to scale the unit vector output back to the average norm of the inputs.",
+   "why": "The 'Common mistakes' section states that the raw SLERP output is a unit vector, and if you forget to scale it back to the average norm, the model will have near-zero weights and produce black images."
+  }
+ ]
+}

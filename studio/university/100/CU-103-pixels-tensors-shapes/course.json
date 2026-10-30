@@ -1,0 +1,10 @@
+{
+ "title": "Pixels, tensors and shapes",
+ "level": "100",
+ "char": "bits",
+ "hook": "Why [B,H,W,C] and [B,C,H,W] both exist and what breaks when you mix them.",
+ "code": "CU-103",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

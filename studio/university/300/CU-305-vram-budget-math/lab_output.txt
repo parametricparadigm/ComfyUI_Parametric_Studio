@@ -1,0 +1,32 @@
+RESULT 12B_fp32 = 6.624e+10
+RESULT 12B_bf16 = 3.312e+10
+RESULT 12B_fp8 = 1.656e+10
+RESULT 12B_4bit = 8.28e+09
+RESULT 4B_fp32 = 2.208e+10
+RESULT 4B_bf16 = 1.104e+10
+RESULT 4B_fp8 = 5.52e+09
+RESULT 4B_4bit = 2.76e+09
+
+--- Fit Analysis ---
+
+24GB GPU (available: 20.00 GB after reserve):
+  12B @ fp32: 61.69 GB -> DOES NOT FIT
+  12B @ bf16: 30.85 GB -> DOES NOT FIT
+  12B @ fp8: 15.42 GB -> FITS
+  12B @ 4bit: 7.71 GB -> FITS
+  4B @ fp32: 20.56 GB -> DOES NOT FIT
+  4B @ bf16: 10.28 GB -> FITS
+  4B @ fp8: 5.14 GB -> FITS
+  4B @ 4bit: 2.57 GB -> FITS
+
+96GB GPU (available: 92.00 GB after reserve):
+  12B @ fp32: 61.69 GB -> FITS
+  12B @ bf16: 30.85 GB -> FITS
+  12B @ fp8: 15.42 GB -> FITS
+  12B @ 4bit: 7.71 GB -> FITS
+  4B @ fp32: 20.56 GB -> FITS
+  4B @ bf16: 10.28 GB -> FITS
+  4B @ fp8: 5.14 GB -> FITS
+  4B @ 4bit: 2.57 GB -> FITS
+
+All assertions passed!

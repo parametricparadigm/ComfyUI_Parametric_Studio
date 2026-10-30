@@ -1,0 +1,781 @@
+{
+ "version": 1,
+ "built": "2026-10-30",
+ "source": "Hugging Face public file listings",
+ "goals": {
+  "image": {
+   "note": "FLUX.2 Klein 4B, 4-step distilled (Apache-2.0)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/Flux-2-Klein-4B",
+     "path": "split_files/diffusion_models/flux-2-klein-4b.safetensors",
+     "dest": "diffusion_models/flux-2-klein-4b.safetensors",
+     "size_gb": 7.22,
+     "sha256": "ec3d4e733a771f61c052fb4856c48b336c55eaf2c65487c2a1faeb9bbda7a343",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/Flux-2-Klein-4B",
+     "path": "split_files/text_encoders/qwen_3_4b.safetensors",
+     "dest": "text_encoders/qwen_3_4b.safetensors",
+     "size_gb": 7.49,
+     "sha256": "6c671498573ac2f7a5501502ccce8d2b08ea6ca2f661c458e708f36b36edfc5a",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/Flux-2-Klein-4B",
+     "path": "split_files/vae/flux2-vae.safetensors",
+     "dest": "vae/flux2-vae.safetensors",
+     "size_gb": 0.31,
+     "sha256": "868fe7b343cc8f3a19dbcfcafbc3d5f888802be3f89bd81b65b3621a066ce8f3",
+     "gated": false
+    }
+   ]
+  },
+  "video": {
+   "note": "Wan 2.2 TI2V 5B (Apache-2.0); also used by Animate",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors",
+     "dest": "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors",
+     "size_gb": 9.31,
+     "sha256": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+     "dest": "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+     "size_gb": 6.27,
+     "sha256": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/vae/wan2.2_vae.safetensors",
+     "dest": "vae/wan2.2_vae.safetensors",
+     "size_gb": 1.31,
+     "sha256": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156",
+     "gated": false
+    }
+   ]
+  },
+  "anime": {
+   "note": "Anima, anime and illustration (non-commercial licence)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "circlestone-labs/Anima",
+     "path": "split_files/diffusion_models/anima-aesthetic-v1.1.safetensors",
+     "dest": "diffusion_models/anima-aesthetic-v1.1.safetensors",
+     "size_gb": 3.9,
+     "sha256": "3c1868387a3a1ff504bbb87c33678321965ead381fcf87afbd0264daa600c082",
+     "gated": false
+    },
+    {
+     "role": "unet",
+     "repo": "circlestone-labs/Anima",
+     "path": "split_files/diffusion_models/anima-turbo-v1.1.safetensors",
+     "dest": "diffusion_models/anima-turbo-v1.1.safetensors",
+     "size_gb": 3.9,
+     "sha256": "fba11953276b57edf59d1dc4f1857ac05aa079c56f982b4d7c20298d57d3f7eb",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "circlestone-labs/Anima",
+     "path": "split_files/text_encoders/qwen_3_06b_base.safetensors",
+     "dest": "text_encoders/qwen_3_06b_base.safetensors",
+     "size_gb": 1.11,
+     "sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "circlestone-labs/Anima",
+     "path": "split_files/vae/qwen_image_vae.safetensors",
+     "dest": "vae/qwen_image_vae.safetensors",
+     "size_gb": 0.24,
+     "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f",
+     "gated": false
+    }
+   ]
+  },
+  "flux3": {
+   "note": "FLUX.3 Klein (gated: accept the licence on Hugging Face)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "black-forest-labs/flux-3-image-klein-comfy",
+     "path": "diffusion_models/flux3-image-klein-bf16.safetensors",
+     "dest": "diffusion_models/flux3-image-klein-bf16.safetensors",
+     "size_gb": 10.34,
+     "sha256": "c3e9813cdd049c831c836b2e9db61150e49a93fc1a4c63b256494642fee0bd7c",
+     "gated": true
+    },
+    {
+     "role": "text_encoder",
+     "repo": "black-forest-labs/flux-3-image-klein-comfy",
+     "path": "text_encoders/qwen3vl_4b_bf16.safetensors",
+     "dest": "text_encoders/qwen3vl_4b_bf16.safetensors",
+     "size_gb": 8.27,
+     "sha256": "f0b24fc5c8d7c0ea6ca909da14c20af5cac53f22506be942c6c956f838b9630f",
+     "gated": true
+    },
+    {
+     "role": "vae",
+     "repo": "black-forest-labs/flux-3-image-klein-comfy",
+     "path": "vae/flux2-vae.safetensors",
+     "dest": "vae/flux2-vae.safetensors",
+     "size_gb": 0.31,
+     "sha256": "868fe7b343cc8f3a19dbcfcafbc3d5f888802be3f89bd81b65b3621a066ce8f3",
+     "gated": true
+    }
+   ]
+  },
+  "video_ltx": {
+   "note": "LTX-2.5 distilled, int8 (gated: accept the licence on Hugging Face)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+     "dest": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+     "size_gb": 20.03,
+     "sha256": "c4279eeff115cbeaca494bd2183e7d768c38fe85a184dc6afbb7159157c44334",
+     "gated": true
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+     "dest": "text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+     "size_gb": 14.32,
+     "sha256": "6ce688a0aa98a5fa36a9f1e6c3f42152a498cc2b53ee8c15674c64244f91487f",
+     "gated": true
+    },
+    {
+     "role": "vae",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+     "dest": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+     "size_gb": 1.35,
+     "sha256": "685b06ee3d9b2039647698fc4ea33175112462fc374e2777312c907897dfce8d",
+     "gated": true
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+     "dest": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+     "size_gb": 0.34,
+     "sha256": "c52733d37f6a7fb7949c3dc0fb468c6cb2169e4d836983a73babb9f0d54837a5",
+     "gated": true
+    }
+   ]
+  },
+  "h3_video": {
+   "note": "MiniMax H3, pruned int8 (community licence). Smaller/larger variants exist in the same repo: pruned w6a8 14.9 GB, pruned bf16 37.5 GB, bf16 61.7 GB",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "dest": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "size_gb": 0.56,
+     "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "dest": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "size_gb": 1.82,
+     "sha256": "2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e",
+     "gated": false
+    }
+   ]
+  },
+  "music": {
+   "note": "MiniMax Music 3 (MiniMax-Music3 community licence). The pruned bf16 encoder is the one the workflow was proven with; a pruned int8 build, 8.6 GB, exists in the same repo and the file-name resolver accepts it",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-Music-3",
+     "path": "diffusion_models/minimax_music3_dit_fp16.safetensors",
+     "dest": "diffusion_models/minimax_music3_dit_fp16.safetensors",
+     "size_gb": 4.58,
+     "sha256": "45494a2b6b69af115902ff28eaf54118d19067aa54da01000f3e3efce7ba0e34",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-Music-3",
+     "path": "text_encoders/minimax_music3_text_encoder_pruned_bf16.safetensors",
+     "dest": "text_encoders/minimax_music3_text_encoder_pruned_bf16.safetensors",
+     "size_gb": 15.56,
+     "sha256": "e81e469c92af324dc69b77e5a11179e22542a6d628f2b205c8cf6143e510d976",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-Music-3",
+     "path": "vae/minimax_music3_dav.safetensors",
+     "dest": "vae/minimax_music3_dav.safetensors",
+     "size_gb": 0.2,
+     "sha256": "2a32155b769be01445fcc2a8663b910fc9e1751e18dc1c3ec528064512d9ef0c",
+     "gated": false
+    }
+   ]
+  },
+  "animate": {
+   "note": "Wan 2.2 TI2V 5B (Apache-2.0); also used by Animate",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors",
+     "dest": "diffusion_models/wan2.2_ti2v_5B_fp16.safetensors",
+     "size_gb": 9.31,
+     "sha256": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+     "dest": "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+     "size_gb": 6.27,
+     "sha256": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/vae/wan2.2_vae.safetensors",
+     "dest": "vae/wan2.2_vae.safetensors",
+     "size_gb": 1.31,
+     "sha256": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156",
+     "gated": false
+    }
+   ]
+  },
+  "h3_animate": {
+   "note": "MiniMax H3, pruned int8 (community licence). Smaller/larger variants exist in the same repo: pruned w6a8 14.9 GB, pruned bf16 37.5 GB, bf16 61.7 GB",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "dest": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "size_gb": 0.56,
+     "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "dest": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "size_gb": 1.82,
+     "sha256": "2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e",
+     "gated": false
+    }
+   ]
+  },
+  "animate_ltx": {
+   "note": "LTX-2.5 distilled, int8 (gated: accept the licence on Hugging Face)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+     "dest": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+     "size_gb": 20.03,
+     "sha256": "c4279eeff115cbeaca494bd2183e7d768c38fe85a184dc6afbb7159157c44334",
+     "gated": true
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+     "dest": "text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+     "size_gb": 14.32,
+     "sha256": "6ce688a0aa98a5fa36a9f1e6c3f42152a498cc2b53ee8c15674c64244f91487f",
+     "gated": true
+    },
+    {
+     "role": "vae",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+     "dest": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+     "size_gb": 1.35,
+     "sha256": "685b06ee3d9b2039647698fc4ea33175112462fc374e2777312c907897dfce8d",
+     "gated": true
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+     "dest": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+     "size_gb": 0.34,
+     "sha256": "c52733d37f6a7fb7949c3dc0fb468c6cb2169e4d836983a73babb9f0d54837a5",
+     "gated": true
+    }
+   ]
+  },
+  "recast": {
+   "note": "MiniMax H3 Ref2VA, pruned int8, with the akatz-ai character swap LoRA (both MiniMax H3 Community License)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "dest": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "size_gb": 0.56,
+     "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "akatz-ai/MiniMax-H3-Character-Swap-LoRA",
+     "path": "h3_character_swap_pro4500_1000.safetensors",
+     "dest": "loras/h3_character_swap_pro4500_1000.safetensors",
+     "size_gb": 0.14,
+     "sha256": "4b2a3f420ae804c0aa3422761ff84dbd1bf52eef6900ffab6d2e66df63cb4e79",
+     "gated": false
+    }
+   ]
+  },
+  "orbit360": {
+   "note": "MiniMax H3 FL2VA, pruned int8, with pablodawson's 360 orbit LoRA (MiniMax H3 Community License)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "pablodawson/MiniMax-H3-360-Orbit-LoRA",
+     "path": "minimax_h3_flf2v_lora_v1.safetensors",
+     "dest": "loras/minimax_h3_flf2v_lora_v1.safetensors",
+     "size_gb": 0.14,
+     "sha256": "14f13e3effaf3e729fdc0c97680344aa63f473be0c55963f963d718b3db2a4d4",
+     "gated": false
+    }
+   ]
+  },
+  "vfx_ltx": {
+   "note": "LTX-2.5 distilled, int8, with four IC-LoRAs (gated: accept each licence on Hugging Face)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+     "dest": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+     "size_gb": 20.03,
+     "sha256": "c4279eeff115cbeaca494bd2183e7d768c38fe85a184dc6afbb7159157c44334",
+     "gated": true
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+     "dest": "text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+     "size_gb": 14.32,
+     "sha256": "6ce688a0aa98a5fa36a9f1e6c3f42152a498cc2b53ee8c15674c64244f91487f",
+     "gated": true
+    },
+    {
+     "role": "vae",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+     "dest": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+     "size_gb": 1.35,
+     "sha256": "685b06ee3d9b2039647698fc4ea33175112462fc374e2777312c907897dfce8d",
+     "gated": true
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Lightricks/LTX-2.5",
+     "path": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+     "dest": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+     "size_gb": 0.34,
+     "sha256": "c52733d37f6a7fb7949c3dc0fb468c6cb2169e4d836983a73babb9f0d54837a5",
+     "gated": true
+    },
+    {
+     "role": "lora",
+     "repo": "Lightricks/LTX-2.5-22b-IC-LoRA-Clean-Plate",
+     "path": "ltx-2.5-22b-ic-lora-clean-plate-1.0.safetensors",
+     "dest": "loras/ltx-2.5-22b-ic-lora-clean-plate-1.0.safetensors",
+     "size_gb": 0.3,
+     "sha256": "27f4f7ba552d3bf7273dd817291123a5934f17e7698ca9cd8945b079a5358393",
+     "gated": true
+    },
+    {
+     "role": "lora",
+     "repo": "Lightricks/LTX-2.5-22b-IC-LoRA-Water-Simulation",
+     "path": "ltx-2.5-22b-ic-lora-water-simulation-0.9.safetensors",
+     "dest": "loras/ltx-2.5-22b-ic-lora-water-simulation-0.9.safetensors",
+     "size_gb": 0.84,
+     "sha256": "58c244d24a4381858749e66fae9fd1b91aec6b546f83f3f81a7a10b4934a7857",
+     "gated": true
+    },
+    {
+     "role": "lora",
+     "repo": "Lightricks/LTX-2.5-22b-IC-LoRA-Day-To-Night",
+     "path": "ltx-2.5-22b-ic-lora-day-to-night-0.9.safetensors",
+     "dest": "loras/ltx-2.5-22b-ic-lora-day-to-night-0.9.safetensors",
+     "size_gb": 0.3,
+     "sha256": "2212838ea446628a07eddb57734427b2150e9cf159b19360cda28365a30b275b",
+     "gated": true
+    },
+    {
+     "role": "lora",
+     "repo": "Lightricks/LTX-2.5-22b-IC-LoRA-Alpha-Gen",
+     "path": "ltx-2.5-22b-ic-lora-alpha-gen-0.9.safetensors",
+     "dest": "loras/ltx-2.5-22b-ic-lora-alpha-gen-0.9.safetensors",
+     "size_gb": 1.22,
+     "sha256": "d9e143f979e0756f0c83d772e6a8890f4c6b933db1f7d93fc06e25c179f3fd36",
+     "gated": true
+    }
+   ]
+  },
+  "reshoot": {
+   "note": "MiniMax H3, pruned int8 (community licence). Smaller/larger variants exist in the same repo: pruned w6a8 14.9 GB, pruned bf16 37.5 GB, bf16 61.7 GB",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "dest": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "size_gb": 0.56,
+     "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "dest": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "size_gb": 1.82,
+     "sha256": "2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e",
+     "gated": false
+    }
+   ]
+  },
+  "director": {
+   "note": "MiniMax H3, pruned int8 (community licence). Smaller/larger variants exist in the same repo: pruned w6a8 14.9 GB, pruned bf16 37.5 GB, bf16 61.7 GB",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "dest": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "size_gb": 0.56,
+     "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "dest": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "size_gb": 1.82,
+     "sha256": "2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e",
+     "gated": false
+    }
+   ]
+  },
+  "director_keyframes": {
+   "note": "MiniMax H3, pruned int8 (community licence). Smaller/larger variants exist in the same repo: pruned w6a8 14.9 GB, pruned bf16 37.5 GB, bf16 61.7 GB",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "dest": "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+     "size_gb": 19.53,
+     "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "dest": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+     "size_gb": 14.61,
+     "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "dest": "vae/minimax_h3_video_vae_fp16.safetensors",
+     "size_gb": 4.85,
+     "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+     "gated": false
+    },
+    {
+     "role": "audio_vae",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "dest": "vae/minimax_h3_audio_vae_fp32.safetensors",
+     "size_gb": 0.56,
+     "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+     "gated": false
+    },
+    {
+     "role": "lora",
+     "repo": "Comfy-Org/MiniMax-H3",
+     "path": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "dest": "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+     "size_gb": 1.82,
+     "sha256": "2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e",
+     "gated": false
+    }
+   ]
+  },
+  "reshoot_wan": {
+   "note": "Wan 2.2 Fun Camera 14B (Apache-2.0)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/diffusion_models/wan2.2_fun_camera_high_noise_14B_fp8_scaled.safetensors",
+     "dest": "diffusion_models/wan2.2_fun_camera_high_noise_14B_fp8_scaled.safetensors",
+     "size_gb": 14.25,
+     "sha256": "89a99cb5ab29e388f2e24fddac48eab4d88ca339d236c7a8d96aabacd0f525ae",
+     "gated": false
+    },
+    {
+     "role": "unet",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/diffusion_models/wan2.2_fun_camera_low_noise_14B_fp8_scaled.safetensors",
+     "dest": "diffusion_models/wan2.2_fun_camera_low_noise_14B_fp8_scaled.safetensors",
+     "size_gb": 14.25,
+     "sha256": "a2b7b361e3fad907958aa6ad662a3673bad5ffdce14706cffde4baabb98f9020",
+     "gated": false
+    },
+    {
+     "role": "text_encoder",
+     "repo": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
+     "path": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+     "dest": "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+     "size_gb": 6.27,
+     "sha256": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+     "gated": false
+    },
+    {
+     "role": "vae",
+     "repo": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+     "path": "split_files/vae/wan_2.1_vae.safetensors",
+     "dest": "vae/wan_2.1_vae.safetensors",
+     "size_gb": 0.24,
+     "sha256": "2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b",
+     "gated": false
+    }
+   ]
+  },
+  "product": {
+   "note": "FLUX.3 Klein (gated: accept the licence on Hugging Face)",
+   "files": [
+    {
+     "role": "unet",
+     "repo": "black-forest-labs/flux-3-image-klein-comfy",
+     "path": "diffusion_models/flux3-image-klein-bf16.safetensors",
+     "dest": "diffusion_models/flux3-image-klein-bf16.safetensors",
+     "size_gb": 10.34,
+     "sha256": "c3e9813cdd049c831c836b2e9db61150e49a93fc1a4c63b256494642fee0bd7c",
+     "gated": true
+    },
+    {
+     "role": "text_encoder",
+     "repo": "black-forest-labs/flux-3-image-klein-comfy",
+     "path": "text_encoders/qwen3vl_4b_bf16.safetensors",
+     "dest": "text_encoders/qwen3vl_4b_bf16.safetensors",
+     "size_gb": 8.27,
+     "sha256": "f0b24fc5c8d7c0ea6ca909da14c20af5cac53f22506be942c6c956f838b9630f",
+     "gated": true
+    },
+    {
+     "role": "vae",
+     "repo": "black-forest-labs/flux-3-image-klein-comfy",
+     "path": "vae/flux2-vae.safetensors",
+     "dest": "vae/flux2-vae.safetensors",
+     "size_gb": 0.31,
+     "sha256": "868fe7b343cc8f3a19dbcfcafbc3d5f888802be3f89bd81b65b3621a066ce8f3",
+     "gated": true
+    }
+   ]
+  }
+ }
+}

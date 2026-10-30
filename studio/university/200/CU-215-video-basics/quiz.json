@@ -1,0 +1,52 @@
+{
+ "code": "CU-215",
+ "title": "Video basics: frames, fps and temporal latents",
+ "level": "200",
+ "questions": [
+  {
+   "q": "According to the lesson, why is the '4k+1 rule' necessary for the number of input frames in video models using temporal compression?",
+   "options": [
+    "To ensure the first frame is handled correctly and the rest are compressed in clean chunks without breaking causal structure",
+    "To reduce the spatial resolution of the video by a factor of 8",
+    "To allow the model to process pixels directly instead of latents",
+    "To double the frame rate of the generated video"
+   ],
+   "answer": "To ensure the first frame is handled correctly and the rest are compressed in clean chunks without breaking causal structure",
+   "why": "The lesson states: 'This ensures the first frame is handled correctly and the rest are compressed in clean chunks.' It also mentions that without this alignment, you 'can't divide them evenly into groups of 4 without breaking the causal structure'."
+  },
+  {
+   "q": "Calculate the number of latent temporal steps ($T_{latent}$) for a video with 121 input frames using the formula provided in the lesson.",
+   "options": null,
+   "answer": "31",
+   "why": "The lesson provides the formula $T_{latent} = (F_{in} - 1) / 4 + 1$. For $F_{in} = 121$, the calculation is $(121 - 1) / 4 + 1 = 30 + 1 = 31$."
+  },
+  {
+   "q": "If you double the number of frames (tokens) in a video, by what factor does the self-attention compute cost increase?",
+   "options": [
+    "2x",
+    "4x",
+    "8x",
+    "16x"
+   ],
+   "answer": "4x",
+   "why": "The lesson explains that attention cost scales quadratically ($N^2$). It explicitly states: 'Doubling your video length quadruples your compute cost' and shows the ratio calculation as 4."
+  },
+  {
+   "q": "What is the primary function of `CausalConv3d` in video VAEs like `AutoencoderKLCogVideoX`?",
+   "options": [
+    "To compress spatial dimensions by a factor of 8",
+    "To ensure temporal causality and prevent future information from leaking into the past",
+    "To convert text prompts into latent vectors",
+    "To manage memory by decoding video in chunks"
+   ],
+   "answer": "To ensure temporal causality and prevent future information from leaking into the past",
+   "why": "The lesson states that `CausalConv3d` is used 'to maintain causality and alignment' and that using non-causal convolutions 'can leak future information into the past, breaking the video's temporal consistency.'"
+  },
+  {
+   "q": "For a 768x512 input image compressed by a factor of 8x, what are the resulting latent spatial dimensions ($H_{latent}$ and $W_{latent}$)?",
+   "options": null,
+   "answer": "96x64",
+   "why": "The lesson provides the calculation: $H_{latent} = 768 / 8 = 96$ and $W_{latent} = 512 / 8 = 64$."
+  }
+ ]
+}

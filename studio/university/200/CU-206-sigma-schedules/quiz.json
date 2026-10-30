@@ -1,0 +1,62 @@
+{
+ "code": "CU-206",
+ "title": "Sigma schedules: where the steps go",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What does a scheduler produce?",
+   "options": [
+    "The latent image",
+    "The list of noise levels the sampler will visit",
+    "The text embedding",
+    "The model weights"
+   ],
+   "answer": "The list of noise levels the sampler will visit",
+   "why": "calculate_sigmas in comfy/samplers.py returns that list, ending at 0."
+  },
+  {
+   "q": "Karras et al. found ρ = 3 nearly equalises per-step truncation error. Why use ρ = 7?",
+   "options": [
+    "ρ must be odd",
+    "It is required by the ODE",
+    "ρ between 5 and 10 gave better images, which suggests errors near σ_min matter a lot",
+    "It uses less memory"
+   ],
+   "answer": "ρ between 5 and 10 gave better images, which suggests errors near σ_min matter a lot",
+   "why": "Stated in their section 3. The value comes from experiment on images."
+  },
+  {
+   "q": "What does a flow shift above 1 do?",
+   "options": [
+    "Spends more of the steps at high noise",
+    "Spends more steps at low noise",
+    "Changes the VAE",
+    "Disables CFG"
+   ],
+   "answer": "Spends more of the steps at high noise",
+   "why": "The lab shows shift 3 at 8 steps: 1.000, 0.955, 0.900, against 1.000, 0.875, 0.750 for shift 1."
+  },
+  {
+   "q": "In the lab, what does `normal` at 10 steps with DPM++ 2M show?",
+   "options": [
+    "normal is always the worst schedule",
+    "DPM++ 2M is broken",
+    "The best schedule depends on the solver: normal is fine with Euler but far worse with DPM++ 2M here",
+    "Schedules do not matter"
+   ],
+   "answer": "The best schedule depends on the solver: normal is fine with Euler but far worse with DPM++ 2M here",
+   "why": "Its Euler error is mid-table, while its DPM++ 2M error at 10 steps is six times exponential's."
+  },
+  {
+   "q": "Why does ComfyUI scale the first noise by √(1+σ²) at full denoise?",
+   "options": [
+    "To save memory",
+    "To include the latent's own variance of about 1",
+    "To make the seed unique",
+    "Because of the VAE scale factor"
+   ],
+   "answer": "To include the latent's own variance of about 1",
+   "why": "EPS.noise_scaling uses it. With x = x_0 + σε and unit-variance latents, the total variance is 1 + σ²."
+  }
+ ]
+}

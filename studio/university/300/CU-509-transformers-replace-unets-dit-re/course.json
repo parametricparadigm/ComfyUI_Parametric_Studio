@@ -1,0 +1,12 @@
+{
+ "title": "History 9: Transformers replace U-Nets: DiT and rectified flow",
+ "level": "300",
+ "char": "attn",
+ "hook": "Discover how Diffusion Transformers (DiT) and rectified flow are reshaping the landscape of generative AI by moving away from traditional U-Net architectures.",
+ "code": "CU-509",
+ "prereq": [
+  "CU-303"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

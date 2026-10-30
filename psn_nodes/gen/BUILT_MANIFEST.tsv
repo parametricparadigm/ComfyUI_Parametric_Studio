@@ -1,0 +1,540 @@
+slug	section	decision	nodes_or_reason	partial	builder_statement
+n_10_multi_view_consistent_image_generatio	10	merged	PSN_MultiView_Generator		
+n_6_simplified_multi_controlnet_workflows	10	rejected	a node class lacks INPUT_TYPES		
+n_8_anime_specific_pose_segmentation	10	merged	PSN_Anime_Pose_Estimator,PSN_Anime_Segmentor		
+n_1_automated_face_quality_gate	16	merged	PSN_FaceQualityScorer,PSN_QualityGateRouter		Implemented two ComfyUI nodes in n_1_automated_face_quality_gate.py: PSN_FaceQualityScorer (scores IMAGE via pure-torch CPU heuristics: Laplacian sharpness, high-frequency artifact/noise energy, and o
+n_7_character_consistency_cache	16	merged	PSN_CharacterFeatureCache,PSN_CachedIdentityGenerator		Implemented two ComfyUI custom nodes for character consistency: PSN_CharacterFeatureCache (extracts deterministic features from a reference image via mean/std pooling + fixed random projection, stores
+n_10_workflow_group_control	17	merged	PSN_Group_Bypass,PSN_Node_Gate		Implemented two ComfyUI custom nodes for workflow group control: PSN_Group_Bypass (emits a BOOLEAN bypass signal based on group_id + enabled flag) and PSN_Node_Gate (passes input through unchanged whe
+n_1_vram_aware_model_switching	17	merged	PSN_VRAM_Check,PSN_VRAM_Model_Switch		Implemented two ComfyUI custom nodes for VRAM-aware model switching: PSN_VRAM_Check (reports whether enough VRAM is free, with a force_result override for testing) and PSN_VRAM_Model_Switch (selects h
+n_2_batch_prompt_aggregation	17	merged	PSN_Batch_Prompt_Loop,PSN_Accumulate_Json		Implemented two ComfyUI custom nodes in n_2_batch_prompt_aggregation.py: PSN_Batch_Prompt_Loop (extracts the next prompt from a list and advances a context index) and PSN_Accumulate_Json (appends a ge
+n_3_conditional_upscaling_pipeline	17	merged	PSN_Quality_Gate,PSN_Upscale_Switch		Implemented PSN_Quality_Gate and PSN_Upscale_Switch nodes. The gate compares quality_score vs threshold (score < threshold -> needs_upscale=True). The switch passes the image through unchanged when fl
+n_5_dynamic_pipeline_routing	17	merged	PSN_Request_Router		Implemented PSN_Request_Router, a ComfyUI custom node that routes an ANY payload to one of three outputs (video_payload, music_payload, image_payload) based on a case-insensitive, whitespace-tolerant 
+n_7_parameter_bundling_for_reusability	17	rejected	a node class lacks INPUT_TYPES		Implemented two ComfyUI custom nodes for parameter bundling: PSN_Param_Bundle (packs seed/steps/cfg into a PSN_Bundle object) and PSN_Param_Unbundle (unpacks a PSN_Bundle back into individual values).
+n_8_error_handling_retry_logic	17	merged	PSN_Error_Catcher,PSN_Retry_Switch		Implemented PSN_Error_Catcher and PSN_Retry_Switch nodes for error handling and retry logic. PSN_Error_Catcher checks an error_flag and captures error messages, passing through the output on success o
+n_2_hdr_grading_for_image_outputs	21	merged	PSN_HDR_Tone_Map		Implemented PSN_HDR_Tone_Map, a ComfyUI custom node for HDR tone mapping and color grading. It converts sRGB input to linear light, applies exposure, tone maps via Reinhard, ACES (Narkowicz approximat
+n_4_semantic_masking_for_inpainting	21	merged	PSN_Semantic_Mask_Gen		Implemented PSN_Semantic_Mask_Gen, a ComfyUI custom node for semantic masking for inpainting. The node uses a lightweight torch-based heuristic (luminance/saturation priors) to generate foreground mas
+n_5_nuke_style_compositing_for_layers	21	merged	PSN_Nuke_Composite		Implemented PSN_Nuke_Composite, a ComfyUI custom node for Nuke-style layer compositing. It takes base_image (IMAGE), overlay_image (IMAGE), mask (MASK), blend_mode (Normal/Screen/Multiply/Overlay), an
+n_6_pbr_texture_generation_from_images	21	merged	PSN_PBR_Delight		Implemented PSN_PBR_Delight, a ComfyUI custom node that converts a flat albedo IMAGE into a PBR material set (Albedo, Roughness, Normal) using a pure-torch procedural delighting estimator: Sobel gradi
+n_7_image_quality_metrics_for_qa	21	merged	PSN_Quality_Metrics		Implemented PSN_Quality_Metrics ComfyUI node in n_7_image_quality_metrics_for_qa.py. It computes full-reference image quality metrics (SSIM, PSNR, and a DISTS proxy) between an image and a reference i
+n_8_batch_resize_pad_for_datasets	21	merged	PSN_Batch_Resize_Pad		Implemented PSN_Batch_Resize_Pad ComfyUI custom node that batch-processes images by resizing each to fit within target_width x target_height (preserving aspect ratio via bilinear interpolation) and pa
+n_9_vr180_projection_conversion	21	merged	PSN_VR180_Convert		Implemented PSN_VR180_Convert: warps a rectilinear IMAGE into a cylindrical projection and crops to a 180-degree horizontal range, producing a VR180-compatible IMAGE. Uses torch CPU grid_sample; no he
+n_10_unified_llm_context_orchestration	22	rejected	a node class lacks INPUT_TYPES		Implemented two ComfyUI custom nodes for unified LLM context orchestration: PSN_LLM_Context_Orchestrator (swaps provider/model on a PSN_LLMContext dataclass, preserving history) and PSN_LLM_History_Ma
+n_1_automated_lora_dataset_captioning	22	merged	PSN_VLM_Caption_Generator,PSN_Caption_Auditor		Implemented two ComfyUI custom nodes for automated LoRA dataset captioning: PSN_VLM_Caption_Generator (builds style-specific system prompts, extracts deterministic image statistics from the IMAGE tens
+n_2_dynamic_prompt_refinement_loop	22	merged	PSN_Prompt_Refiner_Loop,PSN_Prompt_Structure_Enforcer		Implemented PSN_Prompt_Refiner_Loop and PSN_Prompt_Structure_Enforcer as pure-Python ComfyUI nodes. The refiner iteratively refines a prompt using a mock/inline LLM policy (encoded as a STRING handle 
+n_6_multimodal_video_frame_analysis	22	merged	PSN_Scene_Transition_Detector,PSN_Video_Frame_Captioner		Implemented two ComfyUI custom nodes in n_6_multimodal_video_frame_analysis.py: PSN_Scene_Transition_Detector (histogram-difference scene change detection using torch.histc, returns INT tuple of bound
+n_10_in_memory_media_management_for_fast_i	26	merged	PSN_Memory_Media_Manager,PSN_Memory_Media_Clear		Implemented PSN_Memory_Media_Manager (and a helper PSN_Memory_Media_Clear) as a ComfyUI custom-node module. The node accepts an IMAGE tensor plus a media_path/cache_key string and a max_cache_size INT
+n_2_s3_backed_asset_ingestion_for_remote_w	26	merged	PSN_S3_Asset_Loader		Implemented PSN_S3_Asset_Loader, a ComfyUI custom node for S3-backed asset ingestion. The node validates S3 configuration (bucket, key, region, credentials), simulates the download pipeline with deter
+n_3_automated_aspect_ratio_cropping_for_sd	26	merged	PSN_Auto_Aspect_Crop		Implemented PSN_Auto_Aspect_Crop, a ComfyUI custom node that crops IMAGE tensors [B,H,W,C] to target SDXL/Flux aspect ratios (1:1, 16:9, 9:16, 4:3, 3:4, or custom WxH) using center, face, or smart cro
+n_4_llm_enhanced_prompt_generation_via_oll	26	merged	PSN_Ollama_Prompt_Enhancer		Implemented PSN_Ollama_Prompt_Enhancer, a ComfyUI custom node for LLM-enhanced prompt generation via Ollama. The node accepts a short prompt, style (realistic/anime/cinematic/none), max_tokens, and op
+n_5_folder_based_batch_queueing_for_image_	26	merged	PSN_Folder_Batch_Queue		Implemented PSN_Folder_Batch_Queue: a ComfyUI custom node that queues image files for batch processing. It accepts an in-memory manifest (list of dicts with name/mtime/data), filters by glob pattern, 
+n_6_workflow_organization_with_loader_cont	26	merged	PSN_Workflow_Structure		Implemented PSN_Workflow_Structure node that enforces a Loader -> Controller -> Sampler structure in ComfyUI workflows. The node validates the presence and type of each input (loader_output as ANY, co
+n_9_video_dubbing_pipeline_integration	26	merged	PSN_Video_Dubbing		Implemented PSN_Video_Dubbing, a ComfyUI custom node that simulates a video dubbing pipeline (translate + dub + optional lip-sync). Since the real Alta API requires network access (forbidden here), th
+n_10_multi_gpu_distribution_for_large_mode	29	merged	PSN_Distribute_Model,PSN_Gather_Results		Implemented two ComfyUI custom nodes for multi-GPU distribution planning: PSN_Distribute_Model (computes layer assignment across devices via round-robin, estimates VRAM per device, and produces a huma
+n_2_vram_optimization_for_shared_gpu	29	rejected	scan: setattr(		Implemented 6 ComfyUI custom nodes for VRAM optimization on shared GPUs: PSN_Set_Model_Precision (converts model weights to fp16/bf16/fp32/int8 with optional non-core layer offload to CPU), PSN_Disabl
+n_3_fast_model_loading_via_gpu_residency	29	merged	PSN_Register_Resident_Model,PSN_Get_Resident_Model,PSN_Resident_Cache_Info		Implemented PSN_Register_Resident_Model, PSN_Get_Resident_Model, and PSN_Resident_Cache_Info nodes backed by a module-level OrderedDict LRU cache with TTL expiry (max 8 entries). Models are stored as 
+n_6_3d_model_processing_pipeline	29	merged	PSN_Load_3D_Mesh,PSN_3D_To_Image		Implemented a ComfyUI custom-node module for 3D model processing with two nodes: PSN_Load_3D_Mesh (loads a mesh from inline OBJ text or generates a default cube, with optional normalization, and produ
+n_7_voice_cloning_and_audio_generation	29	merged	PSN_Load_Voice_Reference,PSN_Generate_Speech		Implemented two ComfyUI nodes for voice cloning and audio generation using only torch (CPU) and stdlib. PSN_Load_Voice_Reference derives a deterministic 32-dim pseudo speaker-embedding from the audio_
+n_9_real_time_workflow_execution	29	merged	PSN_Realtime_Loop,PSN_Motion_Detect		Implemented two ComfyUI custom nodes in n_9_real_time_workflow_execution.py: PSN_Realtime_Loop (emits frames from a batched IMAGE source at a target FPS, with optional pacing via time.sleep, wrap-arou
+n_10_automated_model_pruning_for_speed	31	merged	PSN_ModelPruner		
+n_2_vram_aware_model_selector	31	merged	PSN_VRAMModelSelector		
+n_3_checkpoint_quality_control_loop	31	merged	PSN_CheckpointQualityTagger,PSN_CheckpointRegistryLookup,PSN_CheckpointBestPicker		
+n_6_architecture_compatibility_checker	31	merged	PSN_ArchCompatibilityChecker		
+n_7_visual_model_selection_ui_backend	31	merged	PSN_VisualModelSelector		
+n_8_smart_lora_management	31	merged	PSN_SmartLoRALoader		
+n_9_model_weight_comparison_tool	31	merged	PSN_WeightComparator		
+n_8_cinematic_camera_angle_controller	34	merged	PSN_Camera_Angle_Controller		Implemented PSN_Camera_Angle_Controller: a ComfyUI custom node that maps an integer angle_index (0-95) to a predefined cinematic camera angle description (12 elevation bands x 8 azimuth steps), combin
+n_6_model_mixing_for_hybrid_styles	36	merged	PSN_ModelMix		Implemented PSN_ModelMix, a ComfyUI custom node that blends two MODEL objects using a per-step weight schedule (JSON array of [step_percent, weight_a] pairs) and three blend modes (Linear, Attention, 
+n_10_consistent_img2img_denoise	38	merged	PSN_Actual_Denoise,PSN_Denoise_Preview		Implemented two ComfyUI custom nodes for consistent img2img denoise: PSN_Actual_Denoise (builds a model-independent sigma schedule for the requested denoise level and performs a deterministic latent-s
+n_2_vram_efficient_video_pipeline	38	merged	PSN_Video_Frame_Generator,PSN_Video_Assembler,PSN_Video_Frame_Loop		Implemented a VRAM-efficient video pipeline as a ComfyUI custom-node module with 3 nodes: PSN_Video_Frame_Generator (generates one frame latent with temporal conditioning from prev_latent, all computa
+n_7_intermediate_latent_debugging	38	merged	PSN_Peek_Sampler,PSN_Peek_Visualizer		Implemented PSN_Peek_Sampler and PSN_Peek_Visualizer in n_7_intermediate_latent_debugging.py. The sampler runs a CPU sampling loop with pluggable denoise_fn/decode_fn (defaults are deterministic synth
+n_8_simplified_workflow_templates	38	rejected	a node class lacks INPUT_TYPES	YES	Implemented two ComfyUI custom nodes for the Simplified Workflow Templates idea: PSN_Template_Loader (loads pre-configured pipeline templates for basic_img2img, video_gen, and inpaint, outputting mode
+n_10_spectral_noise_injection	39	merged	PSN_SpectralScheduler,PSN_SpectralNoise,PSN_SpectralSampler		Implemented the Spectral Noise Injection idea (section 39, item 10) as a single ComfyUI custom-node module with three PSN_ nodes: PSN_SpectralScheduler (generates a sigma schedule — linear/karras/expo
+n_2_custom_sigma_schedule_baseline	39	merged	PSN_CustomSigmaGenerator,PSN_BaselineSampler		Implemented two ComfyUI custom nodes in n_2_custom_sigma_schedule_baseline.py: PSN_CustomSigmaGenerator (generates 1D SIGMAS tensors via Linear/Karras/Exponential/Custom schedules) and PSN_BaselineSam
+n_3_golden_scheduler_integration	39	merged	PSN_GoldenScheduler,PSN_GoldenSampler		Implemented the Golden Scheduler Integration as a single ComfyUI custom-node module with two nodes: PSN_GoldenScheduler (generates a shifted flow-matching sigma schedule + a small preview IMAGE of the
+n_8_audio_sampling_scheduling	39	merged	PSN_AudioScheduler,PSN_AudioSampler		Implemented PSN_AudioScheduler (pure torch/stdlib sigma schedule: Linear/Karras/AudioOptimized, returns SIGMAS tensor) and PSN_AudioSampler (Euler-style denoising loop over a latent using the sigmas, 
+n_3_civitai_compatible_image_saver_for_com	40	merged	PSN_Civitai_Compat_Save		Implemented PSN_Civitai_Compat_Save, a ComfyUI custom node that saves an IMAGE tensor as a PNG with Civitai-compatible metadata. The JSON metadata (containing prompt, negative_prompt, model, source ke
+n_10_multi_reference_video_scheduler	43	merged	PSN_MultiRefScheduler,PSN_RefWeightAdjuster		Implemented PSN_MultiRefScheduler and PSN_RefWeightAdjuster as a ComfyUI custom-node module. PSN_MultiRefScheduler splits a long prompt into sentence-based segments, groups them by segment_duration, a
+n_3_automated_scene_prompt_compiler	43	merged	PSN_ScenePromptCompiler		Implemented PSN_ScenePromptCompiler, a deterministic ComfyUI custom node that compiles plain-language scene descriptions, layout JSON/text, and camera-move fragments into a clean, comma-separated tag 
+n_4_multi_stage_media_workbench	43	merged	PSN_MediaStageOrchestrator,PSN_AsTypeConverter		Implemented the Multi-Stage Media Workbench as a single ComfyUI custom-node module with two PSN_ nodes: PSN_MediaStageOrchestrator (runs a JSON-defined sequence of built-in stages on an IMAGE/VIDEO/AU
+n_6_production_asset_metadata_standardizer	43	merged	PSN_MetadataInjector,PSN_MetadataValidator		Implemented the core of the Production Asset Metadata Standardizer as two ComfyUI nodes in n_6_production_asset_metadata_standardizer.py: PSN_MetadataInjector (writes standard production tags like stu
+n_7_structured_continuity_rules_engine	43	merged	PSN_ContinuityRuleDefiner,PSN_ContinuityEnforcer		Implemented PSN_ContinuityRuleDefiner and PSN_ContinuityEnforcer as a ComfyUI custom-node module. The RuleDefiner parses natural-language rules (must have / must not have / no / has) into a structured
+n_8_timeline_based_camera_direction	43	merged	PSN_CameraTimelineEditor,PSN_EnergyCurveMapper		Implemented two ComfyUI nodes in n_8_timeline_based_camera_direction.py: PSN_CameraTimelineEditor (parses JSON keyframes {time, position, zoom}, sorts them, and interpolates a smooth C1 camera path vi
+n_9_batch_scene_generation_queue	43	merged	PSN_SceneQueueBuilder,PSN_BatchExecutor		Implemented two ComfyUI custom nodes for the Batch Scene Generation Queue idea: PSN_SceneQueueBuilder (combines a base prompt with a JSON list of scene variants into a flat list of full prompts) and P
+n_4_latent_inpainting_for_local_edits	47	merged	PSN_Latent_Inpaint_Encode,PSN_Latent_Inpaint_Decode		Implemented two ComfyUI custom nodes for latent inpainting of local edits in n_4_latent_inpainting_for_local_edits.py: PSN_Latent_Inpaint_Encode (encodes IMAGE+MASK via the VAE, applies a separable Ga
+n_5_aces_color_grading_for_video_output	47	merged	PSN_OCIO_Color_Grade		Implemented PSN_OCIO_Color_Grade node for ACES color grading of video frames. Since OpenColorIO is not available in this environment, the node implements the core ACES color management pipeline in pur
+n_7_video_frame_extraction_utility	47	merged	PSN_Video_Frame_Extract		Implemented PSN_Video_Frame_Extract, a ComfyUI custom node that extracts specific frames from a video batch (IMAGE tensor [B,H,W,C]). Supports int, list/tuple, and comma-separated string indices; nega
+psn_dataset_loader	47	merged	PSN_Dataset_Loader		banned pattern: ('', 'os', '')
+n_10_scene_detection_segmentation	49	merged	PSN_SceneDetector,PSN_SegmentExtractor		Implemented PSN_SceneDetector (histogram-difference scene change detection with red-border markers on flagged frames) and PSN_SegmentExtractor (slices video batch at scene indices, dedupes/sorts, skip
+n_2_high_fps_temporal_smoothing	49	merged	PSN_FrameInterpolator,PSN_FPSResampler		Implemented two ComfyUI custom nodes in n_2_high_fps_temporal_smoothing.py: PSN_FrameInterpolator (synthesises intermediate frames via linear blending between neighbouring source frames, distributing 
+n_4_stable_motion_correction	49	merged	PSN_VideoStabilizer,PSN_TimelineStabilizer		Implemented two ComfyUI custom nodes in n_4_stable_motion_correction.py: PSN_VideoStabilizer (optical-flow-based camera-shake removal using a pure-torch exhaustive-search global translation estimator 
+n_6_workflow_preset_management	49	merged	PSN_PresetLoader,PSN_PresetSaver		Implemented PSN_PresetLoader and PSN_PresetSaver as a single ComfyUI custom-node module. Presets are represented as plain Python dicts (JSON-serializable graph definitions). The loader accepts a prese
+n_7_quality_metric_feedback_loop	49	rejected	node name already taken: PSN_QualityGate		Implemented two ComfyUI custom nodes: PSN_VideoQualityMetric (computes PSNR or SSIM per frame against the batch mean frame, returns average FLOAT + per-frame heatmap IMAGE) and PSN_QualityGate (compar
+n_8_seamless_loop_generation	49	merged	PSN_LoopPreparer,PSN_LoopAssembler		Implemented two ComfyUI custom nodes in n_8_seamless_loop_generation.py: PSN_LoopPreparer (cross-fades the last `blend_frames` frames with the corresponding head frames so the tail flows into the head
+n_9_ffmpeg_codec_control	49	merged	PSN_FFMpegEncoder,PSN_FFMpegDecoder		Implemented PSN_FFMpegEncoder and PSN_FFMpegDecoder as ComfyUI custom nodes in n_9_ffmpeg_codec_control.py. Since subprocess/ffmpeg binary are forbidden in this sandbox, the nodes implement the core t
+n_5_automated_video_contact_sheet_generati	51	merged	PSN_Video_Frame_Sampler,PSN_Contact_Sheet_Assembler		Implemented two ComfyUI custom nodes for automated video contact sheet generation in n_5_automated_video_contact_sheet_generati.py: PSN_Video_Frame_Sampler (samples N frames from a [F,H,W,C] video ten
+n_9_simplified_workflow_for_batch_comparis	51	rejected	a node class lacks INPUT_TYPES	YES	Implemented 3 ComfyUI custom nodes for batch comparison workflows: PSN_Efficient_Model_Loader (parses checkpoint/VAE/LoRA strings, returns placeholder model objects), PSN_Batch_Compare_Config (parses 
+dataset_loader	8	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_audio_parameter_sweep_visualization	51	merged	PSN_Audio_Sweep_Config,PSN_Audio_Sweep_Plan,PSN_Audio_Waveform_Layout		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_diagram_uml_renderer	48	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_dynamic_parameter_switching	9	merged	PSN_Dynamic_Switch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_model_specific_loader_integration_for	7	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_prompt_preset_manager_with_lora_bindi	34	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_prompt_translation_for_global_users	8	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_signal_processing_mastering_chain	2	merged	PSN_Sig_Process		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_wave_driven_motion_synthesis	3	merged	PSN_Wave_Motion_Synthesizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_audio_reactive_visualizer_pipeline	3	merged	PSN_Audio_Amplitude_Extractor,PSN_Audio_Reactive_Driver		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_auto_generate_pipeline_docs_from_pdfs	50	merged	PSN_PDF_Structured_Extractor,PSN_LLM_Doc_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_auto_rescaling_cfg_for_video_stability	36	merged	PSN_AutoRescaleCFG		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_automated_c2pa_provenance_signing	11	merged	PSN_C2PA_Signer,PSN_C2PA_Verifier		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_automated_voice_qc_loop	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_dynamic_pipeline_parameter_injection	13	merged	PSN_JSON_Config_Loader,PSN_Param_Injector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_dynamic_vram_aware_pipeline_selector	42	merged	PSN_VRAM_Query,PSN_Pipeline_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_lora_strength_calibration_dashboard	51	merged	PSN_LoRA_Sweep_Config,PSN_LoRA_Grid_Generator,PSN_LoRA_Grid_Assembler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_repurpose_ps_backend_to_port_8200	39	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_standardize_api_graph_structure	9	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_1_unified_model_loader_for_ps_backend	8	merged	PSN_SmartModelLoader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_automated_zip_delivery_for_contest_ent	40	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_batch_prompt_iteration_engine	13	merged	PSN_Batch_Prompt_Loader,PSN_Batch_Iterator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_batched_multi_model_agent_orchestratio	42	merged	PSN_Agent_Loop_Init,PSN_Agent_Executor,PSN_Agent_Aggregator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_deterministic_camera_motion	3	merged	PSN_Camera_Path_Definer,PSN_Camera_Apply		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_drift_correction_loop	16	merged	PSN_IdentityDriftDetector,PSN_FaceRepairTrigger		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_dynamic_controlnet_strength_scheduling	10	rejected	a node class lacks INPUT_TYPES		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_fast_preview_pipeline_with_taesd	47	merged	PSN_TAESD_Preview_Decode		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_interactive_parameter_dashboards	45	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_local_song_generation_mastering	2	merged	PSN_Music_Generate,PSN_Music_Master		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_parametric_seed_generation	28	merged	PSN_Seed_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_reproducible_wildcard_batch_generation	34	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_semantic_conditioning_subtraction_for_	7	merged	PSN_Conditioning_Subtract,PSN_Conditioning_Clamp		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_semantic_search_for_model_assets	50	merged	PSN_Semantic_Index_Builder,PSN_Semantic_Search_Query		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_video_model_a_b_swipe_comparison	51	merged	PSN_Video_A_B_Loader,PSN_Video_Swipe_Preview		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_video_temporal_sr_workflow	46	merged	PSN_Video_Temporal_SR		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_video_to_smpl_extraction_test	32	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_2_yaml_driven_batch_generation	9	merged	PSN_YAML_Batch_Definer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_2_5d_parallax_video_effect	10	merged	PSN_Depth_Parallax_Generator,PSN_Parallax_Video_Assembler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_artifact_cleanup_stage	46	merged	PSN_NAFNet_Denoise		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_audio_driven_portrait_pipeline	16	merged	PSN_AudioToMouthTrack,PSN_MouthComposite		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_canvas_layout_standardization	45	merged	PSN_LayoutEnforcer,PSN_WirelessRouter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_conditional_model_loading	28	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_deterministic_seed_based_conditioning	8	merged	PSN_ZeroCLIPConditioner		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_fast_sampling_with_res4lyf	36	merged	PSN_RES4LYF_Sampler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_interactive_ai_world_demo_for_marketin	18	merged	PSN_MatrixGame_Load,PSN_MatrixGame_Generate		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_multi_character_dialogue_synthesis	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_ocr_based_prompt_extraction_from_tutor	50	merged	PSN_Tutorial_OCR_Extractor,PSN_Prompt_Cleaner		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_production_workflow_configurator	9	merged	PSN_Workflow_Configurator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_rgba_support_for_transparent_assets	47	merged	PSN_Alpha_VAE_Encode,PSN_Alpha_VAE_Decode		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_structured_character_prompt_builder	34	merged	PSN_Character_Prompt_Builder		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_3_vram_optimized_model_loading	25	merged	PSN_Model_Vram_Optimizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_automated_subprocess_management_for_ex	42	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_batch_size_optimization	28	merged	PSN_Batch_Calculator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_fbx_to_video_motion_transfer	10	merged	PSN_FBX_Pose_Extractor,PSN_Pose_Video_Driver		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_freeu_patching_for_efficiency	36	merged	PSN_FreeU_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_local_multimodal_prompting	9	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_low_step_high_quality_sampling	39	rejected	node name already taken: PSN_RES4LYF_Sampler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_modular_pipeline_organization_for_per_	40	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_multi_scene_video_storyboarder	34	merged	PSN_Video_Storyboarder		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_multi_shot_timeline_direction	3	merged	PSN_TimelineDirector,PSN_SceneTransition		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_performance_profiling_integration	45	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_real_time_prompt_enhancement_a_b_test	51	merged	PSN_Prompt_Enhancer_Interface,PSN_RealTime_A_B_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_retro_game_emulator_for_ui_engagement	18	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_smart_tile_prompting	46	merged	PSN_Smart_Tile_Prompter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_stateful_multi_step_video_generation	13	merged	PSN_State_Store,PSN_State_Retrieve,PSN_State_Clear		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_style_consistency_via_concept_steering	7	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_4_technical_schematic_overlay	48	merged	PSN_Schematic_Overlay,PSN_Schematic_Annotation		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_audio_notification_system	2	merged	PSN_Notif_Play		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_automated_metadata_prompt_presets	8	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_batch_latent_management_for_video	24	merged	PSN_Latent_Batch_Repeat,PSN_Latent_Batch_Split,PSN_Latent_Batch_Merge		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_checkpoint_specific_parameter_automati	25	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_curated_workflow_browser_for_developer	40	merged	PSN_Workflow_Browser		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_deforum_style_iterative_morphing	3	merged	PSN_Iterative_Morphing_Engine		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_document_quality_assessment_pipeline	50	merged	PSN_Document_Quality_Assessor		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_dynamic_semantic_adaptation_with_ella	7	merged	PSN_ELLA_Semantic_Connector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_frontend_backend_logic_bridge_for_ui_c	42	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_hardware_aware_model_selection_logic	13	merged	PSN_VRAM_Checker,PSN_Model_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_integrity_verification_for_model_asset	11	merged	PSN_File_Hasher,PSN_Hash_Verifier		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_interactive_pose_editing_setup	32	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_model_aware_sigma_schedules	39	merged	PSN_ModelAwareScheduler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_scheduled_cfg_for_complex_prompts	36	merged	PSN_ScheduledCFG		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_5_unified_llm_provider_integration	9	extended-edition	paid-API integration: moved to extended_candidates/		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_battlemap_generator_for_3d_video_scene	18	merged	PSN_Battlemap_Generate		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_block_weighted_lora_stacking	25	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_color_managed_video_export_for_hdr_con	40	merged	PSN_HDR_Color_Manager		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_cross_format_prompt_converter	34	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_dynamic_prompt_generation_and_iteratio	42	merged	PSN_Prompt_Generator,PSN_Prompt_Iterator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_error_handling_and_fallbacks	28	rejected	node name already taken: PSN_Error_Catcher		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_expose_studio_workflows_as_plugins	9	merged	PSN_Workflow_Plugin_Exposer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_motion_data_cleaning_pipeline	32	merged	PSN_MotionClean_Smooth		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_secure_api_key_management	13	merged	PSN_Key_Store,PSN_Key_Retriever		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_speech_dataset_creation_toolkit	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_unified_loader_for_reduced_graph_clutt	47	merged	PSN_Unified_Model_VAE_Loader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_web_interface_export_for_school	45	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_6_workflow_flow_control_for_batch_proces	7	merged	PSN_Conditioning_Variation_Generator,PSN_Batch_Conditioning_Loop		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_adaptive_guidance_for_flux_models	36	merged	PSN_FluxNAG		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_attribute_cutoff_for_precise_prompting	7	merged	PSN_Prompt_Attribute_Cutoff		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_blender_integrated_scene_composition	1	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_classic_game_node_for_ui_testing	18	merged	PSN_Classic_Game_UI		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_complex_workflow_control_flow	13	merged	PSN_List_Filter,PSN_Set_Operation		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_depth_map_diagnostics_3d_export	10	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_dynamic_prompt_randomizer	34	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_dynamic_resolution_scaling	28	merged	PSN_Resolution_Scaler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_encrypted_prompt_toolkit_for_privacy	11	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_hymotion_to_scail_conversion	32	merged	PSN_HYMotionToSCAIL_Convert		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_llm_assisted_prompt_generation	8	merged	PSN_LLM_PromptExpander		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_metadata_driven_prompt_reuse	25	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_pbr_material_generation_for_3d	9	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_randomized_asset_selection_for_a_b_tes	40	merged	PSN_Random_Asset_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_rvc_voice_cloning_studio	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_stateful_live_workflow_transformation	42	merged	PSN_Live_State_Init,PSN_Live_State_Update,PSN_Live_State_Loop		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_visual_regional_prompting	45	merged	PSN_RegionalMask,PSN_RegionalPrompt		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_7_vram_constrained_model_streaming	39	merged	PSN_WeightFerry		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_ascii_art_typography_engine	48	merged	PSN_ASCII_ImageToASCII,PSN_Typography_ArtisticText		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_audio_source_separation_remixing	2	merged	PSN_Sep_Split,PSN_Sep_Mix		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_conditional_pipeline_routing_based_on_	42	merged	PSN_Type_Inspector,PSN_Pipeline_Router		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_face_identity_preservation_in_inpainti	47	merged	PSN_Face_Preserve_Inpaint		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_gaze_aware_portrait_enhancement	16	merged	PSN_GazeEstimator,PSN_GazeCorrector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_generalized_guidance_forms_for_fine_tu	36	merged	PSN_GeneralizedGuidance		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_interactive_execution_paths	45	merged	PSN_PathSelector,PSN_PathRouter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_midi_reactive_visualizer_for_music	18	merged	PSN_MIDI_Visualizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_nvidia_vfx_integration	46	merged	PSN_Nvidia_VFX_Upscale		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_procedural_lfo_animation	3	merged	PSN_LFO_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_proportion_adjustment_tool	32	merged	PSN_ProportionAdjust_Modify		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_specialized_t_lora_inference	25	merged	PSN_TLora_Timestep_Mask		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_steganography_for_watermarking	50	merged	PSN_Steganography_Encoder,PSN_Steganography_Decoder		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_stereo_3d_video_conversion	1	merged	PSN_Stereo_Converter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_stylegan_latent_direction_discovery	24	merged	PSN_StyleGAN_Direction_Discover,PSN_StyleGAN_Direction_Apply		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_token_analysis_for_debugging	8	merged	PSN_TokenAnalyzer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_video_in_image_steganography_for_deliv	11	merged	PSN_Video_In_PNG_Encode,PSN_Video_In_PNG_Decode		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_workflow_state_management	28	merged	PSN_State_Container,PSN_State_Retriever,PSN_Iteration_Toggle		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_8_z_image_specific_xy_plotting	51	merged	PSN_ZImage_Plot_Config,PSN_ZImage_Grid_Generator,PSN_ZImage_Grid_Visualizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_cad_to_mesh_reconstruction	1	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_context_aware_tile_refinement	46	merged	PSN_Context_Tile_Refine		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_deterministic_hash_phrases_for_debuggi	11	merged	PSN_Hash_Phrase_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_dynamic_mask_generation_from_web_image	50	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_gradual_lora_influence	3	merged	PSN_Gradual_LoRA_Apply		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_ltx2_identity_preservation	24	merged	PSN_LTX2_Identity_Lock,PSN_LTX2_Stabilize		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_metadata_enrichment_for_search	45	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_one_click_prompt_generator	34	merged	PSN_One_Click_Prompt_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_regional_noise_perturbation_for_textur	7	merged	PSN_Regional_Noise_Perturbation		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_s3_compatible_audio_archive	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_temporal_slicing_for_long_videos	47	merged	PSN_Temporal_Slice_Plan,PSN_Temporal_Slice_Blend		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_9_vrm_pose_editor_integration	32	merged	PSN_VRMPoseEditor_Edit		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_3d_processor	29	merged	PSN_3D_Mesh_Validator,PSN_3D_Camera_Projection		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_aces_outputtransform	19	merged	PSN_ACES_OutputTransform		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_adaptivefieldfilter	37	merged	PSN_AdaptiveFieldFilter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_aesthetic_bias_patch	30	merged	PSN_Aesthetic_Bias_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_agent_planner	23	merged	PSN_Agent_Planner		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_api_fallback_generator	33	extended-edition	paid-API integration: moved to extended_candidates/		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_api_health_check	33	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_api_key_manager	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_archcompatibilitychecker	31	rejected	node name already taken: PSN_ArchCompatibilityChecker		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_archive_logger	14	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_artifact_retriever	33	merged	PSN_Artifact_Retriever		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_artifact_saver	33	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_aspect_ratio_enforcer	33	merged	PSN_AspectRatioEnforcer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_attention_style_patch	30	merged	PSN_Attention_Style_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_audio_loader	3	merged	PSN_Audio_Loader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_audio_notifier	15	merged	PSN_AudioNotifier		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_audiodrivennoise	37	merged	PSN_AudioDrivenNoise		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_auto_aspect_crop	26	rejected	node name already taken: PSN_Auto_Aspect_Crop		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_auto_cfg_rescale	30	merged	PSN_Auto_CFG_Rescale		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_autogen_debugger	23	merged	PSN_AutoGen_Debugger		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_autorescalecfg	36	rejected	node name already taken: PSN_AutoRescaleCFG		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_batch_executor	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_batch_resize_pad	21	rejected	node name already taken: PSN_Batch_Resize_Pad		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_batchseedgenerator	37	merged	PSN_BatchSeedGenerator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_block_offload_manager	30	merged	PSN_BlockOffloadManager		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_bm3d_denoise	20	merged	PSN_BM3D_Denoise		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_bottleneck_analyzer	14	merged	PSN_Bottleneck_Analyzer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_caption_auditor	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cfg_steering_vector	30	merged	PSN_CFG_Steering_Vector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_checkpointqualitytagger	31	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_civitai_auth	5	merged	PSN_Civitai_Auth		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_clipmerger	49	merged	PSN_ClipMerger		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cloud_llm_fallback	22	merged	PSN_Cloud_LLM_Fallback		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_colorspaceguard	19	merged	PSN_ColorSpaceGuard		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_concept_steer	30	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_core_audio_loader	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_core_run_tracker	2	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_core_vram_guard	2	merged	PSN_Core_VRAM_Guard		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_crew_prompt_generator	23	merged	PSN_Crew_Prompt_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cryptio_decrypt	5	rejected	test rerun failed: 1 failed, 1 passed, 5 warnings in 3.09s		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_csv_batch_prompt	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_csv_batch_prompter	26	merged	PSN_CSV_Batch_Prompter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cv_bboxstandardizer	6	merged	PSN_CV_BBoxStandardizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cv_fovestimator	6	merged	PSN_CV_FOVEstimator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cv_lightingcorrector	6	merged	PSN_CV_LightingCorrector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cv_runtracker	6	merged	PSN_CV_RunTracker		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_cv_vramguard	6	merged	PSN_CV_VRAMGuard		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_data_getter	33	merged	PSN_Data_Getter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_data_setter	33	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_dataset_loader_csv	5	merged	PSN_Dataset_Loader_CSV		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_dataset_loader_sim	18	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_datasetloader	45	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_debug_peek	38	merged	PSN_Peek_Plan,PSN_Peek_Grid		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_denoise_control	38	rejected	node name already taken: PSN_Denoise_Preview		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_discord_webhook	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_dynamic_model_selector	41	merged	PSN_Dynamic_Model_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_excel_loadout_reader	41	merged	PSN_Excel_Loadout_Reader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_excel_loadout_selector	41	merged	PSN_Excel_Loadout_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_fast_attention_patch	30	merged	PSN_Fast_Attention_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_ffmpegdecoder	49	rejected	node name already taken: PSN_FFMpegDecoder		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_ffmpegencoder	49	rejected	node name already taken: PSN_FFMpegEncoder		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_filepathvalidator	49	merged	PSN_FilePathValidator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_film_stock_preset	20	merged	PSN_Film_Stock_Preset		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_filmemulation	19	merged	PSN_FilmEmulation		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_fishaudio_tts	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_fishaudio_voice_clone	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_float_optimizer	29	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_flux_lightning_cache	30	rejected	a node class lacks INPUT_TYPES		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_fluxnag	36	rejected	node name already taken: PSN_FluxNAG		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_folder_batch_queue	26	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_fpsresampler	49	rejected	node name already taken: PSN_FPSResampler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_frameinterpolator	49	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_framerateconverter	49	merged	PSN_FramerateConverter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_freeu_patch	36	rejected	node name already taken: PSN_FreeU_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_gemini_prompt_crafter	5	merged	PSN_Gemini_Prompt_Crafter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_generalizedguidance	36	rejected	node name already taken: PSN_GeneralizedGuidance		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_globalseedbroadcaster	37	merged	PSN_GlobalSeedBroadcaster		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_gradio_serve	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_gsheet_cell_selector	41	merged	PSN_GSheet_Cell_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_guidancedecomposer	36	merged	PSN_GuidanceDecomposer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_hdr_exr_save	19	merged	PSN_HDR_EXR_Save		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_hswq_model_loader	33	merged	PSN_HSWQ_Model_Loader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_hypertile_patch	30	merged	PSN_HyperTile_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_json_to_prompt_converter	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_latent_diff	14	merged	PSN_LatentDiff		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_latent_forensics	14	merged	PSN_LatentForensics		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_latent_validator	24	merged	PSN_LatentValidator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_latentinterpolator	37	merged	PSN_LatentInterpolator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_llm_agent_chat	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_llm_context_orchestrator	22	merged	PSN_LLM_Context_Orchestrator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_llm_history_manager	22	merged	PSN_LLM_History_Manager		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_llm_model_loader_unified	22	rejected	a node class lacks INPUT_TYPES		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_llm_offloader	23	merged	PSN_LLM_Offloader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_llm_resource_guard	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_loadout_manager	41	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_loopassembler	49	rejected	node name already taken: PSN_LoopAssembler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_looppreparer	49	rejected	node name already taken: PSN_LoopPreparer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_lora_dataset_loader	25	merged	PSN_Lora_Dataset_Loader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_lora_train_config	35	merged	PSN_LoRA_Param_Set,PSN_LoRA_Train_HunYuan		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_maskfeather	27	merged	PSN_MaskFeather		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_memory_leak_detector	14	merged	PSN_Memory_Leak_Detector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_memory_media_manager	26	rejected	node name already taken: PSN_Memory_Media_Manager		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_memory_recall	23	merged	PSN_Memory_Recall		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_memory_store	23	merged	PSN_Memory_Store		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_meta_enriched_save	26	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_modal_fetch_result	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_modal_submit_workflow	5	merged	PSN_Modal_Submit_Workflow		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_model_merger	29	merged	PSN_Merge_Checkpoints,PSN_Inspect_Model		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_modelintakevalidator	31	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_modelmix	36	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_modelpruner	31	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_modelregistryloader	31	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_mongodb_connect	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_mongodb_load_prompt	5	merged	PSN_MongoDB_Load_Prompt		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_mongodb_save_prompt	5	merged	PSN_MongoDB_Save_Prompt		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_motion_position_effector	33	merged	PSN_Motion_Position_Effector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_multigpu_dist	35	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_multigpu_distributor	29	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_node_inspector	14	merged	PSN_NodeInspector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_node_profiler	14	merged	PSN_NodeProfiler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_panorama_stitch	21	merged	PSN_Panorama_Stitch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_param_adjuster	23	merged	PSN_Param_Adjuster		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_param_hub	23	merged	PSN_ParamHub,PSN_ParamHubRead		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_photoshop_receive	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_photoshop_send	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_preset_loader	30	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_presets	38	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_presetsaver	49	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_adherence_checker	22	merged	PSN_Prompt_Adherence_Checker		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_budget_meter	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_diversity_scorer	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_enhancer	23	merged	PSN_PromptEnhancer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_formula_builder	33	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_loader	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_refiner_loop	22	rejected	node name already taken: PSN_Prompt_Refiner_Loop		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_saver	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_structure_enforcer	22	rejected	node name already taken: PSN_Prompt_Structure_Enforcer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_templater	14	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_validator	23	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_prompt_weighter	33	merged	PSN_PromptWeighter		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_quality_gate	14	rejected	node name already taken: PSN_QualityGate		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_quantization_monitor	33	merged	PSN_QuantizationMonitor		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_qwen_sae	35	merged	PSN_SAE_ConfigValidator,PSN_SAE_TopFeatureAnalyzer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_random_image_selector	26	merged	PSN_Random_Image_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_rayparallelsampler	36	merged	PSN_RayParallelSampler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_remote_exec	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_replay_verifier	14	merged	PSN_Replay_Verifier		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_repro_layer	38	merged	PSN_Fixed_Seed_Generator,PSN_Batch_Invariant_Sampler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_res4lyf_sampler	36	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_resfastsampler	37	merged	PSN_RESFastSampler		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_resolution_preset	33	merged	PSN_Resolution_Preset		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_run_tracker	51	merged	PSN_RunTracker		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_runninghub_poll	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_runninghub_submit	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_runtracker	49	rejected	node name already taken: PSN_RunTracker		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_rvc_train	35	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_s3_asset_loader	26	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_scene_manager	14	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_scrna_cluster	41	merged	PSN_ScRNA_Cluster		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_scrna_load	41	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_scrna_normalize	41	merged	PSN_ScRNA_Normalize		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_scrna_to_latent	41	merged	PSN_ScRNA_to_Latent		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_secrets_manager_load	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_secrets_manager_save	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_seed_auditor	14	merged	PSN_Seed_Auditor		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_seed_lab	38	merged	PSN_Seed_Manipulator,PSN_Seed_Visualizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_segmentextractor	49	rejected	node name already taken: PSN_SegmentExtractor		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_selective_safetensors_loader	30	merged	PSN_SelectiveSafetensorsLoader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_sheet_parameter_loop	41	merged	PSN_Sheet_Parameter_Loop		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_smartloraloader	31	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_step_skip_accelerator	30	rejected	test rerun failed: 1 failed, 11 passed, 5 warnings in 3.09s		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_sticky_gpu_residency	30	merged	PSN_Sticky_GPU_Residency		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_streamdiffusion	35	merged	PSN_Stream_Init,PSN_Stream_Step		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_studiodatasetloader	43	merged	PSN_StudioDatasetLoader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_style_prompt_generator	22	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_stylegan_explore	35	merged	PSN_StyleGAN_Load,PSN_StyleGAN_Slerp,PSN_StyleGAN_Generate		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_supabase_auth	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_supabase_store_file	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_sweep_lab	38	merged	PSN_Sweep_Config,PSN_Sweep_Analyzer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_tail_frame_selector	33	merged	PSN_Tail_Frame_Selector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_td_control_in	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_telegram_listener	15	merged	PSN_Telegram_Listener		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_telegram_sender	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_templates	38	merged	PSN_Template_Loader,PSN_Template_Controller		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_tensor_debug	35	merged	PSN_Tensor_Inspect,PSN_Tensor_Save		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_tensorrt_export	35	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_tiled_renderer	33	merged	PSN_Tiled_Renderer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_tonalgradingpro	19	merged	PSN_TonalGradingPro		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_trace_exporter	14	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_tripo_text_to_3d	5	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_uncond_zero_patch	30	merged	PSN_Uncond_Zero_Patch		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_valueanimationmask	27	merged	PSN_ValueAnimationMask		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_video_dubbing	26	rejected	a node class lacks INPUT_TYPES		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_video_frame_captioner	22	rejected	node name already taken: PSN_Video_Frame_Captioner		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_videodatasetloader	49	merged	PSN_VideoDatasetLoader		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_videoqualitymetric	49	merged	PSN_VideoQualityMetric		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_videostabilizer	49	rejected	node name already taken: PSN_VideoStabilizer		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_visualmodelselector	31	rejected	node name already taken: PSN_VisualModelSelector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vlm_analyzer	23	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vlm_caption_generator	22	rejected	node name already taken: PSN_VLM_Caption_Generator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_voice_cloner	29	rejected	node name already taken: PSN_Load_Voice_Reference		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vr180_convert	21	rejected	node name already taken: PSN_VR180_Convert		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vram_allocator	33	rejected	scan: requests		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vram_guard	51	merged	PSN_VRAM_Guard		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vram_history_logger	14	merged	PSN_VRAM_History_Logger		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vramguard	49	merged	PSN_VRAMGuard		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_vrammodelselector	31	rejected	node name already taken: PSN_VRAMModelSelector		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_watermark_detect	21	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_weight_ferry	30	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_weightcomparator	31	rejected	node name already taken: PSN_WeightComparator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_workflow_exposer	15	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_workflow_orchestrator	33	merged	PSN_Workflow_Orchestrator		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_workflow_structure	26	merged	PSN_WorkflowStructure		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+psn_zeroshot_classifier	23	rejected	scan: compile(		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+run_tracker	8	rejected	node name already taken: PSN_RunTracker		Qwen node factory (qwen-gen branch), pure logic, no tensor types
+n_10_point_cloud_to_mesh_pipeline	1	merged	PSN_Depth_To_PointCloud,PSN_PointCloud_To_Mesh		Implemented two ComfyUI custom nodes for a Point Cloud to Mesh Pipeline: (1) PSN_Depth_To_PointCloud back-projects an IMAGE + DEPTH_MAP through camera intrinsics into a 3D point cloud with per-point R
+n_7_lyric_driven_prompt_travel	3	merged	PSN_Lyric_Prompt_Scheduler		Implemented PSN_Lyric_Prompt_Scheduler: splits lyrics into phrases, maps each to an equal time interval over total_duration, renders prompts via a template, and outputs a compact schedule string plus 
+n_1_automated_batch_video_generation	4	merged	PSN_MergeImageBatches,PSN_AssembleVideoFromBatch		Implemented two ComfyUI custom nodes in n_1_automated_batch_video_generation.py: PSN_MergeImageBatches (concat/interleave two IMAGE batches) and PSN_AssembleVideoFromBatch (packs an IMAGE batch into a
+n_2_dynamic_prompt_iteration	4	merged	PSN_PromptIterator,PSN_ListToPromptQueue		Implemented PSN_PromptIterator and PSN_ListToPromptQueue as pure-Python ComfyUI custom nodes for iterating over a list of prompts within a single workflow run. PSN_PromptIterator accepts a prompt_list
+n_4_data_type_standardization	4	merged	PSN_StringToList,PSN_ListToString,PSN_IntToFloatList		Implemented three ComfyUI custom nodes for data type standardization: PSN_StringToList (splits a string by delimiter into a list of strings), PSN_ListToString (joins a list of strings with a delimiter
+n_7_multi_gpu_video_upscaling	4	merged	PSN_SplitBatchForGPU,PSN_UpscaleOnGPU,PSN_MergeUpscaledBatches		Implemented three ComfyUI nodes for multi-GPU video upscaling: PSN_SplitBatchForGPU (splits an IMAGE batch into N contiguous sub-batches, up to 64 outputs), PSN_UpscaleOnGPU (upscales a sub-batch; spe
+n_11_centralized_parameter_database	5	rejected	node name already taken: PSN_MongoDB_Save_Prompt		Implemented the core of the 'Centralized Parameter Database' idea as three ComfyUI custom nodes (PSN_MongoDB_Connect, PSN_MongoDB_Save_Prompt, PSN_MongoDB_Load_Prompt) using a process-local in-memory 
+n_12_supabase_backend_integration	5	rejected	a node class lacks INPUT_TYPES		Implemented a ComfyUI custom-node module for Supabase Backend Integration as a pure-Python mock (no network, no supabase package). Three nodes: PSN_Supabase_Auth (creates a mock PSN_SupabaseClient fro
+n_2_encrypted_browser_server_communication	5	merged	PSN_CryptIO_Encrypt,PSN_CryptIO_Decrypt		Implemented two ComfyUI custom nodes for encrypted browser-server communication using RSA-OAEP (SHA-256) via the `cryptography` library: PSN_CryptIO_Encrypt (string + PEM public key -> Base64 cipherte
+n_7_llm_agent_chat_interface	5	merged	PSN_LLM_Agent_Init,PSN_LLM_Agent_Chat		Implemented the offline core of the LLM Agent Chat Interface as two ComfyUI nodes: PSN_LLM_Agent_Init (builds an AgentInstance config object for openai/ollama/azure providers) and PSN_LLM_Agent_Chat (
+n_8_3d_model_generation_via_tripo	5	merged	PSN_Tripo_Text_To_3D,PSN_Tripo_Image_To_3D		Implemented two ComfyUI custom nodes for Tripo 3D model generation (offline core only): PSN_Tripo_Text_To_3D and PSN_Tripo_Image_To_3D. Both validate inputs, build deterministic job IDs (SHA-256 based
+n_4_bounding_box_metadata_extraction	6	rejected	node name already taken: PSN_CV_BBoxStandardizer		Implemented PSN_CV_BBoxStandardizer, a ComfyUI custom node that standardizes bounding box formats (xywh, xyxy, center) and extracts spatial metadata (area, aspect ratio, centroid, relative area) as a 
+n_8_line_and_contour_integrity_check	6	merged	PSN_CV_LineIntegrity		Implemented PSN_CV_LineIntegrity (ParametricStudio/CV) in n_8_line_and_contour_integrity_check.py: a ComfyUI node that binarises a technical-drawing IMAGE (Canny-style Sobel+NMS+hysteresis for graysca
+n_9_frequency_domain_artifact_detection	6	merged	PSN_CV_FrequencyArtifact		Implemented PSN_CV_FrequencyArtifact: a ComfyUI custom node that computes the Radial Average Amplitude Spectrum (RAAS) of an image using torch.fft (CPU) to detect high-frequency artifacts. The node co
+n_3_automated_prompt_chunking_for_long_des	7	merged	PSN_Prompt_Chunker,PSN_Chunked_Conditioning_Builder		Implemented two ComfyUI custom nodes for automated prompt chunking: (1) PSN_Prompt_Chunker splits long prompts into CLIP-friendly chunks using sentence/comma/fixed strategies with configurable max_tok
+vram_guard	8	rejected	node name already taken: PSN_VRAMGuard		Implemented PSN_VRAMGuard ComfyUI custom node in vram_guard.py. The node accepts a MODEL input and a FLOAT threshold (0-1). It checks current VRAM usage via torch.cuda.memory_allocated() and total VRA
+n_9_sam_based_segmentation_for_inpainting	9	merged	PSN_SAM_Segmenter		Implemented PSN_SAM_Segmenter, a ComfyUI custom node for SAM-based segmentation for inpainting. The node accepts an IMAGE, point/box prompts (as JSON string or list), a mask_mode (Point/Box/Auto), and
+n_3_prompt_preprocessing_pipeline	12	merged	PSN_PromptCleaner,PSN_PromptSplitter		Implemented PSN_PromptCleaner and PSN_PromptSplitter as original ComfyUI custom nodes in n_3_prompt_preprocessing_pipeline.py. PSN_PromptCleaner normalizes case, removes punctuation (configurable), co
+n_5_statistical_analysis_dashboard	12	merged	PSN_DataFrameStats,PSN_StatPlotGenerator		Implemented the Statistical Analysis Dashboard as two ComfyUI custom nodes in n_5_statistical_analysis_dashboard.py: PSN_DataFrameStats (describe() + corr() over a JSON-list of selected columns, retur
+n_6_json_data_ingestion	12	rejected	a node class lacks INPUT_TYPES		Implemented PSN_JSONParser (JSON parse + JSONPath-style extraction with is_valid flag and error message) and PSN_JSONToDataFrame (JSON array of objects -> tabular data). Pandas is not available in thi
+n_1_vram_guard_for_shared_gpu	14	merged	PSN_VRAM_Budget_Gate		Implemented PSN_VRAM_Budget_Gate, a ComfyUI custom node that enforces a VRAM budget before heavy operations on a shared GPU. It measures current CUDA usage (via torch.cuda.memory_allocated, or a calle
+n_3_reproducibility_seed_audit	14	rejected	node name already taken: PSN_Seed_Auditor		Implemented two ComfyUI custom nodes in n_3_reproducibility_seed_audit.py: PSN_Seed_Auditor (captures seed, compares with optional expected_seed, emits SHA256 run hash from seed+model_name+run_id) and
+n_4_latent_integrity_check	14	rejected	node name already taken: PSN_LatentForensics		Implemented two ComfyUI custom nodes in n_4_latent_integrity_check.py: PSN_LatentForensics (checks latent for NaN/Inf, shape/dtype anomalies, emits report + is_valid flag, supports subsampled scan for
+n_6_metadata_archival_pipeline	14	merged	PSN_Meta_Extractor,PSN_Archive_Logger		Implemented two ComfyUI custom nodes in n_6_metadata_archival_pipeline.py: PSN_Meta_Extractor (builds a structured metadata dict from run_id + IMAGE tensor + optional prompt/seed/model/steps, returns 
+n_7_workflow_structure_standardization	14	merged	PSN_Graph_Standardizer,PSN_Node_Inspector		Implemented two ComfyUI custom nodes in n_7_workflow_structure_standardization.py: PSN_Graph_Standardizer (rewrites API graph node titles into LDR_/CTL_/SMP_ prefixes, preserves ids/links, emits a val
+n_10_ndi_video_stream_integration	15	merged	PSN_NDI_Source		Implemented PSN_NDI_Source node for NDI Video Stream Integration. The node converts ComfyUI IMAGE tensors [B,H,W,C] in 0..1 to RGB byte arrays and hands them to a pluggable NDI sender callable. Since 
+n_1_telegram_command_trigger_for_video_pip	15	merged	PSN_Telegram_Command_Parser,PSN_Telegram_Sender_Prep		Implemented the offline core of the Telegram Command Trigger for Video Pipelines as two ComfyUI custom nodes in n_1_telegram_command_trigger_for_video_pip.py: (1) PSN_Telegram_Command_Parser — parses 
+n_4_real_time_touchdesigner_visuals	15	merged	PSN_TD_FrameEncode,PSN_TD_Control_Parse		Implemented two ComfyUI custom nodes for real-time TouchDesigner visuals using only torch/stdlib (no network, no external libs). PSN_TD_FrameEncode encodes an IMAGE tensor [B,H,W,C] in 0..1 into a det
+n_10_workflow_orchestration_for_color_pipe	19	merged	PSN_WorkflowOrchestrator		Implemented PSN_WorkflowOrchestrator: a single ComfyUI node that parses a JSON workflow string and chains color grading ops (exposure, contrast, brightness, gamma, saturation, tint, levels) over an IM
+n_3_gpu_accelerated_tonal_grading_suite	19	rejected	node name already taken: PSN_TonalGradingPro		Implemented PSN_TonalGradingPro, a ComfyUI custom node for GPU-accelerated tonal grading. It applies exposure (stops), brightness (additive), contrast (around 0.5 midpoint), saturation (Rec.709 luma-b
+n_4_physics_based_film_emulation_presets	19	rejected	node name already taken: PSN_FilmEmulation		Implemented PSN_FilmEmulation, a physics-based film emulation node for ComfyUI (ParametricStudio/Film). It applies per-film-stock LUTs (Kodak Portra 400, Fuji Velvia 50, Ilford HP5, Custom), resolutio
+n_5_photoshop_style_compositing_layers	19	merged	PSN_LayerComposite		Implemented PSN_LayerComposite, a ComfyUI custom node that composites a top image over a base image using standard blend modes (Normal, Multiply, Screen, Overlay, Soft_Light, Hard_Light) with optional
+n_6_automated_parameter_adaptation_for_col	19	merged	PSN_AutoColorAdapt		
+n_8_batch_color_correction_and_masking	19	merged	PSN_BatchColorMod		Implemented PSN_BatchColorMod, a ComfyUI custom node for batch color correction with optional per-pixel masking. Supports three correction types: Auto_White_Balance (per-channel gain pushing channel m
+n_9_lab_space_product_recoloring	19	merged	PSN_LAB_Recolor		no final answer yet
+n_2_gpu_accelerated_denoising_pipeline	20	rejected	node name already taken: PSN_BM3D_Denoise	YES	Implemented PSN_BM3D_Denoise, a simplified GPU-accelerated BM3D-style denoising ComfyUI custom node. The pipeline extracts overlapping patches, applies 2D FFT per channel, soft-thresholds frequency co
+n_4_realistic_camera_simulation	20	merged	PSN_Camera_Degradation		Implemented PSN_Camera_Degradation, a ComfyUI custom node that simulates realistic camera degradation on IMAGE tensors (float32 [B,H,W,C] in 0..1). Pipeline order (documented in the module docstring):
+n_6_batch_image_processing_utility	20	merged	PSN_Batch_Filter_Chain		Implemented PSN_Batch_Filter_Chain, a ComfyUI custom node that applies a JSON-defined sequence of image filters to a whole IMAGE batch [B,H,W,C] in 0..1. The filter_chain STRING is parsed as a JSON li
+n_8_hdr_color_management	20	rejected	node name already taken: PSN_HDR_Tone_Map		Implemented PSN_HDR_Tone_Map, a ComfyUI custom node in n_8_hdr_color_management.py that tone-maps an HDR linear-light float32 IMAGE [B,H,W,C] to SDR 0..1 using Reinhard, ACES (Narkowicz fit) or Filmic
+n_1_automated_prompt_refinement_for_image_	23	merged	PSN_Prompt_Enhancer,PSN_Prompt_Validator		banned pattern: ('compile', '', '')
+n_2_vram_aware_llm_offloading	23	rejected	node name already taken: PSN_LLM_Offloader		Implemented PSN_LLM_Offloader, a VRAM-aware LLM offloading decision node for ComfyUI. The node uses a deterministic VRAM budget model to decide whether to offload LLM weights from GPU memory based on 
+n_3_multi_agent_pipeline_orchestrator	23	rejected	node name already taken: PSN_Agent_Planner		files_changed is empty
+n_5_vision_language_feedback_loop	23	rejected	node name already taken: PSN_Param_Adjuster		banned pattern: ('compile', '', '')
+n_7_crewai_for_prompt_generation	23	rejected	node name already taken: PSN_Crew_Prompt_Generator		'n_7_crewai_for_prompt_generation.py' was not written by you in this run (or no longer exists); 'test_n_7_crewai_for_prompt_generation.py' was not wri
+n_8_autogen_group_chat_for_debugging	23	rejected	node name already taken: PSN_AutoGen_Debugger		Implemented PSN_AutoGen_Debugger, a ComfyUI custom node that simulates an AutoGen-style group chat where multiple agent personas debate and resolve a workflow error or parameter conflict. The node tak
+n_10_region_based_local_editing	27	merged	PSN_RegionDefinition,PSN_LocalEditComposite		Implemented two ComfyUI custom nodes for region-based local editing: PSN_RegionDefinition (creates binary MASK from rectangle/ellipse/polygon JSON coords using pure torch, no cv2) and PSN_LocalEditCom
+n_4_procedural_pattern_masking_for_texture	27	merged	PSN_ProceduralPatternGenerator,PSN_BooleanMaskOperation		Implemented two ComfyUI custom nodes in n_4_procedural_pattern_masking_for_texture.py: PSN_ProceduralPatternGenerator (deterministic perlin/value-noise, voronoi, sine-interference, and fractal/fBm mas
+n_7_fashion_item_segmentation	27	merged	PSN_FashionItemSegmenter	YES	Implemented PSN_FashionItemSegmenter as a ComfyUI custom node. The spec called for a specialized fashion segmentation model (ONNX), which is NOT implemented — instead, a color/HSV heuristic segments t
+n_8_advanced_matting_with_vitmatte	27	merged	PSN_VitMatteAlpha		Implemented PSN_VitMatteAlpha, a ComfyUI custom node for advanced alpha matting. Since the real VitMatte model requires onnxruntime and downloaded model weights (unavailable in this environment), the 
+n_9_real_time_motion_triggered_masking	27	rejected	node name already taken: PSN_ValueAnimationMask		Implemented two ComfyUI custom nodes in n_9_real_time_motion_triggered_masking.py: PSN_MotionDetectionMask (frame-difference motion mask with soft threshold, luma-based, handles C in 1/3/4, single-fra
+n_10_concept_biasing_for_aesthetics	30	rejected	node name already taken: PSN_Aesthetic_Bias_Patch		Implemented two ComfyUI custom nodes for concept biasing for aesthetics: PSN_Concept_Steer (adds a pre-computed concept direction vector to CLIP text embeddings, with a built-in table of 5 concepts an
+n_1_flux_sana_fast_track_pipeline	30	rejected	node name already taken: PSN_Fast_Attention_Patch		Implemented the Flux/Sana Fast-Track Pipeline as a ComfyUI custom-node module with 4 nodes: PSN_Flux_Lightning_Cache (training-free block caching via forward hooks that compare relative L2 input delta
+n_4_step_reduction_sampling	30	merged	PSN_Step_Skip_Accelerator		Implemented PSN_Step_Skip_Accelerator, a ComfyUI custom node that patches a MODEL with a step-skip forecasting hook. The hook uses either linear or Chebyshev polynomial extrapolation from recent step 
+n_5_style_transfer_via_rope_patching	30	rejected	node name already taken: PSN_Attention_Style_Patch		Implemented two ComfyUI custom nodes for style transfer via RoPE patching: PSN_RoPE_Untwist (patches RoPE frequencies using style presets like cinematic/anime/watercolor to shift attention focus) and 
+n_6_memory_heavy_model_streaming	30	merged	PSN_Weight_Ferry,PSN_Block_Offload_Manager		Implemented two ComfyUI custom nodes for memory-heavy model streaming in n_6_memory_heavy_model_streaming.py: PSN_Weight_Ferry (streams transformer blocks in windows of block_size with optional prefet
+n_8_advanced_cfg_steering	30	rejected	node name already taken: PSN_CFG_Steering_Vector		Implemented two ComfyUI custom nodes for Advanced CFG Steering: PSN_Advanced_CFG_Controller (dynamically adjusts CFG scale using a cosine schedule based on step and latent statistics, with easy/expert
+n_10_fbx_loading_and_rendering_test	32	merged	PSN_FBXLoad_Render	YES	Implemented PSN_FBXLoad_Render ComfyUI custom node that renders a 3D mesh preview. Since pyassimp is not available (and cannot be installed), actual FBX file parsing is NOT implemented. Instead, the n
+n_1_text_to_motion_pipeline_validation	32	merged	PSN_TextToMotion_Generate		Implemented PSN_TextToMotion_Generate, a ComfyUI validation node for the text-to-motion pipeline. The node takes prompt (STRING), duration (FLOAT), seed (INT), and model_type (COMBO: MDM/Kimodo/MoMask
+n_1_standardize_input_resolution	33	rejected	node name already taken: PSN_Resolution_Preset		Implemented two ComfyUI nodes in n_1_standardize_input_resolution.py: PSN_Resolution_Preset (pure-Python width/height/latent_size computation from aspect ratio + model family, all dims rounded to mult
+n_10_qwen_sae_interpretability	35	rejected	scan: torch.load		Implemented the torch-only core of the Qwen SAE Interpretability idea: PSN_SAE_Load (deterministically builds a small SAE from a seed, or loads a local .pt checkpoint via torch.load) and PSN_SAE_Activ
+n_6_pytorch_tensor_debugging_suite	35	rejected	node name already taken: PSN_Tensor_Inspect		Implemented the PyTorch Tensor Debugging Suite as two ComfyUI custom nodes in n_6_pytorch_tensor_debugging_suite.py: PSN_Tensor_Inspect (reports shape/dtype/min/max/mean, optionally prints values; han
+n_7_rvc_voice_model_training	35	merged	PSN_RVC_Preprocess,PSN_RVC_Train_Model		Implemented two ComfyUI nodes in n_7_rvc_voice_model_training.py: PSN_RVC_Preprocess (splits a mono audio tensor into fixed-length segments, peak-normalises each to 0.95, pads and stacks into a batche
+n_8_multi_gpu_model_distribution	35	merged	PSN_MultiGPU_Init,PSN_MultiGPU_Sync		Implemented two ComfyUI custom nodes for multi-GPU model distribution planning and gradient sync simulation. PSN_MultiGPU_Init validates a device_map, builds a layer-to-device placement plan, and retu
+n_9_tensor_format_conversion_utilities	35	merged	PSN_Image_To_Latent,PSN_Latent_To_Image,PSN_Mask_To_Latent,PSN_Latent_To_Mask,PSN_Image_To_Mask,PSN_Mask_To_Image		Implemented 6 ComfyUI custom nodes for tensor format conversion: PSN_Image_To_Latent, PSN_Latent_To_Image, PSN_Mask_To_Latent, PSN_Latent_To_Mask, PSN_Image_To_Mask, PSN_Mask_To_Image. The VAE-depende
+n_10_sparse_adaptive_field_filtering_for_d	37	rejected	node name already taken: PSN_AdaptiveFieldFilter		Implemented PSN_AdaptiveFieldFilter, a ComfyUI custom node for sparse adaptive field filtering in latent space. It estimates per-pixel high-frequency energy with a 3x3 Laplacian, builds a sparse adapt
+n_3_low_step_res_sampling_for_real_time_pr	37	rejected	node name already taken: PSN_RESFastSampler		Implemented PSN_RESFastSampler: a low-step RES-style (Euler) sampler node for ComfyUI that takes MODEL, positive/negative CONDITIONING, and LATENT, and returns a denoised LATENT. The node implements a
+n_5_centralized_parameter_orchestration	37	merged	PSN_ParamOrchestrator		Implemented PSN_ParamOrchestrator, a ComfyUI custom node for centralized parameter orchestration. It reads model metadata (from a dict, a .metadata attribute, or a .get_metadata() method) and computes
+n_7_audio_driven_latent_noise_for_music_vi	37	rejected	node name already taken: PSN_AudioDrivenNoise		Implemented PSN_AudioDrivenNoise: a ComfyUI custom node that analyzes an audio signal (mono/stereo float tensor) using a pure-torch DFT (torch.fft.rfft) to compute per-band frequency energy, then gene
+n_8_batch_seed_generation_for_a_b_testing	37	rejected	node name already taken: PSN_BatchSeedGenerator		Implemented PSN_BatchSeedGenerator, a ComfyUI custom node that generates a list of `count` integer seeds derived from `base_seed` and `offset` (seed_i = (base_seed + (i+1)*offset) % 2**32). Returns an
+n_9_intermediate_candidate_inspection_and_	37	merged	PSN_IntermediateInspector		Implemented PSN_IntermediateInspector, a ComfyUI custom node (ParametricStudio/Inspection) that pauses a sampling pipeline at a given step, inspects the intermediate latent candidate by emitting a lig
+n_7_automated_parameter_testing_via_sheets	41	rejected	node name already taken: PSN_Sheet_Parameter_Loop		Implemented PSN_Sheet_Parameter_Loop, a ComfyUI custom node that iterates rows of a sheet-like matrix (list of rows, row 0 = header) into a list of parameter-set dicts keyed by header cells, with star
+n_1_modular_pipeline_subgraphs	45	merged	PSN_SubgraphPort,PSN_SubgraphWrapper		Implemented PSN_SubgraphPort and PSN_SubgraphWrapper as a ComfyUI custom-node module (n_1_modular_pipeline_subgraphs.py) with NODE_CLASS_MAPPINGS/NODE_DISPLAY_NAME_MAPPINGS. The port validates values 
+n_2_procedural_background_generator	48	merged	PSN_ProcGen_Patterns,PSN_ProcGen_OpticalIllusion		Implemented two CPU-only ComfyUI custom nodes in n_2_procedural_background_generator.py: PSN_ProcGen_Patterns (checker, gradient, halftone, starburst, binary patterns with deterministic seeding, outpu
+n_6_pbr_material_baking_for_3d	48	merged	PSN_PBR_Bake_Albedo,PSN_PBR_Bake_Normal,PSN_PBR_Bake_Roughness		Implemented three ComfyUI custom nodes for PBR material baking: PSN_PBR_Bake_Albedo (sRGB/Linear color space conversion with slight denoising), PSN_PBR_Bake_Normal (Sobel-based tangent-space normal ma
+n_7_nuke_style_compositing_suite	48	merged	PSN_Composite_Merge,PSN_Composite_Grading,PSN_Composite_Mask_Generator		Implemented a Nuke-style compositing suite as a single ComfyUI custom-node module with three PSN_CamelCase nodes: PSN_Composite_Merge (mask + blend_mode: normal/multiply/screen/overlay), PSN_Composite
+n_4_rss_driven_news_video_generation	50	merged	PSN_RSS_Fetcher,PSN_News_Script_Generator,PSN_News_Video_Aggregator		Implemented three ComfyUI nodes for RSS-Driven News Video Generation: PSN_RSS_Fetcher (parses RSS/Atom XML from a provided string into structured JSON news items, since network access is forbidden), P
+h_add_a_graph_inspection_function_th	90	merged	PSN_GraphNSFWGuard		unction_th/ws_harvest/harvest/h_add_a_graph_inspection_function_th/test_h_add_a_graph_inspection_function_th.py': [Errno 2] No such file or directory 
+h_add_a_pre_submission_validation_la	90	merged	PSN_PreSubmissionValidator,PSN_NeverWireRuleChecker		idation_la/ws_harvest/harvest/h_add_a_pre_submission_validation_la/test_h_add_a_pre_submission_validation_la.py': [Errno 2] No such file or directory 
+h_add_a_validation_layer_that_checks	90	merged	PSN_GraphValidationLayer		hat_checks/ws_harvest/harvest/h_add_a_validation_layer_that_checks/test_h_add_a_validation_layer_that_checks.py': [Errno 2] No such file or directory 
+h_adopt_a_non_failing_verification_p	90	merged	PSN_NonFailingVerify		fication_p/ws_harvest/harvest/h_adopt_a_non_failing_verification_p/test_h_adopt_a_non_failing_verification_p.py': [Errno 2] No such file or directory 
+h_build_a_status_aggregation_system_	90	merged	PSN_StatusPollInstance,PSN_StatusAggregateFleet		on_system_/ws_harvest/harvest/h_build_a_status_aggregation_system_/test_h_build_a_status_aggregation_system_.py': [Errno 2] No such file or directory 
+h_create_a_per_model_family_validati	90	merged	PSN_FamilyWorkflowValidator		y_validati/ws_harvest/harvest/h_create_a_per_model_family_validati/test_h_create_a_per_model_family_validati.py': [Errno 2] No such file or directory 
+h_create_scripted_headless_smoke_tes	90	merged	PSN_SmokeTestWorkflow		_smoke_tes/ws_harvest/harvest/h_create_scripted_headless_smoke_tes/test_h_create_scripted_headless_smoke_tes.py': [Errno 2] No such file or directory 
+h_cycle_detection_for_dependency_gra	90	merged	PSN_DependencyGraphCycleCheck		ndency_gra/ws_harvest/harvest/h_cycle_detection_for_dependency_gra/test_h_cycle_detection_for_dependency_gra.py': [Errno 2] No such file or directory 
+h_define_a_standard_interface_for_re	90	merged	PSN_InterpreterRegistryBuild,PSN_InterpreterResolve,PSN_InterpreterSpecInfo		ace_for_re/ws_harvest/harvest/h_define_a_standard_interface_for_re/test_h_define_a_standard_interface_for_re.py': [Errno 2] No such file or directory 
+h_ensure_configuration_parsing_error	90	merged	PSN_ConfigParseGuard		sing_error/ws_harvest/harvest/h_ensure_configuration_parsing_error/test_h_ensure_configuration_parsing_error.py': [Errno 2] No such file or directory 
+h_idempotent_project_structure_setup	90	merged	PSN_IdempotentProjectStructureSetup		ture_setup/ws_harvest/harvest/h_idempotent_project_structure_setup/test_h_idempotent_project_structure_setup.py': [Errno 2] No such file or directory 
+h_implement_a_check_graph_function_t	90	merged	PSN_CheckGraph		function_t/ws_harvest/harvest/h_implement_a_check_graph_function_t/test_h_implement_a_check_graph_function_t.py': [Errno 2] No such file or directory 
+h_implement_a_finish_state_transitio	90	merged	PSN_StageFinish,PSN_StageFinishBatch		_transitio/ws_harvest/harvest/h_implement_a_finish_state_transitio/test_h_implement_a_finish_state_transitio.py': [Errno 2] No such file or directory 
+h_implement_a_non_destructive_post_p	90	merged	PSN_NonDestructiveMasterHook,PSN_MasterSongCopy		ive_post_p/ws_harvest/harvest/h_implement_a_non_destructive_post_p/test_h_implement_a_non_destructive_post_p.py': [Errno 2] No such file or directory 
+h_implement_a_vram_reservation_syste	90	merged	PSN_VramReserve,PSN_VramRelease,PSN_VramReport		tion_syste/ws_harvest/harvest/h_implement_a_vram_reservation_syste/test_h_implement_a_vram_reservation_syste.py': [Errno 2] No such file or directory 
+h_implement_a_vram_tracking_class_th	90	merged	PSN_VramGate		g_class_th/ws_harvest/harvest/h_implement_a_vram_tracking_class_th/test_h_implement_a_vram_tracking_class_th.py': [Errno 2] No such file or directory 
+h_provide_a_dedicated_tool_for_exact	90	merged	PSN_ExactArithmetic		_for_exact/ws_harvest/harvest/h_provide_a_dedicated_tool_for_exact/test_h_provide_a_dedicated_tool_for_exact.py': [Errno 2] No such file or directory 
+h_purpose_first_prompt_linting_with_	90	merged	PSN_PromptFillerLint,PSN_PromptBeatPlan		ting_with_/ws_harvest/harvest/h_purpose_first_prompt_linting_with_/test_h_purpose_first_prompt_linting_with_.py': [Errno 2] No such file or directory 
+h_read_only_http_verifier_probes_for	90	merged	PSN_BuildProbePlan,PSN_VerifierProbe,PSN_ProbeResultToLatent		probes_for/ws_harvest/harvest/h_read_only_http_verifier_probes_for/test_h_read_only_http_verifier_probes_for.py': [Errno 2] No such file or directory 
+h_robust_json_extraction_from_llm_ou	90	merged	PSN_ExtractJsonFromLLM		rom_llm_ou/ws_harvest/harvest/h_robust_json_extraction_from_llm_ou/test_h_robust_json_extraction_from_llm_ou.py': [Errno 2] No such file or directory 
+h_role_based_abstraction_for_pipelin	90	merged	PSN_RoleCatalogue,PSN_RoleResolve		or_pipelin/ws_harvest/harvest/h_role_based_abstraction_for_pipelin/test_h_role_based_abstraction_for_pipelin.py': [Errno 2] No such file or directory 
+h_round_trip_validation_for_asset_co	90	merged	PSN_RoundTripAssetValidation,PSN_RoundTripLatentValidation		r_asset_co/ws_harvest/harvest/h_round_trip_validation_for_asset_co/test_h_round_trip_validation_for_asset_co.py': [Errno 2] No such file or directory 
+h_shared_state_machine_for_step_life	90	merged	PSN_StepLifecycleMachine		_step_life/ws_harvest/harvest/h_shared_state_machine_for_step_life/test_h_shared_state_machine_for_step_life.py': [Errno 2] No such file or directory 
+h_use_a_context_manager_pattern_to_a	90	merged	PSN_SidecarGuardedTask		ttern_to_a/ws_harvest/harvest/h_use_a_context_manager_pattern_to_a/test_h_use_a_context_manager_pattern_to_a.py': [Errno 2] No such file or directory 
+h_use_a_custom_utcdatetime_typedecor	90	merged	PSN_UTCDateTimeRoundTrip,PSN_UTCDateTimeBatch		_typedecor/ws_harvest/harvest/h_use_a_custom_utcdatetime_typedecor/test_h_use_a_custom_utcdatetime_typedecor.py': [Errno 2] No such file or directory 
+h_use_a_declarative_agent_pattern_wi	90	merged	PSN_DeclarativeAgentPipeline		 "input payload must not be mutated"            ^^^^^^^^^^^^^^^^^^^^^^^^^ RuntimeError: Boolean value of Tensor with more than one value is ambiguous 
+h_use_a_local_llm_enhancer_to_rewrit	90	merged	PSN_LocalLLMPromptEnhancer		_to_rewrit/ws_harvest/harvest/h_use_a_local_llm_enhancer_to_rewrit/test_h_use_a_local_llm_enhancer_to_rewrit.py': [Errno 2] No such file or directory 
+h_use_a_read_only_fetch_info_pattern	90	merged	PSN_FetchInfoIntrospect		fo_pattern/ws_harvest/harvest/h_use_a_read_only_fetch_info_pattern/test_h_use_a_read_only_fetch_info_pattern.py': [Errno 2] No such file or directory 
+h_verify_the_integrity_of_user_uploa	90	merged	PSN_VerifyMediaIntegrity,PSN_ComputeMediaHash		user_uploa/ws_harvest/harvest/h_verify_the_integrity_of_user_uploa/test_h_verify_the_integrity_of_user_uploa.py': [Errno 2] No such file or directory 
+h_versioned_asset_cache_keys	90	merged	PSN_VersionedAssetCacheKey,PSN_CacheKeyCompare		versioned_asset_cache_keys/ws_harvest/harvest/h_versioned_asset_cache_keys/test_h_versioned_asset_cache_keys.py': [Errno 2] No such file or directory 

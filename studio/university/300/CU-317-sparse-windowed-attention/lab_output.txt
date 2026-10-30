@@ -1,0 +1,6 @@
+RESULT out_full[0,0,0] = -0.670553
+RESULT out_windowed[0,0,0] = -0.569248
+RESULT out_sparse[0,0,0] = -0.654069
+RESULT weights_full[0,0,0] = 0.14138
+RESULT weights_windowed[0,0,0] = 1
+RESULT weights_sparse[0,0,0] = 0.442288

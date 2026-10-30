@@ -1,0 +1,3 @@
+RESULT gx_center = 4
+RESULT gy_center = 0
+RESULT magnitude_center = 4

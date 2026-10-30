@@ -1,0 +1,57 @@
+{
+ "code": "CU-211",
+ "title": "Quantization: int8, FP8, 4-bit and GGUF",
+ "level": "200",
+ "questions": [
+  {
+   "q": "According to the lesson, why is the per-row int8 Weight MSE significantly lower than the per-tensor int8 Weight MSE?",
+   "options": [
+    "Per-row scaling uses a smaller max_int value (7 instead of 127).",
+    "The per-tensor scale is dominated by large values in specific rows, which crushes small values in other rows, whereas per-row scaling preserves them.",
+    "Per-row int8 requires less memory for storing scales, allowing for higher precision.",
+    "Per-tensor quantization uses asymmetric rounding, while per-row uses symmetric rounding."
+   ],
+   "answer": "The per-tensor scale is dominated by large values in specific rows, which crushes small values in other rows, whereas per-row scaling preserves them.",
+   "why": "The lesson states: 'Why? Because the per-tensor scale was dominated by the large values in Row 1, crushing the small values in Row 0. Per-row scaling preserved them.'"
+  },
+  {
+   "q": "In the context of symmetric quantization for int8, what value is used for max_int and why?",
+   "options": [
+    "128, because the range is -128 to 127.",
+    "127, to avoid the -128 edge case and maintain symmetry.",
+    "7, because int8 is a subset of int4.",
+    "255, to utilize the full unsigned range."
+   ],
+   "answer": "127, to avoid the -128 edge case and maintain symmetry.",
+   "why": "The lesson explicitly states: 'For int8, max_int is 127 (range -128 to 127, but we use 127 for symmetry to avoid the -128 edge case).'"
+  },
+  {
+   "q": "What is the primary trade-off described in the 'intuition' section regarding the granularity of quantization scales (per-tensor vs. per-row vs. per-group)?",
+   "options": [
+    "Speed vs. Accuracy",
+    "Granularity vs. Overhead",
+    "Memory vs. Bandwidth",
+    "Precision vs. Stability"
+   ],
+   "answer": "Granularity vs. Overhead",
+   "why": "The lesson states: 'This is the core tension of quantization: Granularity vs. Overhead. The more scales you keep... the more accurate you are, but the more memory you spend storing those scales.'"
+  },
+  {
+   "q": "According to the lab results, what percentage of bytes are saved when using per-row int8 quantization compared to the baseline?",
+   "options": null,
+   "answer": "62.5%",
+   "why": "The lab results section lists: 'RESULT per_row_int8_bytes_saved_pct = 62.5'."
+  },
+  {
+   "q": "Why does ComfyUI silently fall back to full precision if a GPU does not support INT8 compute?",
+   "options": [
+    "To prevent the application from crashing.",
+    "Because INT8 is always slower than FP16.",
+    "To ensure the model weights are not corrupted.",
+    "Because the comfy_quant module does not support INT8."
+   ],
+   "answer": "To prevent the application from crashing.",
+   "why": "The lesson states: '...ComfyUI doesn’t crash; it silently falls back to full precision.'"
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "code": "CU-109",
+ "title": "Resolution, aspect ratio and the pixel budget",
+ "level": "100",
+ "questions": [
+  {
+   "q": "What is the formula for the ideal real-valued width (`w_ideal`) given a pixel budget and aspect ratio `r`?",
+   "options": [
+    "sqrt(budget / r)",
+    "sqrt(budget * r)",
+    "budget * r",
+    "budget / sqrt(r)"
+   ],
+   "answer": "sqrt(budget * r)",
+   "why": "The lesson states: 'Solving for w, the ideal real-valued width is w_ideal = sqrt(budget * r).'"
+  },
+  {
+   "q": "In the lab example with a budget of 1,000,000 pixels and a 16:9 aspect ratio, what was the calculated optimal integer width?",
+   "options": [
+    "1333",
+    "750",
+    "1000",
+    "1440"
+   ],
+   "answer": "1333",
+   "why": "The lab output explicitly states: 'RESULT width = 1333'."
+  },
+  {
+   "q": "Why might rounding width and height independently lead to a problem?",
+   "options": [
+    "It causes the GPU to crash immediately.",
+    "The product w * h might exceed the pixel budget.",
+    "It prevents the use of PyTorch tensors.",
+    "It makes the aspect ratio exactly 1:1."
+   ],
+   "answer": "The product w * h might exceed the pixel budget.",
+   "why": "The 'Common mistakes' section states: 'If you round width and height separately, the product w * h might exceed your budget.'"
+  },
+  {
+   "q": "What is the actual pixel count resulting from the optimal integer dimensions (1333x750) in the lab?",
+   "options": null,
+   "answer": "999750",
+   "why": "The lab output states: 'RESULT pixel_count = 999750'."
+  },
+  {
+   "q": "Which ComfyUI module contains the utility function `calculate_dimensions` used for aspect ratio fitting?",
+   "options": null,
+   "answer": "comfy/ldm/hidream_o1",
+   "why": "The lesson states: 'the comfy/ldm/hidream_o1 module contains a utility function calculate_dimensions in utils.py.'"
+  }
+ ]
+}

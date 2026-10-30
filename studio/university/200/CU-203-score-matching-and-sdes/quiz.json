@@ -1,0 +1,62 @@
+{
+ "code": "CU-203",
+ "title": "Score matching, Tweedie and the SDE view",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What is the score of a density p(x)?",
+   "options": [
+    "The gradient of log p with respect to x",
+    "The probability of x",
+    "The loss of the network",
+    "The noise level at x"
+   ],
+   "answer": "The gradient of log p with respect to x",
+   "why": "s(x) = ∇ₓ log p(x). It needs no normalising constant."
+  },
+  {
+   "q": "By Tweedie's formula, the best denoiser at noise level σ equals",
+   "options": [
+    "x − σ s(x)",
+    "x + σ² s(x)",
+    "The score alone, scaled by σ²",
+    "x / σ"
+   ],
+   "answer": "x + σ² s(x)",
+   "why": "E[x_0 | x] = x + σ² ∇log p_σ(x). The lab checks it against four million samples."
+  },
+  {
+   "q": "Why can denoising score matching train on the true score without knowing it?",
+   "options": [
+    "It estimates the score by finite differences",
+    "It uses a pretrained classifier",
+    "Its loss differs from the explicit loss only by a constant independent of the model",
+    "It only works on Gaussian data"
+   ],
+   "answer": "Its loss differs from the explicit loss only by a constant independent of the model",
+   "why": "This is Vincent's identity, and the lab shows the same gap for four very different models."
+  },
+  {
+   "q": "Compared with the probability-flow ODE at the same noise level, the reverse SDE has",
+   "options": [
+    "The same drift and no noise",
+    "Half the drift plus noise",
+    "Twice the score drift plus fresh noise",
+    "No score term at all"
+   ],
+   "answer": "Twice the score drift plus fresh noise",
+   "why": "The reverse SDE uses g²∇log p, the ODE ½g²∇log p, and only the SDE adds dW̄."
+  },
+  {
+   "q": "The ODE and the SDE share",
+   "options": [
+    "The same marginal distribution at every noise level",
+    "The same path for each sample",
+    "The same random numbers",
+    "The same number of model calls per step"
+   ],
+   "answer": "The same marginal distribution at every noise level",
+   "why": "Song et al. 2020 construct the ODE to have the SDE's marginals. Individual paths differ, as the lab's 2.35 RMS difference shows."
+  }
+ ]
+}

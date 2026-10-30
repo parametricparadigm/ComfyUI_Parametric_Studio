@@ -1,0 +1,12 @@
+{
+ "title": "Color spaces, gamma and image math",
+ "level": "200",
+ "char": "bits",
+ "hook": "sRGB vs linear light and why blending in the wrong space looks muddy.",
+ "code": "CU-229",
+ "prereq": [
+  "CU-103"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

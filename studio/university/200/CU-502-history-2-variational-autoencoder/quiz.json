@@ -1,0 +1,52 @@
+{
+ "code": "CU-502",
+ "title": "History 2: Variational autoencoders and the latent idea (2013)",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What is the fundamental difference between a standard Autoencoder (AE) and a Variational Autoencoder (VAE) in terms of their mapping to latent space?",
+   "options": [
+    "AE maps to a distribution, VAE maps to a single point",
+    "AE maps to a single point, VAE maps to a distribution",
+    "AE uses stochastic sampling, VAE uses deterministic mapping",
+    "AE compresses data, VAE expands data"
+   ],
+   "answer": "AE maps to a single point, VAE maps to a distribution",
+   "why": "The lesson states that an AE maps an input to a fixed vector (a point), whereas a VAE maps an image to a distribution (a cloud of possibilities)."
+  },
+  {
+   "q": "In the VAE reparameterization trick, what is the formula used to calculate the latent vector z?",
+   "options": null,
+   "answer": "z = mu + epsilon * sigma",
+   "why": "The lesson explicitly defines the reparameterization trick formula as z = mu + epsilon * sigma, where epsilon is drawn from a standard normal distribution."
+  },
+  {
+   "q": "Why is the KL Divergence Loss included in the VAE loss function?",
+   "options": [
+    "To maximize the sharpness of the reconstructed images",
+    "To force the latent space to be smooth and centered around zero",
+    "To increase the dimensionality of the latent vector",
+    "To prevent the decoder from reconstructing the input"
+   ],
+   "answer": "To force the latent space to be smooth and centered around zero",
+   "why": "The lesson explains that the KL Divergence Loss forces the latent distribution to look like the prior (standard normal), which ensures the latent space is smooth and centered around zero."
+  },
+  {
+   "q": "According to the lesson, what happens to the latent space if the KL Divergence Loss is removed from the VAE training?",
+   "options": null,
+   "answer": "The latent space becomes disjointed, and you will not be able to interpolate between images.",
+   "why": "The 'Common mistakes' section states that ignoring the KL Loss causes the latent space to become disjointed, preventing interpolation between images."
+  },
+  {
+   "q": "In the provided lab results, what does the value `RESULT mu_shape = [8, 2]` indicate about the encoder's output?",
+   "options": [
+    "The batch size is 2 and the latent dimension is 8",
+    "The encoder outputs a mean vector of dimension 2 for each of the 8 samples",
+    "The input data has a dimensionality of 8 and 2",
+    "The standard deviation is calculated for 8 dimensions"
+   ],
+   "answer": "The encoder outputs a mean vector of dimension 2 for each of the 8 samples",
+   "why": "The lesson explicitly interprets `RESULT mu_shape = [8, 2]` as confirming that the encoder outputs a mean vector of dimension 2 for each of the 8 samples in the batch."
+  }
+ ]
+}

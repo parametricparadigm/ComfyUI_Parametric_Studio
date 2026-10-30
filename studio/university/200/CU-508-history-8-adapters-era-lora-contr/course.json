@@ -1,0 +1,12 @@
+{
+ "title": "History 8: Adapters era: LoRA and ControlNet",
+ "level": "200",
+ "char": "tune",
+ "hook": "Discover how low-rank adaptations and spatial controls revolutionized efficient fine-tuning in the ComfyUI ecosystem.",
+ "code": "CU-508",
+ "prereq": [
+  "CU-212"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

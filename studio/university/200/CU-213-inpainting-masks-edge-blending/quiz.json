@@ -1,0 +1,56 @@
+{
+ "code": "CU-213",
+ "title": "Inpainting masks and edge blending",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What is the mathematical formula used to calculate the blended output in the lesson?",
+   "options": [
+    "result = alpha * img_b + (1 - alpha) * img_a",
+    "result = alpha * img_a + (1 - alpha) * img_b",
+    "result = (alpha + 1) * img_a - img_b",
+    "result = alpha * (img_a - img_b)"
+   ],
+   "answer": "result = alpha * img_a + (1 - alpha) * img_b",
+   "why": "The 'Under the hood' section explicitly defines the blend equation as `result = alpha * img_a + (1 - alpha) * img_b`."
+  },
+  {
+   "q": "In the provided lab example, what is the calculated value at index 1 for the `feathered_blend`?",
+   "options": [
+    "200.0",
+    "110.0",
+    "165.0",
+    "10.0"
+   ],
+   "answer": "110.0",
+   "why": "The 'Lab' section states that at index 1, the calculation is `0.5 * 20.0 + 0.5 * 200.0 = 110.0`."
+  },
+  {
+   "q": "According to the lesson, what visual artifact occurs if a binary (hard) mask is used instead of a feathered mask?",
+   "options": [
+    "Ghosting effect",
+    "Banding",
+    "A harsh line or sharp, artificial cut",
+    "Color inversion"
+   ],
+   "answer": "A harsh line or sharp, artificial cut",
+   "why": "The 'Intuition' section explains that a hard mask creates a 'sharp, artificial cut' and a 'harsh line where the AI's guess meets the original pixels'."
+  },
+  {
+   "q": "Why is the test `test_feathering_is_smooth_for_large_fp16_images` significant in the context of ComfyUI?",
+   "options": [
+    null
+   ],
+   "answer": "It ensures that feathering works correctly with half-precision floating-point numbers (fp16), which are common in VRAM-constrained environments, preventing banding or artifacts that can occur due to lower precision.",
+   "why": "The 'In ComfyUI' section states this test ensures feathering works with fp16, which is vital because fp16 has lower precision and naive feathering can introduce banding or artifacts."
+  },
+  {
+   "q": "What is the recommended solution if you see banding in your blends due to precision errors in fp16?",
+   "options": [
+    null
+   ],
+   "answer": "Upcast the mask to fp32 for the calculation, then downcast the result.",
+   "why": "The 'Common mistakes' section advises that if you see banding in fp16 blends, you should try upcasting the mask to fp32 for the calculation and then downcasting the result."
+  }
+ ]
+}

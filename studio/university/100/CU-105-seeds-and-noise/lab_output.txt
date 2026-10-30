@@ -1,0 +1,5 @@
+RESULT identical_noise = True
+RESULT different_seeds_differ = True
+RESULT noise_mean = 0.0630417
+RESULT noise_std = 0.988765
+RESULT exact_recovery = True

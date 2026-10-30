@@ -1,0 +1,10 @@
+{
+ "title": "Resolution, aspect ratio and the pixel budget",
+ "level": "100",
+ "char": "graph",
+ "hook": "Master the art of balancing image dimensions to maximize detail without blowing up your VRAM usage.",
+ "code": "CU-109",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

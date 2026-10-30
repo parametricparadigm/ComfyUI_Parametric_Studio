@@ -1,0 +1,10 @@
+{
+ "title": "Models on disk: safetensors and families",
+ "level": "100",
+ "char": "bits",
+ "hook": "What is inside a model file and why families matter.",
+ "code": "CU-107",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

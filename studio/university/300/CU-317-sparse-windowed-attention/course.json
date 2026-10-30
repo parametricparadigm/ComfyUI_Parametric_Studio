@@ -1,0 +1,12 @@
+{
+ "title": "Sparse and windowed attention",
+ "level": "300",
+ "char": "attn",
+ "hook": "Discover how limiting attention to local windows and sparse patterns drastically reduces computational cost while preserving spatial context.",
+ "code": "CU-317",
+ "prereq": [
+  "CU-304"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

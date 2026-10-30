@@ -1,0 +1,2 @@
+RESULT stable_metric = 0
+RESULT flicker_metric = 2.83333

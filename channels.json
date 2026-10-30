@@ -1,0 +1,20 @@
+{
+  "stable": {
+    "comfyui": {"repo": "https://github.com/comfyanonymous/ComfyUI.git", "ref": "v0.43.0"},
+    "torch": {
+      "cuda": ["torch", "torchvision", "torchaudio", "--index-url", "https://download.pytorch.org/whl/cu130"],
+      "rocm": ["torch", "torchvision", "torchaudio", "--index-url", "https://download.pytorch.org/whl/rocm7.0"],
+      "mps": ["torch", "torchvision", "torchaudio"],
+      "cpu": ["torch", "torchvision", "torchaudio", "--index-url", "https://download.pytorch.org/whl/cpu"]
+    }
+  },
+  "nightly": {
+    "comfyui": {"repo": "https://github.com/comfyanonymous/ComfyUI.git", "ref": "master"},
+    "torch": {
+      "cuda": ["torch", "torchvision", "torchaudio", "--index-url", "https://download.pytorch.org/whl/cu130"],
+      "rocm": ["torch", "torchvision", "torchaudio", "--index-url", "https://download.pytorch.org/whl/rocm7.0"],
+      "mps": ["torch", "torchvision", "torchaudio"],
+      "cpu": ["torch", "torchvision", "torchaudio", "--index-url", "https://download.pytorch.org/whl/cpu"]
+    }
+  }
+}

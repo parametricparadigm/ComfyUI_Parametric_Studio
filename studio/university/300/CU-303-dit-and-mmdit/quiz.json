@@ -1,0 +1,62 @@
+{
+ "code": "CU-303",
+ "title": "DiT and MM-DiT blocks",
+ "level": "300",
+ "questions": [
+  {
+   "q": "What is the primary architectural difference between a U-Net and a Diffusion Transformer (DiT) regarding how they process information?",
+   "options": [
+    "U-Net uses global attention while DiT uses local convolutional filters.",
+    "U-Net processes images in a hierarchical, local manner, whereas DiT uses global attention where every token can interact with every other token.",
+    "DiT processes images in a hierarchical manner, while U-Net treats the entire canvas as a single token.",
+    "U-Net is permutation-invariant by default, while DiT requires no positional embeddings."
+   ],
+   "answer": "U-Net processes images in a hierarchical, local manner, whereas DiT uses global attention where every token can interact with every other token.",
+   "why": "The lesson states: 'In CU-301, we looked at the U-Net... that processes images in a hierarchical, local manner... But in CU-303... We are replacing the U-Net with a Transformer. Why? Because attention is not local; it is global. Every token can talk to every other token.'"
+  },
+  {
+   "q": "In the context of DiT blocks, what is the specific function of the AdaLN (Adaptive Layer Normalization) mechanism?",
+   "options": [
+    "It replaces the attention mechanism with a convolutional layer to reduce computational cost.",
+    "It transforms the diffusion timestep into scale and shift parameters that modulate the features inside the transformer blocks.",
+    "It calculates the positional embeddings for the tokens to ensure spatial awareness.",
+    "It splits the input tensor into separate query, key, and value projections for the text stream."
+   ],
+   "answer": "It transforms the diffusion timestep into scale and shift parameters that modulate the features inside the transformer blocks.",
+   "why": "The lesson explains: 'The AdaLN mechanism takes this time information and transforms it into scale and shift parameters. These parameters are then applied to the features inside every transformer block.'"
+  },
+  {
+   "q": "Given a 512px image, a VAE downsample factor of 8, and a patch size of 2, how many tokens are generated for the DiT sequence?",
+   "options": [
+    "256",
+    "512",
+    "1024",
+    "4096"
+   ],
+   "answer": "1024",
+   "why": "The lab results section states: 'For a 512px image, the VAE produces a 64 x 64 latent. With 2 x 2 patches, this becomes 32 x 32 = 1024 tokens.'"
+  },
+  {
+   "q": "Why is the 'identity' property of the AdaLN modulation function (where scale and shift are zero) considered crucial for stability?",
+   "options": [
+    "It ensures that the model always generates high-frequency details regardless of the noise level.",
+    "It guarantees that if the timestep embedding were zero, the block acts as a pass-through, preserving the input features.",
+    "It allows the model to ignore the text embedding entirely during the denoising process.",
+    "It reduces the computational complexity of the attention mechanism from N^2 to N."
+   ],
+   "answer": "It guarantees that if the timestep embedding were zero, the block acts as a pass-through, preserving the input features.",
+   "why": "The lesson states: 'The \"identity\" case occurs when scale is 0 and shift is 0... This property is crucial for stability; if the timestep embedding were zero, the block would act as a pass-through, preserving the input features.'"
+  },
+  {
+   "q": "In the MM-DiT (Multimodal DiT) architecture, how does the attention mechanism differ from a standard DiT?",
+   "options": [
+    "MM-DiT uses only self-attention for both image and text, ignoring cross-attention.",
+    "MM-DiT maintains separate query, key, and value projections for image and text streams, allowing bidirectional flow between them.",
+    "MM-DiT replaces the transformer blocks with convolutional layers to handle multimodal data.",
+    "MM-DiT does not use AdaLN modulation, relying instead on fixed layer normalization."
+   ],
+   "answer": "MM-DiT maintains separate query, key, and value projections for image and text streams, allowing bidirectional flow between them.",
+   "why": "The lesson states: 'In MM-DiT... the architecture extends this by maintaining separate query, key, and value projections for image and text streams... MMDiTJointAttention to handle the bidirectional flow between text and image tokens.'"
+  }
+ ]
+}

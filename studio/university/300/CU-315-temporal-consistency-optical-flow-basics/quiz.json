@@ -1,0 +1,57 @@
+{
+ "code": "CU-315",
+ "title": "Temporal consistency and optical flow basics",
+ "level": "300",
+ "questions": [
+  {
+   "q": "What is the mathematical expression for the brightness constancy assumption in optical flow?",
+   "options": [
+    "I_{t+1}(x, y) = I_t(x, y)",
+    "I_{t+1}(x + u, y + v) = I_t(x, y)",
+    "F = I_{t+1} + I_t",
+    "V(x, y) = (x, y)"
+   ],
+   "answer": "I_{t+1}(x + u, y + v) = I_t(x, y)",
+   "why": "The lesson explicitly defines the brightness constancy assumption with the equation I_{t+1}(x + u, y + v) = I_t(x, y), stating that the intensity of a moving pixel remains constant over time when shifted by the flow vector."
+  },
+  {
+   "q": "In the context of the provided lab experiment, what does a flow standard deviation (flow_std) of 0 indicate about the motion?",
+   "options": [
+    "The object is rotating or deforming.",
+    "Every single pixel moved by the exact same amount, indicating rigid body motion.",
+    "The video contains significant noise or flicker.",
+    "The flow is erratic and complex."
+   ],
+   "answer": "Every single pixel moved by the exact same amount, indicating rigid body motion.",
+   "why": "The lab section states that a standard deviation of 0 means 'every single pixel moved by the exact same amount' and that this indicates 'rigid body motion, which is easy for a neural network to model.'"
+  },
+  {
+   "q": "Why is 'Causal' 3D convolution (such as CarriedConv3d) critical for autoregressive video generation?",
+   "options": [
+    "It allows the model to look at future frames to improve prediction accuracy.",
+    "It ensures temporal consistency is built from history forward, preventing 'future leakage' artifacts.",
+    "It reduces the computational cost of attention mechanisms.",
+    "It treats time as a symmetric spatial dimension."
+   ],
+   "answer": "It ensures temporal consistency is built from history forward, preventing 'future leakage' artifacts.",
+   "why": "The lesson explains that 'Causal' means it only looks at past and present frames, which is critical for autoregressive generation to ensure consistency is built from history forward and to prevent 'future leakage' which can cause artifacts."
+  },
+  {
+   "q": "According to the lesson, what is the primary architectural mechanism used in ComfyUI to enforce temporal consistency, given that specific optical flow estimation nodes are not covered?",
+   "options": null,
+   "answer": "3D causal convolutions (such as VideoConv3d, CarriedConv3d, and CausalConv3d)",
+   "why": "The 'In ComfyUI' section notes that specific optical flow estimation nodes are not covered, and states that consistency is 'enforced architecturally via these 3D causal layers' like VideoConv3d and CarriedConv3d."
+  },
+  {
+   "q": "What is the 'common mistake' associated with treating time as just another spatial dimension in video architectures?",
+   "options": [
+    "It causes the model to ignore local pixel-level displacements.",
+    "It leads to 'wobble' or 'jitter' because it fails to capture the directionality of motion.",
+    "It results in 'smearing' due to looking at future frames.",
+    "It makes the VAE unable to compress the video in space."
+   ],
+   "answer": "It leads to 'wobble' or 'jitter' because it fails to capture the directionality of motion.",
+   "why": "The 'Common mistakes' section states that architectures treating time symmetrically (like static image models) 'often fail to capture the directionality of motion, leading to \"wobble\" or \"jitter.\"'"
+  }
+ ]
+}

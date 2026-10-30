@@ -1,0 +1,17 @@
+{
+ "code": "CU-222",
+ "title": "Sub-graphs and node expansion",
+ "level": "200",
+ "prereq": [
+  "CU-220"
+ ],
+ "char": "graph",
+ "hook": "A sub-graph is a front-end idea that the server never sees. Node expansion is a server idea that the front-end never sees.",
+ "code_refs": [
+  "comfy_execution/graph_utils.py:GraphBuilder",
+  "comfy_execution/graph.py:DynamicPrompt",
+  "comfy_execution/graph.py:add_ephemeral_node",
+  "execution.py:pending_subgraph_results",
+  "app/subgraph_manager.py:SubgraphManager"
+ ]
+}

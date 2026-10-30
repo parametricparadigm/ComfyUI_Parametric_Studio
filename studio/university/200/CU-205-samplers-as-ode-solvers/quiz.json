@@ -1,0 +1,62 @@
+{
+ "code": "CU-205",
+ "title": "Samplers are ODE solvers",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What decides the final image in a deterministic sampler?",
+   "options": [
+    "The last step",
+    "The starting noise, plus the model, conditioning and step choices",
+    "A fresh random number at each step",
+    "The VAE"
+   ],
+   "answer": "The starting noise, plus the model, conditioning and step choices",
+   "why": "There is no randomness after the start: the sampler integrates an ODE."
+  },
+  {
+   "q": "Heun at 20 steps costs about how many model calls?",
+   "options": [
+    "10",
+    "20",
+    "39",
+    "400"
+   ],
+   "answer": "39",
+   "why": "Two calls per step, except the last. The lab shows 19 calls at 10 steps and 79 at 40."
+  },
+  {
+   "q": "Why does DPM++ 2M get second order at one call per step?",
+   "options": [
+    "It skips the denoiser",
+    "It reuses the denoised prediction from the previous step",
+    "It uses a smaller latent",
+    "It takes smaller steps only"
+   ],
+   "answer": "It reuses the denoised prediction from the previous step",
+   "why": "D̄ combines D_i and D_(i−1), so no extra model call is needed."
+  },
+  {
+   "q": "The lab's \"wrong\" column shows what?",
+   "options": [
+    "Samplers that crash",
+    "Latents outside the VAE range",
+    "Samples near a mode boundary that step error sent to the other mode",
+    "Errors in the reference"
+   ],
+   "answer": "Samples near a mode boundary that step error sent to the other mode",
+   "why": "A small error near the separating boundary changes the destination. This is one reason step count can change composition."
+  },
+  {
+   "q": "Doubling the steps of a first-order sampler should",
+   "options": [
+    "Roughly halve the error",
+    "Quarter the error",
+    "Leave the error unchanged",
+    "Double the error"
+   ],
+   "answer": "Roughly halve the error",
+   "why": "Order 1 means error ∝ step size. The lab measures slopes of 1.00."
+  }
+ ]
+}

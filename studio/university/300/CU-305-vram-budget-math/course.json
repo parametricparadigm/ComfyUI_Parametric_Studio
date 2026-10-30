@@ -1,0 +1,12 @@
+{
+ "title": "VRAM budget math: weights, activations, caches",
+ "level": "300",
+ "char": "bits",
+ "hook": "Predicting whether it fits before you press Queue.",
+ "code": "CU-305",
+ "prereq": [
+  "CU-210"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

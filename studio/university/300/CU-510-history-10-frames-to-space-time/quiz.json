@@ -1,0 +1,57 @@
+{
+ "code": "CU-510",
+ "title": "History 10: From frames to space-time: the road to modern video models",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In the context of video generation, what is the primary purpose of using CausalConv3d instead of a standard 3D convolution?",
+   "options": [
+    "To increase the resolution of the generated video frames",
+    "To ensure the output at time t does not depend on future frames, preventing 'future leakage'",
+    "To reduce the number of channels in the input tensor",
+    "To apply a wavelet transform to the spatial dimensions"
+   ],
+   "answer": "To ensure the output at time t does not depend on future frames, preventing 'future leakage'",
+   "why": "The lesson states that CausalConv3d implements causal temporal padding so that the model cannot 'cheat' by looking into the future, which is critical for stable, real-time, or sequential video generation."
+  },
+  {
+   "q": "According to the lesson, how does the shift to space-time modeling change the fundamental view of video data?",
+   "options": [
+    "From a stack of independent photographs to a continuous 4D tensor (Height, Width, Time, Channels)",
+    "From a 2D image to a 3D point cloud",
+    "From a sequence of audio clips to a sequence of video clips",
+    "From a static image to a high-resolution photograph"
+   ],
+   "answer": "From a stack of independent photographs to a continuous 4D tensor (Height, Width, Time, Channels)",
+   "why": "The 'Why this matters' section explicitly states that we no longer see video as a 'bag of independent images' but as a continuous 4D tensor: Height, Width, Time, and Channels."
+  },
+  {
+   "q": "What specific mechanism does the Cosmos model use to encode relative position in the attention mechanism, allowing it to understand that Frame 5 is 'close' to Frame 6?",
+   "options": null,
+   "answer": "Rotary Position Embeddings (RoPE) / VideoRopePosition3DEmb",
+   "why": "The lesson mentions that in `comfy/ldm/cosmos/position_embedding.py`, `VideoRopePosition3DEmb` applies Rotary Position Embeddings (RoPE) to query and key tensors, encoding relative position by rotating vectors in a complex plane."
+  },
+  {
+   "q": "In the provided lab simulation, what does the result `diff_0_1 = [1.0, 1.0]` indicate about the temporal coherence of the test video?",
+   "options": [
+    "The video contains random noise and flicker",
+    "The change from Frame 0 to Frame 1 is uniform across both pixels, indicating structured change without flicker",
+    "The video is static with no change between frames",
+    "The model failed to generate the second frame"
+   ],
+   "answer": "The change from Frame 0 to Frame 1 is uniform across both pixels, indicating structured change without flicker",
+   "why": "The 'Lab' section explains that `diff_0_1 = [1.0, 1.0]` proves the change is uniform across both pixels, meaning there is no flicker or random noise; the change is structured."
+  },
+  {
+   "q": "Why is it considered a common mistake to neglect 3D positional embeddings (like RoPE or Sincos) in video models?",
+   "options": [
+    "It causes the model to exceed VRAM limits",
+    "It prevents the model from distinguishing between different frames, leading to a lack of motion or chaotic transitions",
+    "It makes the video generation process slower",
+    "It causes the model to ignore the spatial dimensions (Height and Width)"
+   ],
+   "answer": "It prevents the model from distinguishing between different frames, leading to a lack of motion or chaotic transitions",
+   "why": "The 'Common mistakes' section states that without 3D positional embeddings, the model cannot distinguish between Frame 1 and Frame 100, treating all frames as equivalent, which leads to a lack of motion or chaotic transitions."
+  }
+ ]
+}

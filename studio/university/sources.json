@@ -1,0 +1,525 @@
+{
+"https://arxiv.org/abs/1312.6114": {
+"title": "Auto-Encoding Variational Bayes",
+"authors": [
+"Diederik P Kingma",
+"Max Welling"
+],
+"published": "2013-12-20",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/1401.4082": {
+"title": "Stochastic Backpropagation and Approximate Inference in Deep Generative Models",
+"authors": [
+"Danilo Jimenez Rezende",
+"Shakir Mohamed",
+"Daan Wierstra"
+],
+"published": "2014-01-16",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/1409.0473": {
+"title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+"authors": [
+"Dzmitry Bahdanau",
+"Kyunghyun Cho",
+"Yoshua Bengio"
+],
+"published": "2014-09-01",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/1503.03585": {
+"title": "Deep Unsupervised Learning using Nonequilibrium Thermodynamics",
+"authors": [
+"Jascha Sohl-Dickstein",
+"Eric A. Weiss",
+"Niru Maheswaranathan",
+"Surya Ganguli"
+],
+"published": "2015-03-12",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/1706.03762": {
+"title": "Attention Is All You Need",
+"authors": [
+"Ashish Vaswani",
+"Noam Shazeer",
+"Niki Parmar",
+"Jakob Uszkoreit",
+"Llion Jones",
+"Aidan N. Gomez",
+"Lukasz Kaiser",
+"Illia Polosukhin"
+],
+"published": "2017-06-12",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/1907.05600": {
+"title": "Generative Modeling by Estimating Gradients of the Data Distribution",
+"authors": [
+"Yang Song",
+"Stefano Ermon"
+],
+"published": "2019-07-12",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2006.11239": {
+"title": "Denoising Diffusion Probabilistic Models",
+"authors": [
+"Jonathan Ho",
+"Ajay Jain",
+"Pieter Abbeel"
+],
+"published": "2020-06-19",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2011.13456": {
+"title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+"authors": [
+"Yang Song",
+"Jascha Sohl-Dickstein",
+"Diederik P. Kingma",
+"Abhishek Kumar",
+"Stefano Ermon",
+"Ben Poole"
+],
+"published": "2020-11-26",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2105.05233": {
+"title": "Diffusion Models Beat GANs on Image Synthesis",
+"authors": [
+"Prafulla Dhariwal",
+"Alex Nichol"
+],
+"published": "2021-05-11",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2112.10752": {
+"title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+"authors": [
+"Robin Rombach",
+"Andreas Blattmann",
+"Dominik Lorenz",
+"Patrick Esser",
+"Björn Ommer"
+],
+"published": "2021-12-20",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2205.14135": {
+"title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+"authors": [
+"Tri Dao",
+"Daniel Y. Fu",
+"Stefano Ermon",
+"Atri Rudra",
+"Christopher Ré"
+],
+"published": "2022-05-27",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2206.00364": {
+"title": "Elucidating the Design Space of Diffusion-Based Generative Models",
+"authors": [
+"Tero Karras",
+"Miika Aittala",
+"Timo Aila",
+"Samuli Laine"
+],
+"published": "2022-06-01",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2207.12598": {
+"title": "Classifier-Free Diffusion Guidance",
+"authors": [
+"Jonathan Ho",
+"Tim Salimans"
+],
+"published": "2022-07-26",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2209.03003": {
+"title": "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow",
+"authors": [
+"Xingchao Liu",
+"Chengyue Gong",
+"Qiang Liu"
+],
+"published": "2022-09-07",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2209.05433": {
+"title": "FP8 Formats for Deep Learning",
+"authors": [
+"Paulius Micikevicius",
+"Dusan Stosic",
+"Neil Burgess",
+"Marius Cornea",
+"Pradeep Dubey",
+"Richard Grisenthwaite",
+"Sangwon Ha",
+"Alexander Heinecke",
+"Patrick Judd",
+"John Kamalu",
+"Naveen Mellempudi",
+"Stuart Oberman",
+"Mohammad Shoeybi",
+"Michael Siu",
+"Hao Wu"
+],
+"published": "2022-09-12",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2209.15571": {
+"title": "Building Normalizing Flows with Stochastic Interpolants",
+"authors": [
+"Michael S. Albergo",
+"Eric Vanden-Eijnden"
+],
+"published": "2022-09-30",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2210.02747": {
+"title": "Flow Matching for Generative Modeling",
+"authors": [
+"Yaron Lipman",
+"Ricky T. Q. Chen",
+"Heli Ben-Hamu",
+"Maximilian Nickel",
+"Matt Le"
+],
+"published": "2022-10-06",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2211.01095": {
+"title": "DPM-Solver++: Fast Solver for Guided Sampling of Diffusion Probabilistic Models",
+"authors": [
+"Cheng Lu",
+"Yuhao Zhou",
+"Fan Bao",
+"Jianfei Chen",
+"Chongxuan Li",
+"Jun Zhu"
+],
+"published": "2022-11-02",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2212.03860": {
+"title": "Diffusion Art or Digital Forgery? Investigating Data Replication in Diffusion Models",
+"authors": [
+"Gowthami Somepalli",
+"Vasu Singla",
+"Micah Goldblum",
+"Jonas Geiping",
+"Tom Goldstein"
+],
+"published": "2022-12-07",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2301.13188": {
+"title": "Extracting Training Data from Diffusion Models",
+"authors": [
+"Nicholas Carlini",
+"Jamie Hayes",
+"Milad Nasr",
+"Matthew Jagielski",
+"Vikash Sehwag",
+"Florian Tramèr",
+"Borja Balle",
+"Daphne Ippolito",
+"Eric Wallace"
+],
+"published": "2023-01-30",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2303.09556": {
+"title": "Efficient Diffusion Training via Min-SNR Weighting Strategy",
+"authors": [
+"Tiankai Hang",
+"Shuyang Gu",
+"Chen Li",
+"Jianmin Bao",
+"Dong Chen",
+"Han Hu",
+"Xin Geng",
+"Baining Guo"
+],
+"published": "2023-03-16",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2305.08891": {
+"title": "Common Diffusion Noise Schedules and Sample Steps are Flawed",
+"authors": [
+"Shanchuan Lin",
+"Bingchen Liu",
+"Jiashi Li",
+"Xiao Yang"
+],
+"published": "2023-05-15",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2307.01952": {
+"title": "SDXL: Improving Latent Diffusion Models for High-Resolution Image Synthesis",
+"authors": [
+"Dustin Podell",
+"Zion English",
+"Kyle Lacey",
+"Andreas Blattmann",
+"Tim Dockhorn",
+"Jonas Müller",
+"Joe Penna",
+"Robin Rombach"
+],
+"published": "2023-07-04",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2403.03206": {
+"title": "Scaling Rectified Flow Transformers for High-Resolution Image Synthesis",
+"authors": [
+"Patrick Esser",
+"Sumith Kulal",
+"Andreas Blattmann",
+"Rahim Entezari",
+"Jonas Müller",
+"Harry Saini",
+"Yam Levi",
+"Dominik Lorenz",
+"Axel Sauer",
+"Frederic Boesel",
+"Dustin Podell",
+"Tim Dockhorn",
+"Zion English",
+"Kyle Lacey",
+"Alex Goodwin",
+"Yannik Marek",
+"Robin Rombach"
+],
+"published": "2024-03-05",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2404.14507": {
+"title": "Align Your Steps: Optimizing Sampling Schedules in Diffusion Models",
+"authors": [
+"Amirmojtaba Sabour",
+"Sanja Fidler",
+"Karsten Kreis"
+],
+"published": "2024-04-22",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2407.12173": {
+"title": "Beta Sampling is All You Need: Efficient Image Generation Strategy for Diffusion Models using Stepwise Spectral Analysis",
+"authors": [
+"Haeil Lee",
+"Hansang Lee",
+"Seoyeon Gye",
+"Junmo Kim"
+],
+"published": "2024-07-16",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2408.09000": {
+"title": "Classifier-Free Guidance is a Predictor-Corrector",
+"authors": [
+"Arwen Bradley",
+"Preetum Nakkiran"
+],
+"published": "2024-08-16",
+"checked": "arXiv API 2026-10-30"
+},
+"https://arxiv.org/abs/2409.13074": {
+"title": "What does guidance do? A fine-grained analysis in a simple setting",
+"authors": [
+"Muthu Chidambaram",
+"Khashayar Gatmiry",
+"Sitan Chen",
+"Holden Lee",
+"Jianfeng Lu"
+],
+"published": "2024-09-19",
+"checked": "arXiv API 2026-10-30"
+},
+"https://docs.comfy.org/custom-nodes/js/subgraphs": {
+"title": "Subgraph Developer Guide",
+"published": "2026",
+"checked": "fetched and title confirmed 2026-10-30"
+},
+"https://docs.comfy.org/custom-nodes/v3_migration": {
+"title": "V3 Migration",
+"published": "2026",
+"checked": "fetched and title confirmed 2026-10-30"
+},
+"https://docs.comfy.org/development/comfyui-server/comms_routes": {
+"title": "ComfyUI Server Routes (HTTP and WebSocket API)",
+"published": "2026",
+"checked": "fetched and title confirmed 2026-10-30"
+},
+"https://docs.comfy.org/interface/app-mode": {
+"title": "ComfyUI APP mode guide",
+"published": "2026",
+"checked": "fetched and title confirmed 2026-10-30"
+},
+"https://docs.comfy.org/interface/features/subgraph": {
+"title": "Subgraph - Simplify your workflow",
+"published": "2026",
+"checked": "fetched and title confirmed 2026-10-30"
+},
+"https://doi.org/10.1016/0304-4149%2882%2990051-5": {
+"title": "Reverse-time diffusion equation models",
+"authors": [
+"Brian D. O. Anderson"
+],
+"published": "1982",
+"checked": "Crossref API 2026-10-30"
+},
+"https://doi.org/10.1111/j.2517-6161.1977.tb01600.x": {
+"title": "Maximum Likelihood from Incomplete Data via the EM Algorithm",
+"authors": [
+"A. P. Dempster",
+"N. M. Laird",
+"D. B. Rubin"
+],
+"published": "1977",
+"checked": "Crossref API 2026-10-30"
+},
+"https://doi.org/10.1162/NECO_a_00142": {
+"title": "A Connection Between Score Matching and Denoising Autoencoders",
+"authors": [
+"Pascal Vincent"
+],
+"published": "2011",
+"checked": "Crossref API 2026-10-30"
+},
+"https://doi.org/10.1198/jasa.2011.tm11181": {
+"title": "Tweedie's Formula and Selection Bias",
+"authors": [
+"Bradley Efron"
+],
+"published": "2011",
+"checked": "Crossref API 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/app/subgraph_manager.py": {
+"title": "ComfyUI v0.43.0 source: subgraph_manager.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/cli_args.py": {
+"title": "ComfyUI v0.43.0 source: cli_args.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/k_diffusion/sampling.py": {
+"title": "ComfyUI v0.43.0 source: sampling.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/latent_formats.py": {
+"title": "ComfyUI v0.43.0 source: latent_formats.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/ldm/flux/math.py": {
+"title": "ComfyUI v0.43.0 source: math.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/ldm/modules/attention.py": {
+"title": "ComfyUI v0.43.0 source: attention.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/model_management.py": {
+"title": "ComfyUI v0.43.0 source: model_management.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/model_patcher.py": {
+"title": "ComfyUI v0.43.0 source: model_patcher.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/model_sampling.py": {
+"title": "ComfyUI v0.43.0 source: model_sampling.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/ops.py": {
+"title": "ComfyUI v0.43.0 source: ops.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy/samplers.py": {
+"title": "ComfyUI v0.43.0 source: samplers.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_api/latest/_io.py": {
+"title": "ComfyUI v0.43.0 source: _io.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_execution/asset_enrichment.py": {
+"title": "ComfyUI v0.43.0 source: asset_enrichment.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_execution/caching.py": {
+"title": "ComfyUI v0.43.0 source: caching.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_execution/graph.py": {
+"title": "ComfyUI v0.43.0 source: graph.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_execution/graph_utils.py": {
+"title": "ComfyUI v0.43.0 source: graph_utils.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_extras/nodes_lotus.py": {
+"title": "ComfyUI v0.43.0 source: nodes_lotus.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/comfy_extras/nodes_model_advanced.py": {
+"title": "ComfyUI v0.43.0 source: nodes_model_advanced.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/execution.py": {
+"title": "ComfyUI v0.43.0 source: execution.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/main.py": {
+"title": "ComfyUI v0.43.0 source: main.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/nodes.py": {
+"title": "ComfyUI v0.43.0 source: nodes.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/script_examples/websockets_api_example.py": {
+"title": "ComfyUI v0.43.0 source: websockets_api_example.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://github.com/Comfy-Org/ComfyUI/blob/v0.43.0/server.py": {
+"title": "ComfyUI v0.43.0 source: server.py",
+"published": "2026",
+"checked": "read locally at tag v0.43.0, commit 426f5eea, same hash on GitHub 2026-10-30"
+},
+"https://www.jmlr.org/papers/v6/hyvarinen05a.html": {
+"title": "Estimation of Non-Normalized Statistical Models by Score Matching",
+"authors": [
+"Aapo Hyvärinen"
+],
+"published": "2005",
+"checked": "cited from memory; the page did not return its title to a plain fetch on 2026-10-30"
+}
+}

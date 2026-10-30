@@ -1,0 +1,62 @@
+{
+ "code": "CU-310",
+ "title": "Cross-attention versus joint attention",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In the context of diffusion transformers, what is the primary architectural difference between Cross-Attention and Joint Attention?",
+   "options": [
+    "Cross-Attention merges image and text tokens into a single sequence, while Joint Attention keeps them in separate streams.",
+    "Cross-Attention uses image tokens as queries and text tokens as keys/values, while Joint Attention concatenates image and text tokens so they attend to each other.",
+    "Cross-Attention is only used in UNet models, while Joint Attention is exclusively used in GANs.",
+    "Cross-Attention requires the text representation to be dynamic, while Joint Attention keeps the text representation static."
+   ],
+   "answer": "Cross-Attention uses image tokens as queries and text tokens as keys/values, while Joint Attention concatenates image and text tokens so they attend to each other.",
+   "why": "The lesson states that in Cross-Attention, 'image tokens ask questions, but they only look at the text tokens for answers' and remain separate streams. In contrast, Joint Attention involves 'image and text tokens are merged into a single, unified context. They all look at each other.'"
+  },
+  {
+   "q": "According to the lab results, if the query sequence length (L_q) is 4 and the key/value sequence length (L_k) is 3, what is the shape of the output tensor for Joint Attention?",
+   "options": [
+    "torch.Size([1, 4, 8])",
+    "torch.Size([1, 3, 8])",
+    "torch.Size([1, 7, 8])",
+    "torch.Size([1, 12, 8])"
+   ],
+   "answer": "torch.Size([1, 7, 8])",
+   "why": "The lab section explicitly states: 'RESULT joint_attention_output_shape = torch.Size([1, 7, 8])' and explains that the output length is L_q + L_k (4 + 3 = 7)."
+  },
+  {
+   "q": "In the 'library' analogy provided in the lesson, what role do the 'librarians' play in Cross-Attention?",
+   "options": [
+    "They represent the image tokens that generate the final output.",
+    "They represent the text tokens that store the information.",
+    "They represent the Queries that retrieve information from the Keys (books).",
+    "They represent the Values that are returned to the readers."
+   ],
+   "answer": "They represent the Queries that retrieve information from the Keys (books).",
+   "why": "The lesson describes the analogy: 'The readers send a librarian (the Query) to the archive. The librarian looks at the spines of the books (Keys) and pulls out the relevant pages (Values).'"
+  },
+  {
+   "q": "Why is it critical to slice the output in Joint Attention before passing it to the next layer?",
+   "options": [
+    "To reduce the computational cost of the next layer.",
+    "To ensure that only the updated image tokens are used, preventing text tokens from corrupting the image generation.",
+    "To normalize the attention weights to sum to 1.",
+    "To convert the data type from float to integer."
+   ],
+   "answer": "To ensure that only the updated image tokens are used, preventing text tokens from corrupting the image generation.",
+   "why": "The 'Common mistakes' section states: 'In joint attention, if you forget to slice the output to extract only the image tokens, you will pass text tokens into the next layer, corrupting the image generation.'"
+  },
+  {
+   "q": "Which ComfyUI module file contains the `MMDiT` class used for Joint Attention in SD3/Flux style models?",
+   "options": [
+    "comfy/ldm/modules/attention.py",
+    "comfy/ldm/kandinsky5/model.py",
+    "comfy/ldm/modules/diffusionmodules/mmdit.py",
+    "comfy/ldm/modules/unet.py"
+   ],
+   "answer": "comfy/ldm/modules/diffusionmodules/mmdit.py",
+   "why": "The 'In ComfyUI' section specifies: 'For Joint Attention, look at comfy/ldm/modules/diffusionmodules/mmdit.py. This file contains the MMDiT class...'"
+  }
+ ]
+}

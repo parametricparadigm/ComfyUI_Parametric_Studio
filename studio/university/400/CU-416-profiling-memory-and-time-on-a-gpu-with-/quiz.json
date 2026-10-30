@@ -1,0 +1,57 @@
+{
+ "code": "CU-416",
+ "title": "Profiling memory and time on a GPU (with a CPU model of it)",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary difference between static memory allocation and dynamic computational load?",
+   "options": [
+    "Static memory is a capacity constraint regarding how much data can be held, while dynamic load is a throughput constraint regarding processing speed.",
+    "Static memory refers to the speed of the GPU, while dynamic load refers to the size of the model weights.",
+    "Static memory is always larger than dynamic load, while dynamic load is a hard limit that causes crashes.",
+    "Static memory scales quadratically with resolution, while dynamic load scales linearly with batch size only."
+   ],
+   "answer": "Static memory is a capacity constraint regarding how much data can be held, while dynamic load is a throughput constraint regarding processing speed.",
+   "why": "The 'Why this matters' section explicitly states: 'Memory is a capacity constraint; it is about how much data you can hold at once. Time is a throughput constraint; it is about how fast you can process that data.'"
+  },
+  {
+   "q": "In the provided lab example, a batch of 2 images (3 channels, 8x8 pixels) is processed. What is the calculated `memory_bytes` for the input tensor using FP32?",
+   "options": [
+    "768",
+    "1536",
+    "12288",
+    "384"
+   ],
+   "answer": "1536",
+   "why": "The 'Lab' section states: 'RESULT memory_bytes = 1536' and explains the calculation: 'numel is 2 * 3 * 8 * 8 = 384 elements. element_size for FP32 is 4 bytes. 384 * 4 = 1536.'"
+  },
+  {
+   "q": "What is the formula for calculating the number of floating-point operations (FLOPs) for a linear layer, and what does the factor of 2 represent?",
+   "options": null,
+   "answer": "The formula is flops = 2 * M * N * K, where M is batch size, N is output features, and K is input features. The factor of 2 accounts for the multiply and the add in each dot product.",
+   "why": "The 'Under the hood' section defines the formula as `flops = 2 * M * N * K` and explicitly states: 'The factor of 2 accounts for the multiply and the add in each dot product.'"
+  },
+  {
+   "q": "Which ComfyUI class is responsible for tracking which weights are on the GPU versus the CPU and uses `LowVramPatch` to estimate VRAM usage?",
+   "options": [
+    "VRAMState",
+    "ModelPatcher",
+    "KSAMPLER",
+    "free_memory"
+   ],
+   "answer": "ModelPatcher",
+   "why": "The 'In ComfyUI' section states: 'The ModelPatcher class in comfy/model_patcher.py is responsible for tracking which weights are on the GPU versus the CPU. It uses LowVramPatch to estimate VRAM usage.'"
+  },
+  {
+   "q": "Why does switching from FP32 to FP16 not necessarily halve the `flops` count, even though it halves the `memory_bytes`?",
+   "options": [
+    "Because the number of operations remains the same, but the GPU can often process FP16 operations faster due to specialized hardware units.",
+    "Because FP16 requires more memory per element than FP32, increasing the total workload.",
+    "Because the batch size automatically doubles when switching to FP16 to maintain precision.",
+    "Because the weight matrix size changes dynamically based on the data type."
+   ],
+   "answer": "Because the number of operations remains the same, but the GPU can often process FP16 operations faster due to specialized hardware units.",
+   "why": "The 'Common mistakes' section states: 'Switching from FP32 to FP16 halves the memory_bytes... but it does not necessarily halve the flops. The number of operations remains the same, but the GPU can often process FP16 operations faster due to specialized hardware units.'"
+  }
+ ]
+}

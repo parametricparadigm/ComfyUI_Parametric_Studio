@@ -1,0 +1,12 @@
+{
+ "title": "Upscaling and tiling math",
+ "level": "200",
+ "char": "latent",
+ "hook": "Master the geometry of high-resolution generation by calculating exact tile overlaps and upscaling factors without relying on GPU acceleration.",
+ "code": "CU-217",
+ "prereq": [
+  "CU-201"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

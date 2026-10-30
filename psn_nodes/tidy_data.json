@@ -1,0 +1,17 @@
+{
+"network": [
+"PSN_DeliverToFolder",
+"PSN_DiscordWebhook",
+"PSN_FolderRoundtrip",
+"PSN_HttpRequest",
+"PSN_NtfyNotify",
+"PSN_OSCReceive",
+"PSN_OSCSend",
+"PSN_RemoteQueue",
+"PSN_SlackSend",
+"PSN_Subagent",
+"PSN_SubagentFanOut",
+"PSN_TelegramPoll",
+"PSN_TelegramSend"
+]
+}

@@ -1,0 +1,5 @@
+RESULT width = 1333
+RESULT height = 750
+RESULT aspect_ratio = 1.77733
+RESULT pixel_count = 999750
+RESULT budget = 1000000

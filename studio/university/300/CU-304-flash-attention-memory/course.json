@@ -1,0 +1,12 @@
+{
+ "title": "Why attention is O(n^2) and how Flash/Sage fix the memory",
+ "level": "300",
+ "char": "attn",
+ "hook": "Tiling, online softmax and the memory wall.",
+ "code": "CU-304",
+ "prereq": [
+  "CU-301"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

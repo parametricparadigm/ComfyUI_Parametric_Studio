@@ -1,0 +1,13 @@
+RESULT text_emb_shape = (1, 77, 768)
+RESULT text_elements = 59136
+RESULT latent_shape = (1, 4, 8, 8)
+RESULT latent_elements = 256
+RESULT compression_factor = 48
+RESULT step_0_latent_norm = 7.88053
+RESULT step_1_latent_norm = 3.94026
+RESULT step_2_latent_norm = 1.97013
+RESULT step_3_latent_norm = 0.985066
+RESULT step_4_latent_norm = 0.492533
+RESULT decoded_shape = (1, 3, 64, 64)
+RESULT decoded_elements = 12288
+RESULT all_assertions_passed = True

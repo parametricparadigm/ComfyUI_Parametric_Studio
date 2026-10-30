@@ -1,0 +1,62 @@
+{
+ "code": "CU-207",
+ "title": "Ancestral and SDE samplers: adding noise back",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In an ancestral step, what must σ_down² + σ_up² equal?",
+   "options": [
+    "σ_from²",
+    "σ_to²",
+    "1",
+    "0"
+   ],
+   "answer": "σ_to²",
+   "why": "So the noise level after the step is exactly what the schedule expects. The lab asserts it."
+  },
+  {
+   "q": "Why does an ancestral sampler not converge to one image as steps grow?",
+   "options": [
+    "The model is not deterministic",
+    "It draws new noise per step, so a new step count gives a different noise sequence",
+    "CFG is too high",
+    "The schedule is wrong"
+   ],
+   "answer": "It draws new noise per step, so a new step count gives a different noise sequence",
+   "why": "The RMS change from N to 2N stays near 2 in the lab, against 0.03 for Euler."
+  },
+  {
+   "q": "What does BrownianTreeNoiseSampler provide?",
+   "options": [
+    "Faster model calls",
+    "Less VRAM use",
+    "Noise that depends on the two sigmas, not on the number of steps",
+    "A better VAE"
+   ],
+   "answer": "Noise that depends on the two sigmas, not on the number of steps",
+   "why": "Hence the lab's fixed-path SDE settles as steps grow, unlike plain ancestral sampling."
+  },
+  {
+   "q": "You want a slightly different image from a small nudge of the start noise. Which fits better?",
+   "options": [
+    "A deterministic sampler",
+    "An ancestral sampler",
+    "Either, always the same",
+    "Neither can run from noise"
+   ],
+   "answer": "A deterministic sampler",
+   "why": "The lab: a nudge moves Euler's result by 0.34, but ancestral only by 0.04, because noise forgets the start."
+  },
+  {
+   "q": "What does the biased-denoiser run in the lab show?",
+   "options": [
+    "Noise always corrects model errors",
+    "Ancestral samplers are worse on real models",
+    "The claim that noise always fixes errors is false in general, at least on this toy",
+    "The denoiser is exact"
+   ],
+   "answer": "The claim that noise always fixes errors is false in general, at least on this toy",
+   "why": "Karras et al. say the amount should be found empirically, and one toy cannot settle it for real models."
+  }
+ ]
+}

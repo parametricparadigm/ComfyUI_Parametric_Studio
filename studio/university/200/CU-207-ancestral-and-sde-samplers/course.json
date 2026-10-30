@@ -1,0 +1,16 @@
+{
+ "code": "CU-207",
+ "title": "Ancestral and SDE samplers: adding noise back",
+ "level": "200",
+ "prereq": [
+  "CU-205"
+ ],
+ "char": "denoise",
+ "hook": "Why a sampler that keeps injecting noise never settles on one image, and when that helps.",
+ "code_refs": [
+  "comfy/k_diffusion/sampling.py:get_ancestral_step",
+  "comfy/k_diffusion/sampling.py:sample_euler_ancestral",
+  "comfy/k_diffusion/sampling.py:sample_euler_ancestral_RF",
+  "comfy/k_diffusion/sampling.py:BrownianTreeNoiseSampler"
+ ]
+}

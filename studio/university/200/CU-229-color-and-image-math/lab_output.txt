@@ -1,0 +1,5 @@
+RESULT blend_srgb_space = 0.5
+RESULT blend_linear_to_srgb = 0.735357
+RESULT avg_srgb_gradient = 0.5
+RESULT avg_linear_to_srgb = 0.610789
+RESULT roundtrip_max_error = 5.96046e-08

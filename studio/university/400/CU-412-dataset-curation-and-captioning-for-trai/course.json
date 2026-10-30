@@ -1,0 +1,12 @@
+{
+ "title": "Dataset curation and captioning for training",
+ "level": "400",
+ "char": "tune",
+ "hook": "Learn how to transform raw images into high-quality training data by mastering precise captioning and dataset balancing techniques.",
+ "code": "CU-412",
+ "prereq": [
+  "CU-402"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

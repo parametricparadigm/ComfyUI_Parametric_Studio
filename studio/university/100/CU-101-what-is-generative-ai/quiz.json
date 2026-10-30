@@ -1,0 +1,62 @@
+{
+ "code": "CU-101",
+ "title": "What generative AI actually is",
+ "level": "100",
+ "questions": [
+  {
+   "q": "What does a generative model do?",
+   "options": [
+    "It learns a data distribution and draws new samples from it",
+    "It stores images and retrieves the closest one",
+    "It sorts images by label",
+    "It compresses files"
+   ],
+   "answer": "It learns a data distribution and draws new samples from it",
+   "why": "Fit p_θ(x), then sample from it."
+  },
+  {
+   "q": "The copier in the lab has a good distance score. Why is it still not a good model?",
+   "options": [
+    "It uses too few numbers",
+    "None of its samples are new, and it gives unseen data no density",
+    "It is too slow",
+    "Its samples are all in the gap between modes"
+   ],
+   "answer": "None of its samples are new, and it gives unseen data no density",
+   "why": "Its \"new samples\" column is 0.000. Sample quality alone cannot detect this."
+  },
+  {
+   "q": "Why is log-likelihood measured on held-out data?",
+   "options": [
+    "Because a model that memorised scores well on its own training data",
+    "Because it is faster",
+    "Because training data has no likelihood",
+    "Because the GPU requires it"
+   ],
+   "answer": "Because a model that memorised scores well on its own training data",
+   "why": "Unseen data shows whether the model learned the distribution."
+  },
+  {
+   "q": "What did the one-Gaussian model get wrong?",
+   "options": [
+    "It copied the data",
+    "It put a third of its samples in a gap where the data almost never goes",
+    "It has too many parameters",
+    "Its samples are not new"
+   ],
+   "answer": "It put a third of its samples in a gap where the data almost never goes",
+   "why": "0.326 against 0.016. Too few parameters cause blur between separate modes."
+  },
+  {
+   "q": "Is it correct to say diffusion models can never reproduce a training image?",
+   "options": [
+    "Yes, weights hold no images",
+    "Yes, the noise prevents it",
+    "No, some training images have been extracted, mostly heavily duplicated ones",
+    "No, they store a copy of every image"
+   ],
+   "answer": "No, some training images have been extracted, mostly heavily duplicated ones",
+   "why": "Carlini et al. 2023 extracted some images. Models are neither databases nor proven free of copying."
+  }
+ ]
+}

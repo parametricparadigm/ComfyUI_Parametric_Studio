@@ -1,0 +1,12 @@
+{
+ "title": "Positional encodings in 2D and 3D",
+ "level": "300",
+ "char": "attn",
+ "hook": "Discover how we inject spatial awareness into neural networks by transforming grid coordinates into rich frequency signals.",
+ "code": "CU-309",
+ "prereq": [
+  "CU-302"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

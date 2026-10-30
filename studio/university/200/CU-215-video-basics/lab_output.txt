@@ -1,0 +1,6 @@
+RESULT frames_5s_24fps = 120
+RESULT frames_2s_30fps = 60
+RESULT is_4k_plus_1_121 = True
+RESULT is_4k_plus_1_120 = False
+RESULT latent_size_5s_24fps_768x512 = 761856
+RESULT attention_cost_ratio = 4.0

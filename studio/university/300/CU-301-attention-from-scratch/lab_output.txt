@@ -1,0 +1,22 @@
+weights: [0.4458, 0.1084, 0.4458]  output: 20.0
+
+d       var(q.k)  var after /sqrt(d)  largest weight, no scale  largest weight, scaled
+4       4.0       1.002               0.344                     0.159
+64      63.8      0.996               0.820                     0.164
+512     510.2     0.996               0.940                     0.166
+4096    4113.6    1.004               0.979                     0.165
+
+self-attention, permute then attend against attend then permute: max difference 9.5e-07
+
+cross-attention shapes: image (1, 64, 32), text (1, 4, 32), weights (1, 64, 4), output (1, 64, 32)
+mean weight on each word, fox patches:   {'a': 0.0, 'red': 0.0, 'fox': 0.999, '<pad>': 0.001}
+mean weight on each word, other patches: {'a': 0.243, 'red': 0.247, 'fox': 0.23, '<pad>': 0.28}
+weight on <pad> without a mask: 0.256  with a mask: 0.0
+
+image side  latent side  tokens (patch 2)  pairs in self-attention  attention matrix for one head at fp16
+512         64           1,024             1,048,576                0.00 GiB
+768         96           2,304             5,308,416                0.01 GiB
+1024        128          4,096             16,777,216               0.03 GiB
+1536        192          9,216             84,934,656               0.16 GiB
+2048        256          16,384            268,435,456              0.50 GiB
+doubling the side quadruples the tokens and multiplies the pairs by 16

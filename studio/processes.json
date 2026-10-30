@@ -1,0 +1,2021 @@
+{
+ "kinds": {
+  "3d": "3D",
+  "image": "Image",
+  "video": "Video",
+  "audio": "Audio and music",
+  "character": "Characters",
+  "finish": "Finish and export",
+  "prompt": "Prompts",
+  "helper": "Helpers"
+ },
+ "status_labels": {
+  "here": "Tested here",
+  "old": "Tested on the author's old stack",
+  "untested": "Untested"
+ },
+ "processes": [
+  {
+   "id": "3d-mesh2photo",
+   "name": "Mesh to photo",
+   "kind": "3d",
+   "role": "process",
+   "description": "Paints a photoreal product photo over a render of a 3D model, keeping its angle, zoom and framing.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Klein 9B distilled",
+    "qwen_3_8b",
+    "flux2-vae"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "3d-motion",
+   "name": "Text or video to 3D motion",
+   "kind": "3d",
+   "role": "process",
+   "description": "Text to motion with Kimodo and video to motion with GEM-X, as BVH and NPZ skeleton animations.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Kimodo-SOMA-RP-v1.1",
+    "Llama-3-8B-Instruct",
+    "GEM-X"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "3d-pixal3d",
+   "name": "Photo to 3D with Pixal3D",
+   "kind": "3d",
+   "role": "process",
+   "description": "Converts a single object photo into a PBR-textured GLB mesh using the Pixal3D model, with optional background removal via RMBG-2.0.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Pixal3D",
+    "RMBG-2.0"
+   ],
+   "open": {
+    "type": "family",
+    "id": "pixal3d",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "3d-retarget-smpl",
+   "name": "Retarget motion to other rigs",
+   "kind": "3d",
+   "role": "process",
+   "description": "Retarget motion data to various rig formats (Mixamo, UE5, VRM, SkinTokens) and export SAM 3D Body results to SMPL/SMPL-X parameters for non-commercial use.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "SAM 3D Body",
+    "Kimodo",
+    "GEM-X",
+    "SMPL-X",
+    "SMPL"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "3d-rig-gameready",
+   "name": "Rig and game-ready LODs",
+   "kind": "3d",
+   "role": "process",
+   "description": "Rig 3D meshes using SkinTokens or UniRig and generate game-ready LODs using AutoRemesher or core mesh nodes.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "SkinTokens",
+    "UniRig",
+    "AutoRemesher"
+   ],
+   "open": {
+    "type": "family",
+    "id": "unirig",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "3d-sam3d-body",
+   "name": "Photo to rigged 3D body",
+   "kind": "3d",
+   "role": "process",
+   "description": "Converts photos or video clips into rigged 3D body models (GLB) and retarget-ready BVH skeletons using SAM 3D Body, with specific studio-side fixes for BVH export and shape locking.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "SAM 3.1",
+    "MoGe",
+    "SAM 3D Body",
+    "CLIPTextEncode"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "3d-sam3d-objects",
+   "name": "Photo to 3D objects",
+   "kind": "3d",
+   "role": "process",
+   "description": "Converts a single photo and optional masks into GLB meshes with vertex colors and 3D Gaussian splats for each marked object.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "SAM 3D Objects"
+   ],
+   "open": {
+    "type": "family",
+    "id": "sam-3d-objects",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "3d-trellis-hunyuan",
+   "name": "Image to textured mesh",
+   "kind": "3d",
+   "role": "process",
+   "description": "Converts a single image into a textured GLB mesh using TRELLIS.2 or Hunyuan3D 2.1, with optional auto-rigging via UniRig.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "TRELLIS.2",
+    "Hunyuan3D 2.1",
+    "UniRig"
+   ],
+   "open": {
+    "type": "family",
+    "id": "trellis-2-4b",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "3d-triposplat",
+   "name": "Image to 3D splat",
+   "kind": "3d",
+   "role": "process",
+   "description": "Converts a single image into a 3D Gaussian splat (PLY), a rough mesh (GLB), and a rendered still using the TripoSplat model.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "DINOv3 ViT-H",
+    "Flux2 VAE",
+    "triposplat_fp16"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "anime-studio",
+   "name": "Anime studio",
+   "kind": "video",
+   "role": "process",
+   "description": "Pins prompts to specific anime styles, uses HiDream-O1 for images, Klein 9B for character consistency, and H3 for stylized video clips.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "HiDream-O1",
+    "Klein 9B",
+    "H3"
+   ],
+   "open": {
+    "type": "recipe",
+    "id": "anime_opening",
+    "near": true,
+    "label": "Anime opening"
+   },
+   "doc": true
+  },
+  {
+   "id": "aspect-ratio-chooser",
+   "name": "Aspect-ratio chooser",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Selects frame shapes per job and converts aspect ratios into specific pixel dimensions for various engine families.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Krea",
+    "Qwen",
+    "Klein",
+    "H3",
+    "Wan 2.2",
+    "SDXL",
+    "FLUX.1",
+    "SD1.5"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "audio-controlfoley",
+   "name": "Sound for silent clips (ControlFoley)",
+   "kind": "audio",
+   "role": "process",
+   "description": "Generates sound effects and ambience for silent video clips using the ControlFoley model via a sidecar server and muxes the audio into the video.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "ControlFoley large_44k",
+    "CLAP",
+    "MusicGen",
+    "MERT",
+    "BigVGAN"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "audio-sfx",
+   "name": "Sound effects",
+   "kind": "audio",
+   "role": "process",
+   "description": "Generating single sound effects using Stable Audio 3 models with specific prompting styles, duration constraints, and post-processing for trimming and loudness normalization.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Stable Audio 3 small SFX",
+    "Stable Audio 3 medium SFX"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "avatar-longcat",
+   "name": "Talking head from a still",
+   "kind": "video",
+   "role": "process",
+   "description": "Generates a 3.72-second lip-synced talking head video from a still image and audio or text using the LongCat-Video-Avatar 1.5 model.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Whisper-large-v3",
+    "Qwen3-TTS"
+   ],
+   "open": {
+    "type": "family",
+    "id": "longcat-avatar-15",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "batch-phases",
+   "name": "Batch phases",
+   "kind": "helper",
+   "role": "process",
+   "description": "Separates prompt writing, rendering, and finishing into distinct phases to reduce VRAM swapping dead time on a 96 GB card.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "writer LLM",
+    "H3 model",
+    "Wan 2.2"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "card-actions-remix-variations-retry",
+   "name": "Remix, variations and retry",
+   "kind": "helper",
+   "role": "process",
+   "description": "Card actions to iterate on a result: more takes, remix, variations, animate, upscale and retry.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "ESRGAN"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "character-batch",
+   "name": "Character batch",
+   "kind": "character",
+   "role": "process",
+   "description": "Makes a batch of fictional characters with full sheets in one run, keeping the same models loaded between them.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Klein 9B",
+    "Qwen 2.1"
+   ],
+   "open": {
+    "type": "designer",
+    "id": "character",
+    "near": true,
+    "label": "Character designer"
+   },
+   "doc": true
+  },
+  {
+   "id": "character-builder-models",
+   "name": "Character builder",
+   "kind": "character",
+   "role": "process",
+   "description": "Makes a fictional character sheet: an anchor headshot from an image model, then consistent edits of it.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Klein 9B",
+    "Qwen-Image 2.1",
+    "Krea 2 Turbo",
+    "Z-Image Turbo",
+    "Z-Image base",
+    "HiDream-O1",
+    "Boogu-Image 0.1 Turbo",
+    "Anima aesthetic v1.1"
+   ],
+   "open": {
+    "type": "designer",
+    "id": "character",
+    "near": true,
+    "label": "Character designer"
+   },
+   "doc": false
+  },
+  {
+   "id": "character-explore-looks",
+   "name": "Explore a character's looks",
+   "kind": "character",
+   "role": "process",
+   "description": "Renders a character's anchor headshot on every usable image model using fixed seeds to allow the user to select the best look before building a sheet.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "flux2_dev_nvfp4",
+    "Ideogram 4",
+    "Z-Image Fun CN",
+    "Mage-Flow",
+    "PixelDiT",
+    "TinyBreaker"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "character-faceless-crops",
+   "name": "Faceless crops",
+   "kind": "character",
+   "role": "process",
+   "description": "Crops a fictional character's sheet images to faceless framings, optionally extending the frame with outpainting.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "FLUX.1 Fill OneReward fp8"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "character-sheet",
+   "name": "Character sheet",
+   "kind": "character",
+   "role": "process",
+   "description": "Makes one fictional character as a set of consistent shots, to reuse in later images and video.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Klein 9B",
+    "Qwen-Image 2.1",
+    "FLUX.1",
+    "SDXL",
+    "PuLID-FLUX",
+    "IP-Adapter FaceID",
+    "Krea 2",
+    "Z-Image"
+   ],
+   "open": {
+    "type": "designer",
+    "id": "character",
+    "near": true,
+    "label": "Character designer"
+   },
+   "doc": true
+  },
+  {
+   "id": "character-voice",
+   "name": "Character voices",
+   "kind": "audio",
+   "role": "process",
+   "description": "Creates, saves and pins a voice for a fictional character, with preset, designed or consented cloned voices.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "FireRedTTS3",
+    "Qwen3-TTS",
+    "OmniVoice",
+    "ChatterBox"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "clip-studio",
+   "name": "Clip studio",
+   "kind": "video",
+   "role": "process",
+   "description": "Cuts a long video you have the rights to into short captioned clips.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "faster-whisper large-v3 int8",
+    "insightface buffalo_l",
+    "writer LLM"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "dub-studio",
+   "name": "Dub studio",
+   "kind": "video",
+   "role": "process",
+   "description": "Translates a short video into other languages with the same character's voice, lip-sync and captions.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Whisper",
+    "FireRedTTS3",
+    "LatentSync",
+    "Clip Studio",
+    "Hybrid Demucs"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "edit-bg-remove-relight",
+   "name": "Remove background and relight",
+   "kind": "image",
+   "role": "process",
+   "description": "Removes backgrounds using BiRefNet and relights product images using IC-Light with specific lighting presets.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "BiRefNet",
+    "IC-Light",
+    "DreamShaper 8",
+    "SD 1.5"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "edit-fixlight",
+   "name": "Fix light",
+   "kind": "image",
+   "role": "process",
+   "description": "Removes colour casts and glare using Marigold v2 albedo and then relights the image using either IC-Light or a CPU-based grade depending on the presence of a face.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Marigold v2 albedo",
+    "IC-Light SD 1.5"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "edit-marigold",
+   "name": "Depth, normals and albedo maps",
+   "kind": "image",
+   "role": "process",
+   "description": "Generates relative depth, surface normals, or albedo maps using Marigold v2 LoRAs on a Qwen base model.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "qwen_image_edit_2509_int8_convrot"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "fusion-paste",
+   "name": "Fusion paste",
+   "kind": "image",
+   "role": "process",
+   "description": "Composites a user-placed object onto a photo and uses Qwen Fusion to blend lighting, reflections, and shadows while preserving the object's exact size and shape.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Qwen-Image 2.1",
+    "BiRefNet"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "gif-maker",
+   "name": "GIF maker",
+   "kind": "finish",
+   "role": "process",
+   "description": "Turns a clip, a still with a motion prompt or a set of images into a GIF and a WEBP under a size limit.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Wan 2.2",
+    "RIFE"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "h3-long-prompts",
+   "name": "Long prompts for H3",
+   "kind": "prompt",
+   "role": "process",
+   "description": "Expands short shot briefs into detailed H3 prompts (targeting ~2000 tokens) using local LLMs and specific enhancer rules for Deliverables, music videos, and fashion design.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "H3",
+    "Qwen3-VL-32B",
+    "Krea 2",
+    "Z-Image",
+    "anime",
+    "fine-tunes"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "h3-purpose-anchors",
+   "name": "H3 style anchors",
+   "kind": "prompt",
+   "role": "helper",
+   "description": "Few-shot style anchors for the purpose writer profile that define a specific 5-second video prompt structure with four beats and strict formatting rules.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "h3-special-loras",
+   "name": "H3 special modes",
+   "kind": "video",
+   "role": "process",
+   "description": "Groups the specialised H3 LoRAs: video to video, orbit, restore and fast renders, with what each one needs.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "H3-Person-Remover-V1",
+    "MiniMax-H3-FL2VA-Acc-8Step",
+    "MiniMax-H3-Ref2VA-Acc-8Step",
+    "minimax_h3_fl2v_turbo_4step_v1.2_768p_comfyui_bf16",
+    "minimax_h3_fl2v_turbo_4step_v0.1_768p_sla_comfyui_bf16",
+    "minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16",
+    "minimax_h3_ref2v_turbo_4step_v0.1",
+    "minimax_h3_ref2v_turbo_8step_v1.0_768p"
+   ],
+   "open": {
+    "type": "family",
+    "id": "minimax-h3",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "h3-two-photos-voice-ref",
+   "name": "H3 with a second photo and a voice",
+   "kind": "video",
+   "role": "process",
+   "description": "Adds a second reference photo and a voice reference to H3 video.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "H3"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "h3_animate",
+    "near": true,
+    "label": "Animate H3"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-boogu",
+   "name": "Boogu image",
+   "kind": "image",
+   "role": "model",
+   "description": "Boogu text to image and instruction-based image edits, Apache-2.0, in Turbo and Edit-Turbo variants.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "boogu_image_turbo_hotfix_int8_convrot",
+    "boogu_image_edit_turbo_hotfix_1k_20260708_int8_convrot",
+    "qwen3vl_8b_bf16"
+   ],
+   "open": {
+    "type": "family",
+    "id": "boogu",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-deliverables",
+   "name": "Image deliverables",
+   "kind": "image",
+   "role": "process",
+   "description": "Template-driven images from drop-down choices. Designers does this here; the old guide stays out of this edition.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "img:krea2",
+    "img:zimage_*",
+    "img:anime",
+    "qwen21:t2i",
+    "Boogu",
+    "flux3:distilled",
+    "flux3:base",
+    "ckpt:*"
+   ],
+   "open": {
+    "type": "designer",
+    "id": "fashion",
+    "near": true,
+    "label": "Fashion designer"
+   },
+   "doc": false
+  },
+  {
+   "id": "image-dfserve-modes",
+   "name": "Image modes moved to ComfyUI",
+   "kind": "helper",
+   "role": "process",
+   "description": "Which older image modes moved to ComfyUI routes, with their settings and timings.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "FLUX.1 fine-tune graph",
+    "Nunchaku NunchakuFluxDiTLoader",
+    "FLUX.1 Fill",
+    "minimax_music3_dit_fp16",
+    "SDXL base 1.0",
+    "FLUX IP",
+    "FLUX.1-dev-ControlNet-Union-Pro-2.0",
+    "FLUX.1-schnell"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "image-finetunes-ckpt",
+   "name": "Fine-tune checkpoints",
+   "kind": "image",
+   "role": "process",
+   "description": "Runs SDXL, FLUX.1 and SD 1.5 fine-tune checkpoints with tested settings. The guide stays out of this edition.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "SDXL",
+    "FLUX.1",
+    "SD 1.5",
+    "PuLID-FLUX v0.9.1",
+    "IP-Adapter FaceID SDXL",
+    "face_yolov8m",
+    "insightface buffalo_l",
+    "ArcFace"
+   ],
+   "open": {
+    "type": "family",
+    "id": "sdxl",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": false
+  },
+  {
+   "id": "image-flux3-klein",
+   "name": "FLUX.3 Klein",
+   "kind": "image",
+   "role": "model",
+   "description": "FLUX.3 Klein image generation in distilled, base and edit variants, with VRAM estimates and the checks behind them.",
+   "status": "here",
+   "status_label": "Tested here",
+   "status_note": "Rendered here through the Image HQ goal.",
+   "models": [
+    "FLUX.3 Image Klein",
+    "Qwen3-VL-4B",
+    "FLUX.2 VAE"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "flux3",
+    "near": false,
+    "label": "Image HQ"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-hidream-anime",
+   "name": "HiDream anime frames",
+   "kind": "image",
+   "role": "process",
+   "description": "Generating anime key-frames and illustrations at 2048-class resolution using the HiDream-O1 full bf16 model.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "HiDream-O1 full bf16",
+    "Klein 9B distilled",
+    "Krea 2",
+    "Anima"
+   ],
+   "open": {
+    "type": "family",
+    "id": "hidream",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-ideogram-poster",
+   "name": "Poster with real text",
+   "kind": "image",
+   "role": "process",
+   "description": "Generating designed posters with specific title and subtitle text using Ideogram 4 with a structured JSON caption converter.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Ideogram 4",
+    "ideogram4_fp8_scaled"
+   ],
+   "open": {
+    "type": "family",
+    "id": "ideogram4",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-klein-style-transfer",
+   "name": "Klein style transfer",
+   "kind": "image",
+   "role": "process",
+   "description": "Re-renders an existing image in the lighting and colour style of a second reference image using the Klein 9B model.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Klein 9B"
+   ],
+   "open": {
+    "type": "family",
+    "id": "flux-2",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-klein-tryon-product",
+   "name": "Try-on and product shots",
+   "kind": "image",
+   "role": "process",
+   "description": "Virtual try-on and mannequin product shots with Klein 9B and LoRAs.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Klein 9B",
+    "FLUX.2 Klein"
+   ],
+   "open": {
+    "type": "family",
+    "id": "flux-2",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-krea2-default",
+   "name": "Krea 2 image",
+   "kind": "image",
+   "role": "model",
+   "description": "Krea 2 Turbo for general scenes, product shots and short text.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Krea 2 Turbo",
+    "qwen3vl_4b",
+    "qwen_image_vae"
+   ],
+   "open": {
+    "type": "family",
+    "id": "krea2",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-qwen-outpaint",
+   "name": "Extend an image",
+   "kind": "image",
+   "role": "process",
+   "description": "Extend an image past its edges using Qwen-Image 2.1 with specific LoRAs and a paste-back technique to preserve original pixels.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Qwen-Image 2.1",
+    "outpaint-v2",
+    "Turbo LoRA"
+   ],
+   "open": {
+    "type": "family",
+    "id": "qwen-image-2-1",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-qwen21",
+   "name": "Qwen-Image 2.1",
+   "kind": "image",
+   "role": "process",
+   "description": "Qwen-Image 2.1 supporting text-to-image, image editing, outfit swapping, and fusion blending with specific settings for realism and grain prevention.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [],
+   "open": {
+    "type": "family",
+    "id": "qwen-image-2-1",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-redux-reference",
+   "name": "Look-alikes from a reference",
+   "kind": "image",
+   "role": "process",
+   "description": "Adds image tokens from a reference to a FLUX.1 prompt to make look-alikes and variations. It copies content more than style.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Flux.1",
+    "SigLIP"
+   ],
+   "open": {
+    "type": "family",
+    "id": "flux-1",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-restore-ref",
+   "name": "Restore a photo with references",
+   "kind": "image",
+   "role": "process",
+   "description": "Restores a damaged photo using up to five reference photos of the same subject.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Qwen-Image 2.1 Turbo",
+    "RefRes v5 LoRA",
+    "QwenImage21Cache",
+    "qwen3vl_8b",
+    "Texture-Fix VAE"
+   ],
+   "open": {
+    "type": "family",
+    "id": "qwen-image-2-1",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "image-zimage",
+   "name": "Z-Image",
+   "kind": "image",
+   "role": "model",
+   "description": "Z-Image text to image, in a fast Turbo and a higher-quality Base variant (Apache-2.0).",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Z-Image Turbo",
+    "Z-Image base"
+   ],
+   "open": {
+    "type": "family",
+    "id": "z-image",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "jobs-gpu-and-vram",
+   "name": "Job queue and VRAM checks",
+   "kind": "helper",
+   "role": "process",
+   "description": "How the studio queues jobs, takes turns on the GPU and checks VRAM before loading a model.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Krea",
+    "Ideogram",
+    "HiDream",
+    "Klein",
+    "Qwen 2.1",
+    "Wan",
+    "H3",
+    "h3p"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "loop-maker",
+   "name": "Loop maker",
+   "kind": "finish",
+   "role": "process",
+   "description": "Makes seamless loops: generated from matching first and last frames, found inside a clip, or by ping-pong, with a seam check.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "h3:fl",
+    "wan:flf"
+   ],
+   "open": {
+    "type": "recipe",
+    "id": "seamless_loop",
+    "near": true,
+    "label": "Perfect loop"
+   },
+   "doc": true
+  },
+  {
+   "id": "lora-picker",
+   "name": "LoRA picker",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Allows users to select up to three LoRAs from a library, automatically applying recommended strengths, loaders, and trigger words to compatible generators.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "wan:i2v",
+    "wan:t2v",
+    "qwen21:t2i",
+    "qwen21:edit",
+    "h3:cinematic",
+    "h3:ugc",
+    "SDXL",
+    "FLUX.1"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "meme-maker",
+   "name": "Meme maker",
+   "kind": "finish",
+   "role": "process",
+   "description": "Puts captions and sound cues on a template, image or clip and assembles a 3 to 15 second video on the CPU.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "model-lanes",
+   "name": "Model lanes",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Attaches new image or video models to the studio via transient ComfyUI instances on separate ports without modifying the live core servers.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "FLUX.3 Klein"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "music-engines",
+   "name": "Choosing a music engine",
+   "kind": "audio",
+   "role": "process",
+   "description": "Selecting and configuring various music generation engines within the studio, detailing their specific inputs, optimal settings, licensing constraints, and performance benchmarks.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "ACE-Step 1.5 XL turbo",
+    "ACE-Step XL base",
+    "MiniMax Music 3",
+    "Stable Audio 3 medium",
+    "YuE2-3B",
+    "YuE2 cover"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "music",
+    "near": true,
+    "label": "Music"
+   },
+   "doc": true
+  },
+  {
+   "id": "music-mastering",
+   "name": "Music mastering",
+   "kind": "audio",
+   "role": "process",
+   "description": "Sets a track's loudness and peaks on the CPU, with an optional fast start and a loop-ready tail.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "music-minimax",
+   "name": "MiniMax Music 3",
+   "kind": "audio",
+   "role": "model",
+   "description": "Full songs or instrumentals from a caption and lyrics with MiniMax Music 3.",
+   "status": "here",
+   "status_label": "Tested here",
+   "status_note": "Rendered here through the Music goal.",
+   "models": [
+    "MiniMax Music 3",
+    "minimax_music3_dit_fp16",
+    "minimax_music3_text_encoder_pruned_bf16",
+    "minimax_music3_dav"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "music",
+    "near": false,
+    "label": "Music"
+   },
+   "doc": true
+  },
+  {
+   "id": "music-video",
+   "name": "Music video maker",
+   "kind": "video",
+   "role": "process",
+   "description": "Generates a music video by creating a song with Music 3, planning a storyboard, rendering lip-synced H3 performance shots and story shots, and joining them into a final video.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "H3",
+    "Music 3",
+    "MiniMax-Music3",
+    "ArcFace",
+    "Whisper",
+    "Wan 2.2"
+   ],
+   "open": {
+    "type": "recipe",
+    "id": "music_video",
+    "near": false,
+    "label": "Music Video Maker"
+   },
+   "doc": true
+  },
+  {
+   "id": "music-yue2-cover",
+   "name": "Song cover with YuE2",
+   "kind": "audio",
+   "role": "process",
+   "description": "Takes the melody of a song you have the rights to as a score and sings a new version with other words and style.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "YuE2-3B",
+    "SheetSage2"
+   ],
+   "open": {
+    "type": "family",
+    "id": "yue2",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "platform-formats",
+   "name": "Platform formats",
+   "kind": "finish",
+   "role": "helper",
+   "description": "Sets the shape, size and length a platform expects, then captions, assembles and exports a file that fits.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "port-picker",
+   "name": "Port picker",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Managing ComfyUI ports to enable parallel image jobs and manually freeing VRAM by unloading idle models or ports.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "llama-swap",
+    "Ollama",
+    "qwen21",
+    "Krea 2",
+    "Ideogram",
+    "HiDream",
+    "Klein",
+    "Z-Image"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "pose-set",
+   "name": "Pose set",
+   "kind": "character",
+   "role": "process",
+   "description": "Takes a finished image as a reference and generates new images of the same character in different poses.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Qwen-Image 2.1 edit",
+    "Klein 9B edit",
+    "Klein 9B + consistency LoRA",
+    "Klein 9B + skeleton",
+    "Boogu Edit-Turbo",
+    "FLUX.3 Klein edit",
+    "ArcFace",
+    "DWPose"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "production-readiness",
+   "name": "Production readiness",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Tracks the proof levels (verified, load-tested, recipe, unproven) of studio deliverables against a live catalogue to ensure production readiness.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Krea 2 Turbo",
+    "Qwen 2.1",
+    "Ideogram 4",
+    "SDXL",
+    "Z-Image base",
+    "HiDream-O1",
+    "FLUX.3 Klein",
+    "Redux Advanced"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "prompt-enhancer-and-model-rules",
+   "name": "Prompt enhancer and model rules",
+   "kind": "prompt",
+   "role": "helper",
+   "description": "Rewrites a rough idea into a prompt that fits a model's rules, with safety checks.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "muse-glimmer-30b-gguf"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "prompt-takes",
+   "name": "Prompt takes",
+   "kind": "prompt",
+   "role": "process",
+   "description": "Writes up to four takes of one idea, each in its own lane, and renders them with the same seed so the prompt is the only change.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Muse Glimmer",
+    "Wan",
+    "krea2",
+    "H3"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "quality-sweep",
+   "name": "Quality sweep",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Re-measures stored generation results on the CPU to flag quality defects like grain, blur, and face drift, allowing users to mark good results or queue rerolls.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "ArcFace (insightface)",
+    "DWPose"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "recreate-video",
+   "name": "Recreate a video",
+   "kind": "video",
+   "role": "process",
+   "description": "Remakes a clip you have the rights to with a character you pick. The guide stays out of this edition; Recast does the replace mode.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "H3 Character Swap",
+    "SCAIL-2",
+    "Wan Animate 2",
+    "H3 depth restyle",
+    "Wan 2.2 Fun Control",
+    "Qwen 2.1 Character Swap LoRA",
+    "GEM-X",
+    "Kimodo"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "recast",
+    "near": true,
+    "label": "Recast"
+   },
+   "doc": false
+  },
+  {
+   "id": "result-search",
+   "name": "Result search",
+   "kind": "helper",
+   "role": "helper",
+   "description": "Indexes and retrieves studio results, songs, and media files using BM25F text ranking and optional SigLIP-based image embeddings.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "SigLIP so400m",
+    "LAION CLAP",
+    "Qwen3-VL-Embedding-8B"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "sheet-engine",
+   "name": "Sheet engine",
+   "kind": "character",
+   "role": "process",
+   "description": "Generates character, designer, and fashion sheets using Klein 9B by default, with automatic identity-based fallback to Qwen 2.1 for specific roles or failed shots.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Klein 9B",
+    "Qwen 2.1",
+    "FLUX.3"
+   ],
+   "open": {
+    "type": "designer",
+    "id": "character",
+    "near": true,
+    "label": "Character designer"
+   },
+   "doc": true
+  },
+  {
+   "id": "skeleton-from-motion",
+   "name": "Skeleton from motion",
+   "kind": "3d",
+   "role": "process",
+   "description": "Converts motion capture data (BVH/NPZ) into OpenPose-style skeleton images or control videos to drive pose-control models like Klein 9B and Wan 2.2 Fun Control.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Klein 9B",
+    "RefControl pose LoRA",
+    "Wan 2.2 Fun Control",
+    "SCAIL-2"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "song-recreate",
+   "name": "Song recreate",
+   "kind": "audio",
+   "role": "process",
+   "description": "Analyses a song you have the rights to, writes a new caption and lyrics on the same structure, and records a new take.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Music 3",
+    "Whisper"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "sound-maker",
+   "name": "Sound maker",
+   "kind": "audio",
+   "role": "process",
+   "description": "Makes noise beds, short comic sounds and hooks from synthesis, text-to-audio models and TTS, then masters them.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Stable Audio 3 small",
+    "Stable Audio 3 medium",
+    "MMAudio",
+    "HunyuanVideo-Foley",
+    "Qwen3 Ryan",
+    "Qwen3 Aiden",
+    "FireRedTTS3",
+    "Music 3"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "timelapse",
+   "name": "Timelapse",
+   "kind": "finish",
+   "role": "process",
+   "description": "Makes a 5 to 30 second timelapse from keyframes made with edit models, joined with a video engine or a CPU dissolve.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Qwen-Image 2.1 edit",
+    "Klein 9B edit",
+    "Klein + consistency LoRA",
+    "Boogu",
+    "H3",
+    "Wan 2.2",
+    "RIFE",
+    "SeedVR2"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "upscale-image",
+   "name": "Upscale an image",
+   "kind": "image",
+   "role": "process",
+   "description": "Enlarge finished images by 2x or 4x using ESRGAN or 4x-UltraSharp models without re-generating.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "ESRGAN 2x"
+   ],
+   "open": {
+    "type": "family",
+    "id": "upscale-models",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-edits",
+   "name": "Video edits",
+   "kind": "video",
+   "role": "process",
+   "description": "Character swap, object removal, frame interpolation and depth restyle on video. This studio's AI edits cover removal and interpolation.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Ref2VA pruned int8",
+    "h3_character_swap_pro4500_1000",
+    "Person Remover LoRA",
+    "SAM 3.1",
+    "Qwen 2.1",
+    "RIFE 4.26",
+    "FL2VA pruned nvfp4",
+    "Fun Union 2.0"
+   ],
+   "open": {
+    "type": "edit",
+    "id": "void",
+    "near": true,
+    "label": "Remove objects or people"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-finish",
+   "name": "Video finish",
+   "kind": "finish",
+   "role": "process",
+   "description": "Interpolates frames, upscales to 4K and writes the final file with audio, for long-form video.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "RIFE 4.26",
+    "SeedVR2 7B",
+    "RealESRGAN"
+   ],
+   "open": {
+    "type": "edit",
+    "id": "seedvr2",
+    "near": true,
+    "label": "Upscale (SeedVR2)"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-foley",
+   "name": "Sound for a clip (Foley)",
+   "kind": "audio",
+   "role": "process",
+   "description": "Generates sound effects and ambience for silent or existing video clips using MMAudio or HunyuanVideo-Foley, then mixes and masters the audio.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "MMAudio",
+    "HunyuanVideo-Foley"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "video-h3-keyframes",
+   "name": "Hand-drawn keyframes on H3",
+   "kind": "video",
+   "role": "process",
+   "description": "Generating hand-drawn animation keyframes, tweens, and sequences using specific LoRA adapters on a pruned Ref2VA base model.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Ref2VA pruned int8_convrot"
+   ],
+   "open": {
+    "type": "family",
+    "id": "minimax-h3",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-h3-modes",
+   "name": "H3 modes",
+   "kind": "video",
+   "role": "process",
+   "description": "The modes, settings and prompting techniques for video with sound on MiniMax H3.",
+   "status": "here",
+   "status_label": "Tested here",
+   "status_note": "Text to video and image to video rendered here. The other modes in the guide were not.",
+   "models": [
+    "MiniMax H3",
+    "Ref2VA pruned int8",
+    "FL2VA pruned int8",
+    "FL2VA pruned nvfp4"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "h3_video",
+    "near": false,
+    "label": "Video H3"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-h3-pipelines",
+   "name": "H3 pipelines",
+   "kind": "video",
+   "role": "process",
+   "description": "Proven ComfyUI pipelines for generating specific video types (first/last frame, multishot, long video, handheld, and camera re-filming) using MiniMax H3 models.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "MiniMaxH3ImageToVideo.first_frame",
+    "MiniMaxH3ImageToVideo.last_frame",
+    "MiniMaxH3TurboLoRA",
+    "H3LongVideos",
+    "Ref2VA",
+    "handheld_h3_100",
+    "NyckM camera",
+    "MoGe-2 warp"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "director_keyframes",
+    "near": true,
+    "label": "Director: first + last frame"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-latentsync",
+   "name": "Re-sync lips",
+   "kind": "video",
+   "role": "process",
+   "description": "Takes a finished video clip and a voice clip to re-sync the mouth movements to the audio using the standalone LatentSync installation.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "LatentSync 1.6",
+    "buffalo_l",
+    "SD VAE"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "video-lightwan",
+   "name": "LightWan 720p",
+   "kind": "video",
+   "role": "process",
+   "description": "A 720p, 81-frame video generation pipeline using LightWan 2.2 NVFP4 experts with a 4-step DMD2 distillation recipe.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Wan2.2-I2V-A14B_NVFP4_Sparse_high_comfy",
+    "Wan2.2-I2V-A14B_NVFP4_Sparse_low_comfy",
+    "Wan2.2-T2V-A14B_NVFP4_Sparse_high_comfy",
+    "Wan2.2-T2V-A14B_NVFP4_Sparse_low_comfy",
+    "umt5_xxl fp8",
+    "wan_2.1_vae",
+    "LightVAE Pro",
+    "LightVAE Lite"
+   ],
+   "open": {
+    "type": "family",
+    "id": "wan2-2",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-long-form",
+   "name": "Long-form video",
+   "kind": "video",
+   "role": "process",
+   "description": "Chains short segments into a long video from a split script, with drift checks and an automatic join.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "H3",
+    "Wan 2.2",
+    "LongCat Avatar",
+    "H3LongVideos",
+    "Wan SVI 2.0 PRO",
+    "LightWan 2.2",
+    "TurboWan 2.2",
+    "Ollama 12B"
+   ],
+   "open": {
+    "type": "recipe",
+    "id": "short_film",
+    "near": true,
+    "label": "One sentence to a short film"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-scail2",
+   "name": "Motion transfer with SCAIL-2",
+   "kind": "video",
+   "role": "process",
+   "description": "Transfers motion from a driver clip to a character still using SCAIL-2, with options for mesh, capsule, or raw drivers.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "DPO LoRA",
+    "lightx2v I2V 480p r64",
+    "umt5 fp8",
+    "CLIP vision H",
+    "SAM 3.1"
+   ],
+   "open": {
+    "type": "family",
+    "id": "wan-scail-2",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-turbowan",
+   "name": "TurboWan 720p",
+   "kind": "video",
+   "role": "process",
+   "description": "A 720p image-to-video pipeline using TurboWan 2.2 int8 quantized models on a sidecar to generate 81-frame clips from still images with low VRAM usage.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "TurboWan2.2-I2V-A14B-high-720P-quant",
+    "TurboWan2.2-I2V-A14B-low-720P-quant"
+   ],
+   "open": {
+    "type": "family",
+    "id": "turbowan2-2-i2v",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-upscale",
+   "name": "Upscale a video",
+   "kind": "video",
+   "role": "process",
+   "description": "Upscale finished videos by 2x (or to 4K) using either a high-quality SeedVR2 7B diffusion model or a fast RealESRGAN model, with specific limits on frame count and resolution.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "SeedVR2 7B",
+    "RealESRGAN x2plus",
+    "MMH3-UltimateUpscale",
+    "H3 LatentUpscaler H10",
+    "H3 X2 Detail VAE",
+    "FlashVSR v1.1",
+    "Kandinsky 6 VSR"
+   ],
+   "open": {
+    "type": "edit",
+    "id": "seedvr2",
+    "near": false,
+    "label": "Upscale (SeedVR2)"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan-animate-svi-dfserve",
+   "name": "Wan Animate and SVI notes",
+   "kind": "video",
+   "role": "process",
+   "description": "Notes on Wan Animate 2 and the SVI 2.0 PRO long-video chain.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Wan 2.2 I2V A14B",
+    "Wan 2.2 T2V A14B",
+    "Wan 2.2 TI2V 5B",
+    "Wan 2.2 Animate 14B",
+    "Wan Animate 2",
+    "SVI 2.0 PRO"
+   ],
+   "open": {
+    "type": "family",
+    "id": "wan2-2-animate",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan-animate2",
+   "name": "Wan Animate 2",
+   "kind": "video",
+   "role": "process",
+   "description": "Transfers motion from a driving video clip to a still character image, generating a new video with a prompt-defined background.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "WanAnimate2Cache",
+    "umt5 xxl fp8",
+    "clip_vision_h"
+   ],
+   "open": {
+    "type": "family",
+    "id": "wan2-2-animate",
+    "near": false,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan-creative-take",
+   "name": "Wan creative take",
+   "kind": "video",
+   "role": "process",
+   "description": "Generates two side-by-side video cards: one with concept LoRAs and one with them removed, keeping all other settings identical.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Wan 2.2"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "video",
+    "near": true,
+    "label": "Video"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan-decode",
+   "name": "Faster Wan decode",
+   "kind": "helper",
+   "role": "process",
+   "description": "Swaps the standard Wan 2.1 VAE decoder for LightVAE Pro or Lite decoders to accelerate video decoding without altering sampling or encoding.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Wan 2.1",
+    "LightVAE Pro",
+    "LightVAE Lite"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "video-wan-preview",
+   "name": "Wan quick preview",
+   "kind": "video",
+   "role": "process",
+   "description": "A 3-second image-to-video sketch using the Wan 2.2 model with a 49-frame length to check motion ideas before a full render.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Wan 2.2",
+    "Wan 2.1 VAE",
+    "LightVAE Pro",
+    "LightVAE Lite"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "animate",
+    "near": true,
+    "label": "Animate"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan-s2v",
+   "name": "Talking clip with Wan S2V",
+   "kind": "video",
+   "role": "process",
+   "description": "Generates a talking video clip from a portrait image and a voice clip using the Wan 2.2 S2V model.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "wan2.2_s2v_14B_bf16",
+    "wav2vec2",
+    "umt5",
+    "Wan 2.1 VAE",
+    "lightx2v 250928"
+   ],
+   "open": {
+    "type": "family",
+    "id": "wan2-2",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan-svi-long",
+   "name": "Long Wan clips (SVI)",
+   "kind": "video",
+   "role": "process",
+   "description": "Chains 1-3 Wan 2.2 clips of 81 frames each, anchored to a single still image, to generate a continuous long video of up to 233 frames.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Wan 2.2 I2V A14B fp8 KJ experts",
+    "lightx2v v1030",
+    "LightVAE Pro",
+    "LightVAE Lite",
+    "Wan 2.1 VAE"
+   ],
+   "open": {
+    "type": "family",
+    "id": "wan2-2",
+    "near": true,
+    "label": "family page"
+   },
+   "doc": true
+  },
+  {
+   "id": "video-wan22-i2v-t2v",
+   "name": "Wan 2.2 text or image to video",
+   "kind": "video",
+   "role": "process",
+   "description": "Generating 5-second silent video clips from images or text using Wan 2.2 models with 4-step sampling and LoRA acceleration.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "Wan 2.2 A14B HIGH + LOW fp8_e4m3fn_scaled_KJ",
+    "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise",
+    "wan2.2_t2v_lightx2v_4steps_lora_250928_high_noise",
+    "wan2.2_t2v_lightx2v_4steps_lora_250928_low_noise",
+    "umt5_xxl fp8 scaled"
+   ],
+   "open": {
+    "type": "goal",
+    "id": "video",
+    "near": true,
+    "label": "Video"
+   },
+   "doc": true
+  },
+  {
+   "id": "virtual-set",
+   "name": "Virtual set",
+   "kind": "3d",
+   "role": "process",
+   "description": "Blocks shots in approved World Kit places using Blender-generated camera passes and stills, then renders photorealistic video using specific video models.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "Wan 2.2 Fun Control A14B",
+    "H3 Fun Union",
+    "qwen21:edit",
+    "h3:fl"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "voice-clone",
+   "name": "Voice clone with consent",
+   "kind": "audio",
+   "role": "process",
+   "description": "Clones a voice from a short recording with a consent gate, local transcription and a watermark.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "OmniVoice",
+    "ChatterBox",
+    "FireRedTTS3-Base",
+    "faster-whisper large-v3"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "voice-presets",
+   "name": "Voice presets",
+   "kind": "audio",
+   "role": "process",
+   "description": "Generating speech using preset voices (Qwen3-TTS) or designed voices (FireRedTTS3) without voice cloning, featuring specific settings and safety guards.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "",
+   "models": [
+    "Qwen3-TTS",
+    "FireRedTTS3"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "watch-video",
+   "name": "Watch a video, write prompts",
+   "kind": "prompt",
+   "role": "process",
+   "description": "Analyzes a video to generate H3 prompts for recreation, using scene detection, transcription, and optional vision analysis.",
+   "status": "old",
+   "status_label": "Tested on the author's old stack",
+   "status_note": "Partly tested there.",
+   "models": [
+    "H3",
+    "Qwen3-VL-8B",
+    "Whisper"
+   ],
+   "open": null,
+   "doc": true
+  },
+  {
+   "id": "world-kit",
+   "name": "World kit",
+   "kind": "3d",
+   "role": "process",
+   "description": "Creating, rigging, and exporting 3D assets (characters, props, places) into a shared library for game engines.",
+   "status": "untested",
+   "status_label": "Untested",
+   "status_note": "",
+   "models": [
+    "SAM 3D Body",
+    "AutoRemesher",
+    "SkinTokens",
+    "Krea 2",
+    "BiRefNet",
+    "SAM 3D Objects",
+    "Blender 5.2.2",
+    "Godot 4.7.2"
+   ],
+   "open": null,
+   "doc": true
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{'required': {'samples': ('LATENT', {}), 'amount': ('FLOAT', {'default': 1.0, 'max': 4.0})}, 'optional': {'fallback': ('LATENT', {'lazy': True})}}
+input std: 0.9407
+output std at amount=2: 1.8784  input tensor untouched: True
+validate amount=-1: amount must not be negative | amount=1: True
+lazy, amount=1: [] | amount=0, wire not computed yet: ['fallback'] | amount=0, computed: []
+classmethods: called on the class, no instance. Attributes you set on cls are shared by every copy of the node in every run.
+a node with hidden state, same input twice: 2 3  the cache cannot see this, so do not do it

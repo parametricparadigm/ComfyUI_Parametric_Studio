@@ -1,0 +1,12 @@
+{
+ "title": "KV cache and autoregressive decoding",
+ "level": "300",
+ "char": "attn",
+ "hook": "Discover how ComfyUI's text encoders and diffusion schedulers leverage caching to speed up sequential generation without sacrificing quality.",
+ "code": "CU-312",
+ "prereq": [
+  "CU-301"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

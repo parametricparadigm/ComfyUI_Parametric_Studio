@@ -1,0 +1,52 @@
+{
+ "code": "CU-306",
+ "title": "Text encoders: CLIP, T5 and LLM encoders",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In a causal encoder like GPT or Llama, why is the representation of the last token often used as the primary conditioning signal?",
+   "options": [
+    "Because the last token is the only one that has seen all previous tokens, giving it the full context of the sentence.",
+    "Because the last token has the highest numerical value in the embedding space.",
+    "Because the first token is always masked out in causal models.",
+    "Because the last token is processed faster than the other tokens."
+   ],
+   "answer": "Because the last token is the only one that has seen all previous tokens, giving it the full context of the sentence.",
+   "why": "The lesson states: 'In a causal model, the last token has seen everything that came before it. It is the only token that has the full context of the sentence.'"
+  },
+  {
+   "q": "What is the specific file path in ComfyUI where the core implementation for Llama models, including the `Llama2_` class, is located?",
+   "options": null,
+   "answer": "comfy/text_encoders/llama.py",
+   "why": "The lesson explicitly states: 'comfy/text_encoders/llama.py contains Llama2_, the core implementation for Llama models.'"
+  },
+  {
+   "q": "According to the lab results, what is the value of `causal_visible_count_token_0`?",
+   "options": [
+    "0",
+    "1",
+    "5",
+    "0.88373"
+   ],
+   "answer": "1",
+   "why": "The lab output lists: 'RESULT causal_visible_count_token_0 = 1' with the proof that the first token can only see itself."
+  },
+  {
+   "q": "In the context of the attention mechanism described, what is the purpose of dividing the dot product $Q K^T$ by $\\sqrt{d}$?",
+   "options": [
+    "To increase the magnitude of the attention scores for better contrast.",
+    "To keep the values stable.",
+    "To convert the scores into a probability distribution.",
+    "To remove the need for the Softmax function."
+   ],
+   "answer": "To keep the values stable.",
+   "why": "The lesson explains the formula: 'We divide by $\\sqrt{d}$ to keep the values stable.'"
+  },
+  {
+   "q": "Which specific attention mechanism does the `Qwen35` class use, distinguishing it from the standard RoPE used by `Llama2_`?",
+   "options": null,
+   "answer": "GatedDeltaNet",
+   "why": "The lesson states under 'In ComfyUI' and 'Common mistakes': 'Qwen35... uses GatedDeltaNet for attention' and 'Qwen35 uses GatedDeltaNet, while Llama2_ uses standard RoPE.'"
+  }
+ ]
+}

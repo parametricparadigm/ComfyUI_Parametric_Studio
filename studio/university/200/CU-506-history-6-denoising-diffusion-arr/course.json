@@ -1,0 +1,10 @@
+{
+ "title": "History 6: Denoising diffusion arrives (DDPM, 2020)",
+ "level": "200",
+ "char": "denoise",
+ "hook": "Discover how DDPM revolutionized image generation by teaching models to reverse noise step-by-step.",
+ "code": "CU-506",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

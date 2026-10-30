@@ -1,0 +1,57 @@
+{
+ "code": "CU-406",
+ "title": "Scaling: sharding, batching and serving",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the cost model defined in the lesson, what is the formula for the total cost to process a batch of size B?",
+   "options": [
+    "Cost(B) = FIXED_OVERHEAD + (PER_ITEM_COST * B)",
+    "Cost(B) = (FIXED_OVERHEAD * B) + PER_ITEM_COST",
+    "Cost(B) = FIXED_OVERHEAD * PER_ITEM_COST * B",
+    "Cost(B) = B / (FIXED_OVERHEAD + PER_ITEM_COST)"
+   ],
+   "answer": "Cost(B) = FIXED_OVERHEAD + (PER_ITEM_COST * B)",
+   "why": "The lesson explicitly defines the total cost formula as Cost(B) = FIXED_OVERHEAD + (PER_ITEM_COST * B) in the 'Under the hood' section."
+  },
+  {
+   "q": "In the lab results, what was the calculated throughput for a batch size of 16?",
+   "options": [
+    "2.85714",
+    "6.10501",
+    "7.61905",
+    "0.909091"
+   ],
+   "answer": "6.10501",
+   "why": "The lab output line 'RESULT throughput_bs_16 = 6.10501' directly provides this value."
+  },
+  {
+   "q": "Why does the lesson state that if you cannot batch efficiently on a single device, sharding across multiple devices will just multiply your inefficiency?",
+   "options": [
+    "Sharding requires more memory than batching.",
+    "Sharding increases the fixed overhead per item.",
+    "Sharding relies on the same fundamental principle of amortization, so poor single-device efficiency scales up.",
+    "Sharding is only possible if the batch size is 1."
+   ],
+   "answer": "Sharding relies on the same fundamental principle of amortization, so poor single-device efficiency scales up.",
+   "why": "The 'Why this matters' section states: 'If you cannot batch efficiently on a single device, sharding across multiple devices will just multiply your inefficiency.' This implies that the core efficiency gain (amortization) must work on a single unit first."
+  },
+  {
+   "q": "What is the primary risk associated with ignoring memory fragmentation in a scaled deployment, as described in the lesson?",
+   "options": [
+    "Increased latency for real-time requests.",
+    "A batch size that fits in theory might fail in practice due to fragmentation.",
+    "The GPU will automatically reduce the batch size to 1.",
+    "The fixed overhead will increase exponentially."
+   ],
+   "answer": "A batch size that fits in theory might fail in practice due to fragmentation.",
+   "why": "Under 'Common mistakes', point 2 states: 'A batch size that fits in theory might fail in practice due to fragmentation.'"
+  },
+  {
+   "q": "According to the lesson, what two specific states must a system distinguish between when cancelling a job to prevent VRAM leaks?",
+   "options": null,
+   "answer": "Running and pending",
+   "why": "The 'In ComfyUI' section states: 'Ensure your cancellation logic distinguishes between \"running\" and \"pending\" jobs.' It explains that running jobs need to be interrupted to free VRAM, while pending jobs can be dequeued."
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "title": "Depth and edge preprocessors: Sobel by hand",
+ "level": "200",
+ "char": "latent",
+ "hook": "Stop treating depth maps as black boxes and learn to manually extract sharp edges using classic Sobel operators in pure PyTorch.",
+ "code": "CU-219",
+ "prereq": [
+  "CU-103"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

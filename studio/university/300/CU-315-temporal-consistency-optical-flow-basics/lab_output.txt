@@ -1,0 +1,5 @@
+RESULT flow_mean = 1
+RESULT flow_std = 0
+RESULT flow_max = 1
+RESULT flow_min = 1
+RESULT flow_tensor = [[1.0, 1.0], [1.0, 1.0]]

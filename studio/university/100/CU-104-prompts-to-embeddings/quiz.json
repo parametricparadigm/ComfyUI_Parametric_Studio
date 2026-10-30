@@ -1,0 +1,52 @@
+{
+ "code": "CU-104",
+ "title": "Prompts become numbers: tokens and embeddings",
+ "level": "100",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary function of the embedding matrix E in the text encoding process?",
+   "options": [
+    "To convert the text string into a sequence of integers",
+    "To map each token index to a vector representing its semantic meaning",
+    "To denoise the initial noise into a final image",
+    "To pad the prompt to the maximum length"
+   ],
+   "answer": "To map each token index to a vector representing its semantic meaning",
+   "why": "The lesson states in Stage 2 that 'The embedding for token i_k is the row E[i_k]' and defines the embedding as 'a vector... that represents the semantic \"smell\" of that token.'"
+  },
+  {
+   "q": "In the provided lab output, what was the calculated cosine similarity between the two different prompts 'the dog ran in park' and 'the sun sat on mat'?",
+   "options": null,
+   "answer": "-0.152111",
+   "why": "The lab section explicitly lists the result line: 'RESULT sim_different = -0.152111'."
+  },
+  {
+   "q": "Which specific file in the ComfyUI codebase contains the implementation for the T5 text encoder?",
+   "options": [
+    "comfy/text_encoders/llama.py",
+    "comfy/text_encoders/flux.py",
+    "comfy/text_encoders/t5.py",
+    "comfy/text_encoders/bpe_tokenizer.py"
+   ],
+   "answer": "comfy/text_encoders/t5.py",
+   "why": "The 'In ComfyUI' section states: 'T5: comfy/text_encoders/t5.py implements T5 and T5Attention.'"
+  },
+  {
+   "q": "Why is it important to use a mask when mean-pooling padded prompts in real inference?",
+   "options": [
+    "To ensure the model understands the order of the tokens",
+    "To prevent padding tokens from diluting the semantic vector of the actual prompt",
+    "To increase the embedding dimension to match the latent dimension",
+    "To convert sub-word units back into full words"
+   ],
+   "answer": "To prevent padding tokens from diluting the semantic vector of the actual prompt",
+   "why": "The 'Common mistakes' section explains that 'The mask... ensures that padding tokens do not contribute to the mean-pooled vector. If you ignore masks, your prompt's \"scent\" will be diluted by the \"scent\" of nothing.'"
+  },
+  {
+   "q": "What is the difference between the embedding dimension and the latent dimension as described in the lesson?",
+   "options": null,
+   "answer": "The embedding dimension is the size of the text vector (e.g., 768 for CLIP), while the latent dimension is the size of the image noise (e.g., 4 for SD1.5).",
+   "why": "The 'Common mistakes' section explicitly distinguishes them: 'The embedding dimension... is the size of the text vector. The latent dimension... is the size of the image noise.'"
+  }
+ ]
+}

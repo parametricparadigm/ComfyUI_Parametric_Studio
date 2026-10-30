@@ -1,0 +1,52 @@
+{
+ "code": "CU-307",
+ "title": "3D generation: meshes, SDFs, voxels and Gaussian splats",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary computational advantage of using Sparse Voxels in Trellis2 compared to a full voxel grid?",
+   "options": [
+    "It allows for real-time ray-marching without opacity blending.",
+    "It stores only non-zero coordinates (solid or near-surface), saving memory by ignoring empty space.",
+    "It converts the 3D volume directly into a 2D image projection.",
+    "It eliminates the need for post-processing or remeshing steps."
+   ],
+   "answer": "It stores only non-zero coordinates (solid or near-surface), saving memory by ignoring empty space.",
+   "why": "The text states that a full 1024^3 grid has over a billion voxels, which is too complex to denoise in real-time. It explains that Sparse Voxels are used to 'save space' by only storing notes that are 'solid' or near the surface, and that the SparseTensor class stores 'only non-zero coordinates to save memory'."
+  },
+  {
+   "q": "In the context of 3D Gaussian Splatting (TripoSplat), what specific parameters define each individual Gaussian G_i?",
+   "options": null,
+   "answer": "Position (x, y, z), Scale (s_x, s_y, s_z), Rotation R, Color C, and Opacity alpha.",
+   "why": "The section 'Gaussian Splatting Parameters' explicitly lists these five components: Position, Scale, Rotation, Color, and Opacity, defining them as the parameters for each Gaussian G_i."
+  },
+  {
+   "q": "Why is the 'Narrow Band' approach used when processing Signed Distance Functions (SDFs) in the lab?",
+   "options": [
+    "To ensure the mesh is manifold and has no self-intersections.",
+    "To focus processing only on the boundary where |d(x)| < threshold, ignoring the interior and exterior empty space.",
+    "To increase the resolution of the voxel grid to reduce the Staircase Effect.",
+    "To convert the SDF values directly into RGB color values for rendering."
+   ],
+   "answer": "To focus processing only on the boundary where |d(x)| < threshold, ignoring the interior and exterior empty space.",
+   "why": "The text explains that the Narrow Band is created by identifying 'surface voxels' where |d(x)| < threshold. It states this allows the system to 'ignore the empty space inside the object and the vast empty space outside, focusing only on the boundary'."
+  },
+  {
+   "q": "What is the specific role of the `_dual_contour_manifold` function in the mesh post-processing pipeline?",
+   "options": null,
+   "answer": "It ensures that for every patch of voxels, exactly one dual vertex is generated, guaranteeing a manifold mesh where every edge is shared by exactly two faces.",
+   "why": "The section on Dual Contouring states that `_dual_contour_manifold` 'ensures that for every patch of voxels, we generate exactly one dual vertex. This guarantees a manifold mesh (every edge is shared by exactly two faces), which is critical for rendering and physics.'"
+  },
+  {
+   "q": "Based on the lab results, what does an `area_ratio` of 3.02278 indicate about the relationship between the voxel-based surface area and the analytical surface area?",
+   "options": [
+    "The voxel grid is too fine, causing the mesh to lose detail.",
+    "The voxel-based area is approximately 3 times larger than the true area due to the Staircase Effect.",
+    "The analytical area is 3 times larger than the voxel-based area.",
+    "The relative error is 302%, indicating the sphere radius was calculated incorrectly."
+   ],
+   "answer": "The voxel-based area is approximately 3 times larger than the true area due to the Staircase Effect.",
+   "why": "The lab output section explains that `area_ratio = 3.02278` means 'The voxel-based area is 3 times larger than the true area.' It attributes this to the 'Staircase Effect,' where a coarse grid approximates a smooth curve with flat faces, adding extra surface area."
+  }
+ ]
+}

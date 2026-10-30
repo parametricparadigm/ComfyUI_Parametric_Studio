@@ -1,0 +1,25 @@
+{
+ "code": "CU-221",
+ "title": "Caching: why changing the seed does not reload the model",
+ "level": "200",
+ "prereq": [
+  "CU-220"
+ ],
+ "char": "graph",
+ "hook": "Each node gets a key built from its whole ancestry. Change one input and only what lies downstream runs again.",
+ "code_refs": [
+  "comfy_execution/caching.py:CacheKeySetInputSignature",
+  "comfy_execution/caching.py:to_hashable",
+  "comfy_execution/caching.py:HierarchicalCache",
+  "comfy_execution/caching.py:LRUCache",
+  "comfy_execution/caching.py:RAMPressureCache",
+  "comfy_execution/caching.py:Unhashable",
+  "execution.py:IsChangedCache",
+  "execution.py:CacheSet",
+  "comfy/cli_args.py:--cache-classic",
+  "comfy/cli_args.py:--cache-lru",
+  "comfy/cli_args.py:--cache-none",
+  "comfy/cli_args.py:--cache-ram",
+  "main.py:RAM_PRESSURE"
+ ]
+}

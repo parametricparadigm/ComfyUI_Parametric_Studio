@@ -1,0 +1,57 @@
+{
+ "code": "CU-507",
+ "title": "History 7: Latent diffusion and Stable Diffusion (2022)",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What is the primary computational advantage of performing denoising in latent space rather than pixel space?",
+   "options": [
+    "It eliminates the need for a VAE decoder entirely.",
+    "It reduces the number of parameters in attention layers and convolutions by lowering spatial dimensions.",
+    "It allows the model to generate images in a single step without iterative denoising.",
+    "It increases the resolution of the final image by a factor of 8."
+   ],
+   "answer": "It reduces the number of parameters in attention layers and convolutions by lowering spatial dimensions.",
+   "why": "The lesson states that because the latent space is smaller, the neural network has less data to crunch. Specifically, reducing spatial dimensions by a factor of 8 reduces the computational complexity of the attention mechanism by a factor of 64."
+  },
+  {
+   "q": "In the context of Latent Diffusion Models, what does the term 'latent' refer to?",
+   "options": [
+    "A mystical hidden layer of the neural network.",
+    "A compressed, lower-dimensional representation learned by the autoencoder.",
+    "The raw pixel data before any processing.",
+    "The noise schedule parameters used in the diffusion process."
+   ],
+   "answer": "A compressed, lower-dimensional representation learned by the autoencoder.",
+   "why": "The 'Common mistakes' section explicitly clarifies that 'latent' simply means a compressed, lower-dimensional representation learned by the autoencoder, not something 'hidden' in a mystical sense."
+  },
+  {
+   "q": "According to the lesson, what is the specific role of the VAE decoder in the Stable Diffusion pipeline?",
+   "options": [
+    "To add Gaussian noise to the latent variable over time steps.",
+    "To compress the high-dimensional pixel data into a lower-dimensional latent representation.",
+    "To reconstruct the final high-fidelity image from the clean latent variable.",
+    "To predict the noise epsilon during the denoising process."
+   ],
+   "answer": "To reconstruct the final high-fidelity image from the clean latent variable.",
+   "why": "The 'Under the hood' section describes the third stage as 'Decompression,' where the VAE decoder D is used to reconstruct the image x_hat from the clean latent z_0. The 'Common mistakes' section also notes the VAE is responsible for final visual fidelity."
+  },
+  {
+   "q": "In ComfyUI, which node is responsible for the denoising process in latent space?",
+   "options": [
+    "VAE Encode",
+    "VAE Decode",
+    "KSampler",
+    "Model Loading"
+   ],
+   "answer": "KSampler",
+   "why": "The 'In ComfyUI' section states that the KSampler node is where the denoising happens, operating on the latent tensor provided by the VAE Encode node."
+  },
+  {
+   "q": "Based on the lab results provided, what relationship exists between the 'original' and 'compressed' tensor values in the linear scaling model?",
+   "options": null,
+   "answer": "The compressed values are exactly half the magnitude of the original values.",
+   "why": "The 'Lab' section analysis of Line 2 states: 'Notice the values are exactly half the magnitude of the original. This represents the reduction in spatial/dimensional complexity.'"
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "code": "CU-411",
+ "title": "Evaluating video: a flicker metric",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the core statistical intuition behind the Flicker Metric?",
+   "options": [
+    "Stability is the inverse of variance",
+    "Stability is the inverse of mean",
+    "Flicker is the sum of pixel values",
+    "Stability is the product of time and space"
+   ],
+   "answer": "Stability is the inverse of variance",
+   "why": "The lesson states: 'Our intuition is simple: Stability is the inverse of variance.' It explains that if pixel values do not change over time, their variance is zero, indicating perfect stability."
+  },
+  {
+   "q": "In the provided mathematical definition, what does the symbol $\\bar{v}_{c,h,w}$ represent?",
+   "options": [
+    "The variance of the pixel at location (c, h, w)",
+    "The mean value of that pixel over time",
+    "The total number of frames in the video",
+    "The spatial width of the video tensor"
+   ],
+   "answer": "The mean value of that pixel over time",
+   "why": "The lesson explicitly defines $\\bar{v}_{c,h,w}$ as 'the mean value of that pixel over time' in the formula for temporal variance."
+  },
+  {
+   "q": "Why is it a common mistake to apply the raw Flicker Metric to a video of a fast-moving car without prior processing?",
+   "options": [
+    "Because the car's color changes randomly",
+    "Because the metric would measure motion as flicker",
+    "Because the video has too few frames",
+    "Because the car is not in the center of the frame"
+   ],
+   "answer": "Because the metric would measure motion as flicker",
+   "why": "The 'Common mistakes' section states: 'If you apply this metric to a video of a fast-moving car, you will get a high score. This is not flicker; it is motion.' It advises using optical flow to align frames first."
+  },
+  {
+   "q": "In PyTorch, if a video tensor has the shape $(T, C, H, W)$, along which dimension index must you compute the variance to correctly measure temporal flicker?",
+   "options": null,
+   "answer": "dim=0",
+   "why": "The lesson states: 'In PyTorch, if your tensor is shaped $(T, C, H, W)$, you must compute variance along `dim=0`.' It warns that using dim=1 would measure color inconsistency instead."
+  },
+  {
+   "q": "According to the Lab Analysis, what was the calculated Flicker Metric value for the 'stable' video sequence, and what does this value signify?",
+   "options": null,
+   "answer": "0; it signifies that the temporal variance is exactly zero for a perfectly stable video where pixel values are identical across frames.",
+   "why": "The Lab Output shows 'RESULT stable_metric = 0'. The analysis explains: 'This proves that for a perfectly stable video... the temporal variance is exactly zero.'"
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+RESULT grid_size = 32
+RESULT voxel_size = 0.0967742
+RESULT surface_voxel_count = 1488
+RESULT estimated_surface_area = 37.9854
+RESULT analytical_surface_area = 12.5664
+RESULT area_ratio = 3.02278
+RESULT relative_error = 2.02278

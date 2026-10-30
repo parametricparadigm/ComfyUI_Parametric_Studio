@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Parametric Studio</title>
+<meta name="description" content="Local, open-source generative AI studio on top of ComfyUI: create, learn, and see exactly how every result was made.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230d110e'/%3E%3Cpath d='M9 22V10h7a4 4 0 010 8h-4' stroke='%23d4af37' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#070908">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Studio">
+<link rel="apple-touch-icon" href="icons/apple-touch-180.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="skin.css">
+<link rel="preload" href="vendor/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="importmap">{"imports":{"preact":"./vendor/preact.mjs","preact/hooks":"./vendor/hooks.mjs","htm":"./vendor/htm.mjs","three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#2ecc71"/></linearGradient></defs></svg>
+<div id="app"></div>
+<noscript>Parametric Studio needs JavaScript.</noscript>
+<script type="module" src="app.js"></script>
+<script>if ("serviceWorker" in navigator && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) navigator.serviceWorker.register("sw.js").catch(() => {});</script>
+</body>
+</html>

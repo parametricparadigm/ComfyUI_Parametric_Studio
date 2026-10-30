@@ -1,0 +1,51 @@
+{
+ "code": "CU-223",
+ "title": "App Mode: a graph with a form on top",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What are the four steps of the App Mode builder?",
+   "options": [
+    "Install, train, merge, export",
+    "Select inputs, select outputs, preview, set the default view",
+    "Draw, mask, sample, decode",
+    "Upload, tag, publish, share"
+   ],
+   "answer": "Select inputs, select outputs, preview, set the default view",
+   "why": "From the official guide."
+  },
+  {
+   "q": "In the lab, what does filling in the form change?",
+   "options": [
+    "Only the chosen values, and no wires",
+    "The links between nodes",
+    "The model weights",
+    "The list of nodes"
+   ],
+   "answer": "Only the chosen values, and no wires",
+   "why": "The lab reports three changed values and zero changed wires."
+  },
+  {
+   "q": "Can an App Mode user still get a validation error?",
+   "options": [
+    "No, forms prevent all errors",
+    "Yes, if a field allows a value that the node rejects",
+    "Only on Windows",
+    "Only with custom nodes"
+   ],
+   "answer": "Yes, if a field allows a value that the node rejects",
+   "why": "The form does not change the node's limits. Our inference is that the same validation applies."
+  },
+  {
+   "q": "Which setting is the better field for an end user?",
+   "options": [
+    "The sampler's internal schedule",
+    "The subject text",
+    "The VAE file",
+    "The model's dtype"
+   ],
+   "answer": "The subject text",
+   "why": "Expose what the user decides, and keep what the author decided. This is our recommendation."
+  }
+ ]
+}

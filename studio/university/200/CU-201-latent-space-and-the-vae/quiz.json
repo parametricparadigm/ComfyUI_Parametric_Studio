@@ -1,0 +1,62 @@
+{
+ "code": "CU-201",
+ "title": "Latent space and the VAE",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What are the two terms of the VAE objective?",
+   "options": [
+    "Reconstruction and a KL penalty towards the prior",
+    "Adversarial loss and pixel loss",
+    "Noise prediction and CFG",
+    "Precision and recall"
+   ],
+   "answer": "Reconstruction and a KL penalty towards the prior",
+   "why": "The evidence lower bound: E_q[log p(x|z)] − KL(q(z|x) ‖ N(0, I))."
+  },
+  {
+   "q": "Why write z = μ + σ · ε?",
+   "options": [
+    "It saves memory",
+    "The noise moves outside the gradient path, so sampling is differentiable",
+    "It increases the KL",
+    "It removes the need for a decoder"
+   ],
+   "answer": "The noise moves outside the gradient path, so sampling is differentiable",
+   "why": "This is the reparameterisation trick from Kingma and Welling."
+  },
+  {
+   "q": "What is the scale factor for?",
+   "options": [
+    "Making images larger",
+    "Bringing latents to about unit variance, as the samplers assume",
+    "Changing the seed",
+    "Compressing the file"
+   ],
+   "answer": "Bringing latents to about unit variance, as the samplers assume",
+   "why": "The lab computes 1/std, and comfy/latent_formats.py holds the published constants."
+  },
+  {
+   "q": "In the lab, what did the strong KL weight buy, and at what cost?",
+   "options": [
+    "A latent midpoint that is one real bar, at about 26 times the reconstruction error of β = 0.001",
+    "Better reconstruction and no cost",
+    "A smaller file",
+    "Nothing measurable"
+   ],
+   "answer": "A latent midpoint that is one real bar, at about 26 times the reconstruction error of β = 0.001",
+   "why": "Distance 0.047 against 9.762, while MSE is 0.0497 against 0.0019."
+  },
+  {
+   "q": "Is a straight line between two SD latents promised to be meaningful?",
+   "options": [
+    "Yes, always",
+    "No, its KL penalty is slight, and this toy cannot settle it",
+    "Yes, if cfg is 1",
+    "Only for SDXL"
+   ],
+   "answer": "No, its KL penalty is slight, and this toy cannot settle it",
+   "why": "Rombach et al. use only a slight KL penalty, as the What is contested section explains."
+  }
+ ]
+}

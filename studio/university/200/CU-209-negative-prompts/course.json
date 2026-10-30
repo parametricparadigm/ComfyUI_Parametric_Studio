@@ -1,0 +1,15 @@
+{
+ "code": "CU-209",
+ "title": "Negative prompts and cfg 1.0",
+ "level": "200",
+ "prereq": [
+  "CU-208"
+ ],
+ "char": "denoise",
+ "hook": "A negative prompt is not a subtraction of concepts. It replaces the unconditional branch, and at cfg 1 it does nothing at all.",
+ "code_refs": [
+  "comfy/samplers.py:cfg_function",
+  "comfy/samplers.py:sampling_function",
+  "nodes.py:KSampler"
+ ]
+}

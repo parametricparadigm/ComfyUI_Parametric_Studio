@@ -1,0 +1,164 @@
+# H3 modes
+
+> From the author's earlier studio, cleaned for publication: private paths, ports and some lines were removed, so a step may read short and a screen it names may not exist here. Status in this studio: Tested here.
+
+
+## Purpose / when to use it
+H3 is the strongest local video model: video and synced audio (speech, ambience, music) in one pass, 24 fps.
+| Entry | Use it for | Inputs |
+|---|---|---|
+| `h3:t2va` | a clip with sound from text only | — |
+| `h3:cinematic` | a person acting in a scene (reference-driven, no lip-sync) | still |
+| `h3:ugc` | selfie talking head with H3's own voice | still |
+| `h3:lock` | lip-sync a still to an existing voice line | still + audio, field dialogue |
+| `h3:fl` | first → last frame transition (outfit change, morph, camera travel) | still + last_frame |
+| `h3:template` | copy the motion/camera/timing of a 2-15 s reference clip | still + template |
+| `h3:product` | product hero shot, no person | still |
+| `h3:stylised` | clay, felt, animation looks | still (+ field look = your words) |
+| `h3:continue` | next clip that starts from the previous clip's last frame | still (= that last frame) |
+
+## Step-by-step in the studio UI
+1. Video tab → Generator → `H3 · …` entry.
+2. Chips: Aspect (`Auto` = 9:16, 768x1344; long side ≤ 1344), Seconds 5 / 8 / 10, Speed, Base, and Look (cinematic/ugc only).
+   `H3 · Image → video` and `H3 · Selfie talking head` also show a **🎛 LoRAs** row (H3 add-ons, see below).
+   Disabled options show why (e.g. full base + DMAD).
+3. Drop files into the slots (still, last_frame, template, audio). 🎬 Animate on an image card prefills the still.
+4. Optional character chip: fills the still from a stored character sheet.
+5. Prompt: plain words are fine; with ✨ enhance on, the enhancer writes a full H3 prompt (pp.h3prompts builder) and lints
+   it; lint warnings show under ✨ Preview. Use Preview on anything with dialogue to check the `<d>` lines.
+6. Generate. Card: Remix, ✦ Variations, Retry / Queue when free, ⤓ Download clean.
+
+## Optimal settings
+| Setting | Value | Source |
+|---|---|---|
+| Speed (default) | `turbo`: turbo v4 node 1.0, TurboSampler 4 steps, shift 12/3 (Ref2VA pruned int8) — CONFIRMED pick, high confidence, ~50 s per 5 s at 1344x768 | the author's build notes BEST_OPTIONS h3_ltx_video.md "Reference → video" |
+| Speed `dmad` | DMAD baked 1.0, lcm 4 steps, shift 12/2, only on Ref2VA int8 with image refs (turbo elsewhere): calmer, more natural light, weaker on prompted actions (cafe sip missing); 64-78 s, peak 68 GiB | h3_ltx_video.md "Turbo vs DMAD"; `media_tools.DMAD_PEAK_GIB` |
+| Speed `full` | 20 steps euler/simple, shift 12/3, no distill: finals, ~162 s per 5 s (~3x turbo) | h3_ltx_video.md "Final quality" |
+| Turbo steps/strength | keep 4 steps @ 1.0; 6/0.8, 8/0.8, 8/0.6 gave no gain and cost 10-60 % more | h3_ltx_video.md k01-k05 |
+| Base (default) | `pruned`: Ref2VA pruned int8 for cinematic/ugc/product/template/lock; FL2VA pruned int8 + fl2v turbo v1.2 (euler 4, shift 6/3) for t2va; FL2VA pruned nvfp4 for fl/continue | `h3_pipelines.EXISTING`; the author's build notes "H3 text → video" |
+| Base `full` | unpruned int8 (34 GB each), experiments only: equal to pruned (SSIM 0.92-0.997) at +13-21 GB | `h3_bases.py`; h3_ltx_video.md surprise 5 |
+| Look `realism` | Realism-People LoRA 1.0 before turbo v4 on Ref2VA **nvfp4**; prompt starts `r34l1sm, `; close people shots; one seed; turbo only, pruned only | MEDIA_CAPABILITIES §2; LTX_H3_BATCH §8; `variants.H3_INVALID_SETTINGS` |
+| Size | 768x1344 / 1344x768 native (32 grid); other ratios ~1 MP; 21:9 and 4:5 rendered fine (56 s, 30.5 GB) | `aspects.H3`; aspect check 2026-10-11 |
+| Length | 5 / 8 / 10 s (pp clamps 5-15 s; frames 17n+5 @ 24 fps, 124 = 5.2 s) | `variants.H3_SETTINGS`; MINIMAX_H3_PROMPTING §0 |
+| Seed | 7700 default (runner) | `runners._run_h3` |
+| LoRA add-on (🎛 LoRAs row, cinematic/ugc only) | ONE H3 LoRA from the library: Ref2VA pruned **nvfp4** + one `LoraLoaderBypassModelOnly` + the 20-step full recipe (shift 12/3, euler/simple), **no turbo v4 / DMAD** (they and a bypass LoRA share the model's one bypass slot; a second one is refused). Speed chip is replaced by it, realism look and full base are refused. Tested: handheld_h3_100 0.6-1.0 (slider stops at 1.0; the author's 1.7 breaks the scene), fpv_headbob_h3_50 0.8 (its closing camera sentence is added for you), DetailSlider-V1 +1.0; every other family-h3 LoRA is listed marked "untested here" until the 2026-10-14 test run judges it: verdicts (works / subtle / breaks / no visible effect / skipped) are read from `outputs/h3_lora_tests_2026-10-14/verdicts.json` (see `lora-picker.md` "H3 verdicts and usage notes"); a tested LoRA gets its best strength, safe range, trigger/prefix/suffix and a "How to use" in the picker, and the prompt enhancer is told its tips | CIVITAI_WORTHIT_TEST_2026-10-14 §3; `h3_tools.apply_addons`; `lora_library.H3_TESTED` |
+| int8 add-ons | bypass LoRAs on int8 verified (core (earlier commit), 2026-10-11 00:23): `H3_INT8_BYPASS_VERIFIED = True` | (earlier commit); `earlier_studio/config.py` |
+
+## Prompting rules
+- Rules page: `a local folder` (prompt style:
+  structured `integrated_multimodal_description` / `overall_soundscape` / `non_diegetic_music`).
+  `h3-prompts` / `h3-prompt-writing` skills.
+- Key rules:
+  - Dialogue: voice description OUTSIDE the tag, only `<d>[English] exact words.</d>` inside; a bare `(S1)` gives the
+    generic narrator; gender must match the subject; ~2.6 words/s; put the line early.
+  - Sounds in `overall_soundscape`; `non_diegetic_music: N/A` to stop music.
+  - Reference styling beats the prompt: to keep the reference look, write "dressed and styled exactly as in the reference
+    images", do not re-describe hair/wardrobe.
+  - Describe what is present; negations prime H3 ("never takes the phone" → she takes the phone).
+  - One main action, one reaction, one camera decision per clip. "tripod" gets drawn; say "locked-off camera far back".
+  - Blank garments invent logos: "a plain grey hoodie with no print or logo".
+  - H3 keeps the key's framing: give a close-up still for a close-up.
+  - `h3:lock` will not hold a wide shot; for a wide talking beat use cinematic + voiceover.
+  - `h3:template`: start the prompt with a plain description of the clip's opening shot.
+  - Cuts inside a clip: use `h3p:multishot` (`video-h3-pipelines.md`).
+
+## Guards and gates
+- Text guard on the prompt and every field; character requests get the strict rules and a face-match check on output.
+- Output guard: 4 fps + scene changes + first/last frame per 60 s segment; withheld if a frame cannot be checked.
+- Publishing a video runs a TRIBE pre-post check (GPU, ~24 GiB estimate). See `guards-text-and-output.md`,
+  `publish-download-tribe.md`.
+
+## Time and VRAM
+- Port  a local port. Gate: 38 GiB + 4 headroom = 42 GiB free for turbo; realism 48 + 4; a LoRA add-on 48 + 4 (`media_tools.ADDON_PEAK_GIB`,
+  the realism arm's figure for the same nvfp4 base and size: 1344x768x124 with an add-on is not measured yet; the A/B at 832x480x73 .. 736x576x124 peaked at 19-33 GiB on the port); DMAD 68 + 4 (with the MoE loaded DMAD
+  rarely fits and falls back to turbo); full base adds +21 GiB (`media_tools.py`, `h3_bases.FULL_EXTRA_GIB`).
+- Catalogue peak figures: t2va 47 GiB, cinematic/ugc/product 68 (DMAD case), template/lock 46, fl/continue 42 (`EXISTING`).
+- Times: turbo ~40-50 s per 5 s; DMAD 64-78 s; full 20 steps ~162 s (h3_ltx_video.md; MEDIA_CAPABILITIES §2). A LoRA add-on is a
+  20-step render: plan ~3 min per 5 s clip, not ~1 min.
+
+## Known pitfalls / failure modes
+- `continue`: the second clip comes out softer (AB7).
+- `ugc`: H3's own voice changes from shot to shot; use `lock` with one voice file for a series.
+- Realism on int8 was never measured (crossed the VRAM floor); 10 s realism clip came out orange with banding once.
+- SigmaShift 6/3 under turbo v4 on Ref2VA smears clothing; `turbo_4step_ema` ghosts; PDMD 2-step is harsh.
+- H3-World, PAI Acc-8Step: broken here; not wired.
+- If  a local port holds ~42-46 GiB after a run, the idle-port reclaim frees it; ~24 GiB stuck after the remover needed a unit
+  restart once (LOCAL_MOE_REFERENCE §15).
+- Untested modes (pov_action, voiceover, voice_ref, ensemble) are not offered.
+- LoRA add-ons: only cinematic and ugc (the Ref2VA person modes on the realism look's proven nvfp4 base); other H3 entries and the
+  `h3p:*` pipelines keep their own turbo v4 and show no LoRA row. Video-to-video, keyframe, orbit, person-remover and distill LoRAs
+  are not add-ons here (they need their own graph). Trigger words lead the prompt; a LoRA whose page asks for a closing sentence
+  (fpv_headbob) gets it inside the description block, before `overall_soundscape:`.
+
+## Evidence
+
+* **Lock prompt note (2026-10-17):** the enhancer's dry-run build returns no prompt for `lock` (it is not a RAW mode), so the job note used to read "H3 prompt build failed". Decision: harmless, note replaced (`enhance.LOCK_BUILD_NOTE`). pp's lock runner wraps the enhanced text into the H3 prompt at render time and the song is locked into the audio latent; giving lock shots a pre-built three-section prompt would route them through pp's RAW path, a different graph from the proven lock recipe (B1), so it was not done.
+
+## Writer profiles (2026-10-18): Community is the default, Studio is one click back
+
+**How to switch back (any one):** the select next to the length control in Deliverables / Music video / Content Studio ("Writer: Studio (old long style)", per request); the Composer chip on any H3 entry; `POST /api/studio/writer-profile {"default": "studio"}` (global) or `{"studios": {"deliverables": "studio"}}` (one surface: composer, deliverables, music_video, content; `"default"` clears an override); `GET` shows the setting, the effective profile per surface and every flag with its evidence; the env value `COMFY_STUDIO_WRITER_PROFILE=studio` (the state file `a local folder`, env `COMFY_STUDIO_WRITER_PROFILE_FILE`, wins over it). It takes effect on the next request (a running studio needs a restart to have this code at all). A run records its profile (`options.writer_profile`, absent = Community) and the job card note starts with `Writer profile: community|studio (flags that differ)`; the Deliverables run header shows "H3 writer: ...".
+
+**Flags** (each separately switchable: `writer_flags {flag: bool}` per request, `flags` in the settings route, or the profile's base; takeaway numbers are the author's list of 10):
+| flag | takeaway | Community | Studio | what it does |
+|---|---|---|---|---|
+| `section_sizes` | 2 | on | off | soundscape 30-70 words (cut at a sentence end when longer, never the user's own); the first sentence of the description is the ~40-word clip summary the builder copies (summary ~50 words with its prefix) |
+| `timed_beats` | 4 | on | off | ~2 s beat blocks (`0-2 s, 2-4 s, 4-5 s` for 5 s) inside ONE take; no `[Shot 2]`, no cuts |
+| `talk_line` | 6 | on | off | a talk shot carries ONE short line (<= 14 words, soft check) that starts in the first beat |
+| `delivery_verbs` | 5 | on | off | the writer may return `speech_verb` (whispers, replies, asks, murmurs, gasps, laughs, answers, adds); the builder's `says` before the strict tag is swapped. The strict `<d>[English] ... </d>` tag, the dialogue-verbatim check and the lint stay in BOTH profiles |
+| `action_audio` | 7 | on | off | words go to action and sound; light is one clause; the long-mode cover list and continuation passes are rewritten the same way |
+| `examples` | 10 | on | off | up to ~1500 estimated tokens of retrieved library prompts as fenced STYLE EXAMPLES (never copied; `prompt_library.retrieve_examples`, imported lazily; none = no examples). The "Library examples" checkbox adds them to the Studio profile; the flag off removes them from Community |
+| `music_na` | 8 | on | **on** | `non_diegetic_music` is N/A when the request gave no music direction (typed music field, or music words in the prompt / brief). author-approved for BOTH profiles |
+| `plain_negatives` | 9 | on | **on** | a plain closing sentence "No subtitles or captions, no watermark or logo, no interview or podcast set-up, no beeps." at the end of the description (before the spoken line), no negative field. author-approved for BOTH profiles. Only on graphs without a negative input: every H3 graph the writer feeds samples through `BasicGuider` (no negative conditioning at all, like the 92% of community posts at cfg 1); a clause is left out when the request or body asks for that thing (a visible logo, captions) or already negates it |
+
+## Purpose-first profile (2026-10-18, opt-in, OFF by default)
+
+### Evidence: how much of the written text is filler
+Rule-based classifier (`writer_purpose.filler_report`; every clause of the writer's own text is purposeful, neutral set-up or filler; the builder's style sentence, `[Shot 1]`, the "no subtitles" ending and the spoken line are removed first). All four cases are SFW. Share of WORDS that are filler, one prompt per cell:
+
+| arm | talk | walk | coffee | dance | mean | words / prompt | purposeful words |
+|---|---|---|---|---|---|---|---|
+| studio-long | 67% | 53% | 38% | 52% | **52%** | 1006 | 219 |
+| community (default) | 75% | 42% | 33% | 38% | **47%** | 332 | 126 |
+| community-no-retention | 58% | 42% | 26% | 32% | **39%** | 351 | 129 |
+| community-official | 67% | 37% | 24% | 37% | **41%** | 384 | 150 |
+| case mean over arms | 67% | 43% | 30% | 40% | 47% pooled | | |
+
+Pooled: 47% of 8,295 words are filler, 30% purposeful, the rest set-up. Where the filler goes: micro-physiology 37% (breath, blinks, pupils, chest, swallow, jaw), ambient atmosphere 17% (hums, bokeh, depth of field, invented smudges and crumbs), cloth and hair secondary motion 16%, 'natural' padding 8%, repeated light 8%, generic emotion 7%, measured micro-movement 6% ("two degrees", "a fraction of a millimeter"). Short verbatim examples (SFW): studio-long "the head tilts two degrees to the left", "The chest rises and falls in a slow, steady rhythm", "a small, dark smudge is visible on the lower fabric of the curtain"; community "takes a shallow, audible breath", "a few stray flyaway hairs trembling near her temple", "the faint, distant hum of a ventilation system"; community-no-retention "a small water smudge and a stray crumb are visible", "the jaw moving naturally and the eyes blinking once", "the soft rustle of clothing"; community-official "the facial muscles relaxing into a soft expression", "the shoulders shifting a few millimeters to the left", "the faint friction of cloth on cloth".
+
+The talk case is worst (67%): its content is one short line, so the other ~300 words have nothing to be about. Shortening alone (studio-long to community: 1006 to 332 words) cut the filler share only 5 points; the purposeful words went DOWN (219 to 126) with it. Length was never the cure.
+
+**Where the filler comes from in our own writer** (all four are changed only under the purpose profile): technique 5 in `h3_techniques.TECHNIQUES` asks for "real imperfections" (a smudge on the glass) and the "small motion of hair, cloth, breath"; `COVER4_TIMED` asks every 2 s block for "its small secondary motion of hair, cloth, breath, props and the reaction"; the length machinery (`_expand_if_short`, `_EXTEND_ASPECTS`) asks a short answer for more of the same; and a 250-450 word band for a clip with 2-4 actions is 75 words per second, so the writer must pad.
+
+### The structure (what the writer is told)
+1. **PURPOSE** one line (JSON key `purpose`, shown on the job card): what the viewer should get and why; the first description sentence says it as the clip summary.
+2. **BEATS** 3-5 inside ONE take, each opening with its span: `hook 0-1 s, build 1-2.5 s, payoff 2.5-4 s, button 4-5 s` for 5 s (3 beats under 4.5 s, 4 up to 8.5 s, 5 above; hook 20%, build 30%, payoff 30%, button 20% of the clip on a half-second grid). A beat = who does what to what, where the camera is and why it moves, what is different at its end; a beat with no change is filler. The function names are planning labels and must not appear in the prompt.
+3. **SPOKEN LINE** only when it carries a beat; the builder still writes the strict `<d>[English] ...</d>`, the talk rule (one short line, early) and the delivery verb are unchanged.
+4. **AUDIO** soundscape at most 45 words, only sounds that mark a beat.
+5. **PLACE AND LIGHT** one sentence, once.
+6. **WORD BUDGET (hard)** words = 30 + 14 s to 50 + 24 s: **5 s = 100-170, 8 s = 142-242, 10 s = 170-290, 15 s = 240-410**. Derivation: a beat is about 28 words (who does what to what 12, camera and why 8, what changed 8); 4 beats = 112, plus the opening summary sentence (~30) = ~140, and the place, light and one sound clause fit in the top of the band. The low end keeps a stub out, the high end is cut by the studio (`trim_body`). It equals the median length of the community's SFW prompts (102-131 words). A length chip other than Long still wins (the `purpose-official-length` arm = these rules at MiniMax's 350-500).
+7. **BAN LIST** (one regex family per category in `writer_purpose.BAN_LIST`, each with its replacement): micro-physiology, secondary motion of cloth and hair, measurements, stacked adjectives, repeated lighting, 'natural' padding, generic emotion, ambient atmosphere.
+8. **REPLACEMENT RULE** "say what changes, not how it looks": for every phrase ask what is different in the frame at the end of the beat because of it.
+
+### What it adds around the writer
+Flags (all OFF in `community` and `studio`; `purpose` profile turns them on together and turns `timed_beats` and library `examples` off): `purpose` (11, structure + budget + ban list + anchors; replaces the section-size, timed-beat and action-audio text, the cover list, technique 5 and the continuation passes), `filler_lint` (12, job-card note), `filler_retry` (13, bounded rewrite). Any one works alone on `community` (`writer_flags`), per request (`writer_profile: "purpose"`), per surface (`POST /api/studio/writer-profile {"studios": {"deliverables": "purpose"}}`), by env (`COMFY_STUDIO_WRITER_PROFILE=purpose`) and in the three selects and the Composer chip ("Writer: Purpose-first (opt-in)").
+* **Job card:** `purpose: <the purpose line>` and `purpose lint: filler 12% (18 of 150 words), purposeful 71%, 150 body words, budget 100-170` (plus "mostly micro physiology" when over the 15% target).
+* **Retry, bounded:** when the filler share is above 25% or the body is over 115% of the budget, the same model is asked ONCE (per enhance call, across the whole model chain) to rewrite the whole reply with its own worst phrases quoted back; the rewrite is used only if it measures lower; the card says `rewrote once, filler 51% -> 9%` or `one rewrite did not lower the filler ... kept the first draft`.
+* **Style anchors:** four hand-written 5 s targets (talking intro, walk toward the camera, coffee pour, dance sway) as fenced "PURPOSE STYLE ANCHORS" (labelled style references, data not instructions); a talk shot sees the talking anchor first, other shots never see it. The community profile's retrieved library examples are off in `purpose` (they would bring the community habits back).
+
+### Classifier honesty
+A lexicon-and-rules heuristic, not a judge of the video. Hand check of 190 randomly drawn clauses (three samples, the first used to fix the rules, the others fresh): about 8% of labels are wrong, mostly on the boundary (a dance step called set-up, a cloth rustle called action); every clause it calls filler was filler (precision about 100%), it misses roughly one filler clause in eight (recall about 87%), so the shares above are a slight UNDER-count (within about 5 points). It cannot tell whether a payoff is visible: that is the new `purpose` criterion on the A/B sheet.
+
+### Decision log
+| decision | why | rejected |
+|---|---|---|
+| a third profile + three flags, default unchanged | author's rule: community stays until he picks; flags let the lint and retry run alone on community to measure | tightening `community` in place (changes the author's default untested) |
+| word budget by seconds, 5 s = 100-170 | measured: our prompts hold 126-219 purposeful words but 330-1000 total; the community's SFW median is 102-131 | a fixed 250-450 band (75 words per second of padding) |
+| rule-based filler measure | deterministic, free, hermetic, runs on the job card for every prompt | an LLM judge (non-deterministic, another GPU load per prompt) |
+| soft lint + ONE rewrite | a hard word filter breaks sentences; unbounded retries burn writer time (the writer serves one request at a time) | stripping banned words from the text; retry loops |
+| anchors hand-written, not retrieved | retrieved community prompts carry the same habits; the author asked for "definitive" prompting | the library `examples` flag in `purpose` |
+| technique 5 swapped under `purpose` only | it is the instruction that produces smudges and micro-motion | editing the shared TECHNIQUES text for every profile |
+
+### Tested versus only wired
+Tested (hermetic, fakes): budget by seconds and monotonic bounds, beat plan, classifier on known clauses (including the author's three examples), filler report arithmetic, lint note, rewrite request text, rule block contents, anchors (inside budget, under the filler target, matching this folder's page), profile on/off for every route, the community prompt unchanged, the dialogue rules and the verbatim check under `purpose`, the retry bound (one per call, across the chain; a worse rewrite discarded; over-budget alone triggers it), the A/B harness arms, `--arms`, `filler`, tally and sheet. **Only wired:** the real writer LLM has not been run with this block (no GPU was used): whether it obeys the budget, the beats and the ban list, and whether the clips are better, is unknown until the A/B.
+
+### The A/B (prepared, NOT run; the author approves GPU time)

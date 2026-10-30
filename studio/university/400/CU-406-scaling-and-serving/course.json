@@ -1,0 +1,12 @@
+{
+ "title": "Scaling: sharding, batching and serving",
+ "level": "400",
+ "char": "tune",
+ "hook": "From one GPU to many, and what throughput really means.",
+ "code": "CU-406",
+ "prereq": [
+  "CU-305"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

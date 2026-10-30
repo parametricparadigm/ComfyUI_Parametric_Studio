@@ -1,0 +1,52 @@
+{
+ "code": "CU-511",
+ "title": "History 11: Audio models: WaveNet to autoregressive music to diffusion music",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary architectural difference between Autoregressive (AR) models and Diffusion models in terms of processing speed and parallelism?",
+   "options": [
+    "AR models are faster because they process the entire latent space simultaneously, while Diffusion models are sequential.",
+    "AR models are sequential and memory-heavy, requiring each step to finish before the next starts, whereas Diffusion models are parallelizable across the latent space.",
+    "Diffusion models are slower because they require iterative loops for token decoding, while AR models use a scheduler to step through noise levels.",
+    "There is no difference; both models rely on the same mechanism of painting pixel-by-pixel from left to right."
+   ],
+   "answer": "AR models are sequential and memory-heavy, requiring each step to finish before the next starts, whereas Diffusion models are parallelizable across the latent space.",
+   "why": "The lesson states that AR models are 'sequential' and 'memory-heavy' like a DJ playing tracks back-to-back, while Diffusion models are 'parallelizable' and work on the 'whole latent space simultaneously'."
+  },
+  {
+   "q": "In the Autoregressive (AR) mechanism described in the lesson, what is the formula for the steady state ($x_{ss}$) given the coefficients $a$ and $b$?",
+   "options": null,
+   "answer": "x_ss = b / (1 - a)",
+   "why": "The lesson explicitly defines the steady state calculation as $x_{ss} = \\frac{b}{1 - a}$ under the condition that $|a| < 1$."
+  },
+  {
+   "q": "Why is it a common mistake to assume that ACE-Step is an autoregressive model simply because it uses `AceStepAudioTokenizer` with Finite Scalar Quantization (FSQ)?",
+   "options": [
+    "Because FSQ is only used in diffusion models, not in autoregressive ones.",
+    "Because the generation process in ACE-Step is diffusion-based (denoising the latent space), even though the audio is encoded into discrete tokens.",
+    "Because ACE-Step does not actually use any form of tokenization for audio.",
+    "Because the `AceStepAudioTokenizer` is identical to the MusicGen tokenizer, which is autoregressive."
+   ],
+   "answer": "Because the generation process in ACE-Step is diffusion-based (denoising the latent space), even though the audio is encoded into discrete tokens.",
+   "why": "The 'Common mistakes' section clarifies that while ACE-Step uses FSQ to create discrete tokens, the *generation* is diffusion-based, and the DiT model denoises the latent space rather than generating tokens sequentially."
+  },
+  {
+   "q": "In the lab simulation, what does the result `ar_last = 0.199805` demonstrate about the nature of Autoregressive models?",
+   "options": [
+    "It proves that AR models can generate the final sample instantly without waiting for previous steps.",
+    "It shows that the model has diverged from the steady state due to instability.",
+    "It proves the sequential, memory-dependent nature of AR models, where the value converges close to the steady state after 10 sequential steps.",
+    "It indicates that the bias term $b$ has no influence on the final output."
+   ],
+   "answer": "It proves the sequential, memory-dependent nature of AR models, where the value converges close to the steady state after 10 sequential steps.",
+   "why": "The lab section explains that `ar_last = 0.199805` shows the value has converged very close to the steady state after 10 sequential steps, proving the 'sequential, memory-dependent nature' where each step depends on the last."
+  },
+  {
+   "q": "What is the specific role of the `NADiffusionDecoder` in the Lightricks LTX 2.4 architecture as described in the lesson?",
+   "options": null,
+   "answer": "It is a diffusion-based VAE decoder.",
+   "why": "The 'In ComfyUI' section states that the `NADiffusionDecoder` in LTX 2.4 'explicitly uses a diffusion-based VAE decoder'."
+  }
+ ]
+}

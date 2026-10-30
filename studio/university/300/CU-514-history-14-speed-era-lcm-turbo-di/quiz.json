@@ -1,0 +1,52 @@
+{
+ "code": "CU-514",
+ "title": "History 14: The speed era: LCM, turbo and distillation",
+ "level": "300",
+ "questions": [
+  {
+   "q": "What is the primary architectural shift described in the 'speed era' of diffusion models?",
+   "options": [
+    "Moving from CPU to GPU processing",
+    "Shifting from iterative refinement to direct prediction",
+    "Replacing UNet backbones with Transformer architectures",
+    "Increasing the resolution of the latent space"
+   ],
+   "answer": "Shifting from iterative refinement to direct prediction",
+   "why": "The lesson states that the speed era covers the 'architectural shift from iterative refinement to direct prediction' and that the question changes from 'how do we denoise accurately?' to 'how do we predict the final state directly?'"
+  },
+  {
+   "q": "In the context of Latent Consistency Models (LCMs), what does the function F_theta(z_t, t) learn to predict?",
+   "options": [
+    "The derivative f(z_t, t) of the PF-ODE",
+    "The clean latent z_0 directly from the noisy latent z_t",
+    "The next noisy latent z_{t-1} in the sequence",
+    "The noise schedule sigma for the current step"
+   ],
+   "answer": "The clean latent z_0 directly from the noisy latent z_t",
+   "why": "The text explains that LCMs learn a function that 'directly maps any point on the trajectory to the endpoint z_0' and that 'the LCM predicts the clean latent z_0 directly from the noisy latent z_t'."
+  },
+  {
+   "q": "According to the lab results, what was the calculated speedup factor when comparing the standard 50-step process to the 4-step distilled process?",
+   "options": null,
+   "answer": "12.5",
+   "why": "The lab results section explicitly lists 'RESULT speedup_factor = 12.5' and explains that this proves the distilled model is 12.5 times faster in terms of step count."
+  },
+  {
+   "q": "Why is a lower CFG scale (e.g., 1.0-2.0) typically recommended for LCMs compared to standard diffusion models?",
+   "options": [
+    "To reduce the computational cost of the forward pass",
+    "Because the model has already learned the guidance during distillation",
+    "To prevent the model from overfitting to the training data",
+    "To ensure the noise schedule remains linear"
+   ],
+   "answer": "Because the model has already learned the guidance during distillation",
+   "why": "The 'Common mistakes' section states that LCMs are sensitive to CFG scale and that a lower CFG is recommended 'because the model has already learned the guidance during distillation'."
+  },
+  {
+   "q": "What is the specific training cost mentioned for a high-quality 768x768 LCM in the 'Go deeper' section?",
+   "options": null,
+   "answer": "32 A100 GPU hours",
+   "why": "The 'Go deeper' section cites the paper by Luo et al., noting that 'a high-quality 768x768 LCM takes only 32 A100 GPU hours for training'."
+  }
+ ]
+}

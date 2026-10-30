@@ -1,0 +1,8 @@
+the graph has 7 nodes and 13 widget values; the app shows 3 of them
+  field 'Describe the image'   -> node 6 input 'text', default 'a fox'
+  field 'Seed'                 -> node 3 input 'seed', default 1
+  field 'Width'                -> node 5 input 'width', default 1024
+values changed by the form: [('3', 'seed'), ('5', 'width'), ('6', 'text')]
+wires changed by the form: 0
+body queued: {"prompt": {"6": {"class_type": "CLIPTextEncode", "inputs":  ... the same POST /prompt as any other client
+width=768 valid: True   width=4 valid: False

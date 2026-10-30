@@ -1,0 +1,116 @@
+# Choosing a music engine
+
+> From the author's earlier studio, cleaned for publication: private paths, ports and some lines were removed, so a step may read short and a screen it names may not exist here. Status in this studio: Tested on the author's old stack.
+
+
+**MiniMax Music 3: genre fix landed (2026-10-11, branch `an earlier branch`, KB `MINIMAX_MUSIC3.md` "Genre
+adherence").** the author reported coherent songs that missed the requested genre. Measured cause: the one-line caption
+plus a lone `[Instrumental]` / empty lyric (instrumentals stop at 13-34 s of a 40 s ceiling and drift, e.g. trap came
+out as bossa nova) and the weak AR guidance; the pruned text encoder is lossless. Fix: the prompt box is built into
+the official 3-block caption (Global Metadata / Vocal Details / Arrangement, `studio/music3_caption.py`; an enhanced
+or hand-written 3-block caption is kept) and the AR guidance `cfg_scale` is 3.0 (DiT stays 1.7). CLAP zero-shot genre
+top-1 on 6 genres x 3 clips: 94 % (top-3 100 %, tempo in range 83 %) vs 67-72 % for the old inputs. dfserve was retired
+on 2026-10-12: `df:minimax_music:music` now renders this same ComfyUI graph, so it has the fix too.
+
+## Which engine
+| You want | Pick | Why (evidence below) |
+|---|---|---|
+| A song draft in seconds, tempo and key locked | **ACE-Step 1.5 XL turbo** | 10-42 s per 2-min song; BPM within 5 % on 5/6 styles, key on 5/6 |
+| A finished song where the words matter | **Music 3** | lyric match 100 % on 4/6, 83-89 % on 2; key 5 exact + 1 relative of 6; ignores the BPM target (1/6) |
+| An instrumental bed, intro, sting or cue | **Stable Audio 3 medium** | 30 s in ~10 s, 6 GB; no vocals by design |
+| Instrumentals / variety from ACE | ACE-Step XL base + APG | 50 steps, more variety; dropped the vocals on 1/6 and missed the key on 3/6 |
+| A second take with a different singer/arrangement | YuE2-3B | key off on 4/6; non-commercial weights |
+| The same tune in a new style and new words (a cover) | YuE2 cover | keeps the source melody (SheetSage2); non-commercial weights; needs the cover-rights note |
+
+## Licences (read before selling anything)
+| Engine | Licence | Commercial |
+|---|---|---|
+| ACE-Step 1.5 XL turbo / base | MIT (code and weights); trained on licensed, royalty-free and synthetic data | yes |
+| MiniMax Music 3 | MiniMax-Music3 Community License | yes, with "MiniMax-Music3" shown prominently; written OK above USD 20 M yearly revenue |
+| Stable Audio 3 medium | Stability AI Community License | yes under USD 1 M yearly revenue; Enterprise licence above |
+| YuE2-3B | weights CC BY-NC 4.0 + a creator permission; code Apache-2.0 | individual creators may monetise outputs; companies need a licence from M-A-P |
+| YuE2 cover (YuE2-3B + SheetSage2) | weights CC BY-NC 4.0; code Apache-2.0 | as YuE2-3B; a cover also needs a cover / mechanical licence from the source song's rights holders (informational) |
+
+## Inputs in the studio
+- **Prompt** = the sound. ACE: comma tags (genre, instruments, vocal type, mood). Music 3: the three-block caption
+  (`Global Metadata:` / `Vocal Details:` / `Arrangement:`); ✨ enhance writes it (Music 3 only: the other engines are
+  never enhanced because there is no guide for their formats). YuE2: one style line. SA3: plain description.
+- **lyrics** (not SA3) = the words with `[verse]` / `[chorus]` / `[bridge]` tags, each tag on its own line. Ordinals
+  (`[Verse 1]`) are removed and text after a tag on the same line is moved to its own line (the mm3.py rule: it is
+  not sung otherwise).
+- **vocals / instrumental** (not SA3). Vocals need lyrics (the submit is refused otherwise). Instrumental per engine:
+  Music 3 gets only `[intro]`/`[instrumental]`/`[solo]`/`[outro]` tags plus "No vocals. Purely instrumental." in the
+  caption (tested: 0 sung words); ACE gets `[Instrumental]` (template default); YuE2 gets "no vocals, instrumental"
+  in the style and non-vocal tags (community workaround: it may still sing).
+- **Dubstep family (2026-10-17, studio-authored, untested).** When a Music 3 prompt's *first* comma tag names a variant
+  (dubstep, brostep, riddim, briddim, liquid riddim, tearout, deathstep, drumstep, chillstep, hybrid trap / trapstep, colour bass, post-dubstep, future garage, moombahcore; "melodic dubstep"
+  and "future bass" are official and not routed), the studio replaces the tag builder's generic lines (Sonics, Groove, Primary)
+  with that variant's recipe from `config/music3_styles_studio.json` and adds its typical BPM when you gave none; your own tags,
+  BPM and key stay. The job text shows `studio_style` with the note. A structured (pasted or enhanced) caption is never touched.
+  When the variant's first card is instrumental-led the Vocals chip starts on Instrumental unless you picked it (`studio/music_variants.js`,
+  read in `Composer.js`).
+  The same styles are full subgenres in the Music video maker and Song recreate ([music-video.md](music-video.md)). Code:
+  `studio/music3_studio.py` (`enrich_caption`), called from `music.plan`.
+- **seconds**: exact for ACE and SA3; a ceiling for Music 3 and YuE2 (they may stop early).
+- **bpm / key**: ACE takes them as metadata (auto = "NN bpm" / "X major" in your tags, else the template's 120 / A
+  and scale is S.`; YuE2 and SA3 get ", N BPM, K" appended to the style / prompt.
+- **language** (ACE): the lyrics' language code.
+
+## Best settings (the defaults file; "tested" = our renders, "documented" = the official card / template)
+| Engine | Values | Source |
+|---|---|---|
+| Music 3 | pruned bf16 TE, AR cfg_scale 1.7, top_k 50, KSampler 30 euler/simple cfg 1.7, tiled decode (1536/64) | documented: official template `audio_minimax_music_3.json`; tested: music_knowledge 6/6, 30.2 GB peak at 130 s; bf16 over int8 tested (int8 34 % slower, audio diverges). **Genre adherence not validated.** |
+| ACE XL turbo | 8 steps euler/simple, cfg 1, AuraFlow shift 3, LM cfg 2.0 / temperature 0.85 / top_p 0.9, time signature 4 | documented: HF card (8 steps, no CFG), node defaults; tested: pp `acestep15_xl` template + music_knowledge 6/6 |
+| ACE XL base | 50 steps euler/simple, cfg 7, APG eta 0 / norm 2.5 / momentum -0.75, shift 3 | documented: ACE's APG constants (research music.md); tested: music_knowledge 6/6 rendered |
+| YuE2-3B | ABC full: temperature 0.7, top_p 0.9, top_k 30, repetition 1.005; music: 1.0 / 0.95 / 100 / 1.2, cfg 1.0; KSampler 32 dpm_2 sgm_uniform | documented: Comfy core YuE2 template; tested: music_knowledge 6/6 |
+| Stable Audio 3 medium | 8 steps lcm/simple, cfg 1, ZeroOut negative, t5gemma TE | documented: HF card (8 steps, cfg 1.0), Pixaroma EP19; tested: one 30 s render |
+
+Change any of these in `config/studio_music.json` (per engine, whitelisted keys, range-checked; anything else is
+ignored and named on the result as `defaults_ignored`). `COMFY_STUDIO_MUSIC_DEFAULTS` points at another copy.
+
+## Time and VRAM (ComfyUI  a local port, studio preflight: peak + 4 GiB free, idle ports)
+| Engine | Time | Peak used by the preflight |
+|---|---|---|
+| ACE XL turbo | 10-42 s per 2-min song | 24 GB (research estimate; card: >= 20 GB without offload) |
+| ACE XL base | 17-34 s | 24 GB (estimate) |
+| Music 3 | 121-255 s per ~2-min song | 31 GB (30.2 measured, tiled decode) |
+| YuE2-3B | 64-102 s | 16 GB (research estimate 15 GB) |
+| Stable Audio 3 | ~10 s per 30 s | 8 GB (6.0 GB measured port peak) |
+
+## Genre adherence check (2026-10-11, CPU, laion/larger_clap_general zero-shot)
+The knowledge-run renders (same lyrics/seed per style) were scored against 16 genre labels (the 6 targets + 10
+distractors), 3 x 10 s windows per track. Rank of the target label (1 = best):
+
+| style | Music 3 | ACE turbo | ACE base APG | YuE2 |
+|---|---|---|---|---|
+| hip-hop | 7 | 8 | 9 | 9 |
+| metal | 3 | 3 | 6 | 3 |
+| soul ballad | 1 | 1 | 1 | 1 |
+| celtic folk | 3 | 2 | 2 | 4 |
+| big band | 2 | 9 | 6 | 3 |
+| c-pop | 1 | 1 | 1 | 1 |
+| mean rank | **2.83** | 4.0 | 4.17 | 3.5 |
+
+Stable Audio 3 (one render, orchestral prompt): orchestral ranked 1, margin 0.19. Reading: no engine clearly beats
+another; hip-hop (read as r&b) and metal (read as punk rock) miss for every engine, and "acoustic soul ballad" pulls
+many tracks, so part of it is label bias. **Low confidence; nobody listened.** Script:
+`scripts/chatbox/music_genre_clap.py`.
+
+## Not in the studio (and why)
+- HeartMuLa: removed by author 2026-10-11.
+- **Stable Audio 3 small SFX**: weights on disk, never rendered here; an SFX model.
+- **YuE2 cover** (SheetSage2 melody -> new style): built 2026-10-17 as `music:yue2_cover` and the Song recreate engine "YuE2 cover" (recipe; one 25 s smoke render measured, nobody listened): [music-yue2-cover.md](music-yue2-cover.md).
+- **SoulX-Singer**: a singing voice swap, not text-to-music; would need the Voice tab's consent gate.
+- **YuE (v1)**: not on disk (YuE2 replaced it).
+
+## Guards
+Prompt and lyrics go through the text guard (Layer 1) at submit and again on the final prompt; every output goes
+through the output guard (exactly one audio stream); download / publish through `scrub.publish_file` (TRIBE gate on
+publish). Nothing here changes a guard.
+
+## Sources
+- `a local folder`, `run_info.json` (head-to-head, graphs).
+- `a local folder` `acestep()` + `workflows/generated/acestep15_xl_api.json`.
+- https://huggingface.co/ACE-Step/acestep-v15-xl-turbo · https://github.com/ace-step/ACE-Step-1.5 ·
+  https://huggingface.co/MiniMaxAI/MiniMax-Music3 · https://huggingface.co/m-a-p/YuE2-3B ·
+  https://github.com/multimodal-art-projection/YuE · https://huggingface.co/stabilityai/stable-audio-3-medium ·

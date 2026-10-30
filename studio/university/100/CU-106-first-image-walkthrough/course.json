@@ -1,0 +1,12 @@
+{
+ "title": "Your first image: checkpoint, sampler, VAE",
+ "level": "100",
+ "char": "graph",
+ "hook": "Follow one prompt through the whole text-to-image pipeline.",
+ "code": "CU-106",
+ "prereq": [
+  "CU-102"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

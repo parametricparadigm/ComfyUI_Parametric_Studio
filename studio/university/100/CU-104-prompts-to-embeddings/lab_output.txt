@@ -1,0 +1,4 @@
+RESULT shape_emb_1 = [5, 8]
+RESULT shape_pooled_1 = [8]
+RESULT sim_identical = 1
+RESULT sim_different = -0.152111

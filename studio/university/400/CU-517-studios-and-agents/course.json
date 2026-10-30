@@ -1,0 +1,12 @@
+{
+ "title": "History 17: Studios and agents: when models became pipelines",
+ "level": "400",
+ "char": "graph",
+ "hook": "Discover how ComfyUI transforms static model calls into dynamic, agent-driven pipelines that orchestrate complex creative workflows.",
+ "code": "CU-517",
+ "prereq": [
+  "CU-405"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

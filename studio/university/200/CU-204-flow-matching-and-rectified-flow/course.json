@@ -1,0 +1,16 @@
+{
+ "code": "CU-204",
+ "title": "Flow matching and rectified flow",
+ "level": "200",
+ "prereq": [
+  "CU-202",
+  "CU-203"
+ ],
+ "char": "denoise",
+ "hook": "Each training pair flies straight. The field you actually integrate does not, and that is the whole subject.",
+ "code_refs": [
+  "comfy/model_sampling.py:CONST",
+  "comfy/model_sampling.py:ModelSamplingDiscreteFlow",
+  "comfy/model_sampling.py:time_snr_shift"
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "title": "History 13: Seeing in 3D: NeRF, Gaussian splats and structured latents",
+ "level": "300",
+ "char": "latent",
+ "hook": "Explore how modern 3D generation moves from implicit fields to explicit particles and structured latent spaces to render photorealistic scenes.",
+ "code": "CU-513",
+ "prereq": [
+  "CU-307"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

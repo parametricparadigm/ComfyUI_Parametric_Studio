@@ -1,0 +1,1011 @@
+{
+ "levels": {
+  "100": "Foundations: what happens when you press Queue",
+  "200": "Mechanics: how the pieces really work",
+  "300": "Architecture: the machinery inside the models",
+  "400": "Engineering and research: build, train, measure, scale"
+ },
+ "characters": {
+  "latent": {
+   "name": "Professor Latent",
+   "bio": "a calm, slightly cosmic professor who lives inside the compressed world the VAE builds.",
+   "voice": "Patient, uses vivid spatial metaphors, loves a good diagram described in words."
+  },
+  "denoise": {
+   "name": "Dr. Denoise",
+   "bio": "a lab-coated scientist who has watched ten thousand images emerge from static.",
+   "voice": "Dry humour, precise, always asks 'what is the noise level at this step?'"
+  },
+  "attn": {
+   "name": "Madame Attention",
+   "bio": "a razor-sharp lecturer who decides what every token looks at.",
+   "voice": "Direct, elegant, a little theatrical; everything is about who attends to whom."
+  },
+  "bits": {
+   "name": "Bit Bandit",
+   "bio": "a mischievous numerics goblin who hides in the last few bits of every float.",
+   "voice": "Playful, loves a counter-example, shows exactly where rounding bites."
+  },
+  "graph": {
+   "name": "Captain Graph",
+   "bio": "a ship's captain who navigates node graphs and knows every wire.",
+   "voice": "Practical, step-by-step, nautical turns of phrase in moderation."
+  },
+  "tune": {
+   "name": "Tinker Tune",
+   "bio": "a workshop tinkerer who trains, merges and measures models.",
+   "voice": "Hands-on, honest about what failed, always reports the measurement."
+  },
+  "sound": {
+   "name": "DJ Spectrogram",
+   "bio": "a producer who sees sound as pictures.",
+   "voice": "Rhythmic, upbeat, explains with beats and frequencies."
+  },
+  "frame": {
+   "name": "Reel Rascal",
+   "bio": "a film-reel sprite who counts frames and fights flicker.",
+   "voice": "Cinematic, energetic, thinks in shots and seconds."
+  }
+ },
+ "courses": [
+  {
+   "code": "CU-101",
+   "title": "What generative AI actually is",
+   "level": "100",
+   "prereq": [],
+   "char": "latent",
+   "hook": "Learn a distribution, then sample from it. Three models on one dataset show the difference between learning and memorising.",
+   "status": "audited",
+   "path": "100/CU-101-what-is-generative-ai"
+  },
+  {
+   "code": "CU-102",
+   "title": "Anatomy of a ComfyUI graph",
+   "level": "100",
+   "prereq": [],
+   "char": "graph",
+   "hook": "Nodes, typed wires, execution order and caching.",
+   "status": "draft",
+   "path": "100/CU-102-anatomy-of-a-graph"
+  },
+  {
+   "code": "CU-103",
+   "title": "Pixels, tensors and shapes",
+   "level": "100",
+   "prereq": [],
+   "char": "bits",
+   "hook": "Why [B,H,W,C] and [B,C,H,W] both exist and what breaks when you mix them.",
+   "status": "draft",
+   "path": "100/CU-103-pixels-tensors-shapes"
+  },
+  {
+   "code": "CU-104",
+   "title": "Prompts become numbers: tokens and embeddings",
+   "level": "100",
+   "prereq": [],
+   "char": "attn",
+   "hook": "Tokenization, embedding tables and what a text encoder hands the model.",
+   "status": "draft",
+   "path": "100/CU-104-prompts-to-embeddings"
+  },
+  {
+   "code": "CU-105",
+   "title": "Seeds, noise and determinism",
+   "level": "100",
+   "prereq": [],
+   "char": "denoise",
+   "hook": "Why the same seed gives the same picture and what changes it.",
+   "status": "draft",
+   "path": "100/CU-105-seeds-and-noise"
+  },
+  {
+   "code": "CU-106",
+   "title": "Your first image: checkpoint, sampler, VAE",
+   "level": "100",
+   "prereq": [
+    "CU-102"
+   ],
+   "char": "graph",
+   "hook": "Follow one prompt through the whole text-to-image pipeline.",
+   "status": "draft",
+   "path": "100/CU-106-first-image-walkthrough"
+  },
+  {
+   "code": "CU-107",
+   "title": "Models on disk: safetensors and families",
+   "level": "100",
+   "prereq": [],
+   "char": "bits",
+   "hook": "What is inside a model file and why families matter.",
+   "status": "draft",
+   "path": "100/CU-107-models-on-disk"
+  },
+  {
+   "code": "CU-109",
+   "title": "Resolution, aspect ratio and the pixel budget",
+   "level": "100",
+   "prereq": [],
+   "char": "graph",
+   "hook": "Master the art of balancing image dimensions to maximize detail without blowing up your VRAM usage.",
+   "status": "draft",
+   "path": "100/CU-109-resolution-aspect-ratio-pixel-budget"
+  },
+  {
+   "code": "CU-110",
+   "title": "Reading a workflow JSON like a map",
+   "level": "100",
+   "prereq": [
+    "CU-102"
+   ],
+   "char": "graph",
+   "hook": "Stop staring at the spaghetti code and start seeing the logical flow of your image generation pipeline.",
+   "status": "draft",
+   "path": "100/CU-110-reading-workflow-json-like-a-map"
+  },
+  {
+   "code": "CU-111",
+   "title": "Files and formats: PNG metadata, MP4, WAV, safetensors",
+   "level": "100",
+   "prereq": [],
+   "char": "bits",
+   "hook": "Discover how ComfyUI reads and writes the invisible data that makes your images and models work.",
+   "status": "draft",
+   "path": "100/CU-111-files-formats"
+  },
+  {
+   "code": "CU-201",
+   "title": "Latent space and the VAE",
+   "level": "200",
+   "prereq": [
+    "CU-101",
+    "CU-103"
+   ],
+   "char": "latent",
+   "hook": "Train a tiny VAE on a CPU, and see why the midpoint of two latents is a picture while the midpoint of two images is a ghost.",
+   "status": "audited",
+   "path": "200/CU-201-latent-space-and-the-vae"
+  },
+  {
+   "code": "CU-202",
+   "title": "Diffusion from first principles",
+   "level": "200",
+   "prereq": [
+    "CU-101",
+    "CU-105"
+   ],
+   "char": "denoise",
+   "hook": "Destroy data with noise on purpose, learn to undo one step, and train a real model on a CPU.",
+   "status": "audited",
+   "path": "200/CU-202-diffusion-from-first-principles"
+  },
+  {
+   "code": "CU-203",
+   "title": "Score matching, Tweedie and the SDE view",
+   "level": "200",
+   "prereq": [
+    "CU-202"
+   ],
+   "char": "denoise",
+   "hook": "Why predicting noise is the same as learning the gradient of the data density, proved numerically.",
+   "status": "audited",
+   "path": "200/CU-203-score-matching-and-sdes"
+  },
+  {
+   "code": "CU-204",
+   "title": "Flow matching and rectified flow",
+   "level": "200",
+   "prereq": [
+    "CU-202",
+    "CU-203"
+   ],
+   "char": "denoise",
+   "hook": "Each training pair flies straight. The field you actually integrate does not, and that is the whole subject.",
+   "status": "audited",
+   "path": "200/CU-204-flow-matching-and-rectified-flow"
+  },
+  {
+   "code": "CU-205",
+   "title": "Samplers are ODE solvers",
+   "level": "200",
+   "prereq": [
+    "CU-203"
+   ],
+   "char": "denoise",
+   "hook": "Euler, Heun and DPM++ 2M written in five lines each, then measured against the exact answer.",
+   "status": "audited",
+   "path": "200/CU-205-samplers-as-ode-solvers"
+  },
+  {
+   "code": "CU-206",
+   "title": "Sigma schedules: where the steps go",
+   "level": "200",
+   "prereq": [
+    "CU-205"
+   ],
+   "char": "denoise",
+   "hook": "The scheduler chooses which noise levels the solver visits. Same model, same steps, different error.",
+   "status": "audited",
+   "path": "200/CU-206-sigma-schedules"
+  },
+  {
+   "code": "CU-207",
+   "title": "Ancestral and SDE samplers: adding noise back",
+   "level": "200",
+   "prereq": [
+    "CU-205"
+   ],
+   "char": "denoise",
+   "hook": "Why a sampler that keeps injecting noise never settles on one image, and when that helps.",
+   "status": "audited",
+   "path": "200/CU-207-ancestral-and-sde-samplers"
+  },
+  {
+   "code": "CU-208",
+   "title": "Guidance: CFG and what it really does",
+   "level": "200",
+   "prereq": [
+    "CU-205"
+   ],
+   "char": "denoise",
+   "hook": "One line of arithmetic, and it does not sample the distribution people usually say it does.",
+   "status": "audited",
+   "path": "200/CU-208-guidance-cfg"
+  },
+  {
+   "code": "CU-209",
+   "title": "Negative prompts and cfg 1.0",
+   "level": "200",
+   "prereq": [
+    "CU-208"
+   ],
+   "char": "denoise",
+   "hook": "A negative prompt is not a subtraction of concepts. It replaces the unconditional branch, and at cfg 1 it does nothing at all.",
+   "status": "audited",
+   "path": "200/CU-209-negative-prompts"
+  },
+  {
+   "code": "CU-210",
+   "title": "Precision: fp32, fp16, bf16, fp8",
+   "level": "200",
+   "prereq": [
+    "CU-103"
+   ],
+   "char": "bits",
+   "hook": "Where rounding bites: small LoRA deltas vanish, sums stall, and fp16 overflows at 65,504.",
+   "status": "audited",
+   "path": "200/CU-210-precision"
+  },
+  {
+   "code": "CU-211",
+   "title": "Quantization: int8, FP8, 4-bit and GGUF",
+   "level": "200",
+   "prereq": [
+    "CU-210"
+   ],
+   "char": "bits",
+   "hook": "Trading bits for memory, and measuring what you lose.",
+   "status": "draft",
+   "path": "200/CU-211-quantization"
+  },
+  {
+   "code": "CU-212",
+   "title": "LoRA: low-rank adaptation",
+   "level": "200",
+   "prereq": [
+    "CU-210"
+   ],
+   "char": "tune",
+   "hook": "Why two skinny matrices can change a giant one.",
+   "status": "draft",
+   "path": "200/CU-212-lora-low-rank"
+  },
+  {
+   "code": "CU-213",
+   "title": "Inpainting masks and edge blending",
+   "level": "200",
+   "prereq": [
+    "CU-214"
+   ],
+   "char": "graph",
+   "hook": "Master the art of seamless image editing by learning how to mathematically feather mask edges for natural transitions.",
+   "status": "draft",
+   "path": "200/CU-213-inpainting-masks-edge-blending"
+  },
+  {
+   "code": "CU-214",
+   "title": "Conditioning: img2img, inpaint, ControlNet, IP-Adapter",
+   "level": "200",
+   "prereq": [
+    "CU-106"
+   ],
+   "char": "graph",
+   "hook": "Every way of telling the model more than a prompt.",
+   "status": "draft",
+   "path": "200/CU-214-conditioning-controlnet-ip"
+  },
+  {
+   "code": "CU-215",
+   "title": "Video basics: frames, fps and temporal latents",
+   "level": "200",
+   "prereq": [
+    "CU-201"
+   ],
+   "char": "frame",
+   "hook": "Time as another axis, and why video models compress it.",
+   "status": "draft",
+   "path": "200/CU-215-video-basics"
+  },
+  {
+   "code": "CU-216",
+   "title": "Audio and music basics: waveforms to spectrograms",
+   "level": "200",
+   "prereq": [],
+   "char": "sound",
+   "hook": "Sample rate, Nyquist, STFT and why audio models work on spectrograms or latents.",
+   "status": "draft",
+   "path": "200/CU-216-audio-basics"
+  },
+  {
+   "code": "CU-217",
+   "title": "Upscaling and tiling math",
+   "level": "200",
+   "prereq": [
+    "CU-201"
+   ],
+   "char": "latent",
+   "hook": "Master the geometry of high-resolution generation by calculating exact tile overlaps and upscaling factors without relying on GPU acceleration.",
+   "status": "draft",
+   "path": "200/CU-217-upscaling-tiling-math"
+  },
+  {
+   "code": "CU-218",
+   "title": "Seeds, batches and variations in video",
+   "level": "200",
+   "prereq": [
+    "CU-105",
+    "CU-215"
+   ],
+   "char": "frame",
+   "hook": "Discover how a single integer seed transforms random noise into reproducible video variations across your entire batch.",
+   "status": "draft",
+   "path": "200/CU-218-seeds-batches-variations-video"
+  },
+  {
+   "code": "CU-219",
+   "title": "Depth and edge preprocessors: Sobel by hand",
+   "level": "200",
+   "prereq": [
+    "CU-103"
+   ],
+   "char": "latent",
+   "hook": "Stop treating depth maps as black boxes and learn to manually extract sharp edges using classic Sobel operators in pure PyTorch.",
+   "status": "draft",
+   "path": "200/CU-219-depth-edge-preprocessors-sobel-by"
+  },
+  {
+   "code": "CU-220",
+   "title": "The execution model: what runs, and in what order",
+   "level": "200",
+   "prereq": [
+    "CU-102"
+   ],
+   "char": "graph",
+   "hook": "ComfyUI starts from the output nodes and works backwards. Build its scheduler in 60 lines and watch a lazy input change the order.",
+   "status": "audited",
+   "path": "200/CU-220-execution-model"
+  },
+  {
+   "code": "CU-221",
+   "title": "Caching: why changing the seed does not reload the model",
+   "level": "200",
+   "prereq": [
+    "CU-220"
+   ],
+   "char": "graph",
+   "hook": "Each node gets a key built from its whole ancestry. Change one input and only what lies downstream runs again.",
+   "status": "audited",
+   "path": "200/CU-221-caching"
+  },
+  {
+   "code": "CU-222",
+   "title": "Sub-graphs and node expansion",
+   "level": "200",
+   "prereq": [
+    "CU-220"
+   ],
+   "char": "graph",
+   "hook": "A sub-graph is a front-end idea that the server never sees. Node expansion is a server idea that the front-end never sees.",
+   "status": "audited",
+   "path": "200/CU-222-subgraphs-and-expansion"
+  },
+  {
+   "code": "CU-223",
+   "title": "App Mode: a graph with a form on top",
+   "level": "200",
+   "prereq": [
+    "CU-109",
+    "CU-220"
+   ],
+   "char": "graph",
+   "hook": "App Mode shows chosen inputs and outputs of a workflow as a simple form. The graph underneath does not change.",
+   "status": "audited",
+   "path": "200/CU-223-app-mode"
+  },
+  {
+   "code": "CU-224",
+   "title": "The API: queue, watch, fetch",
+   "level": "200",
+   "prereq": [
+    "CU-109",
+    "CU-220"
+   ],
+   "char": "graph",
+   "hook": "Everything the page does, a script can do: POST a prompt, read events from a websocket, fetch the files.",
+   "status": "audited",
+   "path": "200/CU-224-the-api"
+  },
+  {
+   "code": "CU-229",
+   "title": "Color spaces, gamma and image math",
+   "level": "200",
+   "prereq": [
+    "CU-103"
+   ],
+   "char": "bits",
+   "hook": "sRGB vs linear light and why blending in the wrong space looks muddy.",
+   "status": "draft",
+   "path": "200/CU-229-color-and-image-math"
+  },
+  {
+   "code": "CU-501",
+   "title": "History 1: GANs, the adversarial game (2014)",
+   "level": "200",
+   "prereq": [],
+   "char": "denoise",
+   "hook": "Discover how the adversarial game between generator and discriminator laid the foundation for modern generative AI.",
+   "status": "draft",
+   "path": "200/CU-501-history-1-gans-adversarial-game-2"
+  },
+  {
+   "code": "CU-502",
+   "title": "History 2: Variational autoencoders and the latent idea (2013)",
+   "level": "200",
+   "prereq": [],
+   "char": "latent",
+   "hook": "Discover how the 'latent space' concept revolutionized generative AI by teaching machines to compress data into meaningful, continuous representations.",
+   "status": "draft",
+   "path": "200/CU-502-history-2-variational-autoencoder"
+  },
+  {
+   "code": "CU-503",
+   "title": "History 3: Pixel by pixel, autoregressive image models",
+   "level": "200",
+   "prereq": [],
+   "char": "attn",
+   "hook": "Discover how early AI painted images one pixel at a time, laying the groundwork for modern generative techniques.",
+   "status": "draft",
+   "path": "200/CU-503-history-3-autoregressive-image-mo"
+  },
+  {
+   "code": "CU-505",
+   "title": "History 5: CLIP and contrastive learning",
+   "level": "200",
+   "prereq": [],
+   "char": "attn",
+   "hook": "Discover how CLIP learns to match images and text by maximizing the similarity of correct pairs while pushing incorrect ones apart.",
+   "status": "draft",
+   "path": "200/CU-505-history-5-clip-and-contrastive-le"
+  },
+  {
+   "code": "CU-506",
+   "title": "History 6: Denoising diffusion arrives (DDPM, 2020)",
+   "level": "200",
+   "prereq": [],
+   "char": "denoise",
+   "hook": "Discover how DDPM revolutionized image generation by teaching models to reverse noise step-by-step.",
+   "status": "draft",
+   "path": "200/CU-506-history-6-denoising-diffusion-arr"
+  },
+  {
+   "code": "CU-507",
+   "title": "History 7: Latent diffusion and Stable Diffusion (2022)",
+   "level": "200",
+   "prereq": [
+    "CU-201"
+   ],
+   "char": "latent",
+   "hook": "Discover how Stable Diffusion revolutionized image generation by operating in a compressed latent space rather than raw pixels.",
+   "status": "draft",
+   "path": "200/CU-507-latent-diffusion-stable-diffusion"
+  },
+  {
+   "code": "CU-508",
+   "title": "History 8: Adapters era: LoRA and ControlNet",
+   "level": "200",
+   "prereq": [
+    "CU-212"
+   ],
+   "char": "tune",
+   "hook": "Discover how low-rank adaptations and spatial controls revolutionized efficient fine-tuning in the ComfyUI ecosystem.",
+   "status": "draft",
+   "path": "200/CU-508-history-8-adapters-era-lora-contr"
+  },
+  {
+   "code": "CU-301",
+   "title": "Attention from scratch",
+   "level": "300",
+   "prereq": [
+    "CU-103",
+    "CU-104"
+   ],
+   "char": "attn",
+   "hook": "Scaled dot-product attention in six lines, why the square root of d is there, and how a prompt reaches a pixel.",
+   "status": "audited",
+   "path": "300/CU-301-attention-from-scratch"
+  },
+  {
+   "code": "CU-302",
+   "title": "Multi-head, GQA and RoPE",
+   "level": "300",
+   "prereq": [
+    "CU-301"
+   ],
+   "char": "attn",
+   "hook": "Splitting attention, sharing keys, and rotating positions.",
+   "status": "draft",
+   "path": "300/CU-302-heads-gqa-rope"
+  },
+  {
+   "code": "CU-303",
+   "title": "DiT and MM-DiT blocks",
+   "level": "300",
+   "prereq": [
+    "CU-301"
+   ],
+   "char": "attn",
+   "hook": "How a transformer replaces the U-Net: patches, adaLN, joint text-image attention.",
+   "status": "draft",
+   "path": "300/CU-303-dit-and-mmdit"
+  },
+  {
+   "code": "CU-304",
+   "title": "Why attention is O(n^2) and how Flash/Sage fix the memory",
+   "level": "300",
+   "prereq": [
+    "CU-301"
+   ],
+   "char": "attn",
+   "hook": "Tiling, online softmax and the memory wall.",
+   "status": "draft",
+   "path": "300/CU-304-flash-attention-memory"
+  },
+  {
+   "code": "CU-305",
+   "title": "VRAM budget math: weights, activations, caches",
+   "level": "300",
+   "prereq": [
+    "CU-210"
+   ],
+   "char": "bits",
+   "hook": "Predicting whether it fits before you press Queue.",
+   "status": "draft",
+   "path": "300/CU-305-vram-budget-math"
+  },
+  {
+   "code": "CU-306",
+   "title": "Text encoders: CLIP, T5 and LLM encoders",
+   "level": "300",
+   "prereq": [
+    "CU-104"
+   ],
+   "char": "attn",
+   "hook": "What each encoder gives the model and what it costs.",
+   "status": "draft",
+   "path": "300/CU-306-text-encoders-deep"
+  },
+  {
+   "code": "CU-307",
+   "title": "3D generation: meshes, SDFs, voxels and Gaussian splats",
+   "level": "300",
+   "prereq": [
+    "CU-201"
+   ],
+   "char": "latent",
+   "hook": "The shapes a model can output and how they convert.",
+   "status": "draft",
+   "path": "300/CU-307-three-d-representations"
+  },
+  {
+   "code": "CU-308",
+   "title": "Speed: distillation, caching, compile, fewer steps",
+   "level": "300",
+   "prereq": [],
+   "char": "denoise",
+   "hook": "Where the seconds go and how to get them back.",
+   "status": "draft",
+   "path": "300/CU-308-speed-tricks"
+  },
+  {
+   "code": "CU-309",
+   "title": "Positional encodings in 2D and 3D",
+   "level": "300",
+   "prereq": [
+    "CU-302"
+   ],
+   "char": "attn",
+   "hook": "Discover how we inject spatial awareness into neural networks by transforming grid coordinates into rich frequency signals.",
+   "status": "draft",
+   "path": "300/CU-309-positional-encodings-2d-3d"
+  },
+  {
+   "code": "CU-310",
+   "title": "Cross-attention versus joint attention",
+   "level": "300",
+   "prereq": [
+    "CU-301"
+   ],
+   "char": "attn",
+   "hook": "Discover how ComfyUI's attention mechanisms differ by exploring the mathematical distinction between conditioning on external prompts and self-attending within ",
+   "status": "draft",
+   "path": "300/CU-310-cross-attention-versus-joint-attention"
+  },
+  {
+   "code": "CU-311",
+   "title": "Mixed precision: where accumulation hides",
+   "level": "300",
+   "prereq": [
+    "CU-210"
+   ],
+   "char": "bits",
+   "hook": "Discover why your gradients vanish or explode when mixing float16 and float32, and how ComfyUI's scheduler hides the accumulation trap.",
+   "status": "draft",
+   "path": "300/CU-311-mixed-precision-accumulation"
+  },
+  {
+   "code": "CU-312",
+   "title": "KV cache and autoregressive decoding",
+   "level": "300",
+   "prereq": [
+    "CU-301"
+   ],
+   "char": "attn",
+   "hook": "Discover how ComfyUI's text encoders and diffusion schedulers leverage caching to speed up sequential generation without sacrificing quality.",
+   "status": "draft",
+   "path": "300/CU-312-kv-cache-autoregressive-decoding"
+  },
+  {
+   "code": "CU-313",
+   "title": "Mixture of experts routing",
+   "level": "300",
+   "prereq": [
+    "CU-301"
+   ],
+   "char": "attn",
+   "hook": "Discover how ComfyUI's advanced diffusion models intelligently select the right expert for each token to boost efficiency and quality.",
+   "status": "draft",
+   "path": "300/CU-313-mixture-of-experts-routing"
+  },
+  {
+   "code": "CU-314",
+   "title": "Flow-matching losses and velocity targets",
+   "level": "300",
+   "prereq": [],
+   "char": "denoise",
+   "hook": "Learn how to compute the exact velocity field that guides your diffusion model from noise to data.",
+   "status": "draft",
+   "path": "300/CU-314-flow-matching-losses-and-velocity-target"
+  },
+  {
+   "code": "CU-315",
+   "title": "Temporal consistency and optical flow basics",
+   "level": "300",
+   "prereq": [
+    "CU-215"
+   ],
+   "char": "frame",
+   "hook": "Learn how to keep your AI videos from jittering by mastering the math behind motion estimation.",
+   "status": "draft",
+   "path": "300/CU-315-temporal-consistency-optical-flow-basics"
+  },
+  {
+   "code": "CU-316",
+   "title": "Video VAEs and receptive fields",
+   "level": "300",
+   "prereq": [
+    "CU-215",
+    "CU-201"
+   ],
+   "char": "latent",
+   "hook": "Discover how Video VAEs compress temporal dimensions and why understanding receptive fields is key to controlling motion artifacts.",
+   "status": "draft",
+   "path": "300/CU-316-video-vaes-and-receptive-fields"
+  },
+  {
+   "code": "CU-317",
+   "title": "Sparse and windowed attention",
+   "level": "300",
+   "prereq": [
+    "CU-304"
+   ],
+   "char": "attn",
+   "hook": "Discover how limiting attention to local windows and sparse patterns drastically reduces computational cost while preserving spatial context.",
+   "status": "draft",
+   "path": "300/CU-317-sparse-windowed-attention"
+  },
+  {
+   "code": "CU-504",
+   "title": "History 4: StyleGAN and style modulation",
+   "level": "300",
+   "prereq": [
+    "CU-501"
+   ],
+   "char": "latent",
+   "hook": "Discover how StyleGAN decouples content from style to achieve fine-grained control over generated images.",
+   "status": "draft",
+   "path": "300/CU-504-history-4-stylegan-style-modulati"
+  },
+  {
+   "code": "CU-509",
+   "title": "History 9: Transformers replace U-Nets: DiT and rectified flow",
+   "level": "300",
+   "prereq": [
+    "CU-303"
+   ],
+   "char": "attn",
+   "hook": "Discover how Diffusion Transformers (DiT) and rectified flow are reshaping the landscape of generative AI by moving away from traditional U-Net architectures.",
+   "status": "draft",
+   "path": "300/CU-509-transformers-replace-unets-dit-re"
+  },
+  {
+   "code": "CU-510",
+   "title": "History 10: From frames to space-time: the road to modern video models",
+   "level": "300",
+   "prereq": [
+    "CU-215"
+   ],
+   "char": "frame",
+   "hook": "Discover how video generation evolved from static image sequences to coherent space-time volumes.",
+   "status": "draft",
+   "path": "300/CU-510-history-10-frames-to-space-time"
+  },
+  {
+   "code": "CU-511",
+   "title": "History 11: Audio models: WaveNet to autoregressive music to diffusion music",
+   "level": "300",
+   "prereq": [
+    "CU-216"
+   ],
+   "char": "sound",
+   "hook": "Trace the evolution of AI audio from sample-by-sample prediction to holistic diffusion synthesis.",
+   "status": "draft",
+   "path": "300/CU-511-history-11-audio-models"
+  },
+  {
+   "code": "CU-513",
+   "title": "History 13: Seeing in 3D: NeRF, Gaussian splats and structured latents",
+   "level": "300",
+   "prereq": [
+    "CU-307"
+   ],
+   "char": "latent",
+   "hook": "Explore how modern 3D generation moves from implicit fields to explicit particles and structured latent spaces to render photorealistic scenes.",
+   "status": "draft",
+   "path": "300/CU-513-seeing-in-3d-nerf-gaussian-splats"
+  },
+  {
+   "code": "CU-514",
+   "title": "History 14: The speed era: LCM, turbo and distillation",
+   "level": "300",
+   "prereq": [
+    "CU-308"
+   ],
+   "char": "denoise",
+   "hook": "Discover how we tricked diffusion models into thinking they were already finished, slashing generation time from minutes to seconds.",
+   "status": "draft",
+   "path": "300/CU-514-history-14-speed-era-lcm-turbo-di"
+  },
+  {
+   "code": "CU-515",
+   "title": "History 15: The size era: FP8, GGUF and 4-bit formats arrive",
+   "level": "300",
+   "prereq": [
+    "CU-211"
+   ],
+   "char": "bits",
+   "hook": "Discover how quantization formats like FP8 and GGUF revolutionized local AI by shrinking model sizes without sacrificing too much quality.",
+   "status": "draft",
+   "path": "300/CU-515-history-15-size-era-fp8-gguf-4bit"
+  },
+  {
+   "code": "CU-401",
+   "title": "Writing a custom node with the V3 API",
+   "level": "400",
+   "prereq": [
+    "CU-220",
+    "CU-221"
+   ],
+   "char": "graph",
+   "hook": "A class with a schema and an execute method. The engine calls your node without making an instance, and that changes how you write it.",
+   "status": "audited",
+   "path": "400/CU-401-custom-nodes-v3"
+  },
+  {
+   "code": "CU-402",
+   "title": "Memory management: who gets the GPU",
+   "level": "400",
+   "prereq": [
+    "CU-220"
+   ],
+   "char": "bits",
+   "hook": "Before each sampler run, ComfyUI budgets VRAM and evicts what it must. Replay the arithmetic and read your own logs.",
+   "status": "audited",
+   "path": "400/CU-402-memory-management"
+  },
+  {
+   "code": "CU-403",
+   "title": "Model merging: weighted, SLERP, task arithmetic",
+   "level": "400",
+   "prereq": [
+    "CU-212"
+   ],
+   "char": "tune",
+   "hook": "Why averaging weights can work and when it fails.",
+   "status": "draft",
+   "path": "400/CU-403-model-merging-math"
+  },
+  {
+   "code": "CU-404",
+   "title": "Evaluating outputs: metrics, checks and their limits",
+   "level": "400",
+   "prereq": [
+    "CU-106"
+   ],
+   "char": "tune",
+   "hook": "What PSNR, SSIM-style and embedding scores tell you, and what they cannot.",
+   "status": "draft",
+   "path": "400/CU-404-evaluating-outputs"
+  },
+  {
+   "code": "CU-405",
+   "title": "Agents on ComfyUI: tools, verification, side-effect safety",
+   "level": "400",
+   "prereq": [
+    "CU-102",
+    "CU-401"
+   ],
+   "char": "graph",
+   "hook": "Letting a model drive the graph without letting it break things.",
+   "status": "draft",
+   "path": "400/CU-405-agents-on-comfyui"
+  },
+  {
+   "code": "CU-406",
+   "title": "Scaling: sharding, batching and serving",
+   "level": "400",
+   "prereq": [
+    "CU-305"
+   ],
+   "char": "tune",
+   "hook": "From one GPU to many, and what throughput really means.",
+   "status": "draft",
+   "path": "400/CU-406-scaling-and-serving"
+  },
+  {
+   "code": "CU-407",
+   "title": "Reading a generative-AI paper in 20 minutes",
+   "level": "400",
+   "prereq": [],
+   "char": "latent",
+   "hook": "A method for extracting claims, assumptions and what to check.",
+   "status": "draft",
+   "path": "400/CU-407-reading-papers"
+  },
+  {
+   "code": "CU-409",
+   "title": "Distillation math: teacher, student, consistency",
+   "level": "400",
+   "prereq": [
+    "CU-308"
+   ],
+   "char": "tune",
+   "hook": "Learn how to compress a complex diffusion model into a fast, few-step generator by mastering the mathematical bridge between teacher guidance and student consis",
+   "status": "draft",
+   "path": "400/CU-409-distillation-math-teacher-student"
+  },
+  {
+   "code": "CU-410",
+   "title": "Quantization error propagation through layers",
+   "level": "400",
+   "prereq": [
+    "CU-211"
+   ],
+   "char": "bits",
+   "hook": "Discover how tiny rounding errors in low-bit weights can snowball into significant output drift as they pass through deep neural networks.",
+   "status": "draft",
+   "path": "400/CU-410-quantization-error-propagation"
+  },
+  {
+   "code": "CU-411",
+   "title": "Evaluating video: a flicker metric",
+   "level": "400",
+   "prereq": [
+    "CU-404"
+   ],
+   "char": "frame",
+   "hook": "Learn to quantify visual stability by calculating the temporal variance of pixel intensities to detect flicker in generated video sequences.",
+   "status": "draft",
+   "path": "400/CU-411-evaluating-video-flicker-metric"
+  },
+  {
+   "code": "CU-412",
+   "title": "Dataset curation and captioning for training",
+   "level": "400",
+   "prereq": [
+    "CU-402"
+   ],
+   "char": "tune",
+   "hook": "Learn how to transform raw images into high-quality training data by mastering precise captioning and dataset balancing techniques.",
+   "status": "draft",
+   "path": "400/CU-412-dataset-curation-and-captioning-for-trai"
+  },
+  {
+   "code": "CU-413",
+   "title": "Prompt adherence evaluation",
+   "level": "400",
+   "prereq": [
+    "CU-404"
+   ],
+   "char": "tune",
+   "hook": "Learn to quantify how well your generated images actually match the text prompts using deterministic CPU-based metrics.",
+   "status": "draft",
+   "path": "400/CU-413-prompt-adherence-evaluation"
+  },
+  {
+   "code": "CU-415",
+   "title": "Reproducibility and provenance: hashing graphs and seeds",
+   "level": "400",
+   "prereq": [
+    "CU-105",
+    "CU-405"
+   ],
+   "char": "graph",
+   "hook": "Learn how to cryptographically fingerprint your ComfyUI workflows and seeds to ensure bit-perfect reproducibility across different machines and sessions.",
+   "status": "draft",
+   "path": "400/CU-415-reproducibility-and-provenance"
+  },
+  {
+   "code": "CU-416",
+   "title": "Profiling memory and time on a GPU (with a CPU model of it)",
+   "level": "400",
+   "prereq": [
+    "CU-305"
+   ],
+   "char": "tune",
+   "hook": "Learn to predict GPU memory bottlenecks by simulating tensor lifecycles and operation costs on your CPU.",
+   "status": "draft",
+   "path": "400/CU-416-profiling-memory-and-time-on-a-gpu-with-"
+  },
+  {
+   "code": "CU-516",
+   "title": "History 16: What open means: weights, licences and the ecosystem",
+   "level": "400",
+   "prereq": [],
+   "char": "graph",
+   "hook": "Explore the legal and technical boundaries of open-source AI by dissecting how model weights, licenses, and community contributions shape the ComfyUI ecosystem.",
+   "status": "draft",
+   "path": "400/CU-516-what-open-means-weights-licences-"
+  },
+  {
+   "code": "CU-517",
+   "title": "History 17: Studios and agents: when models became pipelines",
+   "level": "400",
+   "prereq": [
+    "CU-405"
+   ],
+   "char": "graph",
+   "hook": "Discover how ComfyUI transforms static model calls into dynamic, agent-driven pipelines that orchestrate complex creative workflows.",
+   "status": "draft",
+   "path": "400/CU-517-studios-and-agents"
+  }
+ ]
+}

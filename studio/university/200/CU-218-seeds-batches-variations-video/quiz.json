@@ -1,0 +1,57 @@
+{
+ "code": "CU-218",
+ "title": "Seeds, batches and variations in video",
+ "level": "200",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary difference between how a seed functions in image generation versus video generation?",
+   "options": [
+    "In images, the seed locks the final pixel values; in video, it only locks the initial noise state.",
+    "In images, the seed is ignored; in video, it controls the camera movement.",
+    "In images, the seed creates a static latent; in video, the seed creates a temporal loop.",
+    "In images, the seed is random; in video, the seed is fixed by the hardware."
+   ],
+   "answer": "In images, the seed locks the final pixel values; in video, it only locks the initial noise state.",
+   "why": "The lesson states that in image generation, a seed is a 'magic wand' that gives the same picture, but in video, it 'locks the initial state of the noise' while the temporal processing can still introduce variation."
+  },
+  {
+   "q": "Why do consecutive frames in a video latent tensor differ even when the seed is fixed?",
+   "options": [
+    "Because the seed is reset for every frame in the sequence.",
+    "Because the frames are statistically independent draws from the noise distribution.",
+    "Because the diffusion model intentionally adds random noise to each frame to increase detail.",
+    "Because the VRAM runs out and forces a new random seed for subsequent frames."
+   ],
+   "answer": "Because the frames are statistically independent draws from the noise distribution.",
+   "why": "The lesson explains that 'first_frame (at t=0) and second_frame (at t=1), they are statistically independent draws from the noise distribution,' meaning their values will differ naturally."
+  },
+  {
+   "q": "What is the shape of the latent tensor for video as defined in the 'Under the hood' section?",
+   "options": null,
+   "answer": "(batch_size, channels, time, height, width)",
+   "why": "The lesson explicitly states: 'For video, this would typically be (batch_size, channels, time, height, width).'"
+  },
+  {
+   "q": "In the context of ComfyUI and video models like SeedVR2, what issue can arise if temporal chunking is not handled with consistent noise seeding or overlapping context?",
+   "options": [
+    "The video will be generated at a lower resolution.",
+    "You will see seams or flicker at the chunk boundaries.",
+    "The model will crash due to insufficient VRAM.",
+    "The audio track will become desynchronized."
+   ],
+   "answer": "You will see seams or flicker at the chunk boundaries.",
+   "why": "The lesson notes that if chunks are not handled with 'overlapping context or consistent noise seeding across chunks, you will see seams or flicker at the chunk boundaries.'"
+  },
+  {
+   "q": "Based on the lab results provided, what does the difference between `first_frame_mean` (0.0859302) and `second_frame_mean` (0.0497632) demonstrate?",
+   "options": [
+    "That the seed failed to lock the noise state.",
+    "That the noise is not constant across the temporal dimension.",
+    "That the first frame is corrupted by high-frequency artifacts.",
+    "That the batch size was too small for accurate sampling."
+   ],
+   "answer": "That the noise is not constant across the temporal dimension.",
+   "why": "The lesson interprets the lab results by stating: 'This proves that the noise is not constant across time. The variation... is the raw material for temporal flicker if not properly denoised.'"
+  }
+ ]
+}

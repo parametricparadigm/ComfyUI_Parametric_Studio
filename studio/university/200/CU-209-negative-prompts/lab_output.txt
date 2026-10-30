@@ -1,0 +1,13 @@
+share of samples nearest each class centre, and median distance from the origin (data sits at 3.0)
+settings                                 cat    dog    fox    distance
+cfg 1, positive any, no negative         0.335  0.328  0.336  3.02
+cfg 1, positive any, negative fox        0.335  0.328  0.336  3.02
+cfg 3, positive any, negative any        0.335  0.328  0.336  3.02
+cfg 1.5, positive any, negative fox      0.427  0.418  0.156  5.00
+cfg 3, positive any, negative fox        0.494  0.490  0.016  12.39
+cfg 7, positive any, negative fox        0.502  0.498  0.000  32.54
+cfg 3, positive dog+fox, negative fox    0.000  0.923  0.077  12.31
+cfg 3, positive dog, negative any        0.000  1.000  0.000  3.63
+cfg 3, positive dog, negative fox        0.000  1.000  0.000  13.00
+
+cat and dog keep sharing the mass that fox lost, but nothing says the split stays even: it depends on where each path starts.

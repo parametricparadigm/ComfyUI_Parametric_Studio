@@ -1,0 +1,74 @@
+# Meme maker
+
+> From the author's earlier studio, cleaned for publication: private paths, ports and some lines were removed, so a step may read short and a screen it names may not exist here. Status in this studio: Untested.
+
+
+## What it does, in order
+1. **Template** (16, below): layout, timing beats, caption slots, default sound cues by Trending card id, loop behaviour, safe zones, a one-line "when it works" and an evidence grade. Each has an SVG preview (frame, safe area, slots, beats, cues).
+2. **Source** (the picture): a saved character's sheet picture (head, three-quarter, full body or one of three expressions), a finished studio result (picture or clip), an upload, a **Loops result** (read-only: its finished job), or **"make a picture for it"**
+   (an ordinary text-to-image studio job through `Ctx.generate` with the character bound, `queue_when_free`; it starts only when the author presses Make; a made picture can be re-rendered with a new seed). Templates with a second picture
+   (reaction cut-in, expectation vs reality, then vs now) take the same character's expression picture automatically, or a result / upload you pick.
+3. **Caption**: typed, or **five options from the local writer** per template and topic (`meme_text.propose`; the writer prompt carries the template, the slots and the research rules, the topic is fenced as data). Every caption passes the **caption checks**:
+   A refusal is a message, never a silent edit; a writer option that fails a check is dropped, not rewritten; with the writer down the template's own sample is the one option and the notes say so. `{name}` becomes the character's name.
+   Styles: **impact** (Roboto Black capitals, black outline), **subtitle** (on a dark box), **handwritten-ish** (Z003, only offered when the font exists), **pop-in** (capitals, the newest chunk yellow); small labels keep their own look. A caption is **auto-fitted** inside its zone
+   (the largest size that wraps into the slot's lines); one that cannot fit even at the smallest size is refused before anything is made.
+4. **Assemble** (CPU ffmpeg, `meme_media.assemble`): 3-15 s (each template its own range), 9:16 default, also 1:1 and 16:9, final 1080 px or draft half size. Panels are cut to exactly the length at 30 fps (a picture is held, fitted by *fill* or on a blurred copy of itself; a clip is trimmed or repeats).
+   Ops become ffmpeg expressions of the frame number: zoom, **punch-in** (with a decaying shake), shake and breathe in one `zoompan` per panel; **speed ramp** and **freeze** (video only; with a picture the template only zooms); looks (sepia, grey, bright, ...) and flashes in a time window; layouts **cutaway**, **split** (stacked, or side by side in 16:9, the second panel black until its beat),
+   **wipe** (xfade). The red circle and arrow and the message cards are drawn with PIL as transparent pictures and overlaid with a fade (the cards slide down); the cards are a generic message card with an initial, never a real app or logo. Captions are one ASS file burnt in with libass, placed in the **safe zones** from `clip_logic.caption_layout` (the largest margins of short-video, Shorts and vertical short:
+   9:16 keeps the bottom third free). A picture is normalised with PIL before ffmpeg sees it (a corrupt picture can never make `-loop 1` spin: it is refused in a moment).
+   **Loop templates** (`loop_bait`): the picture breathes (zoom 1 -> 1.06 -> 1) or a clip is played forward then backward with `loop_media.pingpong` and stretched to the length, the caption is off at both ends, any cue stays 80 ms off the seam, a bed is made loop-ready with `loop_media.bed_loop_ready`, and `loop_media.seam_report` / `audio_seam` score the file (a craft check, not a prediction; grade D).
+5. **Sound** (`meme_sound`): each template cue lands AT its beat (a riser is aligned to END on the beat). Sources, in the order the plan shows: a **fetched Trending noise** (validated by `sound_cues.validate`; a sound that is not fetched is never downloaded), a **Sound maker sound** picked for a cue (library songs whose `extractor` is `soundmaker`), or a **labelled stand-in** made in the Sound maker's synth (`sound_maker_synth`: boom, riser, whoosh, scratch, pop, tick, ping, womp, crickets, ...), an own sound, never presented as the meme sound.
+   The gap and repeat rules of `sound_cues` apply (no two cues within 0.6 s, the same sound not again within 2 s, at most twice); the cap is the template's own cue count (a meme is cut to its beats; `cue_cap` is for the writer's free choices). Modes: *auto* (fetched, else stand-in), *synth* only, *trend* only (silent where none is fetched, said up front), *silent* (the only way to a file without sound). Per-cue override: as planned, leave out, stand-in, a fetched Trending sound, a Sound maker sound.
+   **Keep the clip's own sound** (option, clip sources only, **off by default**, author decision 2026-10-17): the clip's sound is measured (`sound_dsp.lufs`) and levelled to -16 LUFS with the peak capped, repeated like its picture when the clip is shorter (mirrored with the ping-pong for a loop template), dipped at least 6 dB under every cue (a cue's own larger `duck_db` wins, as Foley ducks), and the whole mix is mastered to -14 LUFS / -1 dBTP. A silent clip or a picture has nothing to keep (the plan says so); it is refused together with the silent mode. A freeze or slow-motion retimes the picture, not the sound. **Caveat:** a voice watermark (PerTh) in the clip is NOT checked or kept through this mix (unlike `sound_cues.mix_cues`); the output guard still reads the published file.
+   An optional library song becomes a bed of exactly the length (levelled -16 LUFS, ducked under cues by their `duck_db`). The mix is numpy; `sound_dsp.master` brings it to **-14 LUFS / -1 dBTP**. The report records provenance (library song id, source URL, licence note) and each used song's `used_in` gets the job.
+6. **Publish**: the finished file is registered and published as a **`videofinish` studio job** (as Loops and Clips do): the output guard reads it, the card appears in the feed and the Post steps (Send, Wipe, captions, export) work on it. A cover frame and a 1280x720 thumbnail come from the thumbnail maker (`clip_media.make_cover`); both are served through `publish_file` (the output guard) like the Loops gif / webp.
+
+## The 16 templates
+| # | Template (id) | Layout | Length (s) | Beats (default length) | Captions (slots, ? optional) | Default sound cues (Trending card id) | Loop | Grade |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 👀 POV caption (`pov_caption`) | full | 3-15 (6) | open 0.17, read 0.73 | pov | open: Whoosh (`(earlier commit)`; stand-in whoosh) |  | C |
+| 3 | 🆚 Expectation vs reality (`expectation_reality`) | split | 4-12 (7) | expect 0, reveal 3.13, react 5.27 | expect, reality, tag? | reveal: Sad Trombone (`(earlier commit)`; stand-in womp) |  | D |
+| 4 | ⏳ Then vs now (`then_vs_now`) | wipe | 4-12 (6) | then 0, wipe 2.7, now 3.13 | then, now, tag? | wipe: Whoosh (`(earlier commit)`; stand-in whoosh) |  | D |
+| 6 | ⏸ Freeze frame + record scratch (`freeze_scratch`) | full | 4-12 (6) | run 0, freeze 2.4, explain 3.13 | setup, wait?, explain | freeze: Record Scratch + Freeze Frame (`(earlier commit)`; stand-in scratch) |  | C |
+| 11 | 🎬 Slow-mo and dramatic zoom (`slowmo_drama`) | full | 5-15 (8) | calm 0, slow 2, drop 6 | setup, drop? | riser ending on drop: Riser (`(earlier commit)`); drop: BRAAAM (`(earlier commit)`) |  | D |
+| 13 | 💬 Caption pop on each beat (`caption_pop`) | full | 3-12 (6) | c1 0.73, c2 1.93, c3 3.13, c4 4.33 | caption (4 chunks) | 3 ticks (synth only), then Rimshot (`(earlier commit)`) |  | D |
+| 14 | ➡ To be continued (`to_be_continued`) | full | 5-15 (8) | run 0, cliff 4, tbc 4.4 | setup, tbc? | cliff: To Be Continued (`(earlier commit)`; stand-in tape_stop_chord) |  | C |
+| 15 | ⏱ Wait for it (reveal) (`wait_for_it`) | full | 4-12 (7) | wait 0.2, build 2.1, reveal 5.03 | wait, reveal | riser ending on reveal (`(earlier commit)`); Air Horn (`(earlier commit)`) |  | D |
+| 16 | 😮 Double take (`double_take`) | full | 3-10 (5) | look 0, take1 1.73, take2 2.6, back 3.73 | setup, wait?, what | take1: pop (synth only); take2: Bruh (`(earlier commit)`) |  | D |
+Beats are fractions of the chosen length, snapped to the 30 fps frame grid. A test pins that every template's first caption is on screen within the first second (the research and the platforms' own guidance put the proposition in the first 3 seconds, grade C/D), that every sound id is a real Trending noise with a card (`the author's research notes<id>.md`, which says where in a clip it lands), and that no template claims grade A or B.
+
+## Variants and batch
+- **One click, 3 variants** (`POST runs/{id}/variants`): the writer's other caption options for the same template (the base captions if the writer is down, said so) and the template's alternative sounds (`alts` rotated by the variant number, a different stand-in seed). The base's made picture is **reused**: no new picture is made. The three run one after another in a set; each can be **kept** or **dropped**
+  (a drop hides it and deletes its working files; the published video stays in the feed until you wipe it there: the plan says so).
+- **Batch** (`POST batch/plan | batch/start`): one template x 1 to 10 saved characters, each character's own sheet picture (or a picture made for each, one at a time on the GPU), captions with `{name}`. The whole batch is checked before anything is created (one refused character refuses the batch by name); the runs go one after another.
+- **Resumable, never auto-started:** one JSON file per run (`<guard state>/memes/runs/mm<12 hex>.json`) and per set (`sets/ms<12 hex>.json`). A run or set saved as running with nothing alive and quiet for 20 s is **interrupted** and waits for **Resume** (a finished step with its file on disk is not redone; finished memes of a batch are not made again). Creating or reading the service starts nothing.
+  Steps `video -> sound -> publish -> cover`; an optional step that fails (sound, cover) is noted and the run carries on (a failed sound step publishes the video silent and says so). One CPU assembly at a time (a semaphore).
+
+## Guards (all kept)
+
+## Estimates (measured where it could be, labelled where it could not)
+**Measured on this box, 2026-10-17** (the CPU shared with other agents' jobs): the assembly of a 6-8 s meme at **1080x1920** took **1.8-3.3 s** (impact caption, red circle, message cards, expectation vs reality, slow-mo, freeze, loop-bait, reaction cutaway; from a picture and from a clip), the sound mix 0.2 s, the mux 0.1 s, the cover + thumbnail 2.1 s.
+The planner uses 0.03 s per output frame at 1080 px (0.01 at draft) + 2 s + 1 s sound + 3 s cover (about double what was measured). **Assumed, not measured:** the output guard's time (6 s per video second, the Timelapse constant) and, for a made picture, the KB's text-to-image time (14 s + 45 s load, peak about 36 GiB). So a 6 s meme is a minute or so end to end, most of it the guard. Nothing was measured on a long clip source (up to 600 s is accepted, only the first 3-15 s are used).
+
+## Live proof (NOT run; do not run until the author approves)
+`scripts/meme_maker_proof.py plan` prints the cases, `run --approved` posts to the studio's own routes.
+| # | Case | Template | What to look at |
+|---|---|---|---|
+| 1 | `impact_char` | impact caption on a saved character | top text in the first second, bottom text with the hit, both inside the safe area, master -14 LUFS, a job card with a guard result |
+| 2 | `cutaway_char` | reaction cutaway, the character's serious expression | the cut lands on the sound, the same person, the flash and punch read as intentional |
+| 3 | `freeze_clip` | freeze + record scratch on a finished studio video | the freeze and the scratch on one frame, the narration readable |
+| 4 | `split_two` | expectation vs reality with two finished pictures | the dark second panel pops in with the sting, labels on their own panel |
+| 5 | `loop_clip` | loop-bait on a finished video, with and without a bed | the wrap over three plays, the seam score against the eye, no click |
+| 6 | `make_picture` | POV caption with a made picture (GPU) | an ordinary studio job with the character bound, the meme built from it |
+| 7 | `variants` | 3 variants of case 1 | they really differ, the picture is reused, keep and drop work |
+| 8 | `batch3` | POV caption x 3 characters | in order, `{name}` filled, interrupt + Resume only finishes the unfinished |
+Judging (by eye and ear, record who judged: only the author's verdict can make a level "verified"): the sound lands on the visual beat; captions are readable and inside the safe zones; levels, no clipping, no click; no visual glitch; the guards ran. The report keeps how many stand-in cues were used. No case measures or claims virality.
+
+## Known limits
+- Nothing has run on the GPU and no meme was judged on real footage; the ffmpeg time at 1080 px is an assumption, and a long, 1080 px zoompan may be slow on a busy CPU.
+- Stand-in sounds are generic synth sounds (a boom, a whoosh), not the meme sounds; the real ones need a fetch in Trending (and the author's legal team decides what may ship, see `the author's research notes`). Voice-like Trending sounds are only alternatives, never defaults.
+- With one picture, "expectation vs reality" and "then vs now" fake the second half with a duller or sepia copy (said in the plan); a real second picture is the honest version. A freeze, a slow-mo and the loop's ping-pong need a clip: with a picture they only zoom.
+- Captions render with the fonts on this box (Roboto, Z003, a DejaVu fallback); emoji are removed (the fonts do not draw them). The fit never goes below 1.8% of the frame height; a longer caption is refused, not squeezed.
+- The platforms' safe margins come from `clip_logic.caption_layout` (the largest of short-video, Shorts, vertical short): a 9:16 caption sits in a narrow column, by design.
+- The clip's own sound is dropped unless "Keep the clip's own sound" is ticked; when kept it is not retimed by a freeze or slow-mo and its PerTh watermark (if any) is not checked.
+- The writer's captions are only as good as the local model; they are checked, never rewritten. No template is a promise of anything: grades are honest, mostly D.

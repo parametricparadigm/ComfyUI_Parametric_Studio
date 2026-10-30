@@ -1,0 +1,25 @@
+{
+ "code": "CU-401",
+ "title": "Writing a custom node with the V3 API",
+ "level": "400",
+ "prereq": [
+  "CU-220",
+  "CU-221"
+ ],
+ "char": "graph",
+ "hook": "A class with a schema and an execute method. The engine calls your node without making an instance, and that changes how you write it.",
+ "code_refs": [
+  "comfy_api/latest/_io.py:class Schema",
+  "comfy_api/latest/_io.py:class ComfyNode",
+  "comfy_api/latest/_io.py:def define_schema",
+  "comfy_api/latest/_io.py:def fingerprint_inputs",
+  "comfy_api/latest/_io.py:def validate_inputs",
+  "comfy_api/latest/_io.py:def check_lazy_status",
+  "comfy_api/latest/_io.py:class NodeOutput",
+  "comfy_api/latest/_io.py:not_idempotent",
+  "comfy_api/latest/_io.py:is_output_node",
+  "comfy_api/latest/__init__.py:ComfyExtension",
+  "nodes.py:comfy_entrypoint",
+  "comfy_extras/nodes_lotus.py:get_node_list"
+ ]
+}

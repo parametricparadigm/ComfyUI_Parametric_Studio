@@ -1,0 +1,52 @@
+{
+ "code": "CU-413",
+ "title": "Prompt adherence evaluation",
+ "level": "400",
+ "questions": [
+  {
+   "q": "Why is cosine similarity preferred over Euclidean distance for measuring prompt adherence in diffusion models?",
+   "options": [
+    "Cosine similarity is computationally faster than calculating Euclidean distance.",
+    "Cosine similarity normalizes out magnitude, focusing purely on direction which carries semantic meaning.",
+    "Euclidean distance cannot handle high-dimensional vectors.",
+    "Cosine similarity only works with binary vectors."
+   ],
+   "answer": "Cosine similarity normalizes out magnitude, focusing purely on direction which carries semantic meaning.",
+   "why": "The lesson states that magnitude can vary based on timestep or encoder, but direction carries semantic meaning. Cosine similarity normalizes out magnitude to measure pure semantic alignment."
+  },
+  {
+   "q": "In the context of vector geometry, what does a cosine similarity score of 0.0 indicate about the relationship between the prompt vector and the image latent vector?",
+   "options": [
+    "The vectors are parallel and point in the same direction.",
+    "The vectors are anti-parallel and point in opposite directions.",
+    "The vectors are orthogonal, meaning the prompt provides no directional guidance for that feature.",
+    "The vectors are identical in magnitude but differ in direction."
+   ],
+   "answer": "The vectors are orthogonal, meaning the prompt provides no directional guidance for that feature.",
+   "why": "The lesson defines a score of 0.0 as orthogonal, indicating no correlation and that the prompt does not influence that specific latent dimension."
+  },
+  {
+   "q": "According to the lesson, what specific mathematical operation is used to calculate the numerator of the cosine similarity formula?",
+   "options": null,
+   "answer": "The dot product of the vectors (sum of the products of their corresponding components).",
+   "why": "The lesson explicitly defines the numerator $u \\cdot v$ as the dot product, which is the sum of the products of their corresponding components."
+  },
+  {
+   "q": "Why is it a common mistake to assume global alignment when evaluating prompt adherence?",
+   "options": [
+    "Global alignment scores are always negative.",
+    "A prompt can have high alignment for one concept (e.g., 'red') but low alignment for another (e.g., 'car'), making a single global score misleading.",
+    "Global alignment ignores the timestep of the diffusion process.",
+    "Global alignment requires comparing embeddings from different encoders."
+   ],
+   "answer": "A prompt can have high alignment for one concept (e.g., 'red') but low alignment for another (e.g., 'car'), making a single global score misleading.",
+   "why": "The 'Common mistakes' section states that prompts must be decomposed into individual concepts because alignment can vary per concept, making a single global score misleading."
+  },
+  {
+   "q": "In the lab simulation, what were the specific values defined for `vec_a` and `vec_c`?",
+   "options": null,
+   "answer": "vec_a was [1.0, 0.0, 0.0, 0.0] and vec_c was [0.0, 1.0, 0.0, 0.0].",
+   "why": "The Lab section explicitly states: 'The script defines vec_a as [1.0, 0.0, 0.0, 0.0]... and vec_c as [0.0, 1.0, 0.0, 0.0].'"
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "code": "CU-504",
+ "title": "History 4: StyleGAN and style modulation",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In the context of StyleGAN, what is the primary purpose of decoupling 'what' is generated from 'how' it is generated?",
+   "options": [
+    "To allow for intuitive, scale-specific control, such as changing hair color without changing face shape.",
+    "To increase the resolution of the generated images by adding more spatial dimensions.",
+    "To ensure that the latent space remains a static map where coordinates directly correspond to pixel values.",
+    "To eliminate the need for a mapping network between the latent code and the style vector."
+   ],
+   "answer": "To allow for intuitive, scale-specific control, such as changing hair color without changing face shape.",
+   "why": "The lesson states that this separation 'allows for intuitive, scale-specific control' and gives the example of changing hair color without changing face shape."
+  },
+  {
+   "q": "According to the lesson, what is the specific mathematical formula used in the simplified lab simulation to compute the modulated feature map?",
+   "options": null,
+   "answer": "modulated = content * (1 + style)",
+   "why": "The 'Under the hood' section explicitly defines the formula used in the simplified lab simulation as: modulated = content * (1 + style)."
+  },
+  {
+   "q": "Why is the bias term '1' included in the scaling factor formula g = 1 + s?",
+   "options": [
+    "To ensure that if the style vector s is zero, the scale remains 1, leaving the features unchanged.",
+    "To guarantee that the output feature map always has a positive magnitude.",
+    "To normalize the feature map to have a mean of zero and variance of one.",
+    "To prevent the style vector from exceeding the maximum value of the latent space."
+   ],
+   "answer": "To ensure that if the style vector s is zero, the scale remains 1, leaving the features unchanged.",
+   "why": "The lesson explains that '1 is a bias term ensuring that if s=0, the scale is 1 (no change)' and notes that without it, a zero style vector would zero out the feature map."
+  },
+  {
+   "q": "Based on the lab results, what does a modulation_factor_mean of 1.06246 indicate about the effect of the style vector on the features?",
+   "options": [
+    "The style vector is acting as an amplifier, increasing the magnitude of the features on average.",
+    "The style vector is acting as a damper, reducing the magnitude of the features on average.",
+    "The style vector has no net effect on the magnitude of the features.",
+    "The style vector is shifting the spatial position of the features."
+   ],
+   "answer": "The style vector is acting as an amplifier, increasing the magnitude of the features on average.",
+   "why": "The lesson states that since the mean (1.06246) is greater than 1, it confirms that the style vector is acting as an 'amplifier'."
+  },
+  {
+   "q": "Why does style modulation in StyleGAN preserve the spatial structure of the image (e.g., the nose stays in the same place)?",
+   "options": null,
+   "answer": "Because the modulation operation is applied channel-wise, scaling and shifting values within the grid without moving the grid itself.",
+   "why": "The lesson explains that the style vector 'scales and shifts the values within the grid' and that the operation is 'applied channel-wise, not spatially,' which preserves the spatial arrangement."
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "code": "CU-302",
+ "title": "Multi-head, GQA and RoPE",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In the context of Grouped-Query Attention (GQA), what is the relationship between the number of Query heads and Key/Value heads?",
+   "options": [
+    "The number of KV heads is equal to the number of Q heads.",
+    "The number of KV heads is reduced by a factor of the group size compared to Q heads.",
+    "The number of KV heads is increased by a factor of the group size compared to Q heads.",
+    "The number of KV heads is always 1, regardless of the number of Q heads."
+   ],
+   "answer": "The number of KV heads is reduced by a factor of the group size compared to Q heads.",
+   "why": "The lesson states that in GQA, 'The number of KV heads is num_kv_heads = num_heads / group_size' and that 'You reduce the number of notepads (KV heads) while keeping the number of experts (Q heads) the same.'"
+  },
+  {
+   "q": "According to the lab results, what was the total parameter count for MHA and GQA respectively when using a group size of 2?",
+   "options": null,
+   "answer": "MHA: 192, GQA: 128",
+   "why": "The lab results section explicitly lists 'RESULT mha_total_params = 192' and 'RESULT gqa_total_params = 128'."
+  },
+  {
+   "q": "Why does Rotary Position Embedding (RoPE) require the head dimension to be even?",
+   "options": [
+    "Because the dot product calculation requires an even number of dimensions.",
+    "Because RoPE operates on pairs of dimensions for rotation.",
+    "Because the input tensor must be square.",
+    "Because the sequence length must be even."
+   ],
+   "answer": "Because RoPE operates on pairs of dimensions for rotation.",
+   "why": "The 'Common mistakes' section states: 'RoPE requires the head dimension to be even because it operates on pairs of dimensions.'"
+  },
+  {
+   "q": "In the lab verification of RoPE properties, what did the equality of 'rope_relative_pos_score1' and 'rope_relative_pos_score2' prove?",
+   "options": [
+    "That RoPE encodes absolute position.",
+    "That RoPE preserves the vector norm.",
+    "That RoPE encodes relative position, not absolute position.",
+    "That the attention score is independent of the query and key values."
+   ],
+   "answer": "That RoPE encodes relative position, not absolute position.",
+   "why": "The lab results explanation states: 'The fact that the scores are equal proves that RoPE encodes relative position, not absolute position.'"
+  },
+  {
+   "q": "Which specific ComfyUI model implementation is noted to use 'RePo3DRotaryEmbedding' for 3D point clouds?",
+   "options": null,
+   "answer": "TripoSplat",
+   "why": "The 'In ComfyUI' section states: 'The TripoSplat model uses RopeMultiHeadAttention and RePo3DRotaryEmbedding. This is a specialized adaptation of RoPE for 3D point clouds...'"
+  }
+ ]
+}

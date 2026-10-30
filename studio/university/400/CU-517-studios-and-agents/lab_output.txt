@@ -1,0 +1,3 @@
+RESULT seed = 82
+RESULT node_b = 164
+RESULT node_c = 174

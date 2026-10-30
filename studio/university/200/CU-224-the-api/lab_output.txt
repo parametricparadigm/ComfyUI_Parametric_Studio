@@ -1,0 +1,22 @@
+POST /prompt, unknown node -> 400 missing_node_type
+POST /prompt, no output    -> 400 prompt_no_outputs
+POST /prompt, good         -> 200 {'number': 0, 'node_errors': {}}
+GET /queue pending: 1
+
+events on the websocket, in order:
+  execution_start {}
+  execution_cached {'nodes': []}
+  executing {'node': '3'}
+  progress {'value': 1, 'max': 3, 'node': '3'}
+  progress {'value': 2, 'max': 3, 'node': '3'}
+  progress {'value': 3, 'max': 3, 'node': '3'}
+  executing {'node': '9'}
+  executed {'node': '9', 'output': {'images': [{'filename': 'app_00001_.png', 'subfolder': '', 'type': 'output'}]}}
+  execution_success {}
+  executing {'node': None}
+
+GET /history/<id> status: success  images: [{'filename': 'app_00001_.png', 'subfolder': '', 'type': 'output'}]
+GET /view?filename=app_00001_.png&subfolder=&type=output -> b'\x89PNG'
+
+same prompt again: ['execution_start', 'execution_cached', 'executed', 'execution_success', 'executing']  cached: ['3', '9']
+outputs recorded for that run: {'9': {'images': [{'filename': 'app_00001_.png', 'subfolder': '', 'type': 'output'}]}}

@@ -1,0 +1,24 @@
+reference: Heun with 6000 steps, 11999 denoiser calls
+
+median |error| of the final sample against the reference, and share of samples that landed in the wrong mode
+steps       euler NFE  wrong        heun NFE  wrong    dpmpp_2m NFE  wrong  
+5        0.466613 5    0.0512   1.139991 9    0.0132   0.398274 5    0.0092 
+10       0.151898 10   0.0328   0.150810 19   0.0003   0.215795 10   0.0053 
+20       0.074535 20   0.0135   0.024285 39   0.0010   0.033782 20   0.0000 
+40       0.036909 40   0.0055   0.004994 79   0.0005   0.006319 40   0.0000 
+80       0.018398 80   0.0022   0.001164 159  0.0003   0.001394 80   0.0000 
+160      0.009174 160  0.0003   0.000281 319  0.0000   0.000330 160  0.0000 
+320      0.004581 320  0.0000   0.000069 639  0.0000   0.000080 320  0.0000 
+640      0.002290 640  0.0000   0.000017 1279 0.0000   0.000020 640  0.0000 
+
+measured order: slope of log(median error) against log(steps)
+sampler    10-40   40-160  160-640
+euler      1.02    1.00    1.00
+heun       2.46    2.07    2.03
+dpmpp_2m   2.55    2.13    2.04
+
+same budget of about 20 denoiser calls, distance of the whole sample set from the data
+euler      20 steps   20 calls  W1 = 0.1205
+heun       10 steps   19 calls  W1 = 0.1487
+dpmpp_2m   20 steps   20 calls  W1 = 0.0384
+floor, two real samples of this size: W1 = 0.0189

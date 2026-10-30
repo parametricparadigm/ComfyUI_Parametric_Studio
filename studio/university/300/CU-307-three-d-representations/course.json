@@ -1,0 +1,12 @@
+{
+ "title": "3D generation: meshes, SDFs, voxels and Gaussian splats",
+ "level": "300",
+ "char": "latent",
+ "hook": "The shapes a model can output and how they convert.",
+ "code": "CU-307",
+ "prereq": [
+  "CU-201"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

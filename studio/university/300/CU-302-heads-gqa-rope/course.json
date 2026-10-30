@@ -1,0 +1,12 @@
+{
+ "title": "Multi-head, GQA and RoPE",
+ "level": "300",
+ "char": "attn",
+ "hook": "Splitting attention, sharing keys, and rotating positions.",
+ "code": "CU-302",
+ "prereq": [
+  "CU-301"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

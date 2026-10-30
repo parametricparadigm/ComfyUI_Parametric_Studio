@@ -1,0 +1,62 @@
+{
+ "code": "CU-402",
+ "title": "Memory management: who gets the GPU",
+ "level": "400",
+ "questions": [
+  {
+   "q": "Why is a second run with the same model faster?",
+   "options": [
+    "Models stay loaded until the room is needed",
+    "Weights are compressed after the first run",
+    "The GPU overclocks",
+    "The sampler skips steps"
+   ],
+   "answer": "Models stay loaded until the room is needed",
+   "why": "free_memory evicts only when required, and the cache also holds results."
+  },
+  {
+   "q": "The room requested before loading is",
+   "options": [
+    "Exactly the model size",
+    "Model size × 1.1 plus working memory",
+    "All of the card",
+    "400 MB"
+   ],
+   "answer": "Model size × 1.1 plus working memory",
+   "why": "From load_models_gpu: total_memory_required × 1.1 + extra_mem."
+  },
+  {
+   "q": "A 12 GB model on an 8 GB card, on the estimate-based path:",
+   "options": [
+    "Always fails",
+    "Is converted to fp8",
+    "Loads partly, with the rest kept in RAM, and runs more slowly",
+    "Runs on the CPU only"
+   ],
+   "answer": "Loads partly, with the rest kept in RAM, and runs more slowly",
+   "why": "partially_load places what fits."
+  },
+  {
+   "q": "What does --reserve-vram do?",
+   "options": [
+    "Allocates more VRAM to ComfyUI",
+    "Leaves that amount for other software",
+    "Disables the cache",
+    "Sets a batch size"
+   ],
+   "answer": "Leaves that amount for other software",
+   "why": "It sets EXTRA_RESERVED_VRAM."
+  },
+  {
+   "q": "What does ComfyUI do on an out-of-memory error during a node?",
+   "options": [
+    "Retries forever",
+    "Deletes the model file",
+    "Reports the error and unloads all models",
+    "Switches the model to fp8"
+   ],
+   "answer": "Reports the error and unloads all models",
+   "why": "The except branch of execute in execution.py calls unload_all_models."
+  }
+ ]
+}

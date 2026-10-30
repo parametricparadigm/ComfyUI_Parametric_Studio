@@ -1,0 +1,62 @@
+# GIF maker
+
+> From the author's earlier studio, cleaned for publication: private paths, ports and some lines were removed, so a step may read short and a screen it names may not exist here. Status in this studio: Tested on the author's old stack.
+
+
+## Where it is
+- **On a result card**: 🎞 **Make GIF** on a video card (a GIF of that clip, as a new card, pp defaults);
+  🎞 **GIF slideshow** on a card with several images (all of them, up to 8); 🎞 **Make GIF** on a single-image card
+  opens the composer on "Animated GIF from a still" with that image filled in: type the motion, Generate.
+- **Launcher**: category "Publish & export": GIF from a video clip, Animated GIF from a still, GIF slideshow from
+  images. They are also in the composer's ✏️ Edit tab generator list.
+
+## The three modes
+| Mode | Input | GPU | What runs |
+|---|---|---|---|
+| video | one clip | no | ffmpeg decode at the GIF fps and size, then the palette and size fit |
+| still | one image + a motion prompt | yes,  a local port | the CONFIRMED Wan 2.2 box stack (4 steps, lightx2v, <= 49 frames = 3 s at 16 fps), frames as PNGs (never an h264 picture), then the encode |
+| images | 2-8 images | no (RIFE x2/x4: yes,  a local port) | the pictures on the first one's canvas (crop or pad), optional RIFE 4.9 tweening |
+
+## Defaults (chips; first option = default)
+| Chip | Default | Source |
+|---|---|---|
+| size (long edge) | 512 px, never upscaled | documented: pp/gif.py GifOptions |
+| fps | video: the source's, max 15; still: 16; images: 4 | documented: pp/gif.py DEFAULT_FPS |
+| length | video: whole clip, at most 20 s (3/5/10/20 s to trim); still: 3 s (max, 49 frames) | 20 s cap: the studio's (inference); still: tested box stack |
+| loop | forever (also: once, 3 times) | documented: pp |
+| ping-pong | off | documented: pp (applied after thinning, stays symmetric) |
+| palette | auto: one global palette for motion (no flicker), per-frame for unrelated stills (about 2x more faithful: mean abs error 2.61 vs 5.55) | documented: pp/gif.py (gif_01 / gif_03 workflow notes) |
+| max size | 8 MB per file (GIF and WEBP each); over it frames are thinned first (keeps the running time), then the picture shrinks 15 % at a time | documented: pp/gif.py fit |
+| fit (images) | crop to the first image's shape (or pad black) | documented: pp |
+| RIFE (images) | off (x2, x4 on the GPU) | documented: pp rife_graph |
+
+Every GIF comes with a WEBP twin (full colour, quality 90 -> 75 -> 60 before shrinking); both are on the card.
+
+## Limits the studio adds
+- **800 frames**: the output guard checks at most 800 frames of an animated image (`output_guard.MAX_FRAMES`), so a
+  GIF that could exceed it (fps x length, x2 with ping-pong) is refused before pp runs: lower the fps or the length.
+- **Still mode VRAM**: the preflight uses Wan's measured  a local port peak plus the 4 GiB headroom, waits while any ComfyUI
+  port is busy, and reclaims only idle caches (as the Wan entries do); pp's own gate (40 GiB + 4) runs again inside.
+  Intermediate frame PNGs (`outputs/moe_gif_frames/`) are deleted after the encode.
+
+## Guards (nothing bypassed)
+- A GIF is a new studio job: the text guard on the motion prompt (still mode), the server resolves every input from
+  the job store or the session workspace (never a client path), and **both files go through the output guard on
+  their own bytes**, even when the source clip or image was already cleared.
+- ⤓ Download clean / publish go through `scrub.publish_file` (TRIBE pre-post gate on publish, unchanged).
+  The metadata scrubber (`a local folder`) handles GIF since 2026-10-11 (author "add gif support"): it
+  drops comment, plain-text, XMP / ICC and other application extensions and trailing bytes, keeps the frames, colour
+  tables, per-frame timing / disposal and the loop extension byte for byte, and verifies every frame, duration and
+  the loop count before the export is used (tests/test_scrub.py `test_real_tool_exports_an_animated_gif_clean_*`).
+  The same change lets the animated WEBP twin export clean (its structural WebP_Flags / BackgroundColor tags failed
+  the verify before).
+
+## Time
+- video / images: seconds (CPU). Measured here: a 2 s 24 fps test clip -> 20-frame GIF + WEBP in well under a second
+  (tests/studio/test_gif.py, real pp run).
+- still: Wan box stack 49 frames ~13 s warm, plus a 130-190 s cold load (BEST_OPTIONS wan.md); not yet measured end
+  to end through the studio.
+
+## Not verified
+- No still-mode render through the studio yet (GPU); the CPU modes ran through the real pp code in the tests.
+- The 20 s video cap and the 800-frame ceiling are the studio's choices, not pp's.

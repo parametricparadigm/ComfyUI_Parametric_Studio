@@ -1,0 +1,57 @@
+{
+ "code": "CU-217",
+ "title": "Upscaling and tiling math",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What is the formula for calculating the Step size in tiling?",
+   "options": [
+    "Step = S + O",
+    "Step = S - O",
+    "Step = S * O",
+    "Step = S / O"
+   ],
+   "answer": "Step = S - O",
+   "why": "The lesson explicitly states: 'The step size is determined by the tile size minus the overlap: Step = S - O'."
+  },
+  {
+   "q": "In the lab example, a 1024x1024 target is processed with 512x512 tiles and a 64-pixel overlap. What is the calculated number of tiles (N) for one dimension?",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "answer": "3",
+   "why": "The lab output shows 'RESULT n_tiles_x = 3' and the verification calculates N = ceil(512 / 448) + 1 = 2 + 1 = 3."
+  },
+  {
+   "q": "Why is the 'min' function used when calculating the ending coordinate (End_i) of a tile?",
+   "options": [
+    "To ensure the tile size remains constant",
+    "To ensure the last tile does not extend beyond the target image boundary",
+    "To increase the overlap between tiles",
+    "To reduce the total number of tiles needed"
+   ],
+   "answer": "To ensure the last tile does not extend beyond the target image boundary",
+   "why": "The lesson states: 'The min function ensures that the last tile does not extend beyond the target image boundary. This is crucial for memory allocation and blending weights.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what is a good rule of thumb for the minimum overlap (O) to avoid visible seams?",
+   "options": null,
+   "answer": "O >= 16 or O >= 32 pixels",
+   "why": "The lesson states: 'A good rule of thumb is O >= 16 or O >= 32 pixels, depending on the model's receptive field.'"
+  },
+  {
+   "q": "What special case must be explicitly checked to ensure only one tile is used?",
+   "options": [
+    "If D > S",
+    "If D <= S",
+    "If Step is negative",
+    "If O is zero"
+   ],
+   "answer": "If D <= S",
+   "why": "The lesson states: 'Special Case: If D <= S, we only need one tile... so we explicitly check if D <= S and return 1.'"
+  }
+ ]
+}

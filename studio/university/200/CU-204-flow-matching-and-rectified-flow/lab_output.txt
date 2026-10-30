@@ -1,0 +1,20 @@
+t    x     E[e-x0 | x_t=x] measured   marginal u(x,t)
+0.2  -1.0  +2.7947                    +2.7866
+0.5  +0.0  -1.4784                    -1.4732
+0.5  +1.0  -1.2023                    -1.1978
+0.8  +0.5  -0.4504                    -0.4341
+
+along one marginal path, RMS change of velocity from t=1 to t=0: 2.610  (zero would be a straight line)
+
+steps  Euler RMS error   W1 to data   error if data were one point
+1      1.6696            1.4806       4.4e-16
+2      0.8950            0.6214       0.0e+00
+4      0.5292            0.3022       0.0e+00
+8      0.3168            0.1516       0.0e+00
+16     0.1891            0.0774       0.0e+00
+32     0.1149            0.0247       0.0e+00
+64     0.0715            0.0186       0.0e+00
+
+transport cost E|x1-x0|^2   independent pairs: 3.998   rectified pairs: 0.973   optimal (sorted, 1-D): 0.973
+fraction of neighbouring paths that cross after rectification: 0.00000
+one Euler step, W1 to data   flow matching net: 1.4143   rectified (reflow) net: 0.0327

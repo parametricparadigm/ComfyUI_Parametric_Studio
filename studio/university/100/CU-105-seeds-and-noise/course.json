@@ -1,0 +1,10 @@
+{
+ "title": "Seeds, noise and determinism",
+ "level": "100",
+ "char": "denoise",
+ "hook": "Why the same seed gives the same picture and what changes it.",
+ "code": "CU-105",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

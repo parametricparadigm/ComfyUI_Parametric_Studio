@@ -1,0 +1,5 @@
+RESULT original = ['1', '2', '3']
+RESULT after_diffusion = ['1.56143', '1.94978', '2.71895']
+RESULT mean_original = 2
+RESULT mean_after = 2.07672
+Lab complete: Diffusion adds noise deterministically given the seed

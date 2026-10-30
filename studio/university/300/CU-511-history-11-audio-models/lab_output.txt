@@ -1,0 +1,5 @@
+RESULT ar_first = 0.1
+RESULT ar_last = 0.199805
+RESULT steady_state = 0.2
+RESULT original_norm = 3.74166
+RESULT noisy_norm = 3.66876

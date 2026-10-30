@@ -1,0 +1,3 @@
+RESULT batch_size = 4
+RESULT first_frame_mean = 0.0859302
+RESULT second_frame_mean = 0.0497632

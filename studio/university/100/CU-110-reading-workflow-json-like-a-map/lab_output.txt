@@ -1,0 +1,4 @@
+RESULT node_count = 3
+RESULT link_target = 5
+RESULT decoded_value = 0.0257425
+RESULT image_value = 0.0257425

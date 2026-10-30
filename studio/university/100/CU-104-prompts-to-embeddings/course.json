@@ -1,0 +1,10 @@
+{
+ "title": "Prompts become numbers: tokens and embeddings",
+ "level": "100",
+ "char": "attn",
+ "hook": "Tokenization, embedding tables and what a text encoder hands the model.",
+ "code": "CU-104",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

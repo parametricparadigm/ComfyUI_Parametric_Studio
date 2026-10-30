@@ -1,0 +1,10 @@
+RESULT shape_bhwc = torch.Size([2, 3, 4, 3])
+RESULT shape_bchw = torch.Size([2, 3, 3, 4])
+RESULT shape_bhwc_back = torch.Size([2, 3, 4, 3])
+RESULT float_min_0_255 = 9
+RESULT float_max_0_255 = 254
+RESULT float_min_0_1 = 0.0352941
+RESULT float_max_0_1 = 0.996078
+RESULT out_of_range_original = [-0.5, 0.20000000298023224, 0.800000011920929, 1.5, 0.0, 1.0]
+RESULT clamped_values = [0.0, 0.20000000298023224, 0.800000011920929, 1.0, 0.0, 1.0]
+RESULT concepts_covered = [permutation, scaling, clamping]

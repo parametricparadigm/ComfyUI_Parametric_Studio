@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Licence and secret checks
+        run: python .github/scripts/repo_checks.py --public
+      - name: Install test dependencies
+        run: pip install fastapi uvicorn python-multipart pydantic numpy pillow pytest httpx
+      - name: Fast tests (no GPU, no ComfyUI, no real accounts)
+        env:
+          COMFYUI_URL: http://127.0.0.1:9
+        run: >
+          python -m pytest -q -p no:cacheprovider
+          tests/test_publication.py tests/test_llm_tiers.py tests/test_install.py tests/test_boxcheck.py
+          tests/test_open_edition_no_paid_apis.py tests/test_expr.py
+          tests/test_recipes_camera_prompts.py
+          tests/test_studio_anime.py tests/test_studio_apps.py tests/test_studio_calibrate.py
+          tests/test_studio_github.py tests/test_studio_names.py tests/test_studio_packs.py
+          tests/test_studio_prime.py tests/test_studio_schedule.py
+      - name: The server imports with ComfyUI unreachable
+        env:
+          COMFYUI_URL: http://127.0.0.1:9
+        run: python -c "import studio.server as s; print(len(s.app.routes), 'routes')"
+      - name: Installer dry run
+        run: python install.py --dry-run --no-models --dir "$RUNNER_TEMP/rt"

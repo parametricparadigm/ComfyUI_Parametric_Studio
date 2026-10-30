@@ -1,0 +1,57 @@
+{
+ "code": "CU-516",
+ "title": "History 16: What open means: weights, licences and the ecosystem",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson's ship analogy, what does the 'licence' represent in relation to a model?",
+   "options": [
+    "The blueprint of the architecture",
+    "The actual steel and wood (weights)",
+    "The flag it flies and the laws of the sea it must obey",
+    "The community-driven innovation ecosystem"
+   ],
+   "answer": "The flag it flies and the laws of the sea it must obey",
+   "why": "The lesson states: 'The licence is the flag it flies and the laws of the sea it must obey.'"
+  },
+  {
+   "q": "In the transparency scoring system, what is the formula for the Reproducibility Score?",
+   "options": [
+    "1 / (1 + variance of T)",
+    "Variance of T / (1 + average transparency)",
+    "Average transparency * minimum component score",
+    "1 - (variance of T)"
+   ],
+   "answer": "1 / (1 + variance of T)",
+   "why": "The lesson defines the Reproducibility Score as: Reproducibility Score = 1 / (1 + σ²), where σ² is the variance of T."
+  },
+  {
+   "q": "What are the two conditions required for a model to be considered a true 'open ecosystem' according to the defined mechanism?",
+   "options": null,
+   "answer": "The average transparency (T_bar) must be greater than the threshold (tau), AND all individual component scores (t_i) must be greater than or equal to the minimum component score (t_min).",
+   "why": "The lesson states: 'is_open = (T_bar > tau) AND all_components_open = (forall i, t_i >= t_min)'."
+  },
+  {
+   "q": "Which function in ComfyUI is identified as the primary entry point for loading checkpoints and detecting model architecture?",
+   "options": [
+    "ModelPatcher.load_weights",
+    "load_checkpoint_guess_config",
+    "comfy.text_encoders.init",
+    "WanModel.detect_arch"
+   ],
+   "answer": "load_checkpoint_guess_config",
+   "why": "The lesson states: 'The function load_checkpoint_guess_config in comfy/sd.py is the primary entry point.'"
+  },
+  {
+   "q": "Why is it a common mistake to assume that 'open' code implies the model is fully usable without checking other components?",
+   "options": [
+    "Because open code always requires proprietary weights to run",
+    "Because the weights might be proprietary or have restrictive licences even if the code is open",
+    "Because open code cannot be modified by the community",
+    "Because the text encoder is always closed-source"
+   ],
+   "answer": "Because the weights might be proprietary or have restrictive licences even if the code is open",
+   "why": "The lesson notes: 'Many models have open-source code... but the weights are proprietary. You cannot run the model without the weights. Always check the weight file's licence.'"
+  }
+ ]
+}

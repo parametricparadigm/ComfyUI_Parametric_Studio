@@ -1,0 +1,13 @@
+{
+ "title": "Seeds, batches and variations in video",
+ "level": "200",
+ "char": "frame",
+ "hook": "Discover how a single integer seed transforms random noise into reproducible video variations across your entire batch.",
+ "code": "CU-218",
+ "prereq": [
+  "CU-105",
+  "CU-215"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

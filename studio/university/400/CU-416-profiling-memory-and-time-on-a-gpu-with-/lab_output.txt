@@ -1,0 +1,3 @@
+RESULT memory_bytes = 1536
+RESULT flops = 12288
+RESULT output_shape = (2, 16)

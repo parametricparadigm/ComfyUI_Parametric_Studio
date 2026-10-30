@@ -1,0 +1,1789 @@
+{
+ "version": 1,
+ "measured_note": "Seconds and peak GiB from real renders on one 96 GB card, each with a cold model load.",
+ "measured": {
+  "image": {
+   "seconds": 10,
+   "peak_gib": 23,
+   "model": "FLUX.2 Klein 4B"
+  },
+  "flux3": {
+   "seconds": 30,
+   "peak_gib": 24,
+   "model": "FLUX.3 Klein"
+  },
+  "anime": {
+   "seconds": 40,
+   "peak_gib": 14,
+   "model": "Anima"
+  },
+  "video": {
+   "seconds": 105,
+   "peak_gib": 35,
+   "model": "Wan 2.2 TI2V-5B"
+  },
+  "animate": {
+   "seconds": 91,
+   "peak_gib": 35,
+   "model": "Wan 2.2 TI2V-5B"
+  },
+  "video_ltx": {
+   "seconds": 58,
+   "peak_gib": 46,
+   "model": "LTX-2.5"
+  },
+  "animate_ltx": {
+   "seconds": 34,
+   "peak_gib": 45,
+   "model": "LTX-2.5"
+  },
+  "vfx_ltx": {
+   "seconds": 116,
+   "peak_gib": 46,
+   "model": "LTX-2.5 with IC-LoRAs"
+  },
+  "h3_video": {
+   "seconds": 112,
+   "peak_gib": 46,
+   "model": "MiniMax H3"
+  },
+  "h3_animate": {
+   "seconds": 67,
+   "peak_gib": 47,
+   "model": "MiniMax H3"
+  },
+  "director": {
+   "seconds": 112,
+   "peak_gib": 46,
+   "model": "MiniMax H3"
+  },
+  "director_keyframes": {
+   "seconds": 112,
+   "peak_gib": 46,
+   "model": "MiniMax H3 first and last frame"
+  },
+  "recast": {
+   "seconds": 523,
+   "peak_gib": 37,
+   "model": "MiniMax H3 with the swap LoRA"
+  },
+  "reshoot": {
+   "seconds": 460,
+   "peak_gib": 37,
+   "model": "MiniMax H3 Ref2VA"
+  },
+  "music": {
+   "seconds": 19,
+   "peak_gib": 27,
+   "model": "MiniMax Music 3"
+  },
+  "image_flux2_klein_image_edit_4b_distilled": {
+   "seconds": 12,
+   "peak_gib": 23,
+   "model": "FLUX.2 Klein 4B"
+  }
+ },
+ "cpu_ops": {
+  "beat_cut": "Finds the tempo and beats in the song, picks its loudest section, and cuts each clip on a beat. Loudness normalized.",
+  "loop": "Fades the tail of the clip into its head and measures the seam.",
+  "join": "Joins the clips in order.",
+  "compare": "Puts the versions next to each other with labels.",
+  "cut_between": "Cuts between takes of one moment on one sound track.",
+  "mux": "Lays sound under the clip.",
+  "frame": "Pulls one frame out of a clip."
+ },
+ "recipes": [
+  {
+   "id": "short_film",
+   "title": "One sentence to a short film",
+   "hero": true,
+   "dynamic": "film",
+   "pitch": "Write one sentence. Get a 20 to 30 second film: a written shot list, one character, moving shots, a score, cut on the beat.",
+   "why": "Every step is a model you can open: the language model writes the shots, Klein draws one character and keeps it through every keyframe, H3 moves each frame, Music 3 scores it, and the cuts land on beats measured in the song.",
+   "tags": [
+    "film",
+    "hero"
+   ],
+   "fields": [
+    {
+     "key": "sentence",
+     "label": "Your sentence",
+     "default": "An old lamplighter rows through a flooded city at night, relighting its lanterns one by one until the whole skyline glows gold.",
+     "multiline": true
+    }
+   ],
+   "models": [
+    {
+     "name": "Local language model (Qwen on this box)",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "FLUX.2 Klein 4B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "MiniMax Music 3",
+     "licence": "MiniMax-Music3 Community License (the ComfyUI repackage is tagged Apache-2.0; the upstream text is treated as the one that applies)",
+     "licence_class": "community",
+     "note": "Commercial use must show the name MiniMax-Music3."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "The shot list is yours to change before you press Run.",
+    "Give the character clothing and colours you would know from behind: that is what stays the same from shot to shot.",
+    "Each shot's own sound is kept quietly under the score."
+   ],
+   "steps": [
+    {
+     "id": "plan",
+     "type": "plan",
+     "label": "Write the shot list",
+     "model": "Local language model"
+    },
+    {
+     "id": "character",
+     "type": "goal",
+     "goal": "image",
+     "label": "Character frame",
+     "model": "FLUX.2 Klein 4B",
+     "peak_gib": 23,
+     "prompt": "A character",
+     "options": {
+      "aspect": "2:3",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "key",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "A keyframe per shot",
+     "model": "FLUX.2 Klein 4B with the character as reference",
+     "peak_gib": 23
+    },
+    {
+     "id": "shot",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "A moving shot per keyframe",
+     "model": "MiniMax H3",
+     "peak_gib": 46,
+     "image": "@key",
+     "prompt": "A shot",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "score",
+     "type": "goal",
+     "goal": "music",
+     "label": "Score",
+     "model": "MiniMax Music 3",
+     "peak_gib": 27,
+     "prompt": "A score",
+     "options": {
+      "seconds": 60
+     }
+    },
+    {
+     "id": "cut",
+     "type": "cpu",
+     "op": "beat_cut",
+     "label": "Cut on the beat",
+     "final": true,
+     "clips": [
+      "@shot"
+     ],
+     "audio": "@score"
+    }
+   ],
+   "tested": {
+    "rendered": "2026-10-30",
+    "output": "recipes/short_film_5d8008c9ce67.mp4",
+    "media": "showcase/recipes/short_film.mp4",
+    "poster": "showcase/recipes/short_film.webp",
+    "seconds": 690,
+    "wall_seconds": 1226,
+    "peak_vram_gib": 76.2,
+    "video_seconds": 22.7,
+    "steps": {
+     "character": {
+      "seconds": 17.1,
+      "peak_gib": 24.5
+     },
+     "style": {
+      "seconds": 6.5,
+      "peak_gib": 23.5
+     },
+     "key1": {
+      "seconds": 11.0,
+      "peak_gib": 23.5
+     },
+     "shot1": {
+      "seconds": 174.2,
+      "peak_gib": 48.7
+     },
+     "key2": {
+      "seconds": 4.8,
+      "peak_gib": 23.5
+     },
+     "shot2": {
+      "seconds": 97.3,
+      "peak_gib": 57.6
+     },
+     "key3": {
+      "seconds": 9.7,
+      "peak_gib": 23.5
+     },
+     "shot3": {
+      "seconds": 96.2,
+      "peak_gib": 69.8
+     },
+     "key4": {
+      "seconds": 8.5,
+      "peak_gib": 23.5
+     },
+     "shot4": {
+      "seconds": 79.9,
+      "peak_gib": 67.9
+     },
+     "key5": {
+      "seconds": 5.5,
+      "peak_gib": 23.5
+     },
+     "shot5": {
+      "seconds": 103.3,
+      "peak_gib": 76.2
+     },
+     "score": {
+      "seconds": 73.0,
+      "peak_gib": 53.0
+     },
+     "cut": {
+      "seconds": 2.8,
+      "facts": {
+       "bpm": 160.1,
+       "cuts_at": [
+        0.0,
+        4.621,
+        8.986,
+        13.514,
+        18.019
+       ],
+       "beats_per_shot": [
+        12,
+        12,
+        12,
+        12,
+        12
+       ],
+       "song_from": 8.01,
+       "seconds": 22.67
+      }
+     }
+    },
+    "run": "5d8008c9ce67",
+    "note": "Shot list by a local LLM (Gemma 4 via Ollama, Qwen was asleep). Rendered in a window shared with other jobs."
+   }
+  },
+  {
+   "id": "seamless_loop",
+   "title": "Perfect loop",
+   "pitch": "One still becomes a clip that ends where it began, with the seam measured.",
+   "why": "The first frame and the last frame are the same picture, so the model has to come home. A short fade closes the small gap the model leaves, and SSIM across the seam is reported before and after.",
+   "tags": [
+    "loop",
+    "short"
+   ],
+   "fields": [
+    {
+     "key": "subject",
+     "label": "What loops",
+     "default": "a small floating island with a waterfall pouring off its edge into a sea of clouds, one gnarled tree on top, golden light, dark teal sky"
+    }
+   ],
+   "models": [
+    {
+     "name": "FLUX.2 Klein 4B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "No person and no camera move: both break a loop first (the owner's own rule from his loop maker).",
+    "Chaotic motion like rain shows a reset unless faded."
+   ],
+   "steps": [
+    {
+     "id": "still",
+     "type": "goal",
+     "goal": "image",
+     "label": "The still",
+     "peak_gib": 23,
+     "seed": 21,
+     "prompt": "Wide matte painting of {subject}, centred in the frame, cinematic light, highly detailed. No text, no logos.",
+     "options": {
+      "aspect": "16:9",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "clip",
+     "type": "goal",
+     "goal": "director_keyframes",
+     "label": "First frame = last frame",
+     "peak_gib": 46,
+     "seed": 22,
+     "image": "@still",
+     "last_image": "@still",
+     "prompt": "Clouds drift slowly past the island and the waterfall flows without stopping. One smooth, even cycle that ends exactly where it began, a seamless loop",
+     "options": {
+      "camera": "locked",
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "loop",
+     "type": "cpu",
+     "op": "loop",
+     "label": "Close the seam",
+     "final": true,
+     "clip": "@clip",
+     "args": {
+      "crossfade": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "seasons_shot",
+   "title": "Storyboard to one continuous shot",
+   "pitch": "Three frames of one place, then one unbroken shot that travels through them.",
+   "why": "Same seed and the same words keep the layout of each board close, so first and last frame control can walk through time without a cut. Each clip starts on the frame the last one ended on, so the join is a hard cut you cannot see.",
+   "tags": [
+    "film",
+    "keyframes"
+   ],
+   "fields": [
+    {
+     "key": "place",
+     "label": "The place",
+     "default": "a stone cottage beside a huge old oak tree on a green hill, seen from far away, photographed from one fixed spot"
+    }
+   ],
+   "models": [
+    {
+     "name": "FLUX.2 Klein 4B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Keep the words for the place identical in each board; change only the season or the time.",
+    "Keep the camera locked: the change is the show."
+   ],
+   "steps": [
+    {
+     "id": "winter",
+     "type": "goal",
+     "goal": "image",
+     "label": "Board 1: winter",
+     "peak_gib": 23,
+     "seed": 1234,
+     "prompt": "Wide landscape photograph of {place}, deep winter, thick snow on the ground and on the bare branches, pale cold light. No text, no logos.",
+     "options": {
+      "aspect": "16:9",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "spring",
+     "type": "goal",
+     "goal": "image",
+     "label": "Board 2: spring",
+     "peak_gib": 23,
+     "seed": 1234,
+     "prompt": "Wide landscape photograph of {place}, high spring, fresh green leaves and white blossom on the branches, soft morning light. No text, no logos.",
+     "options": {
+      "aspect": "16:9",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "autumn",
+     "type": "goal",
+     "goal": "image",
+     "label": "Board 3: autumn",
+     "peak_gib": 23,
+     "seed": 1234,
+     "prompt": "Wide landscape photograph of {place}, late autumn, burning gold and red leaves, low golden evening light. No text, no logos.",
+     "options": {
+      "aspect": "16:9",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "a",
+     "type": "goal",
+     "goal": "director_keyframes",
+     "label": "Winter to spring",
+     "peak_gib": 46,
+     "seed": 31,
+     "image": "@winter",
+     "last_image": "@spring",
+     "prompt": "Time passes in one shot: the snow melts away, the grass rises, leaves and blossom open along the branches. Wind and birdsong grow",
+     "options": {
+      "camera": "locked",
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "b",
+     "type": "goal",
+     "goal": "director_keyframes",
+     "label": "Spring to autumn",
+     "peak_gib": 46,
+     "seed": 32,
+     "image": "@spring",
+     "last_image": "@autumn",
+     "prompt": "Time passes in one shot: the green leaves turn gold and red, the light drops low and warm, the first leaves fall. Wind in the branches",
+     "options": {
+      "camera": "locked",
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "join",
+     "type": "cpu",
+     "op": "join",
+     "label": "Join",
+     "final": true,
+     "clips": [
+      "@a",
+      "@b"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "vfx_stack",
+   "title": "VFX stack on a generated plate",
+   "pitch": "Generate a street, empty it, turn it to night, flood it. Every stage side by side.",
+   "why": "LTX-2.5's IC-LoRAs are made to be stacked: each pass takes the last pass's clip as its source. The grid shows one plate through three effects.",
+   "tags": [
+    "vfx"
+   ],
+   "fields": [
+    {
+     "key": "scene",
+     "label": "The plate, in plain words",
+     "default": "a narrow cobblestone street in an old stone town, a woman in a yellow raincoat walking toward the camera"
+    }
+   ],
+   "models": [
+    {
+     "name": "LTX-2.5 with IC-LoRAs",
+     "licence": "LTX-2.x Community License (gated download)",
+     "licence_class": "community",
+     "note": "Paid licence above US$10,000,000 annual revenue."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Describe the scene the same way in each pass.",
+    "Water at 1.3 is the card's stronger setting; 1.0 proved subtle."
+   ],
+   "steps": [
+    {
+     "id": "plate",
+     "type": "goal",
+     "goal": "video_ltx",
+     "label": "Generate the plate",
+     "peak_gib": 46,
+     "seed": 41,
+     "prompt": "A woman in a yellow raincoat walks slowly toward the camera along a narrow cobblestone street in an old stone town, the camera pulls back at her walking pace, soft overcast daylight, footsteps on stone.",
+     "options": {
+      "aspect": "16:9",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "clean",
+     "type": "goal",
+     "goal": "vfx_ltx",
+     "label": "Clear the plate",
+     "peak_gib": 46,
+     "seed": 42,
+     "video": "@plate",
+     "scene": "a narrow cobblestone street in an old stone town",
+     "options": {
+      "effect": "clean_plate",
+      "aspect": "auto",
+      "seconds": 4
+     }
+    },
+    {
+     "id": "night",
+     "type": "goal",
+     "goal": "vfx_ltx",
+     "label": "Day to night",
+     "peak_gib": 46,
+     "seed": 43,
+     "video": "@clean",
+     "scene": "a narrow cobblestone street in an old stone town",
+     "options": {
+      "effect": "day_to_night",
+      "aspect": "auto",
+      "seconds": 4
+     }
+    },
+    {
+     "id": "flood",
+     "type": "goal",
+     "goal": "vfx_ltx",
+     "label": "Flood it",
+     "peak_gib": 46,
+     "seed": 44,
+     "video": "@night",
+     "scene": "a narrow cobblestone street in an old stone town at night",
+     "prompt": "a rising flood of dark water that surges along the street and splashes against the walls",
+     "options": {
+      "effect": "water",
+      "aspect": "auto",
+      "seconds": 4
+     }
+    },
+    {
+     "id": "grid",
+     "type": "cpu",
+     "op": "compare",
+     "label": "All four together",
+     "final": true,
+     "clips": [
+      "@plate",
+      "@clean",
+      "@night",
+      "@flood"
+     ],
+     "args": {
+      "labels": [
+       "Plate",
+       "Clean plate",
+       "Day to night",
+       "Flood"
+      ],
+      "audio_from": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "product_ad",
+   "title": "Product ad from nothing",
+   "pitch": "A hero still, the same product moving, a second camera on the same moment, a score, cut on the beat.",
+   "why": "Reshoot films the first clip again from a new angle, so the product in the second shot is the same one, not a lookalike. That is what keeps an ad from falling apart.",
+   "tags": [
+    "ad"
+   ],
+   "fields": [
+    {
+     "key": "product",
+     "label": "The product",
+     "default": "a faceted perfume bottle of smoked glass with a gold cap and no label"
+    }
+   ],
+   "models": [
+    {
+     "name": "FLUX.3 Klein",
+     "licence": "FLUX Kommunity License (gated download)",
+     "licence_class": "community",
+     "note": "Commercial use only under US$5,000,000 gross annual revenue; otherwise a licence from Black Forest Labs."
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "MiniMax Music 3",
+     "licence": "MiniMax-Music3 Community License (the ComfyUI repackage is tagged Apache-2.0; the upstream text is treated as the one that applies)",
+     "licence_class": "community",
+     "note": "Commercial use must show the name MiniMax-Music3."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Plain surfaces with no print: blank products invent logos when they are told nothing.",
+    "Reshoot is the slow step, about 8 minutes here."
+   ],
+   "steps": [
+    {
+     "id": "still",
+     "type": "goal",
+     "goal": "flux3",
+     "label": "Hero still",
+     "peak_gib": 24,
+     "seed": 51,
+     "prompt": "Luxury advertising photograph of {product} standing on wet black obsidian, thin emerald rim light, gold dust suspended in the air, shallow depth of field, dark studio background. No text, no logos.",
+     "options": {
+      "aspect": "16:9"
+     }
+    },
+    {
+     "id": "hero",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Hero shot",
+     "peak_gib": 46,
+     "seed": 52,
+     "image": "@still",
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Product advertising film, cinematic. The product stands still on the wet black stone while gold dust drifts slowly through the light and a thin line of water runs across the stone. The camera pushes in with small amplitude at slow speed toward the product. One continuous shot, no cuts.\n\noverall_soundscape: A low soft hum, tiny water drips.\n\nnon_diegetic_music: N/A",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "angle",
+     "type": "goal",
+     "goal": "reshoot",
+     "label": "Second camera",
+     "peak_gib": 37,
+     "seed": 53,
+     "video": "@hero",
+     "options": {
+      "camera": "orbit_right",
+      "aspect": "auto",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "score",
+     "type": "goal",
+     "goal": "music",
+     "label": "Score",
+     "peak_gib": 27,
+     "seed": 54,
+     "prompt": "Global Metadata\nBasic Attributes: bpm is 112. Minimal electronic, cinematic.\nGlobal Emotional Progression: It opens with a single pulse and rises to a clean, confident finish.\nApplication Scenarios & Imagery: Under picture from start to finish.\nSonics & Production Profile: A clean, wide mix with a steady pulse that is easy to cut to.\nVocal Details\nVocal Gender & Timbre: No vocals. Purely instrumental.\nVocal Style: No vocals.\nHarmony/Backing Vocals: None.\nVocal FX: None.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: a deep warm synth bass, soft felt piano, crisp minimal percussion.\nSecondary: Soft pads and quiet textures that widen as it builds.\nGroove & Foundation Progression: A clear, even 112 BPM pulse from the first bars, with percussion joining as it grows.\nEmbellishments, Textures & Spatial FX: Risers and swells into each new section.",
+     "lyrics": "[intro]\n\n[instrumental]\n\n[solo]\n\n[instrumental]\n\n[outro]",
+     "options": {
+      "seconds": 30
+     }
+    },
+    {
+     "id": "cut",
+     "type": "cpu",
+     "op": "beat_cut",
+     "label": "Cut on the beat",
+     "final": true,
+     "clips": [
+      "@hero",
+      "@angle"
+     ],
+     "audio": "@score",
+     "args": {
+      "clip_audio_db": -14
+     }
+    }
+   ]
+  },
+  {
+   "id": "music_video",
+   "title": "Music Video Maker",
+   "hero": true,
+   "pitch": "A song with your words, one character, seven directed shots, cut on the beat: a 30 to 45 second music video.",
+   "why": "The song comes first and the picture follows it. Music 3 sings as long as the lyrics last, so the words set the length. Klein keeps one character through every keyframe, H3 moves each frame with its own camera move, and the edit is measured from the song: tempo, beats, its loudest section, then loudness normalized.",
+   "tags": [
+    "film",
+    "music",
+    "hero"
+   ],
+   "fields": [
+    {
+     "key": "lyrics",
+     "label": "Your lyrics, with [verse] and [chorus] on their own lines. About 6 seconds a line",
+     "default": "[intro]\n\n[verse]\nLast train leaving, the lights burn low\nSalt on the window, and nowhere to go\nI kept your coat and the words you gave\nI left the rest at the edge of the day\n[pre-chorus]\nAnd the dark rolls on, and the rails still sing\n[chorus]\nTake me to the gold line, take me to the sea\nEvery mile of midnight is a mile closer to me\nTake me to the gold line, hold the morning near\nI can see the city, I can see it clear\n[verse]\nMoon on the desert, silver and wide\nNobody's waiting on the other side\n[chorus]\nTake me to the gold line, take me to the sea\nEvery mile of midnight is a mile closer to me\nTake me to the gold line, hold the morning near\nI can see the city, I can see it clear\n[outro]",
+     "multiline": true
+    },
+    {
+     "key": "character",
+     "label": "Who it follows",
+     "default": "a woman in a long emerald coat with loose copper hair"
+    },
+    {
+     "key": "world",
+     "label": "Where it happens",
+     "default": "a night train crossing a white salt desert toward a city of gold light"
+    }
+   ],
+   "models": [
+    {
+     "name": "MiniMax Music 3",
+     "licence": "MiniMax-Music3 Community License (the ComfyUI repackage is tagged Apache-2.0; the upstream text is treated as the one that applies)",
+     "licence_class": "community",
+     "note": "Commercial use must show the name MiniMax-Music3."
+    },
+    {
+     "name": "FLUX.2 Klein 4B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Original lyrics only. Write enough of them: Music 3 stops when the words run out.",
+    "Every tag on its own line, no numbers on the tags, identical choruses: the owner's rules from his music video maker.",
+    "Every shot renders from the same character frame, never from the last frame before it: identity falls with each chained segment.",
+    "These are story shots. Lip-synced singing shots (H3 with the song locked into its audio) are in the owner's earlier studio and not in this chain yet."
+   ],
+   "steps": [
+    {
+     "id": "song",
+     "type": "goal",
+     "goal": "music",
+     "label": "The song",
+     "model": "MiniMax Music 3",
+     "peak_gib": 27,
+     "seed": 61,
+     "prompt": "Global Metadata\nBasic Attributes: bpm is 104. key is D, and scale is minor. Cinematic indie pop.\nGlobal Emotional Progression: A quiet guitar and voice opening grows through a rising pre-chorus into a wide, soaring chorus with full drums and strings.\nApplication Scenarios & Imagery: {world}.\nSonics & Production Profile: Warm, wide and cinematic, close vocal, deep low end, steady drums from the first chorus.\nVocal Details\nVocal Gender & Timbre: Singer A (Female), warm and clear with a slight breath.\nVocal Style: Intimate in the verse, open and strong in the chorus.\nHarmony/Backing Vocals: Soft stacked harmonies on the chorus.\nVocal FX: Light hall reverb and a short delay on line ends.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: Picked electric guitar with tremolo, piano and a steady kick.\nSecondary: Strings and a warm synth pad that rise into the chorus.\nGroove & Foundation Progression: A clear 104 BPM pulse from the first bars, full drums on the chorus.\nEmbellishments, Textures & Spatial FX: Swells and cymbal rises into each chorus.",
+     "lyrics": "{lyrics}",
+     "options": {
+      "seconds": 90
+     },
+     "swappable": true,
+     "accepts": "audio"
+    },
+    {
+     "id": "character",
+     "type": "goal",
+     "goal": "image",
+     "label": "The character",
+     "model": "FLUX.2 Klein 4B",
+     "peak_gib": 23,
+     "seed": 62,
+     "prompt": "Full body character design: {character}. Standing, facing the camera, the whole figure in frame, plain light grey studio background, soft even light. No text, no logos.",
+     "options": {
+      "aspect": "2:3",
+      "mode": "quality"
+     },
+     "swappable": true,
+     "accepts": "image"
+    },
+    {
+     "id": "key1",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 1",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 621,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Extreme wide shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. A long night train with warm gold windows crosses the white salt desert under a huge moon, she is a small figure at one lit window. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "A long night train with warm gold windows crosses the white salt desert under a huge moon, she is a small figure at one lit window."
+    },
+    {
+     "id": "shot1",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 1",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 641,
+     "image": "@key1",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. A long night train with warm gold windows crosses the white salt desert under a huge moon, she is a small figure at one lit window. The camera cranes up smoothly from low to high, ending in a high angle looking down on the subject. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "key2",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 2",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 622,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Medium shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. She sits by the train window, her reflection in the dark glass, gold light passing slowly over her. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "She sits by the train window, her reflection in the dark glass, gold light passing slowly over her."
+    },
+    {
+     "id": "shot2",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 2",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 642,
+     "image": "@key2",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. She sits by the train window, her reflection in the dark glass, gold light passing slowly over her. The camera dollies in slowly and smoothly, from a wide framing to a close framing of the subject. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "key3",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 3",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 623,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Wide shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. She walks down the empty narrow train carriage toward the camera, gold lamps swinging gently above her. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "She walks down the empty narrow train carriage toward the camera, gold lamps swinging gently above her."
+    },
+    {
+     "id": "shot3",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 3",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 643,
+     "image": "@key3",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. She walks down the empty narrow train carriage toward the camera, gold lamps swinging gently above her. The camera tracks sideways alongside the subject at walking speed, keeping the same framing. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "key4",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 4",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 624,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Wide shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. She stands on the open step at the end of the moving train, her coat and hair streaming in the wind, the salt desert racing past. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "She stands on the open step at the end of the moving train, her coat and hair streaming in the wind, the salt desert racing past."
+    },
+    {
+     "id": "shot4",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 4",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 644,
+     "image": "@key4",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. She stands on the open step at the end of the moving train, her coat and hair streaming in the wind, the salt desert racing past. The camera orbits the subject to the right in a smooth quarter circle at a steady pace, keeping the subject centred. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "key5",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 5",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 625,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Extreme wide shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. A city of gold light rises on the far horizon at the end of the rails, the small train running toward it across the salt. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "A city of gold light rises on the far horizon at the end of the rails, the small train running toward it across the salt."
+    },
+    {
+     "id": "shot5",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 5",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 645,
+     "image": "@key5",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. A city of gold light rises on the far horizon at the end of the rails, the small train running toward it across the salt. The camera dollies in slowly and smoothly, from a wide framing to a close framing of the subject. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "key6",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 6",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 626,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Medium shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. She leans out over the rail and lifts her face toward the gold light, her coat streaming in the wind. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "She leans out over the rail and lifts her face toward the gold light, her coat streaming in the wind."
+    },
+    {
+     "id": "shot6",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 6",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 646,
+     "image": "@key6",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. She leans out over the rail and lifts her face toward the gold light, her coat streaming in the wind. The camera cranes up smoothly from low to high, ending in a high angle looking down on the subject. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "key7",
+     "type": "template",
+     "template": "image_flux2_klein_image_edit_4b_distilled",
+     "label": "Keyframe 7",
+     "model": "FLUX.2 Klein 4B, with the character as reference",
+     "peak_gib": 23,
+     "seed": 627,
+     "seed_node": "75:73",
+     "seed_input": "noise_seed",
+     "values": {
+      "76|image": "@character"
+     },
+     "swap": {
+      "flux-2-klein-4b-fp8.safetensors": "flux-2-klein-4b.safetensors"
+     },
+     "set": {
+      "75:74": {
+       "text": "Wide shot. Film still. The same woman as in the reference picture, same clothing and colours: {character}. She steps down from the stopped train onto the white salt at dawn and walks toward the gold city, her coat trailing behind her. The place: {world}. Cinematic film still, anamorphic, deep shadows, warm gold and emerald colour. No text, no logos."
+      },
+      "75:66": {
+       "width": 1344,
+       "height": 768
+      },
+      "75:62": {
+       "width": 1344,
+       "height": 768
+      }
+     },
+     "prompt_note": "She steps down from the stopped train onto the white salt at dawn and walks toward the gold city, her coat trailing behind her."
+    },
+    {
+     "id": "shot7",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Shot 7",
+     "model": "MiniMax H3",
+     "peak_gib": 47,
+     "seed": 647,
+     "image": "@key7",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. {character}. She steps down from the stopped train onto the white salt at dawn and walks toward the gold city, her coat trailing behind her. The camera dollies back slowly and smoothly, from a close framing to a wide framing that reveals the surroundings. One continuous shot, no cuts. Cinematic music-video camera movement.\n\noverall_soundscape: Quiet train and wind sounds.\n\nnon_diegetic_music: N/A"
+    },
+    {
+     "id": "cut",
+     "type": "cpu",
+     "op": "beat_cut",
+     "label": "Cut on the beat",
+     "final": true,
+     "clips": [
+      "@shot1",
+      "@shot2",
+      "@shot3",
+      "@shot4",
+      "@shot5",
+      "@shot6",
+      "@shot7"
+     ],
+     "audio": "@song",
+     "args": {
+      "total_max": 45
+     }
+    }
+   ],
+   "tested": {
+    "rendered": "2026-10-30",
+    "output": "recipes/music_video_d44c2666813b.mp4",
+    "media": "showcase/recipes/music_video.mp4",
+    "poster": "showcase/recipes/music_video.webp",
+    "seconds": 781,
+    "wall_seconds": 1041,
+    "peak_vram_gib": 68.6,
+    "video_seconds": 24.9,
+    "steps": {
+     "song": {
+      "seconds": 85.0,
+      "peak_gib": 42.1
+     },
+     "character": {
+      "seconds": 13.6,
+      "peak_gib": 49.2
+     },
+     "key1": {
+      "seconds": 3.3,
+      "peak_gib": 23.5
+     },
+     "shot1": {
+      "seconds": 79.4,
+      "peak_gib": 68.6
+     },
+     "key2": {
+      "seconds": 5.5,
+      "peak_gib": 23.5
+     },
+     "shot2": {
+      "seconds": 64.8,
+      "peak_gib": 66.5
+     },
+     "key3": {
+      "seconds": 7.9,
+      "peak_gib": 23.5
+     },
+     "shot3": {
+      "seconds": 109.0,
+      "peak_gib": 47.2
+     },
+     "key4": {
+      "seconds": 3.9,
+      "peak_gib": 23.5
+     },
+     "shot4": {
+      "seconds": 67.0,
+      "peak_gib": 46.7
+     },
+     "key5": {
+      "seconds": 3.0,
+      "peak_gib": 23.5
+     },
+     "shot5": {
+      "seconds": 91.6,
+      "peak_gib": 50.6
+     },
+     "key6": {
+      "seconds": 3.1,
+      "peak_gib": 23.5
+     },
+     "shot6": {
+      "seconds": 94.1,
+      "peak_gib": 46.8
+     },
+     "key7": {
+      "seconds": 4.8,
+      "peak_gib": 23.5
+     },
+     "shot7": {
+      "seconds": 117.4,
+      "peak_gib": 47.1
+     },
+     "cut": {
+      "seconds": 28.0,
+      "facts": {
+       "bpm": 135.2,
+       "cuts_at": [
+        0.0,
+        3.553,
+        7.129,
+        10.681,
+        14.234,
+        17.786,
+        21.339
+       ],
+       "beats_per_shot": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+       ],
+       "song_from": 50.76,
+       "seconds": 24.92
+      }
+     }
+    },
+    "run": "d44c2666813b",
+    "note": "Original lyrics. Rendered in a window shared with other jobs."
+   }
+  },
+  {
+   "id": "anime_opening",
+   "title": "Anime opening",
+   "pitch": "Three key visuals, each brought to life, cut to a driving track.",
+   "why": "Anima draws the frames, H3 keeps the drawn look when it moves them, and the cut follows the music like a TV opening.",
+   "tags": [
+    "anime",
+    "music"
+   ],
+   "fields": [
+    {
+     "key": "story",
+     "label": "The story",
+     "default": "a young pilot and a towering black and gold mecha in a rain-soaked neon city"
+    }
+   ],
+   "models": [
+    {
+     "name": "Anima",
+     "licence": "CircleStone Labs Non-Commercial License v1.2",
+     "licence_class": "community",
+     "note": "Non-commercial only."
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "MiniMax Music 3",
+     "licence": "MiniMax-Music3 Community License (the ComfyUI repackage is tagged Apache-2.0; the upstream text is treated as the one that applies)",
+     "licence_class": "community",
+     "note": "Commercial use must show the name MiniMax-Music3."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Keep realism words out of the prompts (photo, 35mm, film grain): the owner's anime rule.",
+    "Anima is non-commercial."
+   ],
+   "steps": [
+    {
+     "id": "k1",
+     "type": "goal",
+     "goal": "anime",
+     "label": "Key visual 1",
+     "peak_gib": 14,
+     "seed": 71,
+     "prompt": "{story}, wide shot, the city below, rain, glowing green visor",
+     "options": {
+      "aspect": "16:9",
+      "style": "mecha",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "k2",
+     "type": "goal",
+     "goal": "anime",
+     "label": "Key visual 2",
+     "peak_gib": 14,
+     "seed": 72,
+     "prompt": "close-up of the young pilot looking up in the rain, neon reflected in her eyes, from {story}",
+     "options": {
+      "aspect": "16:9",
+      "style": "mecha",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "k3",
+     "type": "goal",
+     "goal": "anime",
+     "label": "Key visual 3",
+     "peak_gib": 14,
+     "seed": 73,
+     "prompt": "the mecha rises to full height over the city, gold light bursting behind it, from {story}",
+     "options": {
+      "aspect": "16:9",
+      "style": "mecha",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "v1",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Move 1",
+     "peak_gib": 46,
+     "seed": 74,
+     "image": "@k1",
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] 2D-animated, anime. Rain falls across the frame and the green visor flickers on. The camera pushes in at slow speed. One continuous shot, no cuts.\n\noverall_soundscape: Rain and a low electric hum.\n\nnon_diegetic_music: N/A",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "v2",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Move 2",
+     "peak_gib": 46,
+     "seed": 75,
+     "image": "@k2",
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] 2D-animated, anime. She lifts her chin and her hair moves in the wind, neon sliding across her face. The camera stays close and pushes in with small amplitude. One continuous shot, no cuts.\n\noverall_soundscape: Rain and distant city sound.\n\nnon_diegetic_music: N/A",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "v3",
+     "type": "goal",
+     "goal": "h3_animate",
+     "label": "Move 3",
+     "peak_gib": 46,
+     "seed": 76,
+     "image": "@k3",
+     "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] 2D-animated, anime. The mecha straightens to its full height and gold light bursts behind it. The camera tilts up with large amplitude. One continuous shot, no cuts.\n\noverall_soundscape: A deep mechanical rumble.\n\nnon_diegetic_music: N/A",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     }
+    },
+    {
+     "id": "song",
+     "type": "goal",
+     "goal": "music",
+     "label": "Opening track",
+     "peak_gib": 27,
+     "seed": 77,
+     "prompt": "Global Metadata\nBasic Attributes: bpm is 138. J-Rock, anime opening.\nGlobal Emotional Progression: A short riff intro snaps into a driving, soaring theme.\nApplication Scenarios & Imagery: Under picture from start to finish.\nSonics & Production Profile: A clean, wide mix with a steady pulse that is easy to cut to.\nVocal Details\nVocal Gender & Timbre: No vocals. Purely instrumental.\nVocal Style: No vocals.\nHarmony/Backing Vocals: None.\nVocal FX: None.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: driving electric guitars, fast drums, bright synth lead.\nSecondary: Soft pads and quiet textures that widen as it builds.\nGroove & Foundation Progression: A clear, even 138 BPM pulse from the first bars, with percussion joining as it grows.\nEmbellishments, Textures & Spatial FX: Risers and swells into each new section.",
+     "lyrics": "[intro]\n\n[instrumental]\n\n[solo]\n\n[instrumental]\n\n[outro]",
+     "options": {
+      "seconds": 30
+     }
+    },
+    {
+     "id": "cut",
+     "type": "cpu",
+     "op": "beat_cut",
+     "label": "Cut on the beat",
+     "final": true,
+     "clips": [
+      "@v1",
+      "@v2",
+      "@v3"
+     ],
+     "audio": "@song"
+    }
+   ]
+  },
+  {
+   "id": "recast_character",
+   "title": "Recast any performance",
+   "pitch": "Design a character, shoot a scene, then put your character in the scene.",
+   "why": "H3 Recast keeps the camera, the timing and the performance and changes who plays it. The output shows source and result together.",
+   "tags": [
+    "character"
+   ],
+   "fields": [
+    {
+     "key": "character",
+     "label": "Your character",
+     "default": "a fictional adult man with a thick red beard and wild red hair, wearing a dark blue sailor coat"
+    }
+   ],
+   "models": [
+    {
+     "name": "FLUX.2 Klein 4B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Say who to replace by look and position.",
+    "About 9 minutes for the swap on this box."
+   ],
+   "steps": [
+    {
+     "id": "hero",
+     "type": "goal",
+     "goal": "image",
+     "label": "Character",
+     "peak_gib": 23,
+     "seed": 81,
+     "prompt": "Full body photograph of {character}, standing, facing the camera, plain light grey studio background, soft even light. No text, no logos.",
+     "options": {
+      "aspect": "2:3",
+      "mode": "quality"
+     },
+     "swappable": true,
+     "accepts": "image"
+    },
+    {
+     "id": "take",
+     "type": "goal",
+     "goal": "h3_video",
+     "label": "The scene",
+     "peak_gib": 46,
+     "seed": 82,
+     "prompt": "A chef in a white jacket in a dark kitchen flambes a pan, a tall column of golden fire lights her focused face, the camera pushes in slowly, sizzling sounds and a low flame roar, cinematic shallow depth of field.",
+     "options": {
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "swappable": true,
+     "accepts": "video"
+    },
+    {
+     "id": "swap",
+     "type": "goal",
+     "goal": "recast",
+     "label": "Recast",
+     "peak_gib": 37,
+     "seed": 83,
+     "image": "@hero",
+     "video": "@take",
+     "target": "the chef in the white jacket",
+     "options": {
+      "aspect": "auto",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "side",
+     "type": "cpu",
+     "op": "compare",
+     "label": "Before and after",
+     "final": true,
+     "clips": [
+      "@take",
+      "@swap"
+     ],
+     "args": {
+      "labels": [
+       "Source",
+       "Recast"
+      ],
+      "audio_from": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "multicam",
+   "title": "One take, two cameras",
+   "pitch": "Shoot once, film it again with the camera moving, cut between them on one sound track.",
+   "why": "Reshoot keeps the action and the timing, so the two takes cut together at the same timecode, like two cameras on one set.",
+   "tags": [
+    "film"
+   ],
+   "fields": [
+    {
+     "key": "action",
+     "label": "The action",
+     "default": "A street food cook tosses noodles over a roaring flame at night, steam drifting through neon light"
+    }
+   ],
+   "models": [
+    {
+     "name": "MiniMax H3",
+     "licence": "MiniMax H3 Community License",
+     "licence_class": "community",
+     "note": "Show the name in commercial products. Read the licence's territory terms before you rely on it."
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "One clear action reads best from a second angle.",
+    "Reshoot takes about 8 minutes per angle here."
+   ],
+   "steps": [
+    {
+     "id": "take",
+     "type": "goal",
+     "goal": "director",
+     "label": "Camera A",
+     "peak_gib": 46,
+     "seed": 91,
+     "prompt": "{action}",
+     "options": {
+      "camera": "locked",
+      "shot": "medium",
+      "lighting": "neon",
+      "aspect": "16:9",
+      "quality": "high",
+      "seconds": 5,
+      "speed": "fast"
+     },
+     "swappable": true,
+     "accepts": "video"
+    },
+    {
+     "id": "low",
+     "type": "goal",
+     "goal": "reshoot",
+     "label": "Camera B",
+     "peak_gib": 37,
+     "seed": 92,
+     "video": "@take",
+     "options": {
+      "camera": "orbit_left",
+      "aspect": "auto",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "cut",
+     "type": "cpu",
+     "op": "cut_between",
+     "label": "Cut between",
+     "final": true,
+     "clips": [
+      "@take",
+      "@low"
+     ],
+     "args": {
+      "pieces": 4
+     }
+    }
+   ]
+  },
+  {
+   "id": "open_lane",
+   "title": "Fully open short",
+   "pitch": "A short made only from permissively licensed weights: Klein, Wan 2.2, ACE-Step.",
+   "why": "The whole chain is commercial-friendly by licence, with no revenue caps or territory terms: the clean baseline for anything you want to sell.",
+   "tags": [
+    "film",
+    "open"
+   ],
+   "fields": [
+    {
+     "key": "world",
+     "label": "The world",
+     "default": "a jungle temple at dawn, gold light through mist"
+    }
+   ],
+   "models": [
+    {
+     "name": "FLUX.2 Klein 4B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "Wan 2.2 TI2V-5B",
+     "licence": "Apache-2.0",
+     "licence_class": "open"
+    },
+    {
+     "name": "ACE-Step 1.5",
+     "licence": "MIT (checked on the ACE-Step/Ace-Step1.5 model page)",
+     "licence_class": "open"
+    },
+    {
+     "name": "ffmpeg",
+     "licence": "LGPL/GPL, runs as a separate tool",
+     "licence_class": "open"
+    }
+   ],
+   "tips": [
+    "Wan 2.2 5B runs in less memory than H3 or LTX."
+   ],
+   "steps": [
+    {
+     "id": "k1",
+     "type": "goal",
+     "goal": "image",
+     "label": "Still 1",
+     "peak_gib": 23,
+     "seed": 101,
+     "prompt": "Wide cinematic still of {world}, overgrown stone stairs. No text, no logos.",
+     "options": {
+      "aspect": "16:9",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "k2",
+     "type": "goal",
+     "goal": "image",
+     "label": "Still 2",
+     "peak_gib": 23,
+     "seed": 102,
+     "prompt": "Close cinematic still of a carved stone face covered in moss in {world}. No text, no logos.",
+     "options": {
+      "aspect": "16:9",
+      "mode": "quality"
+     }
+    },
+    {
+     "id": "v1",
+     "type": "goal",
+     "goal": "animate",
+     "label": "Move 1",
+     "peak_gib": 35,
+     "seed": 103,
+     "image": "@k1",
+     "prompt": "Mist drifts across the stairs and the camera glides forward slowly.",
+     "options": {
+      "aspect": "16:9",
+      "quality": "480p",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "v2",
+     "type": "goal",
+     "goal": "animate",
+     "label": "Move 2",
+     "peak_gib": 35,
+     "seed": 104,
+     "image": "@k2",
+     "prompt": "Light slides across the stone and leaves fall slowly.",
+     "options": {
+      "aspect": "16:9",
+      "quality": "480p",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "song",
+     "type": "template",
+     "template": "audio_ace_step1_5_xl_turbo",
+     "label": "Score (ACE-Step)",
+     "model": "ACE-Step 1.5 XL turbo",
+     "peak_gib": 22,
+     "seed": 105,
+     "seed_node": "3",
+     "set": {
+      "94": {
+       "tags": "Cinematic ambient, warm strings, soft percussion, 100 BPM, instrumental",
+       "lyrics": "[Instrumental]",
+       "bpm": 100,
+       "duration": 30
+      },
+      "98": {
+       "seconds": 30
+      }
+     }
+    },
+    {
+     "id": "cut",
+     "type": "cpu",
+     "op": "beat_cut",
+     "label": "Cut on the beat",
+     "final": true,
+     "clips": [
+      "@v1",
+      "@v2"
+     ],
+     "audio": "@song"
+    }
+   ]
+  }
+ ]
+}

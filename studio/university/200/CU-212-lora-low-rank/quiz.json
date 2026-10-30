@@ -1,0 +1,52 @@
+{
+ "code": "CU-212",
+ "title": "LoRA: low-rank adaptation",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the LoRA formula W' = W + (α/r)BA, what are the shapes of matrices A and B if the base weight matrix W is D x D and the rank is r?",
+   "options": [
+    "A is D x D and B is D x D",
+    "A is R x D and B is D x R",
+    "A is D x R and B is R x D",
+    "A is R x R and B is R x R"
+   ],
+   "answer": "A is R x D and B is D x R",
+   "why": "The lesson explicitly states: 'A is a matrix of shape R x D' and 'B is a matrix of shape D x R'."
+  },
+  {
+   "q": "According to the lesson, what is the primary advantage of using 'Bypass' mode over 'Merged' mode when applying LoRA in ComfyUI?",
+   "options": [
+    "It requires less VRAM by avoiding the storage of the full updated matrix.",
+    "It trains the model faster by skipping the forward pass.",
+    "It allows for higher rank values without increasing file size.",
+    "It automatically scales the alpha factor to match the rank."
+   ],
+   "answer": "It requires less VRAM by avoiding the storage of the full updated matrix.",
+   "why": "The lesson explains that Merged mode 'uses more VRAM because you're storing the full updated matrix,' whereas Bypass mode 'hooks into the layer's forward pass... without permanently modifying the base model's weights in memory.'"
+  },
+  {
+   "q": "In the provided Lab results, the base weight matrix W was 64x64 and the LoRA rank R was 4. Calculate the number of trainable parameters for the LoRA update (matrices A and B combined).",
+   "options": null,
+   "answer": "512",
+   "why": "The lesson states: 'RESULT lora_params = 512: This is (4 x 64) + (64 x 4). We only update 512 parameters.'"
+  },
+  {
+   "q": "Which class in the 'comfy/weight_adapter' module is responsible for managing the injection of adapters into model layers for bypass mode?",
+   "options": [
+    "LoRAAdapter",
+    "LoraDiff",
+    "BypassInjectionManager",
+    "TrainLoraNode"
+   ],
+   "answer": "BypassInjectionManager",
+   "why": "The lesson states: 'BypassInjectionManager: Found in comfy/weight_adapter/bypass.py, this manages the injection of adapters into model layers for bypass mode.'"
+  },
+  {
+   "q": "Why does the lesson recommend starting with a rank (r) of 4 or 8 rather than very low (1-2) or very high (64-128) values?",
+   "options": null,
+   "answer": "Low ranks may not capture enough detail for complex concepts, while high ranks increase training time and file size without significant quality gains for simple styles.",
+   "why": "The 'Common mistakes' section states: 'Setting r too low... might not capture enough detail... Setting it too high... increases training time and file size without significant quality gains... Start with 4 or 8.'"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "title": "History 3: Pixel by pixel, autoregressive image models",
+ "level": "200",
+ "char": "attn",
+ "hook": "Discover how early AI painted images one pixel at a time, laying the groundwork for modern generative techniques.",
+ "code": "CU-503",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

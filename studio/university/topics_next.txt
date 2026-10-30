@@ -1,0 +1,12 @@
+300|Schedulers compared by the numbers
+300|Guidance rescale and CFG variants
+200|Reading cross-attention maps
+300|Video VAEs: causal 3D compression
+300|Audio diffusion: latents you can hear
+300|Quantization choices: fp8, int8 and GGUF
+300|How LoRA training really works
+200|ControlNet versus IP-Adapter conditioning
+400|Consistency models from first principles
+200|Sub-graphs and App Mode in ComfyUI
+300|Offloading and tiled decode: fitting big models
+200|Seeds across samplers: what stays the same

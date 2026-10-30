@@ -1,0 +1,10 @@
+{
+ "title": "Flow-matching losses and velocity targets",
+ "level": "300",
+ "char": "denoise",
+ "hook": "Learn how to compute the exact velocity field that guides your diffusion model from noise to data.",
+ "code": "CU-314",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

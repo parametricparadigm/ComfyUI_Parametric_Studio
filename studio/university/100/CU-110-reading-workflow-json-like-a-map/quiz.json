@@ -1,0 +1,52 @@
+{
+ "code": "CU-110",
+ "title": "Reading a workflow JSON like a map",
+ "level": "100",
+ "questions": [
+  {
+   "q": "In the context of a ComfyUI workflow JSON, what does the reference tuple [N_j, k] inside a node's inputs field signify?",
+   "options": [
+    "The data value stored in slot k of node N_j",
+    "The ID of the source node (N_j) and the index of the output slot (k) from which data is drawn",
+    "The execution order of node N_j followed by node k",
+    "The visual coordinates of node N_j on the canvas"
+   ],
+   "answer": "The ID of the source node (N_j) and the index of the output slot (k) from which data is drawn",
+   "why": "The lesson states: 'For a given input slot S in node N_i, the value is a reference tuple: [N_j, k]. N_j is the ID of the source node. k is the index of the output slot on node N_j from which the data is drawn.'"
+  },
+  {
+   "q": "What are the two conditions that must hold for a workflow topology to be considered valid?",
+   "options": null,
+   "answer": "Existence (the referenced node N_j must exist in the workflow) and Slot Validity (the source node N_j must have an output slot at index k).",
+   "why": "The lesson explicitly lists these two conditions: '1. Existence: For every reference [N_j, k] in any node’s inputs, the node N_j must exist in W. 2. Slot Validity: The source node N_j must have an output slot at index k.'"
+  },
+  {
+   "q": "Why does the ComfyUI engine fail if a workflow contains a cycle (e.g., Node A feeds Node B, which feeds Node A)?",
+   "options": [
+    "The JSON parser cannot handle recursive dictionaries",
+    "The engine cannot determine the execution order",
+    "The GPU runs out of memory during the loop",
+    "The visual interface fails to render the wires"
+   ],
+   "answer": "The engine cannot determine the execution order",
+   "why": "The lesson explains: 'If you create a cycle... the engine cannot determine the execution order, and the workflow fails.'"
+  },
+  {
+   "q": "According to the lab results, what does the output 'RESULT link_target = 5' prove about the workflow topology?",
+   "options": [
+    "Node 5 is the first node to be executed",
+    "The SaveImage node (ID 7) is correctly linked to the VAEDecode node (ID 5)",
+    "Node 5 has 5 output slots",
+    "The data flow from Node 5 to Node 7 is corrupted"
+   ],
+   "answer": "The SaveImage node (ID 7) is correctly linked to the VAEDecode node (ID 5)",
+   "why": "The lesson states: 'This proves that the SaveImage node (ID 7) is correctly linked to the VAEDecode node (ID 5). The variable ref_node_id extracted from the SaveImage inputs is 5.'"
+  },
+  {
+   "q": "What is the primary difference between the visual interface's 'wires' and the underlying JSON structure?",
+   "options": null,
+   "answer": "The visual interface shows lines representing connections, while the JSON contains references (addresses) to source nodes and slots, not the data itself.",
+   "why": "The lesson states: 'In the visual interface, you see a line from Node A to Node B. In the JSON, you don’t see a line. You see a reference... It does not contain the data itself; it contains the address of where to get the data.'"
+  }
+ ]
+}

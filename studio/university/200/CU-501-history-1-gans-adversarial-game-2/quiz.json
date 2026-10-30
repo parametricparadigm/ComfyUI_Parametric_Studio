@@ -1,0 +1,59 @@
+{
+ "code": "CU-501",
+ "title": "History 1: GANs, the adversarial game (2014)",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the GAN framework described in the lesson, what is the specific goal of the Generator (G) during training?",
+   "options": [
+    "To minimize the probability of the Discriminator making a mistake",
+    "To maximize the probability of the Discriminator making a mistake",
+    "To ensure the Discriminator outputs 0 for all real data",
+    "To match the output of the Discriminator exactly to 1/2"
+   ],
+   "answer": "To maximize the probability of the Discriminator making a mistake",
+   "why": "The lesson states: 'The training procedure for G is to maximize the probability of D making a mistake.' It also notes that G wants D(G(z)) to be close to 1, meaning it wants the Discriminator to classify its fakes as real."
+  },
+  {
+   "q": "According to the lesson, what is the unique solution in the space of arbitrary functions for the GAN minimax objective?",
+   "options": [
+    "G recovers the training data distribution and D equals 1/2 everywhere",
+    "G outputs zero for all inputs and D equals 1 everywhere",
+    "G and D both converge to a single identical function",
+    "D becomes unable to process any input and G stops generating"
+   ],
+   "answer": "G recovers the training data distribution and D equals 1/2 everywhere",
+   "why": "The text explicitly states: 'In the space of arbitrary functions, a unique solution exists: G recovers the training data distribution, and D equals 1/2 everywhere.'"
+  },
+  {
+   "q": "Why is the Discriminator loss (loss_d) high (1.71936) in the provided lab results?",
+   "options": [
+    "Because the Generator produced perfect fake data",
+    "Because the Discriminator failed to classify real data as 1 and fake data as 0",
+    "Because the noise vector z was too large",
+    "Because the Binary Cross-Entropy function is inherently unstable"
+   ],
+   "answer": "Because the Discriminator failed to classify real data as 1 and fake data as 0",
+   "why": "The lesson explains that loss_d is high because 'the Discriminator is performing poorly on both tasks: it failed to classify the real data as 1 (it output 0.24) and failed to classify the fake data as 0 (it output 0.25).'"
+  },
+  {
+   "q": "Which specific component in the ComfyUI codebase utilizes a GAN-based architecture, and for what purpose?",
+   "options": [
+    "The main image sampler in comfy/k_diffusion for denoising",
+    "The LTXBaseModel for video generation",
+    "The Vocoder in comfy/ldm/lightricks for audio synthesis",
+    "The LatentSeqMMFlowModel for 3D reconstruction"
+   ],
+   "answer": "The Vocoder in comfy/ldm/lightricks for audio synthesis",
+   "why": "The lesson states: 'the comfy/ldm/lightricks folder contains a Vocoder based on HiFi-GAN. HiFi-GAN is a GAN-based neural vocoder used for audio synthesis.'"
+  },
+  {
+   "q": "In the lab results, d_fake (0.253844) is higher than d_real (0.24014). What does this indicate about the state of the untrained Discriminator?",
+   "options": [
+    null
+   ],
+   "answer": "It indicates that the Generator's output is currently 'more real-looking' to the untrained Discriminator than the actual real data point, highlighting the instability of early GAN training.",
+   "why": "The lesson explains: 'Here, it is higher than D(real), suggesting the Generator's output is currently \"more real-looking\" to the untrained Discriminator than the actual real data point. This highlights the instability of early GAN training.'"
+  }
+ ]
+}

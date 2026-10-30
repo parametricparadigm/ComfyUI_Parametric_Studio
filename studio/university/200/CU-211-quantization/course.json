@@ -1,0 +1,12 @@
+{
+ "title": "Quantization: int8, FP8, 4-bit and GGUF",
+ "level": "200",
+ "char": "bits",
+ "hook": "Trading bits for memory, and measuring what you lose.",
+ "code": "CU-211",
+ "prereq": [
+  "CU-210"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

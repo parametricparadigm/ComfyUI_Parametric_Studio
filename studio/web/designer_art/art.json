@@ -1,0 +1,364 @@
+[
+ {
+  "id": "tshirt",
+  "file": "designer_art/tshirt.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 12934,
+  "sha256": "25561fba4b78cbcf14535403d5a4547a41e26e3f64d483d4e96b71da1680f2ae",
+  "prompt": "Product photograph of the shirt hanging on a wooden hanger against a clean wall. a cream t-shirt with a small mountain sunrise print, classic crew-neck tee, garment colour: cream, ink: black, motif: mountain and pine silhouette, placement: centred on the chest, technique: screen print, fabric: soft ring-spun cotton, condition: freshly ironed. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "classic crew-neck tee",
+   "garment_colour": "cream",
+   "ink": "black",
+   "motif": "mountain and pine silhouette",
+   "placement": "centred on the chest",
+   "technique": "screen print",
+   "fabric": "soft ring-spun cotton",
+   "condition": "freshly ironed"
+  },
+  "view": "hanging on a wooden hanger",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 17.4,
+  "peak_vram_gib": 22.9,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "mug",
+  "file": "designer_art/mug.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 27576,
+  "sha256": "2e16f4fccc1980db176271bf93ea05592bf2e6399ba54780a369d5077f224c29",
+  "prompt": "Product photograph, three-quarter view of the mug with the handle on the right, soft studio light. a ceramic coffee mug with a hand-drawn leaf pattern, classic 11 oz ceramic mug, mug colour: sage green, finish: glossy glaze, handle: classic C handle, motif: botanical leaves and flowers, ink: cream, extra: steam rising from fresh coffee, condition: brand new. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "1:1",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "classic 11 oz ceramic mug",
+   "mug_colour": "sage green",
+   "finish": "glossy glaze",
+   "handle": "classic C handle",
+   "motif": "botanical leaves and flowers",
+   "ink": "cream",
+   "extra": "steam rising from fresh coffee",
+   "condition": "brand new"
+  },
+  "view": "handle on the right, three-quarter view",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 14.4,
+  "peak_vram_gib": 22.8,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "printify",
+  "file": "designer_art/printify.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 31138,
+  "sha256": "5f139c5e448ae46dae13e37e08c07e019e736e6178bd894949b6349b0fefc866",
+  "prompt": "Flat-lay print-on-demand mockup: the product with the design printed on it, on a plain surface seen from above. a canvas tote bag with a bold printed design, motif: retro sunburst rays, art style: retro 70s print, palette: earth tones, ink: cream. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "motif": "retro sunburst rays",
+   "art_style": "retro 70s print",
+   "palette": "earth tones",
+   "ink": "cream"
+  },
+  "view": "flat lay mockup",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 14.1,
+  "peak_vram_gib": 23.0,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "vehicle",
+  "file": "designer_art/vehicle.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 19304,
+  "sha256": "bc8c4175632a145ef0d212840c639a2f46135d607e18dcf6c7bf0d62faf91820",
+  "prompt": "Studio photograph from the front three-quarter angle on a seamless dark backdrop. a low mid-engine supercar, mid-engine supercar, style: sleek and aerodynamic, era: present day, paint: gunmetal grey, wheels: forged multi-spoke alloys, stance: lowered, aero: front splitter and rear diffuser, condition: showroom pristine. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "1:1",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "mid-engine supercar",
+   "style": "sleek and aerodynamic",
+   "era": "present day",
+   "paint": "gunmetal grey",
+   "wheels": "forged multi-spoke alloys",
+   "stance": "lowered",
+   "aero": "front splitter and rear diffuser",
+   "condition": "showroom pristine"
+  },
+  "view": "front three-quarter studio shot",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 15.1,
+  "peak_vram_gib": 22.9,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "setting",
+  "file": "designer_art/setting.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 29028,
+  "sha256": "c59ace03a534eb2c15d08d6fba40e85272c9a2ff02422115cb886b9e86db4e63",
+  "prompt": "Wide establishing photograph at eye level. a living room with a long low sofa and a view of the hills, style: mid-century modern, time: golden hour, light: soft natural window light, mood: cosy, palette: warm earth tones, detail: large windows, condition: lived-in. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "1:1",
+   "mode": "quality"
+  },
+  "choices": {
+   "style": "mid-century modern",
+   "time": "golden hour",
+   "light": "soft natural window light",
+   "mood": "cosy",
+   "palette": "warm earth tones",
+   "detail": "large windows",
+   "condition": "lived-in"
+  },
+  "view": "wide establishing shot, eye level",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 15.1,
+  "peak_vram_gib": 23.0,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "animal",
+  "file": "designer_art/animal.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 54556,
+  "sha256": "4d5764785c368cac9cfb18d0de6d6d5e6d642a66009e5d2a1f8579c2628bec20",
+  "prompt": "Wildlife-style portrait of snow leopard, pose: standing alert, ears or crest up, habitat: a rocky mountainside, light: golden-hour sun, camera: telephoto wildlife shot, realism: a sharp, photoreal photograph in its natural habitat, the surroundings part of the picture. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "snow leopard",
+   "pose": "standing alert, ears or crest up",
+   "habitat": "a rocky mountainside",
+   "light": "golden-hour sun",
+   "camera": "telephoto wildlife shot",
+   "realism": "a sharp, photoreal photograph"
+  },
+  "view": "in the wild, in its habitat",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 18.9,
+  "peak_vram_gib": 22.8,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "plant",
+  "file": "designer_art/plant.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 60592,
+  "sha256": "a302a5a378053fdb66b47864e83c2e0d557fb61a5f69d27895aadbda64e171c1",
+  "prompt": "Interior picture of monstera, container: terracotta pot, size: large floor plant, foliage: deep green, light: window light from the side, style: a sharp, photoreal photograph, condition: lush and thriving styled in a lived-in room, natural light. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "monstera",
+   "container": "terracotta pot",
+   "size": "large floor plant",
+   "foliage": "deep green",
+   "light": "window light from the side",
+   "style": "a sharp, photoreal photograph",
+   "condition": "lush and thriving"
+  },
+  "view": "in a room, styled",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 14.0,
+  "peak_vram_gib": 23.0,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "hair",
+  "file": "designer_art/hair.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 67914,
+  "sha256": "f5337c859edb37fc99da4e8624f6a985d18e2259d7e81af78ab4dc07e898dcd7",
+  "prompt": "Studio photograph, three-quarter view of the hairstyle on a smooth featureless mannequin head. beach waves, colour: copper, texture: loose waves, finish: glossy and sleek, length: mid-back. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "beach waves",
+   "colour": "copper",
+   "texture": "loose waves",
+   "finish": "glossy and sleek",
+   "length": "mid-back"
+  },
+  "view": "three-quarter view on a featureless mannequin head",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 14.1,
+  "peak_vram_gib": 22.7,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "nail",
+  "file": "designer_art/nail.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 18084,
+  "sha256": "5441450e9cc8ef138ca5ca7ecdeaa73f9a20b3a860ef6e117c8269d198c65f36",
+  "prompt": "Beauty photograph, top-down view of one adult hand with fingers together on a soft neutral background. soft pink to cream almond nails, shape: almond, length: medium, finish: glazed pearl, art: gradient fade, accent: scattered pearls, condition: freshly done salon-perfect. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "1:1",
+   "mode": "quality"
+  },
+  "choices": {
+   "shape": "almond",
+   "length": "medium",
+   "finish": "glazed pearl",
+   "art": "gradient fade",
+   "accent": "scattered pearls",
+   "condition": "freshly done salon-perfect"
+  },
+  "view": "top-down view of one hand, fingers together",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 17.2,
+  "peak_vram_gib": 23.0,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "furniture",
+  "file": "designer_art/furniture.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 68972,
+  "sha256": "d8f70f79a31e16702a04f8dac4fbf4595cc388aa38826fc2a44e4cc878f893ee",
+  "prompt": "Interior photograph of the piece in a styled living room, natural light. a leather lounge chair with a matching ottoman, lounge chair with ottoman, style: mid-century modern, material: walnut veneer, upholstery: smooth stretched, scale: standard size, condition: brand new in showroom condition. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "1:1",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "lounge chair with ottoman",
+   "style": "mid-century modern",
+   "material": "walnut veneer",
+   "upholstery": "smooth stretched",
+   "scale": "standard size",
+   "condition": "brand new in showroom condition"
+  },
+  "view": "in a styled living room",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 17.5,
+  "peak_vram_gib": 22.8,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "character",
+  "file": "designer_art/character.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 21604,
+  "sha256": "f423954a8115a3553f2a3263cbc4b80f22fb110359fdfca39e7466bcef293077",
+  "prompt": "Full-length photograph of a fictional adult, fully clothed, full body front view, standing naturally, plain light grey background. an original fantasy ranger character, age: adult, role: elven ranger, hair colour: copper, hair texture: loose waves, hair length: mid-back, eyes: green eyes, expression: neutral, outfit: trench coat, style: fantasy, colour: emerald green. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "age": "adult",
+   "role": "elven ranger",
+   "hair_colour": "copper",
+   "hair_texture": "loose waves",
+   "hair_length": "mid-back",
+   "eyes": "green eyes",
+   "expression": "neutral",
+   "outfit": "trench coat",
+   "style": "fantasy",
+   "colour": "emerald green"
+  },
+  "view": "full body, front",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 15.7,
+  "peak_vram_gib": 22.7,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "fashion",
+  "file": "designer_art/fashion.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 14550,
+  "sha256": "faf60ac1c5e7443b2bd30501af81222e2e9cdb870c46a7ecda2ba168402c7d2d",
+  "prompt": "Fashion photograph of the outfit worn by a fictional adult model, fully clothed, full body front view, standing naturally, plain studio backdrop. a tailored camel trench coat outfit, garment: trench coat, style: minimalist, colour: camel, fabric: wool, pattern: solid, palette: warm neutrals. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "garment": "trench coat",
+   "style": "minimalist",
+   "colour": "camel",
+   "fabric": "wool",
+   "pattern": "solid",
+   "palette": "warm neutrals"
+  },
+  "view": "on an adult model: full body front view, standing naturally",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 17.1,
+  "peak_vram_gib": 22.7,
+  "made": "2026-10-30"
+ },
+ {
+  "id": "cosplay",
+  "file": "designer_art/cosplay.webp",
+  "w": 640,
+  "h": 800,
+  "bytes": 53206,
+  "sha256": "3deb732aa7d9bcb77669b5dad9eb7f1327b1a1481c0d61764c08844b72fb4230",
+  "prompt": "Detailed concept-art painting of the costume. an original forest ranger costume, elven ranger, style: stylised and bold, colour: emerald and cream, material: leather and straps, armour: bracers and greaves, headwear: braided wig, props: bow and quiver, quality: convention-ready, hand-made detail. Original design: no real brand names, logos, badges or watermarks, and no readable text except the exact words given.",
+  "seed": 11,
+  "options": {
+   "aspect": "2:3",
+   "mode": "quality"
+  },
+  "choices": {
+   "kinds": "elven ranger",
+   "style": "stylised and bold",
+   "colour": "emerald and cream",
+   "material": "leather and straps",
+   "armour": "bracers and greaves",
+   "headwear": "braided wig",
+   "props": "bow and quiver",
+   "quality": "convention-ready, hand-made detail"
+  },
+  "view": "concept-art painting",
+  "model": "FLUX.2 Klein 4B (base, 20 steps), goal image, mode quality",
+  "seconds": 17.3,
+  "peak_vram_gib": 22.7,
+  "made": "2026-10-30"
+ }
+]

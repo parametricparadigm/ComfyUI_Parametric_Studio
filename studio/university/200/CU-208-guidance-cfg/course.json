@@ -1,0 +1,14 @@
+{
+ "code": "CU-208",
+ "title": "Guidance: CFG and what it really does",
+ "level": "200",
+ "prereq": [
+  "CU-205"
+ ],
+ "char": "denoise",
+ "hook": "One line of arithmetic, and it does not sample the distribution people usually say it does.",
+ "code_refs": [
+  "comfy/samplers.py:cfg_function",
+  "comfy/samplers.py:sampling_function"
+ ]
+}

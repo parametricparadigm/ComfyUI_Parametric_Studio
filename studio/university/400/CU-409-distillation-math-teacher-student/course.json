@@ -1,0 +1,12 @@
+{
+ "title": "Distillation math: teacher, student, consistency",
+ "level": "400",
+ "char": "tune",
+ "hook": "Learn how to compress a complex diffusion model into a fast, few-step generator by mastering the mathematical bridge between teacher guidance and student consis",
+ "code": "CU-409",
+ "prereq": [
+  "CU-308"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

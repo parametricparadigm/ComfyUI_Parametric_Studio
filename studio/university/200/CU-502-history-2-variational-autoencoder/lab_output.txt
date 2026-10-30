@@ -1,0 +1,6 @@
+RESULT recon_loss = 1.15127
+RESULT kl_loss = 0.0431453
+RESULT total_loss = 1.19441
+RESULT mu_shape = [8, 2]
+RESULT log_var_shape = [8, 2]
+RESULT x_recon_shape = [8, 10]

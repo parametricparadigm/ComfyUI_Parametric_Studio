@@ -1,0 +1,12 @@
+{
+ "title": "History 15: The size era: FP8, GGUF and 4-bit formats arrive",
+ "level": "300",
+ "char": "bits",
+ "hook": "Discover how quantization formats like FP8 and GGUF revolutionized local AI by shrinking model sizes without sacrificing too much quality.",
+ "code": "CU-515",
+ "prereq": [
+  "CU-211"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

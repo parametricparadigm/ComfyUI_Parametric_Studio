@@ -1,0 +1,62 @@
+{
+ "code": "CU-209",
+ "title": "Negative prompts and cfg 1.0",
+ "level": "200",
+ "questions": [
+  {
+   "q": "At cfg = 1, what does the negative prompt change?",
+   "options": [
+    "Nothing, it is not even evaluated",
+    "It removes the concept at half strength",
+    "It doubles the sampling time",
+    "It changes the seed"
+   ],
+   "answer": "Nothing, it is not even evaluated",
+   "why": "D = D_neg + (D_pos − D_neg) · 1 = D_pos, and sampling_function skips the run."
+  },
+  {
+   "q": "If positive and negative are the same text, a higher cfg",
+   "options": [
+    "Makes the image sharper",
+    "Burns the image",
+    "Changes nothing, because their difference is zero",
+    "Fails validation"
+   ],
+   "answer": "Changes nothing, because their difference is zero",
+   "why": "Guidance is the difference. The lab's third row equals its first to every digit."
+  },
+  {
+   "q": "A negative prompt is best described as",
+   "options": [
+    "A list the model subtracts from the image",
+    "What fills the second branch of the CFG formula",
+    "A filter applied after decoding",
+    "A LoRA"
+   ],
+   "answer": "What fills the second branch of the CFG formula",
+   "why": "There is no concept subtraction. It only changes which prediction the positive is compared with."
+  },
+  {
+   "q": "What is the side effect of a negative prompt shown in the lab?",
+   "options": [
+    "Samples get closer to the data",
+    "The fox class gains mass",
+    "All samples are pushed outward, not only those that would have been foxes",
+    "The seed stops working"
+   ],
+   "answer": "All samples are pushed outward, not only those that would have been foxes",
+   "why": "At cfg 3 the median distance goes from 3 to 12.39, although the data sits at 3."
+  },
+  {
+   "q": "Why might the same cfg feel stronger with a specific negative prompt?",
+   "options": [
+    "It uses more steps",
+    "The difference between the two predictions is larger",
+    "The VAE scales it",
+    "It disables the positive"
+   ],
+   "answer": "The difference between the two predictions is larger",
+   "why": "The lab: dog against any reaches 3.63, and dog against fox reaches 13.00, at the same cfg."
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "code": "CU-204",
+ "title": "Flow matching and rectified flow",
+ "level": "200",
+ "questions": [
+  {
+   "q": "For one fixed pair (x_0, ε), the velocity along the line is",
+   "options": [
+    "ε − x_0, constant in t",
+    "x_0 − ε scaled by t",
+    "Different at every t",
+    "Always zero at t = 0.5"
+   ],
+   "answer": "ε − x_0, constant in t",
+   "why": "Differentiate (1−t)x_0 + tε with respect to t."
+  },
+  {
+   "q": "What does a flow-matching network learn to output, given x_t and t?",
+   "options": [
+    "The velocity of the specific pair it came from",
+    "The average of ε − x_0 over all pairs passing through that point",
+    "The clean image only",
+    "The noise only"
+   ],
+   "answer": "The average of ε − x_0 over all pairs passing through that point",
+   "why": "It cannot see the pair, so least squares returns the conditional mean, u(x, t)."
+  },
+  {
+   "q": "Why is one Euler step not exact for a normal flow-matching model?",
+   "options": [
+    "Euler is not allowed on ODEs",
+    "Floating-point error dominates",
+    "The marginal field changes along the path, so the path curves",
+    "The noise is not Gaussian"
+   ],
+   "answer": "The marginal field changes along the path, so the path curves",
+   "why": "The lab measures an RMS velocity change of 2.61 along paths, and a one-step error of 1.67."
+  },
+  {
+   "q": "What does reflow train on?",
+   "options": [
+    "Independent data and noise pairs",
+    "Only the noise",
+    "Pairs of noise and the point its current ODE path lands on",
+    "Pairs of images"
+   ],
+   "answer": "Pairs of noise and the point its current ODE path lands on",
+   "why": "Liu et al. re-pair with the ODE's own map, then fly straight between those pairs."
+  },
+  {
+   "q": "What do Liu et al. prove about the rectified coupling?",
+   "options": [
+    "It does not increase convex transport costs",
+    "It is always the optimal transport map",
+    "It removes the need for an ODE",
+    "It doubles the sampling speed"
+   ],
+   "answer": "It does not increase convex transport costs",
+   "why": "Non-increasing cost in general. It coincides with the optimum only in special cases such as this 1-D lab."
+  }
+ ]
+}

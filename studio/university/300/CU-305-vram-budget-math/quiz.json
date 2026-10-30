@@ -1,0 +1,62 @@
+{
+ "code": "CU-305",
+ "title": "VRAM budget math: weights, activations, caches",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In the VRAM budget formula provided in the lesson, what is the value of the safety factor (S) used to account for fragmentation and overhead?",
+   "options": [
+    "1.0",
+    "1.2",
+    "1.5",
+    "2.0"
+   ],
+   "answer": "1.2",
+   "why": "The lesson explicitly states: 'In our lab, S = 1.2. This means we expect to use 20% more memory than the raw sum of weights, activations, and caches.'"
+  },
+  {
+   "q": "According to the lesson, what is the activation fraction (fa) used to estimate activation memory (A) relative to weight memory (W)?",
+   "options": [
+    "0.05",
+    "0.1",
+    "0.2",
+    "0.5"
+   ],
+   "answer": "0.1",
+   "why": "The text defines the activation memory formula as A = W × fa and states: 'In our lab, we set fa = 0.1 (10% of weight size).'"
+  },
+  {
+   "q": "Based on the lab results, why is a 12B model in BF16 precision considered too large for a 24GB GPU?",
+   "options": [
+    "The weight memory alone exceeds the available VRAM.",
+    "The total estimated VRAM usage is approximately 30.85 GB, which exceeds the ~20GB available after reserve.",
+    "The safety factor is too high for BF16 models.",
+    "BF16 requires more memory than FP32."
+   ],
+   "answer": "The total estimated VRAM usage is approximately 30.85 GB, which exceeds the ~20GB available after reserve.",
+   "why": "The lesson states: 'RESULT 12B_bf16 = 3.312e+10: This is approximately 30.85 GB. It proves that even BF16 is too large for a 24GB card...'"
+  },
+  {
+   "q": "Which class in ComfyUI is described as the 'gatekeeper' that tracks which weights are on the GPU and which are offloaded to CPU?",
+   "options": [
+    "LazyCastingParam",
+    "VRAMState",
+    "ModelPatcher",
+    "unet_dtype"
+   ],
+   "answer": "ModelPatcher",
+   "why": "The lesson states: 'The ModelPatcher class in comfy/model_patcher.py is the gatekeeper. It tracks which weights are on the GPU and which are offloaded to CPU.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, why might increasing the batch size break the VRAM budget even if the weights fit?",
+   "options": [
+    "Because weights are loaded in higher precision.",
+    "Because activations depend on batch size and increase linearly.",
+    "Because the safety factor increases with batch size.",
+    "Because KV caches are ignored."
+   ],
+   "answer": "Because activations depend on batch size and increase linearly.",
+   "why": "The lesson lists 'Assuming Activations are Constant' as a mistake, noting: 'in practice, increasing batch size will increase A linearly, potentially breaking your budget even if weights fit.'"
+  }
+ ]
+}

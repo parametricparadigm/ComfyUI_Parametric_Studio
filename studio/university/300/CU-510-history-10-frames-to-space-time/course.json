@@ -1,0 +1,12 @@
+{
+ "title": "History 10: From frames to space-time: the road to modern video models",
+ "level": "300",
+ "char": "frame",
+ "hook": "Discover how video generation evolved from static image sequences to coherent space-time volumes.",
+ "code": "CU-510",
+ "prereq": [
+  "CU-215"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

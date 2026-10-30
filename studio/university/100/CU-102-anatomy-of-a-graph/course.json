@@ -1,0 +1,10 @@
+{
+ "title": "Anatomy of a ComfyUI graph",
+ "level": "100",
+ "char": "graph",
+ "hook": "Nodes, typed wires, execution order and caching.",
+ "code": "CU-102",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

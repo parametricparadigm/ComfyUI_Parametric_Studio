@@ -1,0 +1,26 @@
+format  bits  mantissa  epsilon      largest      smallest normal
+fp32    32    23        1.1921e-07   3.4028e+38   1.1755e-38
+fp16    16    10        9.7656e-04   6.5504e+04   6.1035e-05
+bf16    16    7         7.8125e-03   3.3895e+38   1.1755e-38
+fp8     8     3         1.2500e-01   4.4800e+02   6.1035e-05   (e4m3fn, from its definition; torch has no compute type for it here)
+
+weight std 0.05, update std 1e-4: how much of the update survives when the sum is stored in each format
+fp32   captured share of the update 1.0000   RMS error of the update 1.26e-09
+fp16   captured share of the update 1.0000   RMS error of the update 1.46e-05
+bf16   captured share of the update 0.9983   RMS error of the update 1.01e-04
+fp8    captured share of the update 0.9830   RMS error of the update 5.18e-04
+
+start at 1.0 and add 0.0001 ten thousand times; the exact answer is 2.0
+fp32   2.00017
+fp16   1.00000
+bf16   1.00000
+bf16 with the sum done in fp32 first: 2.00000
+
+value 70000 stored as
+  fp32: 70000.0
+  fp16: inf
+  bf16: 70144.0
+fp16: 300^2 = inf   then normalising: [nan, 0.0]
+smallest fp16 value before underflow to zero: 0.0  bf16 keeps it: 1.001e-08
+
+memory for 1 billion parameters: fp32 3.7 GiB  fp16/bf16 1.9 GiB  fp8 0.9 GiB

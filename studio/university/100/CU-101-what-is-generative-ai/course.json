@@ -1,0 +1,9 @@
+{
+ "code": "CU-101",
+ "title": "What generative AI actually is",
+ "level": "100",
+ "prereq": [],
+ "char": "latent",
+ "hook": "Learn a distribution, then sample from it. Three models on one dataset show the difference between learning and memorising.",
+ "code_refs": []
+}

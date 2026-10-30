@@ -1,0 +1,30 @@
+{
+ "code": "CU-224",
+ "title": "The API: queue, watch, fetch",
+ "level": "200",
+ "prereq": [
+  "CU-109",
+  "CU-220"
+ ],
+ "char": "graph",
+ "hook": "Everything the page does, a script can do: POST a prompt, read events from a websocket, fetch the files.",
+ "code_refs": [
+  "server.py:post_prompt",
+  "server.py:/object_info",
+  "server.py:/history",
+  "server.py:/view",
+  "server.py:/interrupt",
+  "server.py:/free",
+  "server.py:/queue",
+  "server.py:/upload/image",
+  "server.py:/system_stats",
+  "server.py:/ws",
+  "execution.py:execution_start",
+  "execution.py:execution_cached",
+  "execution.py:executing",
+  "execution.py:execution_success",
+  "execution.py:execution_error",
+  "execution.py:execution_interrupted",
+  "script_examples/websockets_api_example.py:get_images"
+ ]
+}

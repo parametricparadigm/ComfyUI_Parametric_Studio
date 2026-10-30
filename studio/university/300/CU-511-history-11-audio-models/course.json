@@ -1,0 +1,12 @@
+{
+ "title": "History 11: Audio models: WaveNet to autoregressive music to diffusion music",
+ "level": "300",
+ "char": "sound",
+ "hook": "Trace the evolution of AI audio from sample-by-sample prediction to holistic diffusion synthesis.",
+ "code": "CU-511",
+ "prereq": [
+  "CU-216"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

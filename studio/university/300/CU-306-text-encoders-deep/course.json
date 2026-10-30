@@ -1,0 +1,12 @@
+{
+ "title": "Text encoders: CLIP, T5 and LLM encoders",
+ "level": "300",
+ "char": "attn",
+ "hook": "What each encoder gives the model and what it costs.",
+ "code": "CU-306",
+ "prereq": [
+  "CU-104"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

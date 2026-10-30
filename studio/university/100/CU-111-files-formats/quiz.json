@@ -1,0 +1,52 @@
+{
+ "code": "CU-111",
+ "title": "Files and formats: PNG metadata, MP4, WAV, safetensors",
+ "level": "100",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary function of the `_read_safetensors_header` function in `app/assets/services/metadata_extract.py`?",
+   "options": [
+    "It loads the entire 10GB model into memory to verify the weights.",
+    "It parses the JSON header without loading the weights.",
+    "It computes the BLAKE3 hash of the file content.",
+    "It injects the workflow_id into outgoing websocket messages."
+   ],
+   "answer": "It parses the JSON header without loading the weights.",
+   "why": "The lesson states under 'In ComfyUI' that `_read_safetensors_header` 'parses the safetensors JSON header without loading the weights' and calls this 'lightweight header' reading."
+  },
+  {
+   "q": "In the context of the lesson's 'shipping container' analogy, what does the 'Checksum' represent?",
+   "options": [
+    "The rigid steel frame of the container.",
+    "The flexible cargo hold containing the data.",
+    "The seal on the container that indicates if the cargo has been tampered with.",
+    "The manifest that lists the contents of the container."
+   ],
+   "answer": "The seal on the container that indicates if the cargo has been tampered with.",
+   "why": "The 'Intuition' section explicitly states: 'The Checksum: This is the seal on the container. If the seal is broken, the cargo might be tampered with.'"
+  },
+  {
+   "q": "What is the formula provided in the lesson for calculating the size of data in bytes?",
+   "options": null,
+   "answer": "size_bytes = numel * element_size",
+   "why": "The 'Under the hood' section defines the size calculation as: 'size_bytes = numel * element_size', where numel is the total number of elements and element_size is the bytes per element."
+  },
+  {
+   "q": "According to the lab output, what was the calculated `size_bytes` for the 4x4 float32 tensor, and how is this value derived?",
+   "options": null,
+   "answer": "64 bytes, derived from 4 * 4 elements * 4 bytes per float32.",
+   "why": "The lab output shows `RESULT size_bytes = 64`. The explanation states: '4 x 4 elements x 4 bytes per float32 = 64 bytes.'"
+  },
+  {
+   "q": "Which specific test file is mentioned in the lesson as validating how workflow metadata is injected into outgoing websocket messages?",
+   "options": [
+    "app/assets/services/hashing.py",
+    "tests-unit/server_test/test_ws_workflow_metadata.py",
+    "app/assets/services/ingest.py",
+    "app/assets/services/metadata_extract.py"
+   ],
+   "answer": "tests-unit/server_test/test_ws_workflow_metadata.py",
+   "why": "The 'In ComfyUI' section lists `tests-unit/server_test/test_ws_workflow_metadata.py` and states it 'validates how workflow metadata is injected into outgoing websocket messages.'"
+  }
+ ]
+}

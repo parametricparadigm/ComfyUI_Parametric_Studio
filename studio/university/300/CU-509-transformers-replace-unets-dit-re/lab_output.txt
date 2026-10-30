@@ -1,0 +1,5 @@
+RESULT start = 0 0
+RESULT end = 1 1
+RESULT velocity = 1 1
+RESULT midpoint = 0.5 0.5
+RESULT rectified_flow_verified = True

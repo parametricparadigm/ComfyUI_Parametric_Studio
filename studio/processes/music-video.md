@@ -1,0 +1,127 @@
+# Music video maker
+
+> From the author's earlier studio, cleaned for publication: private paths, ports and some lines were removed, so a step may read short and a screen it names may not exist here. Status in this studio: Untested.
+
+
+## How to use it
+1. Open **🎵 Music video** in the left rail (or Processes → Video → "Music video" → Open).
+2. **Song.** *Make one with Music 3*: pick the **genre** (18 families of the official caption-rewriter library, in its
+   router order) and the **subgenre** (645 official styles, plus the studio-authored dubstep set below; type to filter), then the **variation** when a style has several
+   templates (each shows its BPM, key and singer). Vocals or instrumental, the singer (as the card / female / male /
+   duet), the language (auto = the style's own idiom: Mandopop / C-Pop / Guofeng / Chinese → Mandarin, Cantopop →
+   Cantonese, J-Pop / J-Rock / City Pop → Japanese, else English), what the song and video are about, and the lyrics:
+   type them with `[verse]` / `[chorus]` tags, press **✍ Write lyrics** (the local content LLM, laid onto the
+   skeleton), or leave them empty and the run writes them. *Or use a song you have*: a library song, an uploaded file
+   or a studio audio result.
+3. **Length** (0:30 … 4:00), **character** (one saved sheet; two for a duet: singing shots alternate), **look**
+   (music video, cinematic, 35mm, VHS, noir, dramatic, dark, live / documentary, phone, action cam), **mix**
+   (performance / balanced / story = 70 / 50 / 30 % singing shots), **pace** (slow / medium / fast ≈ 6.5 / 4.5 / 3 s
+   shots before the section factor), **aspect** (16:9 = the B1 1344x768, 9:16, 4:5, 1:1), **quality** (draft = turbo
+   v4 4 steps; final = the full 20-step recipe, ~3x), **best of** (1-3 takes per singing shot), the performance set
+   (where they sing; empty = the treatment picks), microphone at the chest, and **pause for my OK** (on by default).
+4. **Show the plan** gives the shot count, GPU hours and wall time; **🎵 Make the music video** starts (over 1 GPU hour
+   asks first).
+5. At **review** the song plays, the analysis shows (BPM, sections, words heard) and the storyboard lists every shot:
+   time, section, kind, lens, the lyric words of the singing shots and the prompt (editable). **Approve** renders the
+   shots; **New song** makes the song again with a new seed; **Re-plan** cuts the storyboard again (pace / mix / look /
+   set / seed) on the same song.
+6. The run panel follows each shot (tries, identity, problems). Cancel / Resume are there; when it is done, **↻ Reroll**
+   renders one shot again with a new seed and re-joins. The video and its storyboard sheet play in the panel; both
+   are normal results (Download etc.), with a `.LICENSE.txt` next to the video.
+
+## The rules it follows (and where each comes from)
+| Step | Rule | Source |
+|---|---|---|
+| Song caption | The style's **official template** verbatim (the trained 3-block Global Metadata / Vocal Details / Arrangement format, the genre label in Basic Attributes); the lyrics language appended to the Vocal Style line; the singer line rewritten only when you pick a different singer; your theme as the scenario line | KB MINIMAX_MUSIC3.md (genre batch, rules 1/6; "Genre adherence": official caption + AR 3.0 = 94 % top-1) |
+| Instrumental | Rule 3: "No vocals. Purely instrumental." in the caption + the instrumental tag layout (never a lone `[Instrumental]`) | MINIMAX_MUSIC3.md rule 3; `music3_caption.py` |
+| Lyrics | The batch skeleton: ~6 s per sung line (26 lines for 3 min, 22 slow, 30 rap), every tag alone on its line, no numbered tags, no lines under intro / instrumental / outro, identical choruses; ≤ 2000 characters | MINIMAX_MUSIC3.md rules 2/4 + the genre batch |
+| Song length | The seconds chip = the next Music 3 ceiling ≥ target × 1.1 (a ceiling, not a target) | rule 2 |
+| Song QC | SHORT (< 60 % of the target), SILENCE (an internal gap ≥ 4 s at −45 dB), NO_VOCALS (< 10 words heard) → one new seed, then kept with its flags | the genre batch's QC |
+| Cuts | On downbeats; faster on chorus / drop, slower on intro / outro / bridge; a section change preferred as the cut; 2.0–7.8 s per shot | song_library analysis; H3 lens limits |
+| Story shots | H3 image → video (Ref2VA) with the look chip; their own sound replaced by the song (guided-style B-roll, lead 0) | same |
+| No chaining | Every shot renders from the same character sheet; never from the last frame of the one before | LONG_VIDEO_2026-10-12: identity fell ~0.06-0.1 per chained segment, under 0.45 after ~25 s |
+| Checks | Output guard; ArcFace to the headshot (bar 0.45, no face = not judged); black / blown frames; **no hard cut inside a shot**; a story shot must not open on its reference picture; reroll, keep the best and flag | long-video checks; the Wren gate's "no internal cut" |
+| Realism (default ON: b-roll wording always, the grain only under a minute; 2026-10-17) | Checkbox "Realism" (ticked by default; request field `realism` true / false, absent = the studio default): with the grain on, `finish` becomes `{interpolate, upscale, realism: true}` (a light camera grain as the last finishing step) and the b-roll shots (`h3:cinematic`) get `settings.realism = "on"` (camera-real wording); singing shots (`h3:lock`) have no preset, so no wording. Proxy-tested, not a guarantee | `studio/realism.py`, `musicvideo._shot_payload`, [realism-4k.md](realism-4k.md) |
+| Join | Frame-exact at 24 fps, one size, hard cuts on the planned beats, the song window under it, fades, two-pass loudnorm to −14 LUFS | song_library mix; LONG_VIDEO join |
+| Plan / estimate / confirm | GPU = lens × measured rate (H3 4-step ≈ 11 s per s; full ×3) × takes + 15 % rerolls + a cold load; + ~110 s job path per shot; confirm over 1 GPU h | LONG_VIDEO estimate; the long-video smoke's per-segment job time |
+| Robustness | JSON state after every step; a restart marks a live run interrupted (Resume carries on); Cancel stops the job in flight | the long-video / Recreate run pattern |
+
+## Not done / honest gaps
+- **Lip-sync r is not scored** (the Wren gate's ≥ 0.35 needs a lip scorer the studio does not have): check singing
+  shots by eye and reroll; best of 2-3 raises the odds (lip-sync follows the seed).
+- **Lyric timing** comes from Whisper on the full mix (pp's post transcribe step). Without it (service down) singing
+  shots have no line words: the lock still follows the audio.
+- **No location reference picture** on singing shots: the B1 recipe's 3 refs (location first) need a scene picture the
+  single-character lock path does not send; the performance set is described in words in every prompt.
+- **Duets** alternate the two characters per singing shot on the full mix (no stem separation: one audio, one mouth).
+  cocktail → lounge, …: 34 of 1,000 templates); the musical meaning is kept.
+- Music 3 needs a visible **"MiniMax-Music3"** attribution for commercial use (rule 7); every video gets a LICENSE note.
+
+## Files on disk
+- Run state: `a local folder` (+ `<run>.analysis.json`).
+- Song windows for the lock shots: the session workspace, `musicvideo/<run>/audio/`.
+- Song copy, final video, storyboard, LICENSE: `<H3 out>/moe_musicvideo/<run>/`.
+- Templates: the official skill folder (`a local folder`, or
+  `COMFY_MUSIC3_SKILL_DIR`); without it the caption is built from the card (thinner).
+- Rebuild the dropdown data after a skill update: `python tools/build_music3_styles.py`.
+
+## Dubstep and its variants (studio-authored styles, 2026-10-17)
+author request: "add dubstep and dubstep variants to the types of EDM that can be made". The official library has no plain dubstep
+(only `melodic-dubstep-electronic-pop` and `melodic-dubstep-future-bass`, plus `electronic-rock-dubstep` and
+`electronic-pop-melodic-dubstep` in other genres), so the studio adds its own, **without touching the official build**.
+
+- **Where they are.** Genre *Club, EDM, House & Trance* → type "dubstep" in the subgenre filter. 15 new subgenres, 42 variations
+  (cards), every label starting "Dubstep / ": Classic UK Dubstep (3), Deep Dubstep (2), Brostep (3), Riddim (3), Briddim (3), Liquid
+  Riddim (3), Tearout (3), Deathstep (3), Drumstep (2), Chillstep (3), Hybrid Trap (3; "trapstep" is its alias), Colour Bass / Melodic
+  Riddim (3), Post-Dubstep / UK Bass (2), Future Garage (3), Moombahcore (3).
+  Melodic dubstep and future bass stay official (not duplicated).
+- **Instrumental and vocal options.** Each style mixes *instrumental-led* variations (no lead singer: only processed vocal
+  fragments, chops, shouts or a chant; the variation list says "instrumental-led", pick **Instrumental** for none at all) with
+  sung or rapped ones (female breathy / soulful / pop, male gritty / soft / growled, a male rapper on hybrid trap). BPMs run from
+  128 (chillstep piano) to 174 (drumstep, written at the drum-and-bass number and felt half-time), written in the conventional
+  dubstep notation (140 felt as 70); each caption says the felt tempo in its groove line.
+- **Tempo as written versus felt (author decision 2026-10-17).** The studio keeps the sourced convention (140 BPM written, felt half-time as
+  70; drumstep 172-174, felt 86-87) and shows it: each variation reads "172 BPM (felt 86)" and the picker prints "Tempo: written 174 BPM,
+  felt half-time as 87 BPM" plus the note that the official melodic dubstep cards (171, unchanged) say it differently. Future garage,
+  post-dubstep and moombahcore are felt as written. A listening test compares them: [../research/dubstep-trial-2026-10-17.md](../research/dubstep-trial-2026-10-17.md).
+- **Search all genres.** The Music video maker and Song recreate pickers have a "Search all genres" box: a typed phrase matches a style's
+  label, id or alias in every genre and picking a result jumps to its genre (so "dubstep" also finds the official Electronic Rock /
+  Dubstep and Electronic Pop / Melodic Dubstep, which sit in other genres; "trapstep" finds Hybrid Trap). The Content Studio list is
+  already flat across genres.
+- **Instrumental default.** Picking an *instrumental-led* variation sets Vocals to Instrumental (Music video maker), Lyrics to
+  Instrumental (Song recreate) and, on the Music tab, a Music 3 prompt that opens with such a variant name starts on Instrumental while the
+  Vocals chip has not been picked; each stays switchable and a value you picked is kept. API requests that leave `vocals` /
+- **Marked everywhere.** The dropdown reads "(140 BPM, 3 variations, studio-authored, untested)", a note "Studio-authored recipe,
+  not an official Music 3 template, untested (nothing has been rendered from it yet)" shows under the pickers (Music video, Song
+  recreate and its batch, the Content Studio subgenre list adds the same suffix), in the plan ("caption from the studio-authored
+  recipe (untested)", `song.style_source: "studio"`, `song.proof: "recipe"`), in the run notes and in a recreate run's notes. Proof
+  level of every one: **recipe** (written from sources; not verified, not even load-tested). Style and card JSON carry
+  `source: "studio"`.
+- **How a card is built.** `tools/build_music3_styles_studio.py` writes `config/music3_styles_studio.json` (deterministic;
+  `--check` fails when the file is out of date): each card is a full caption in the same three blocks and sub-lines as the
+  official templates (Basic Attributes with BPM and key, Global Emotional Progression, Application Scenarios & Imagery, Sonics &
+  Production Profile; Vocal Gender & Timbre, Vocal Style, Harmony/Backing Vocals, Vocal FX; Instrument Lifecycle with Primary /
+  Secondary; Groove & Foundation Progression; Embellishments, Textures & Spatial FX) plus the official card fields (`bpm`, `key`,
+  `mood`, `vocal`, `palette`, `scene`, `language`, `gender`, `rap`, `slow`). The builder refuses a caption with a missing line,
+  an odd length or any name (a banned list of artists, labels and plugins plus a capitalised-word check): **no artist, band,
+  producer or track name appears in a caption**. `earlier_studio/studio/music3_studio.py` merges the file into the family when the
+  styles load (`COMFY_MUSIC3_NO_STUDIO=1` switches it off); an official id is never replaced and an unknown family is skipped.
+- **Captions use the existing machinery.** `musicvideo.build_caption` takes the card's own caption instead of reading a template
+  file (so it works without the skill folder), then applies the same singer / language / theme / instrumental changes and the
+  same guard-safe swaps. `slow: true` on drop-heavy vocal cards gives the shorter 22-line lyric skeleton (the drops carry about
+  half the runtime); the hybrid-trap rapper uses the 30-line rap skeleton.
+- **Evidence.** [../research/dubstep-styles-2026-10-17.md](../research/dubstep-styles-2026-10-17.md) (sources, per-variant table,
+  what is inference). **Honest limit: nothing has been rendered with Music 3 from these captions.** Whether it follows a
+  half-time feel, a wobble or a clean sub from text is unmeasured; judge by ear and report back.
+- Tests: `tests/studio/test_music3_studio.py` (supplement is what the builder makes, loader merge, official file and a fresh
+  official build unchanged, every caption's shape / no names / guard, plan and run readouts, recreate and batch, the Music tab
+  helper), `tests/chatbox/js/musicvideo_studio.test.mjs` (labels, notes, filter, cross-genre search, instrumental default, tempo lines),
+  `tests/chatbox/js/music_variants.test.mjs` (the Music tab default).
+
+## Design picks (2026-10-17)
+A saved setting replaces the performance set; hair, nails and a costume go in every shot (a costume replaces the outfit words); a vehicle, animal or plant goes in the story, vibe and B-roll shots but not the singing close-ups (the lip-sync recipe is untouched). Kit defaults for hair / nails / cosplay apply like the outfit's (`use_default_designs: false` turns them off). See [design-picks-everywhere.md](design-picks-everywhere.md).
+
+> Wan 2.2 (2026-10-17): Deliverables can render on Wan 2.2 ([wan22-deliverables.md](wan22-deliverables.md)), but the music video maker stays H3: it needs audio-locked sung shots and Wan 2.2 has no audio input.
+
+## Batch phases (2026-10-17, built, nothing timed on the GPU yet)
+Request field `batch_phases`: `"auto"` (default, nothing stored) | `"on"` | `"off"`; a **Batch phases** select sits beside the prompt-length select. Auto is on from 3 shots, so almost every music video is batched. On: the writer LLM writes **all** the shot prompts first (new stage `prepare`, status "Writing the shot prompts", before the review), the review shows the written prompts ("Prepared H3 prompt" under each shot), and after your OK the shots render back to back, each carrying its prompt (`pre_enhanced`, the writer is skipped, the prompt guard still reads the final prompt). The writer is dropped before the first render through the existing room logic. A shot whose prompt could not be written falls back to writing its own at render time (a note says so). Edit a shot at review and only that shot's prompt is written again; a reroll writes a fresh prompt for that shot only; re-plan discards the written prompts. The plan and the run header say the mode and the expected saving, labelled **estimate** (about 35 to 78 min for 48 shots). Off = the old run, request for request. Details, limits and the measurement protocol: [batch-phases.md](batch-phases.md).

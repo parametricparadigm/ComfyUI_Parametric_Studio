@@ -1,0 +1,4 @@
+Canonical JSON: {"nodes": [{"id": 1, "inputs": {"seed": 42}, "type": "KSampler"}]}
+SHA256 Digest: 86f3654f0c5a8273345cb81a9f9153150e6d86921949dfa912534db7e277c83e
+RESULT tensor_op = 2
+RESULT lab_complete = 1

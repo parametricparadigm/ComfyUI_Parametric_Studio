@@ -1,0 +1,52 @@
+{
+ "code": "CU-407",
+ "title": "Reading a generative-AI paper in 20 minutes",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary goal of reading a generative AI paper in 20 minutes?",
+   "options": [
+    "To memorize every equation and detail in the appendix",
+    "To develop spatial intuition to judge if a model is a solid structure or a mirage",
+    "To download and fine-tune the model immediately",
+    "To verify the standard deviations of all reported metrics"
+   ],
+   "answer": "To develop spatial intuition to judge if a model is a solid structure or a mirage",
+   "why": "The lesson states: 'Your goal in this 400-level course is not to memorize every equation, but to develop the spatial intuition to judge whether a new model is a solid structure or a mirage.'"
+  },
+  {
+   "q": "In the 'cake' analogy for reading a paper, what do the middle layers represent?",
+   "options": [
+    "The Abstract and Introduction",
+    "The Method and Results",
+    "The Appendix and References",
+    "The Conclusion and Future Work"
+   ],
+   "answer": "The Method and Results",
+   "why": "The lesson states: 'The middle layers are the Method and Results, which show you the recipe and the taste test.'"
+  },
+  {
+   "q": "What is the formula for calculating Relative Improvement ($\\Delta$) as defined in the lesson?",
+   "options": null,
+   "answer": "$\\Delta = (R - B) / B$",
+   "why": "The lesson explicitly defines the formula as: '$\\Delta = (R - B) / B$' where R is the reported metric and B is the baseline metric."
+  },
+  {
+   "q": "Based on the lab results, why did Model C's claim not survive scrutiny?",
+   "options": [
+    "The improvement was negative, indicating a performance drop",
+    "The relative improvement was approximately 0.7%, which is below the 2% noise threshold",
+    "The baseline metric was too weak to be a valid comparison",
+    "The paper did not report standard deviations for the F1 score"
+   ],
+   "answer": "The relative improvement was approximately 0.7%, which is below the 2% noise threshold",
+   "why": "The lab output for Model C shows a relative improvement of 0.00699308 (approx 0.7%). The lesson states: 'This is well below the 2% threshold. Therefore, this claim does not survive; it is likely within the noise of the measurement.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, why is comparing a new model to a weak baseline problematic?",
+   "options": null,
+   "answer": "It makes the improvement look larger than it is.",
+   "why": "The lesson lists 'Ignoring the Baseline' as a common mistake and explains: 'Comparing a new model to a weak baseline makes the improvement look larger than it is.'"
+  }
+ ]
+}

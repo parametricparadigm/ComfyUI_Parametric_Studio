@@ -1,0 +1,3 @@
+RESULT mean_temporal_diff = 1
+RESULT diff_0_1 = [1.0, 1.0]
+RESULT diff_1_2 = [1.0, 1.0]

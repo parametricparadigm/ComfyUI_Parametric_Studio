@@ -1,0 +1,2 @@
+RESULT hard_blend = [100.0, 200.0, 30.0, 40.0]
+RESULT feathered_blend = [100.0, 110.0, 165.0, 40.0]

@@ -1,0 +1,62 @@
+{
+ "code": "CU-304",
+ "title": "Why attention is O(n^2) and how Flash/Sage fix the memory",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary memory bottleneck in standard attention for long sequences?",
+   "options": [
+    "The storage of the Q, K, and V matrices",
+    "The storage of the n x n score matrix S",
+    "The convolutional layers",
+    "The output matrix O"
+   ],
+   "answer": "The storage of the n x n score matrix S",
+   "why": "The lesson states that 'the memory footprint is O(n^2)' and 'this n x n matrix becomes the dominant memory consumer' because it must be stored in HBM before softmax."
+  },
+  {
+   "q": "In the lab results, what was the peak memory usage for the attention scores when using a tile size of 256 for a 64k sequence?",
+   "options": [
+    "2 MB",
+    "32 MB",
+    "8192 MB",
+    "50 MB"
+   ],
+   "answer": "32 MB",
+   "why": "The lab result `RESULT tiled_mem_64k_mb = 32` explicitly states that using a tile size of 256 reduces peak memory usage to 32 MB."
+  },
+  {
+   "q": "How does Sage/Quantized Attention (specifically `attention_comfy_kitchen_int8`) improve performance in ComfyUI?",
+   "options": [
+    "By reducing the sequence length n",
+    "By changing the mathematical formula of softmax",
+    "By reducing the precision of Q, K, V from fp16 to int8, halving memory bandwidth requirements",
+    "By removing the need for the V matrix"
+   ],
+   "answer": "By reducing the precision of Q, K, V from fp16 to int8, halving memory bandwidth requirements",
+   "why": "The lesson explains that this method 'reduces the precision of Q, K, V from fp16 to int8. This halves the memory bandwidth requirement and allows more tiles to fit in SRAM'."
+  },
+  {
+   "q": "What is the function of `optimized_attention_for_device` in ComfyUI?",
+   "options": [
+    "It manually forces the use of `attention_basic` for all models",
+    "It selects the best attention backend based on available hardware and libraries",
+    "It calculates the exact memory footprint of the n x n matrix",
+    "It implements the convolutional layers for SDXL"
+   ],
+   "answer": "It selects the best attention backend based on available hardware and libraries",
+   "why": "The lesson states that `optimized_attention_for_device` 'selects the best backend based on your hardware. It checks for available libraries and registers them'."
+  },
+  {
+   "q": "Why is FlashAttention described as 'IO-aware'?",
+   "options": [
+    "It optimizes for data movement by keeping computation on on-chip SRAM and avoiding storing the full n x n matrix in HBM",
+    "It uses integer arithmetic instead of floating-point",
+    "It reduces the number of tokens in the sequence",
+    "It parallelizes the convolutional layers"
+   ],
+   "answer": "It optimizes for data movement by keeping computation on on-chip SRAM and avoiding storing the full n x n matrix in HBM",
+   "why": "The lesson defines IO-awareness as optimizing for data movement, noting that FlashAttention 'never form[s] the full n x n matrix in HBM' and keeps computation on 'fast, small on-chip SRAM'."
+  }
+ ]
+}

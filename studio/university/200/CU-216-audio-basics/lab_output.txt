@@ -1,0 +1,4 @@
+RESULT peak_freq_1 = 430.664
+RESULT peak_freq_2 = 861.328
+RESULT aliased_freq = 1992.19
+RESULT nyquist_limit = 5000

@@ -1,0 +1,37 @@
+10 steps, first six sigmas and the smallest non-zero one
+normal        14.615   7.840   4.609   2.918   1.950   1.345  ... 0.029
+simple        14.615   8.303   5.088   3.321   2.276   1.613  ... 0.342
+sgm_uniform   14.615   8.307   5.092   3.325   2.280   1.616  ... 0.344
+karras        14.615   9.103   5.478   3.169   1.749   0.914  ... 0.029
+exponential   14.615   7.325   3.671   1.840   0.922   0.462  ... 0.029
+kl_optimal    14.615   4.232   2.394   1.597   1.133   0.815  ... 0.029
+beta          14.615  11.543   7.372   4.373   2.615   1.618  ... 0.199
+
+RMS error against a 6000-step reference
+schedule       euler@10   euler@20   dpm2m@10   dpm2m@20
+normal         0.12316   0.06500   0.23396   0.07024
+simple         0.12088   0.06954   0.08455   0.05181
+sgm_uniform    0.12118   0.06996   0.08504   0.05251
+karras         0.15176   0.07800   0.05459   0.01037
+exponential    0.15635   0.08059   0.03931   0.00898
+kl_optimal     0.10740   0.05393   0.06005   0.01579
+beta           0.12001   0.06399   0.04828   0.01567
+
+flow schedule, 8 steps, sigma = shift(linspace(1, 0))
+shift 1.0  1.000  0.875  0.750  0.625  0.500  0.375  0.250  0.125
+shift 1.5  1.000  0.913  0.818  0.714  0.600  0.474  0.333  0.176
+shift 3.0  1.000  0.955  0.900  0.833  0.750  0.643  0.500  0.300
+shift 6.0  1.000  0.977  0.947  0.909  0.857  0.783  0.667  0.462
+
+Euler RMS error on this 1-D toy, against a reference
+steps  shift=1.0  shift=1.5  shift=3.0  shift=6.0
+4      0.25871    0.26221    0.37637    0.60039  
+8      0.14107    0.14446    0.18287    0.30681  
+16     0.07621    0.07792    0.09929    0.15182  
+32     0.03989    0.04084    0.05266    0.08165  
+
+FLUX mu = base + (max-base) * (tokens-256)/(4096-256), with base_shift 0.5, max_shift 1.15, exp(mu) is the effective shift
+  512 px   1024 tokens  mu=0.630  exp(mu)=1.878
+  768 px   2304 tokens  mu=0.847  exp(mu)=2.332
+ 1024 px   4096 tokens  mu=1.150  exp(mu)=3.158
+ 1536 px   9216 tokens  mu=2.017  exp(mu)=7.513

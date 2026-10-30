@@ -1,0 +1,52 @@
+{
+ "code": "CU-316",
+ "title": "Video VAEs and receptive fields",
+ "level": "300",
+ "questions": [
+  {
+   "q": "According to the lesson, what is the primary consequence if a video VAE's receptive field is too small?",
+   "options": [
+    "The model will struggle to localize fine details, leading to blurring.",
+    "The latent space becomes 'myopic,' seeing local textures but missing global motion.",
+    "The decoder will fail to reconstruct the first frame of the video.",
+    "The temporal stride will automatically increase to compensate."
+   ],
+   "answer": "The latent space becomes 'myopic,' seeing local textures but missing global motion.",
+   "why": "The lesson states: 'If the RF is too small, the latent space is \"myopic.\" It sees local textures but misses global motion.'"
+  },
+  {
+   "q": "In the context of video VAEs, what is the specific function of the `CausalConv3d` class?",
+   "options": [
+    "It ensures the temporal receptive field is causal, looking only at past and present frames, not future ones.",
+    "It compresses the spatial dimensions (Height and Width) more aggressively than the temporal dimension.",
+    "It allows the model to look into future frames to improve prediction accuracy.",
+    "It replaces the standard ResnetBlock3D to reduce computational cost."
+   ],
+   "answer": "It ensures the temporal receptive field is causal, looking only at past and present frames, not future ones.",
+   "why": "The lesson explains: 'The CausalConv3d ensures that the temporal receptive field is causal (looking only at past and present frames, not future ones), which is crucial for real-time or autoregressive generation.'"
+  },
+  {
+   "q": "Using the formula provided in the lesson, calculate the total receptive field ($RF_{total}$) for a stack of 2 layers where the kernel size is 3, dilation is 1, and stride is 2.",
+   "options": null,
+   "answer": "7",
+   "why": "The lesson provides the formula $RF_{total} = 1 + \\sum (kernel\\_size - 1) \\times dilation \\times (s^i)$. For 2 layers: $1 + (2*1*2^0) + (2*1*2^1) = 1 + 2 + 4 = 7$. This is also confirmed in the Lab section: 'RESULT total_rf_2_layers = 7'."
+  },
+  {
+   "q": "Why is it a common mistake to assume that adding one more convolutional layer only adds a few pixels to the receptive field?",
+   "options": [
+    "Because the receptive field grows linearly with depth, not exponentially.",
+    "Because the receptive field grows exponentially with depth if strides are greater than 1.",
+    "Because the kernel size decreases as the network gets deeper.",
+    "Because dilation is always set to 0 in deep networks."
+   ],
+   "answer": "Because the receptive field grows exponentially with depth if strides are greater than 1.",
+   "why": "The 'Common mistakes' section states: 'Assuming Linear Growth: The receptive field grows exponentially with depth if strides are greater than 1... In reality, with stride 2, each new layer doubles the effective reach of the previous layers.'"
+  },
+  {
+   "q": "In the Lab section, what does the fact that `center_pixel_1` and `center_pixel_2` have identical values (0.726815) prove about the receptive field?",
+   "options": null,
+   "answer": "It proves that the receptive field is isolated; changes outside the receptive field do not influence the center output pixel.",
+   "why": "The Lab section explains: 'The fact that the values are identical proves that the receptive field is isolated; changes outside the RF do not influence the center output pixel.'"
+  }
+ ]
+}

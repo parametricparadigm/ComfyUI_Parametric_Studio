@@ -1,0 +1,52 @@
+{
+ "code": "CU-405",
+ "title": "Agents on ComfyUI: tools, verification, side-effect safety",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, what are the three specific checks performed by the verification function Verify(G) to ensure a graph is structurally sound?",
+   "options": null,
+   "answer": "Type Validity, Input Completeness, and Link Integrity (plus Acyclicity).",
+   "why": "The 'Under the hood' section lists four checks: 1. Type Validity, 2. Input Completeness, 3. Link Integrity, and 4. Acyclicity. The question asks for the checks, and these are the explicit components of the verification function."
+  },
+  {
+   "q": "In the context of the lesson's nautical chart analogy, what does 'Provisioning' refer to?",
+   "options": [
+    "Checking if the route loops back on itself",
+    "Ensuring every node has its required inputs present",
+    "Verifying that all node class_types exist in the specification",
+    "Ensuring the main UI thread is not blocked"
+   ],
+   "answer": "Ensuring every node has its required inputs present",
+   "why": "The 'The intuition' section states: '2. Provisioning: Does every ship (node) have the supplies it needs? (Are all required_inputs present?)'"
+  },
+  {
+   "q": "Which function in the `script_examples` folder is used to fetch execution history and metadata to verify that the execution state matches expectations?",
+   "options": [
+    "queue_prompt(prompt, prompt_id)",
+    "get_image(filename, subfolder, folder_type)",
+    "get_history(prompt_id)",
+    "AsyncToSyncConverter"
+   ],
+   "answer": "get_history(prompt_id)",
+   "why": "The 'In ComfyUI' section states: 'The get_history(prompt_id) function fetches the execution history and metadata, which is essential for verifying that the execution state matches our expectations.'"
+  },
+  {
+   "q": "Why is the verification process described as 'static analysis' rather than execution?",
+   "options": null,
+   "answer": "It does not execute the nodes; it only inspects the structure to ensure the graph is sound before acting.",
+   "why": "The 'Under the hood' section explicitly states: 'This is a static analysis. It does not execute the nodes; it only inspects the structure. This is crucial for safety: we verify before we act.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what is a key limitation of the verifier regarding the execution order of nodes?",
+   "options": [
+    "It automatically sorts the nodes in topological order for execution.",
+    "It ensures there are no cycles but does not sort the nodes, requiring a separate topological sort for execution.",
+    "It executes the nodes in the order they are defined in the JSON.",
+    "It prevents all runtime errors by simulating the execution."
+   ],
+   "answer": "It ensures there are no cycles but does not sort the nodes, requiring a separate topological sort for execution.",
+   "why": "The 'Common mistakes' section, point 3, states: 'The verifier ensures there are no cycles, but it does not sort the nodes. When you execute the graph, you must still perform a topological sort to determine the execution order.'"
+  }
+ ]
+}

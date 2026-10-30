@@ -1,0 +1,62 @@
+{
+ "code": "CU-301",
+ "title": "Attention from scratch",
+ "level": "300",
+ "questions": [
+  {
+   "q": "Why divide by √d?",
+   "options": [
+    "To save memory",
+    "q·k has variance d, and large products saturate the softmax",
+    "To make the output smaller",
+    "It is required by the VAE"
+   ],
+   "answer": "q·k has variance d, and large products saturate the softmax",
+   "why": "Vaswani et al. make this argument, and the lab measures variance 4113.6 at d = 4096."
+  },
+  {
+   "q": "In the Stable Diffusion U-Net's cross-attention, where do Q, K and V come from?",
+   "options": [
+    "Q from the latent, K and V from the text",
+    "All three from the text",
+    "All three from the latent",
+    "Q from the text, K and V from the latent"
+   ],
+   "answer": "Q from the latent, K and V from the text",
+   "why": "The output has one row per latent patch, as the lab's shapes show."
+  },
+  {
+   "q": "What happens if you shuffle tokens before self-attention?",
+   "options": [
+    "The output is unchanged",
+    "The output is shuffled the same way, as attention has no idea of order",
+    "The output becomes noise",
+    "It raises an error"
+   ],
+   "answer": "The output is shuffled the same way, as attention has no idea of order",
+   "why": "Permutation equivariance, measured at 9.5e-07. Hence positional encodings."
+  },
+  {
+   "q": "Doubling image side length multiplies self-attention pairs by",
+   "options": [
+    "2",
+    "4",
+    "16",
+    "32"
+   ],
+   "answer": "16",
+   "why": "Tokens grow with area, by 4, and pairs grow with the square of tokens, by 16."
+  },
+  {
+   "q": "What does the weight matrix in cross-attention show?",
+   "options": [
+    "How much each image patch draws from each word",
+    "The final image",
+    "The noise schedule",
+    "The model's size"
+   ],
+   "answer": "How much each image patch draws from each word",
+   "why": "Rows are patches and columns are words, in shape (1, 64, 4)."
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "code": "CU-313",
+ "title": "Mixture of experts routing",
+ "level": "300",
+ "questions": [
+  {
+   "q": "In the Mixture of Experts (MoE) architecture, what is the primary benefit of using conditional computation with a fixed number of selected experts (e.g., k=2 or k=4)?",
+   "options": [
+    "It allows the total number of parameters to grow while keeping the compute per token constant.",
+    "It ensures that every token is processed by all experts to maximize accuracy.",
+    "It eliminates the need for a gate mechanism by using random selection.",
+    "It reduces the hidden dimension d to speed up the linear projection."
+   ],
+   "answer": "It allows the total number of parameters to grow while keeping the compute per token constant.",
+   "why": "The lesson states: 'The total number of parameters in the model grows because we have more doctors, but the compute per token remains constant because each patient still only sees a fixed number of specialists'."
+  },
+  {
+   "q": "Why is the normalization term (dividing by the sum of selected probabilities) critical in the final output calculation of the MoE gate?",
+   "options": [
+    "It ensures the weights of the selected experts sum to 1, preserving the scale of the representation and preventing vanishing or exploding gradients.",
+    "It converts the raw logits into a probability distribution before Top-K selection.",
+    "It penalizes the gate if it routes too many tokens to a single expert.",
+    "It ensures that the Top-K selection is differentiable during the backward pass."
+   ],
+   "answer": "It ensures the weights of the selected experts sum to 1, preserving the scale of the representation and preventing vanishing or exploding gradients.",
+   "why": "The lesson explains: 'The normalization term... ensures that the weights of the selected experts sum to 1, preserving the scale of the representation. This is critical for training stability. Without it... leading to vanishing or exploding gradients.'"
+  },
+  {
+   "q": "In the ComfyUI implementation for Hunyuan 3D v2.1, what is the specific function of the `AddAuxLoss` custom autograd function?",
+   "options": [
+    "It computes the softmax probabilities for the gate logits.",
+    "It performs the Top-K selection of experts for each token.",
+    "It injects auxiliary losses during the backward pass to ensure load-balancing regularization is backpropagated through the non-differentiable Top-K selection.",
+    "It handles the inference logic for the `MOEFeedForwardSwiGLU` layer."
+   ],
+   "answer": "It injects auxiliary losses during the backward pass to ensure load-balancing regularization is backpropagated through the non-differentiable Top-K selection.",
+   "why": "The lesson states: 'A crucial component here is `AddAuxLoss`, a custom autograd function designed to inject auxiliary losses during the backward pass. This ensures that the regularization losses required to keep the expert load balanced are correctly backpropagated through the non-differentiable Top-K selection process.'"
+  },
+  {
+   "q": "According to the 'Common mistakes' section, what is the consequence of implementing a gate without an auxiliary load-balancing loss?",
+   "options": [
+    "The model will fail to converge due to exploding gradients.",
+    "The model will quickly learn to route all tokens to a single 'best' expert, defeating the purpose of MoE.",
+    "The Top-K selection will become random, resulting in no specialization.",
+    "The compute per token will increase proportionally to the number of experts."
+   ],
+   "answer": "The model will quickly learn to route all tokens to a single 'best' expert, defeating the purpose of MoE.",
+   "why": "The lesson lists under Common Mistakes: 'If you implement a gate without an auxiliary loss, the model will quickly learn to route all tokens to a single \"best\" expert. This defeats the purpose of MoE...'"
+  },
+  {
+   "q": "In the provided lab simulation, what does the fact that expert 1 was selected in three out of four cases indicate about the routing, and how would this be addressed in a real training scenario?",
+   "options": null,
+   "answer": "It indicates a potential load imbalance, which would be corrected by the auxiliary loss in a real training scenario.",
+   "why": "The lesson's analysis of the lab output states: 'Notice that expert 1 is selected in three out of four cases. This indicates a potential load imbalance, which in a real training scenario would be corrected by the auxiliary loss.'"
+  }
+ ]
+}

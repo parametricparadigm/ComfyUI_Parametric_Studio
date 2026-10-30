@@ -1,0 +1,12 @@
+{
+ "title": "History 4: StyleGAN and style modulation",
+ "level": "300",
+ "char": "latent",
+ "hook": "Discover how StyleGAN decouples content from style to achieve fine-grained control over generated images.",
+ "code": "CU-504",
+ "prereq": [
+  "CU-501"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

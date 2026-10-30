@@ -1,0 +1,16 @@
+{
+ "code": "CU-202",
+ "title": "Diffusion from first principles",
+ "level": "200",
+ "prereq": [
+  "CU-101",
+  "CU-105"
+ ],
+ "char": "denoise",
+ "hook": "Destroy data with noise on purpose, learn to undo one step, and train a real model on a CPU.",
+ "code_refs": [
+  "comfy/model_sampling.py:ModelSamplingDiscrete",
+  "comfy/model_sampling.py:EPS",
+  "comfy/ldm/modules/diffusionmodules/util.py:make_beta_schedule"
+ ]
+}

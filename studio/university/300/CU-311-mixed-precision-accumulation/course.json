@@ -1,0 +1,12 @@
+{
+ "title": "Mixed precision: where accumulation hides",
+ "level": "300",
+ "char": "bits",
+ "hook": "Discover why your gradients vanish or explode when mixing float16 and float32, and how ComfyUI's scheduler hides the accumulation trap.",
+ "code": "CU-311",
+ "prereq": [
+  "CU-210"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

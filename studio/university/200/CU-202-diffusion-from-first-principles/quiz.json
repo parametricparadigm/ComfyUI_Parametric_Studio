@@ -1,0 +1,62 @@
+{
+ "code": "CU-202",
+ "title": "Diffusion from first principles",
+ "level": "200",
+ "questions": [
+  {
+   "q": "What does the closed form of the forward process let you do during training?",
+   "options": [
+    "Skip the noise schedule entirely",
+    "Jump to any noise level in one step without simulating the chain",
+    "Train without any noise",
+    "Avoid using a neural network"
+   ],
+   "answer": "Jump to any noise level in one step without simulating the chain",
+   "why": "x_t = √ᾱ_t x_0 + √(1−ᾱ_t) ε samples any level directly. The lab confirms it matches the 1000-step chain."
+  },
+  {
+   "q": "In L_simple, what is the training target?",
+   "options": [
+    "The clean image x_0",
+    "The next noise level",
+    "The noise ε that was added",
+    "The schedule value β_t"
+   ],
+   "answer": "The noise ε that was added",
+   "why": "Ho et al. 2020 eq. 14 regresses ε_θ on the ε used to make x_t."
+  },
+  {
+   "q": "For SD 1.x, what does sigma_max = 14.61 mean?",
+   "options": [
+    "At the last step the sample equals x_0 plus noise of standard deviation 14.61, in the rescaled picture",
+    "The latent values are clipped at 14.61",
+    "The sampler takes 14.61 steps",
+    "CFG is limited to 14.61"
+   ],
+   "answer": "At the last step the sample equals x_0 plus noise of standard deviation 14.61, in the rescaled picture",
+   "why": "σ = √((1−ᾱ)/ᾱ), the noise level after dividing by √ᾱ_t."
+  },
+  {
+   "q": "Is the final step of the SD 1.x schedule pure noise?",
+   "options": [
+    "Yes, exactly",
+    "No, about 0.068 of the signal survives",
+    "Only when CFG is above 1",
+    "Only for 1000 steps"
+   ],
+   "answer": "No, about 0.068 of the signal survives",
+   "why": "Lin et al. 2023 give x_T = 0.068265 x_0 + 0.997667 ε, which is SNR 0.0047 and matches the lab."
+  },
+  {
+   "q": "Why is L_simple not simply the \"correct\" objective?",
+   "options": [
+    "It needs a classifier",
+    "It cannot be computed on a GPU",
+    "It drops the weights of the variational bound, and that choice is empirical",
+    "It only works for images"
+   ],
+   "answer": "It drops the weights of the variational bound, and that choice is empirical",
+   "why": "Ho et al. describe it as a weighted variational bound. They chose it because samples were better."
+  }
+ ]
+}

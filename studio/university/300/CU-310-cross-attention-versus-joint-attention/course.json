@@ -1,0 +1,12 @@
+{
+ "title": "Cross-attention versus joint attention",
+ "level": "300",
+ "char": "attn",
+ "hook": "Discover how ComfyUI's attention mechanisms differ by exploring the mathematical distinction between conditioning on external prompts and self-attending within ",
+ "code": "CU-310",
+ "prereq": [
+  "CU-301"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

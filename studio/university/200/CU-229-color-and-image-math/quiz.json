@@ -1,0 +1,52 @@
+{
+ "code": "CU-229",
+ "title": "Color spaces, gamma and image math",
+ "level": "200",
+ "questions": [
+  {
+   "q": "According to the lesson, why does averaging two sRGB values result in a blend that looks darker than it should be?",
+   "options": [
+    "Because sRGB expands the shadows and compresses the highlights.",
+    "Because sRGB is a perceptual curve that compresses the upper range, so the linear midpoint is higher on the sRGB scale than 0.5.",
+    "Because the linear segment near zero prevents numerical instability.",
+    "Because floating-point precision errors accumulate during the conversion process."
+   ],
+   "answer": "Because sRGB is a perceptual curve that compresses the upper range, so the linear midpoint is higher on the sRGB scale than 0.5.",
+   "why": "The 'Intuition' section explains that the sRGB curve compresses the upper range, meaning the 'midpoint' of light intensity is actually higher on the sRGB scale than 0.5. Ignoring this leads to the 'gamma trap' where blends look darker."
+  },
+  {
+   "q": "What is the exact result value reported in the lab for blending black (0.0) and white (1.0) 50/50 in linear space and then converting back to sRGB?",
+   "options": null,
+   "answer": "0.735357",
+   "why": "The 'Lab' section explicitly states: `RESULT blend_linear_to_srgb = 0.735357`."
+  },
+  {
+   "q": "In the sRGB to Linear conversion formula, what is the condition for using the linear segment $x = y / 12.92$?",
+   "options": [
+    "If $y \\le 0.0031308$",
+    "If $y > 0.04045$",
+    "If $y \\le 0.04045$",
+    "If $x > 0.0031308$"
+   ],
+   "answer": "If $y \\le 0.04045$",
+   "why": "The 'Under the hood' section defines the sRGB to Linear conversion: 'If $y \\le 0.04045$, then $x = y / 12.92$.'"
+  },
+  {
+   "q": "What is the maximum error reported in the lab for the roundtrip conversion between sRGB and linear light?",
+   "options": null,
+   "answer": "5.96046e-08",
+   "why": "The 'Lab' section lists the output line: `RESULT roundtrip_max_error = 5.96046e-08`."
+  },
+  {
+   "q": "According to the 'Common mistakes' section, why is using a simple power law ($x^{2.4}$) for all values incorrect for sRGB conversion?",
+   "options": [
+    "It causes the highlights to be compressed too much.",
+    "It ignores the linear segment near zero, which is required for accuracy in shadows.",
+    "It results in a maximum error greater than $10^{-7}$.",
+    "It makes the blends look brighter than they should be."
+   ],
+   "answer": "It ignores the linear segment near zero, which is required for accuracy in shadows.",
+   "why": "Common mistake #2 states: 'Some implementations use a simple power law ($x^{2.4}$) for all values. This is incorrect for sRGB. The piecewise function with the linear segment near zero is required for accuracy, especially in shadows.'"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "title": "History 5: CLIP and contrastive learning",
+ "level": "200",
+ "char": "attn",
+ "hook": "Discover how CLIP learns to match images and text by maximizing the similarity of correct pairs while pushing incorrect ones apart.",
+ "code": "CU-505",
+ "prereq": [],
+ "status": "draft",
+ "code_refs": []
+}

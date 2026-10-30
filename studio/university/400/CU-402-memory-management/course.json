@@ -1,0 +1,30 @@
+{
+ "code": "CU-402",
+ "title": "Memory management: who gets the GPU",
+ "level": "400",
+ "prereq": [
+  "CU-220"
+ ],
+ "char": "bits",
+ "hook": "Before each sampler run, ComfyUI budgets VRAM and evicts what it must. Replay the arithmetic and read your own logs.",
+ "code_refs": [
+  "comfy/model_management.py:load_models_gpu",
+  "comfy/model_management.py:free_memory",
+  "comfy/model_management.py:minimum_inference_memory",
+  "comfy/model_management.py:EXTRA_RESERVED_VRAM",
+  "comfy/model_management.py:class LoadedModel",
+  "comfy/model_management.py:class VRAMState",
+  "comfy/model_management.py:unload_all_models",
+  "comfy/model_patcher.py:partially_load",
+  "comfy/model_patcher.py:partially_unload",
+  "comfy/cli_args.py:--reserve-vram",
+  "comfy/cli_args.py:--disable-dynamic-vram",
+  "comfy/cli_args.py:--highvram",
+  "comfy/cli_args.py:--lowvram",
+  "comfy/cli_args.py:--novram",
+  "comfy/cli_args.py:--gpu-only",
+  "comfy/cli_args.py:enables_dynamic_vram",
+  "execution.py:unload_all_models",
+  "server.py:/free"
+ ]
+}

@@ -1,0 +1,6246 @@
+{
+ "version": 2,
+ "coverage": [
+  {
+   "name": "Stable Diffusion 1.5",
+   "kinds": [
+    "image"
+   ],
+   "date": "2022-08-22",
+   "date_verified": true,
+   "status": "instance",
+   "model": "sd1",
+   "family": "SD15",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "CreativeML Open RAIL-M",
+   "licence_verified": true,
+   "source_url": "https://stability.ai/news/stable-diffusion-public-release",
+   "note": ""
+  },
+  {
+   "name": "DeepFloyd IF",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-04-06",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "deepfloyd-if-license (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/DeepFloyd/IF-I-XL-v1.0",
+   "note": ""
+  },
+  {
+   "name": "Shap-E",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2023-05-03",
+   "date_verified": true,
+   "status": "instance",
+   "model": "shap-e",
+   "family": "Shap-E",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2305.02463",
+   "note": ""
+  },
+  {
+   "name": "MusicGen",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2023-06-08",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "CC BY-NC 4.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2306.05284",
+   "note": "arXiv 2306.05284; weights are CC BY-NC 4.0. Not on Comfy's lists."
+  },
+  {
+   "name": "Kandinsky 2.2",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-06-09",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/kandinsky-community/kandinsky-2-2-decoder",
+   "note": ""
+  },
+  {
+   "name": "AnimateDiff",
+   "kinds": [
+    "video"
+   ],
+   "date": "2023-07-10",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Not verified here",
+   "licence_verified": false,
+   "source_url": "https://arxiv.org/abs/2307.04725",
+   "note": "arXiv 2307.04725, listed by date only."
+  },
+  {
+   "name": "SDXL, SDXL Turbo",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-07-26",
+   "date_verified": true,
+   "status": "instance",
+   "model": "sdxl",
+   "family": "SDXL",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "CreativeML Open RAIL++-M",
+   "licence_verified": true,
+   "source_url": "https://stability.ai/news/stable-diffusion-sdxl-1-announcement",
+   "note": ""
+  },
+  {
+   "name": "Stable Video Diffusion",
+   "kinds": [
+    "video"
+   ],
+   "date": "2023-11-25",
+   "date_verified": true,
+   "status": "instance",
+   "model": "svd",
+   "family": "SVD",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Stable Video Diffusion Community licence",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2311.15127",
+   "note": ""
+  },
+  {
+   "name": "Stable Zero123",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2023-12-08",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "sai-nc-community (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/stabilityai/stable-zero123",
+   "note": "Not on Comfy's lists."
+  },
+  {
+   "name": "Stable Cascade",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-02-12",
+   "date_verified": true,
+   "status": "instance",
+   "model": "stable-cascade",
+   "family": "Stable-Cascade",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Non-commercial research licence",
+   "licence_verified": true,
+   "source_url": "https://stability.ai/news/introducing-stable-cascade",
+   "note": ""
+  },
+  {
+   "name": "Playground v2.5",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-02-16",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "playground-v2dot5-community (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/playgroundai/playground-v2.5-1024px-aesthetic",
+   "note": ""
+  },
+  {
+   "name": "TripoSR",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-03-04",
+   "date_verified": true,
+   "status": "instance",
+   "model": "triposr",
+   "family": "TripoSR",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2403.02151",
+   "note": ""
+  },
+  {
+   "name": "PixArt-Sigma",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-03-07",
+   "date_verified": true,
+   "status": "instance",
+   "model": "pixart-sigma",
+   "family": "PixArt-Sigma",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "CreativeML Open RAIL++-M",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2403.04692",
+   "note": ""
+  },
+  {
+   "name": "InstantMesh",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-04-10",
+   "date_verified": true,
+   "status": "instance",
+   "model": "instantmesh",
+   "family": "InstantMesh",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2404.07191",
+   "note": ""
+  },
+  {
+   "name": "HunyuanDiT",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-05-14",
+   "date_verified": true,
+   "status": "instance",
+   "model": "hunyuandit",
+   "family": "HunyuanDiT-1.2",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2405.08748",
+   "note": ""
+  },
+  {
+   "name": "Kolors",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-06-05",
+   "date_verified": true,
+   "status": "instance",
+   "model": "kolors",
+   "family": "Kolors",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Kwai-Kolors/Kolors",
+   "note": ""
+  },
+  {
+   "name": "Stable Diffusion 3 and 3.5",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-06-12",
+   "date_verified": true,
+   "status": "instance",
+   "model": "sd3",
+   "family": "SD3-SD3.5",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Stability AI Community License",
+   "licence_verified": true,
+   "source_url": "https://stability.ai/news/stable-diffusion-3-medium",
+   "note": ""
+  },
+  {
+   "name": "Stable Fast 3D",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-07-17",
+   "date_verified": true,
+   "status": "instance",
+   "model": "stable-fast-3d",
+   "family": "Stable-Fast-3D",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Stability AI Community License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/stabilityai/stable-fast-3d",
+   "note": ""
+  },
+  {
+   "name": "FLUX.1 (dev, schnell, Kontext, Fill)",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-08-01",
+   "date_verified": true,
+   "status": "instance",
+   "model": "flux1",
+   "family": "Flux.1",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "[schnell] Apache-2.0; [dev] FLUX.1 [dev] Non-Commercial License",
+   "licence_verified": true,
+   "source_url": "https://bfl.ai/blog/24-08-01-bfl",
+   "note": "Kontext is listed separately in this atlas."
+  },
+  {
+   "name": "CogVideoX",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-08-12",
+   "date_verified": true,
+   "status": "instance",
+   "model": "cogvideox",
+   "family": "CogVideoX",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2408.06072",
+   "note": ""
+  },
+  {
+   "name": "AuraFlow",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-08-14",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/fal/AuraFlow-v0.3",
+   "note": "Date is the v0.3 repository."
+  },
+  {
+   "name": "Pyramid Flow",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-10-09",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Stability AI Community License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/rain1011/pyramid-flow-sd3",
+   "note": ""
+  },
+  {
+   "name": "Allegro",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-10-16",
+   "date_verified": true,
+   "status": "instance",
+   "model": "allegro",
+   "family": "Allegro",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/rhymes-ai/Allegro",
+   "note": ""
+  },
+  {
+   "name": "Mochi 1",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-10-22",
+   "date_verified": true,
+   "status": "instance",
+   "model": "mochi",
+   "family": "Mochi",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://github.com/genmoai/mochi",
+   "note": ""
+  },
+  {
+   "name": "HunyuanVideo and 1.5",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-12-03",
+   "date_verified": true,
+   "status": "instance",
+   "model": "hunyuanvideo",
+   "family": "HunyuanVideo",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_verified": true,
+   "source_url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+   "note": "The installed folder holds both the 1.0 and the 1.5 files."
+  },
+  {
+   "name": "Lumina-Image 2.0",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-01-22",
+   "date_verified": false,
+   "status": "instance",
+   "model": "lumina2",
+   "family": "Lumina-2",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2503.21758",
+   "note": ""
+  },
+  {
+   "name": "Wan 2.1",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-02-25",
+   "date_verified": true,
+   "status": "instance",
+   "model": "wan21",
+   "family": "Wan2.1",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2503.20314",
+   "note": "The folder also holds InfiniteTalk and first-last-frame files."
+  },
+  {
+   "name": "Open-Sora 2",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-03-04",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/hpcai-tech/Open-Sora-v2",
+   "note": ""
+  },
+  {
+   "name": "MIDI-3D",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-03-09",
+   "date_verified": true,
+   "status": "instance",
+   "model": "midi3d",
+   "family": "MIDI-3D",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/VAST-AI/MIDI-3D",
+   "note": ""
+  },
+  {
+   "name": "HiDream-I1 and O1",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-04-06",
+   "date_verified": false,
+   "status": "instance",
+   "model": "hidream",
+   "family": "HiDream",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2505.22705",
+   "note": ""
+  },
+  {
+   "name": "UniRig",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-04-16",
+   "date_verified": true,
+   "status": "instance",
+   "model": "unirig",
+   "family": "UniRig",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Not verified here",
+   "licence_verified": false,
+   "source_url": "https://arxiv.org/abs/2504.12451",
+   "note": ""
+  },
+  {
+   "name": "MAGI-1",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-04-18",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/sand-ai/MAGI-1",
+   "note": ""
+  },
+  {
+   "name": "SkyReels V2",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-04-18",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "skywork-license (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Skywork/SkyReels-V2-T2V-14B-540P",
+   "note": ""
+  },
+  {
+   "name": "Cosmos-Predict2",
+   "kinds": [
+    "image",
+    "video"
+   ],
+   "date": "2025-04-22",
+   "date_verified": true,
+   "status": "instance",
+   "model": "cosmos",
+   "family": "Cosmos",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "NVIDIA Open Model License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/nvidia/Cosmos-Predict2-14B-Text2Image",
+   "note": ""
+  },
+  {
+   "name": "PartCrafter",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-06-05",
+   "date_verified": true,
+   "status": "instance",
+   "model": "partcrafter",
+   "family": "PartCrafter",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2506.05573",
+   "note": ""
+  },
+  {
+   "name": "Hunyuan3D 2.x",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-06-13",
+   "date_verified": true,
+   "status": "instance",
+   "model": "hunyuan3d",
+   "family": "Hunyuan3D-2.1",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_verified": true,
+   "source_url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
+   "note": ""
+  },
+  {
+   "name": "OmniGen2",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-06-23",
+   "date_verified": true,
+   "status": "instance",
+   "model": "omnigen2",
+   "family": "Omnigen-2",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2506.18871",
+   "note": ""
+  },
+  {
+   "name": "HunyuanWorld",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-07-26",
+   "date_verified": true,
+   "status": "instance",
+   "model": "hunyuanworld",
+   "family": "HunyuanWorld",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Tencent HunyuanWorld-1.0 Community License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/tencent/HunyuanWorld-1",
+   "note": ""
+  },
+  {
+   "name": "Wan 2.2",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-07-28",
+   "date_verified": true,
+   "status": "goal",
+   "model": "wan22",
+   "family": "Wan2.2",
+   "goals": [
+    "video",
+    "animate",
+    "reshoot_wan"
+   ],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://github.com/Wan-Video/Wan2.2",
+   "note": ""
+  },
+  {
+   "name": "gpt-oss",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2025-08-05",
+   "date_verified": true,
+   "status": "missing",
+   "model": "gpt-oss",
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://openai.com/index/introducing-gpt-oss/",
+   "note": "Comfy's hub lists gpt-oss-20b. This atlas has the history card; no studio tier uses it."
+  },
+  {
+   "name": "NetaYume Lumina",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-08-06",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/duongve/NetaYume-Lumina-Image-2.0",
+   "note": "An anime fine-tune of Lumina-Image 2.0 that Comfy's templates include."
+  },
+  {
+   "name": "Chroma",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-08-08",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/lodestones/Chroma1-HD",
+   "note": "Comfy's templates include Chroma and Chroma Radiance."
+  },
+  {
+   "name": "Matrix-Game 2.0",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-08-08",
+   "date_verified": true,
+   "status": "instance",
+   "model": "matrix-game2",
+   "family": "Matrix-Game-2",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Skywork/Matrix-Game-2.0",
+   "note": ""
+  },
+  {
+   "name": "HuMo",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-09-10",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/bytedance-research/HuMo",
+   "note": ""
+  },
+  {
+   "name": "Wan 2.2 Animate",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-09-11",
+   "date_verified": true,
+   "status": "instance",
+   "model": "wan22-animate",
+   "family": "Wan2.2-Animate",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Wan-AI/Wan2.2-Animate-14B",
+   "note": ""
+  },
+  {
+   "name": "Qwen3 and Qwen3-VL",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2025-10-11",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct",
+   "note": "Comfy has text-generation templates for these; the studio has no tier for them."
+  },
+  {
+   "name": "SANA-Video",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-10-27",
+   "date_verified": true,
+   "status": "instance",
+   "model": "sana-video",
+   "family": "SANA-Video",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Efficient-Large-Model/SANA-Video_2B_480p",
+   "note": ""
+  },
+  {
+   "name": "ChronoEdit 14B",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-10-28",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/nvidia/ChronoEdit-14B-Diffusers",
+   "note": ""
+  },
+  {
+   "name": "Kandinsky 5.0 (T2I Lite)",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-19",
+   "date_verified": true,
+   "status": "instance",
+   "model": "kandinsky5",
+   "family": "Kandinsky-5.0-T2I-Lite",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/kandinskylab/Kandinsky-5.0-T2I-Lite-sft-Diffusers",
+   "note": "Comfy's lists also have the Kandinsky 5 video models; only T2I Lite is installed."
+  },
+  {
+   "name": "SAM 3D Objects",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-11-19",
+   "date_verified": true,
+   "status": "instance",
+   "model": "sam3d",
+   "family": "SAM-3D-Objects",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Custom licence (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://github.com/facebookresearch/sam-3d-objects",
+   "note": ""
+  },
+  {
+   "name": "FLUX.2 [dev]",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-25",
+   "date_verified": true,
+   "status": "instance",
+   "model": "flux2",
+   "family": "Flux.2",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "FLUX Non-Commercial License",
+   "licence_verified": true,
+   "source_url": "https://github.com/black-forest-labs/flux2",
+   "note": ""
+  },
+  {
+   "name": "Z-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-25",
+   "date_verified": false,
+   "status": "instance",
+   "model": "z-image",
+   "family": "Z-Image",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2511.22699",
+   "note": ""
+  },
+  {
+   "name": "Ovis-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-28",
+   "date_verified": true,
+   "status": "instance",
+   "model": "ovis-image",
+   "family": "Ovis-Image",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/AIDC-AI/Ovis-Image-7B",
+   "note": ""
+  },
+  {
+   "name": "NewBie-image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-30",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "newbie-nc-1.0 (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/NewBie-AI/NewBie-image-Exp0.1",
+   "note": ""
+  },
+  {
+   "name": "TRELLIS and TRELLIS.2",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-12-01",
+   "date_verified": true,
+   "status": "instance",
+   "model": "trellis2",
+   "family": "TRELLIS-2-4B",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/microsoft/TRELLIS.2-4B",
+   "note": ""
+  },
+  {
+   "name": "LongCat-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-12-04",
+   "date_verified": true,
+   "status": "instance",
+   "model": "longcat-image",
+   "family": "LongCat-Image",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/meituan-longcat/LongCat-Image",
+   "note": ""
+  },
+  {
+   "name": "HY-Motion",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-12-30",
+   "date_verified": true,
+   "status": "instance",
+   "model": "hy-motion",
+   "family": "HY-Motion",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/tencent/HY-Motion-1.0",
+   "note": ""
+  },
+  {
+   "name": "FLUX.2 [klein]",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-01-15",
+   "date_verified": true,
+   "status": "goal",
+   "model": "flux2-klein",
+   "family": null,
+   "goals": [
+    "image"
+   ],
+   "in_comfy_lists": true,
+   "licence": "4B: Apache-2.0; 9B: FLUX Non-Commercial License",
+   "licence_verified": true,
+   "source_url": "https://github.com/black-forest-labs/flux2",
+   "note": ""
+  },
+  {
+   "name": "ACE-Step",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-01-23",
+   "date_verified": true,
+   "status": "instance",
+   "model": "ace-step",
+   "family": "ACE-Step-1.5",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/ACE-Step/Ace-Step1.5",
+   "note": ""
+  },
+  {
+   "name": "Anima",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-01-29",
+   "date_verified": true,
+   "status": "goal",
+   "model": "anima",
+   "family": "Anima",
+   "goals": [
+    "anime"
+   ],
+   "in_comfy_lists": true,
+   "licence": "CircleStone Labs Non-Commercial License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/circlestone-labs/Anima",
+   "note": ""
+  },
+  {
+   "name": "MOVA",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-02-09",
+   "date_verified": true,
+   "status": "instance",
+   "model": "mova",
+   "family": "MOVA",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://arxiv.org/abs/2602.08794",
+   "note": ""
+  },
+  {
+   "name": "FireRed-Image-Edit",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-03-02",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/FireRedTeam/FireRed-Image-Edit-1.1",
+   "note": ""
+  },
+  {
+   "name": "PixelDiT",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-03-30",
+   "date_verified": true,
+   "status": "instance",
+   "model": "pixeldit",
+   "family": "PixelDiT",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "NVIDIA licence nsclv1 (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/nvidia/PixelDiT-1300M-1024px",
+   "note": ""
+  },
+  {
+   "name": "JoyAI-Image-Edit",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-03-31",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/jdopensource/JoyAI-Image-Edit",
+   "note": "The video edit sibling, JoyAI-Video-Edit, is installed."
+  },
+  {
+   "name": "ERNIE-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-04-07",
+   "date_verified": true,
+   "status": "instance",
+   "model": "ernie-image",
+   "family": "Ernie-Image",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/baidu/ERNIE-Image",
+   "note": ""
+  },
+  {
+   "name": "Pixal3D",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2026-04-30",
+   "date_verified": true,
+   "status": "instance",
+   "model": "pixal3d",
+   "family": "Pixal3D",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/TencentARC/Pixal3D",
+   "note": ""
+  },
+  {
+   "name": "Stable Audio 3 and Stable Audio Open",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-05-17",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "stable-audio-community (see the model card)",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/stabilityai/stable-audio-3-medium",
+   "note": "Stable Audio 3 is a 2026 release; Stable Audio Open 1.0 is from 2024."
+  },
+  {
+   "name": "LongCat-Video-Avatar",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-05-21",
+   "date_verified": true,
+   "status": "instance",
+   "model": "longcat-avatar",
+   "family": "LongCat-Avatar-15",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.5",
+   "note": ""
+  },
+  {
+   "name": "Gemma 4",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2026-05-23",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/google/gemma-4-12b",
+   "note": "Date is the 12b repository; the family began in March 2026. Used inside LTX-2.5 as a text encoder."
+  },
+  {
+   "name": "Ideogram 4",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-05-30",
+   "date_verified": true,
+   "status": "instance",
+   "model": "ideogram4",
+   "family": "Ideogram4",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Ideogram 4 Non-Commercial licence",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/ideogram-ai/ideogram-4-fp8",
+   "note": ""
+  },
+  {
+   "name": "TripoSplat",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2026-05-31",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/VAST-AI/TripoSplat",
+   "note": ""
+  },
+  {
+   "name": "SCAIL-2",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-06-09",
+   "date_verified": true,
+   "status": "instance",
+   "model": "scail2",
+   "family": "Wan-SCAIL-2",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/zai-org/SCAIL-2",
+   "note": ""
+  },
+  {
+   "name": "Boogu-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-06-16",
+   "date_verified": true,
+   "status": "instance",
+   "model": "boogu",
+   "family": "Boogu",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Boogu/Boogu-Image-0.1-Base",
+   "note": ""
+  },
+  {
+   "name": "Krea 2",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-06-16",
+   "date_verified": true,
+   "status": "instance",
+   "model": "krea2",
+   "family": "Krea2",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Krea 2 Community License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Comfy-Org/Krea-2",
+   "note": ""
+  },
+  {
+   "name": "LTX-2.5 (with LTX-2 and 2.3 support files)",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-07-23",
+   "date_verified": true,
+   "status": "goal",
+   "model": "ltx25",
+   "family": "LTX-2.5",
+   "goals": [
+    "video_ltx",
+    "animate_ltx",
+    "vfx_ltx"
+   ],
+   "in_comfy_lists": true,
+   "licence": "LTX-2.x Community License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Lightricks/LTX-2.5",
+   "note": "Comfy's lists also have LTX-Video 0.9.x, LTX-2 and LTX-2.3 checkpoints; this family folder holds LTX-2.5 and some LTX-2 and 2.3 support files."
+  },
+  {
+   "name": "Mage-Flow",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-07-24",
+   "date_verified": true,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Comfy-Org/Mage-Flow",
+   "note": "Date is the Comfy-Org repackage."
+  },
+  {
+   "name": "MiniMax H3",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-07-28",
+   "date_verified": true,
+   "status": "goal",
+   "model": "minimax-h3",
+   "family": "MiniMax-H3",
+   "goals": [
+    "h3_video",
+    "h3_animate",
+    "recast",
+    "reshoot",
+    "director",
+    "director_keyframes"
+   ],
+   "in_comfy_lists": true,
+   "licence": "MiniMax H3 Community License Agreement",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-H3",
+   "note": ""
+  },
+  {
+   "name": "JoyAI-Video-Edit",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-08-04",
+   "date_verified": true,
+   "status": "instance",
+   "model": "joyai-video-edit",
+   "family": "JoyAI-Video-Edit",
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/jdopensource/JoyAI-Video-Edit",
+   "note": ""
+  },
+  {
+   "name": "MiniMax Music 3",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-08-07",
+   "date_verified": false,
+   "status": "goal",
+   "model": "minimax-music3",
+   "family": "Mini-Max-Music3",
+   "goals": [
+    "music"
+   ],
+   "in_comfy_lists": true,
+   "licence": "Not stated in the upstream card metadata; the Comfy-Org repackage is tagged Apache-2.0. Read the upstream LICENSE.",
+   "licence_verified": false,
+   "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-Music3",
+   "note": ""
+  },
+  {
+   "name": "Qwen3.8 (crew tier)",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2026-08-13",
+   "date_verified": true,
+   "status": "goal",
+   "model": "qwen38",
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8",
+   "note": "The top crew LLM tier."
+  },
+  {
+   "name": "YuE2",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-09-09",
+   "date_verified": true,
+   "status": "instance",
+   "model": "yue2",
+   "family": "yue2",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "CC BY-NC 4.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/m-a-p/YuE2-3B",
+   "note": ""
+  },
+  {
+   "name": "Qwen-Image 2.x",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-09-14",
+   "date_verified": true,
+   "status": "instance",
+   "model": "qwen-image-21",
+   "family": "Qwen-Image-2.1",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Qwen Research License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+   "note": ""
+  },
+  {
+   "name": "Ming-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-09-17",
+   "date_verified": true,
+   "status": "instance",
+   "model": "ming-image",
+   "family": "Ming-Image",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "MIT",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/inclusionAI/Ming-Image-0.1-Design",
+   "note": ""
+  },
+  {
+   "name": "MOSS-Image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-10-11",
+   "date_verified": true,
+   "status": "instance",
+   "model": "moss-image",
+   "family": "Moss-Image",
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Apache-2.0",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-SFT",
+   "note": ""
+  },
+  {
+   "name": "FLUX 3 Image Klein",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-10-13",
+   "date_verified": true,
+   "status": "goal",
+   "model": "flux3-klein",
+   "family": "Flux.3-Klein",
+   "goals": [
+    "flux3"
+   ],
+   "in_comfy_lists": true,
+   "licence": "FLUX Kommunity License",
+   "licence_verified": true,
+   "source_url": "https://huggingface.co/black-forest-labs/flux-3-image-klein",
+   "note": ""
+  },
+  {
+   "name": "Qwen3.5 (crew tiers)",
+   "kinds": [
+    "llm"
+   ],
+   "date": null,
+   "date_verified": false,
+   "status": "goal",
+   "model": "qwen35",
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": true,
+   "licence": "Not verified here",
+   "licence_verified": false,
+   "source_url": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+   "note": "These are the studio's own crew LLM tiers (studio/llm_tiers.py), not a generation goal."
+  },
+  {
+   "name": "Stable Diffusion 2.x",
+   "kinds": [
+    "image"
+   ],
+   "date": null,
+   "date_verified": false,
+   "status": "missing",
+   "model": null,
+   "family": null,
+   "goals": [],
+   "in_comfy_lists": false,
+   "licence": "Not verified here",
+   "licence_verified": false,
+   "source_url": "",
+   "note": "The Hugging Face repository answers 401 without a login, so its date and licence are not verified here."
+  }
+ ],
+ "coverage_sources": [
+  {
+   "title": "Comfy hub: local models",
+   "url": "https://comfy.org/hub/models/local/",
+   "read": "2026-10-30",
+   "entries": 334
+  },
+  {
+   "title": "ComfyUI workflow template packages in the studio's Python environment (comfyui_workflow_templates_*)",
+   "url": "",
+   "read": "2026-10-30",
+   "entries": 661
+  }
+ ],
+ "families_installed": 82,
+ "built": "2026-10-30",
+ "about": "Model facts only. Dates are first public appearance as read from the named basis; licences are as read from the model card metadata or licence text. Fields marked unverified were not checked.",
+ "instance_check_as_of": "2026-10-30 (earlier family smoke: start and load nodes; no render)",
+ "eras": [
+  {
+   "id": "gans-vaes",
+   "name": "VAEs and GANs",
+   "from": 2013,
+   "to": 2018,
+   "blurb": "Neural networks learn to generate. VAEs compress images to a latent space; GANs set a generator against a critic. Faces get photoreal, audio and the Transformer arrive.",
+   "source": {
+    "title": "Generative Adversarial Nets (Goodfellow et al., 2014)",
+    "url": "https://arxiv.org/abs/1406.2661"
+   }
+  },
+  {
+   "id": "diffusion-appears",
+   "name": "Diffusion appears, language models scale",
+   "from": 2019,
+   "to": 2020,
+   "blurb": "Score matching and DDPM turn denoising into a generator; GPT-3 shows scale and prompting; NeRF opens 3D.",
+   "source": {
+    "title": "Denoising Diffusion Probabilistic Models (Ho et al., 2020)",
+    "url": "https://arxiv.org/abs/2006.11239"
+   }
+  },
+  {
+   "id": "text-meets-image",
+   "name": "Text meets image",
+   "from": 2021,
+   "to": 2021,
+   "blurb": "CLIP links words to pixels, DALL-E shows text prompts, diffusion beats GANs, and latent diffusion makes it affordable.",
+   "source": {
+    "title": "Learning Transferable Visual Models From Natural Language Supervision (Radford et al., 2021)",
+    "url": "https://arxiv.org/abs/2103.00020"
+   }
+  },
+  {
+   "id": "diffusion-public",
+   "name": "Diffusion goes public",
+   "from": 2022,
+   "to": 2022,
+   "blurb": "Closed text-to-image systems arrive, then Stable Diffusion's open weights put the technology in everyone's hands. Guidance, personalisation, video and 3D follow within months.",
+   "source": {
+    "title": "Stable Diffusion Public Release (Stability AI, 22 Aug 2022)",
+    "url": "https://stability.ai/news/stable-diffusion-public-release"
+   }
+  },
+  {
+   "id": "control-open",
+   "name": "Control and open weights",
+   "from": 2023,
+   "to": 2023,
+   "blurb": "ControlNet and IP-Adapter add control, SDXL raises resolution, open language models appear, and open video starts.",
+   "source": {
+    "title": "Adding Conditional Control to Text-to-Image Diffusion Models (Zhang et al., 2023)",
+    "url": "https://arxiv.org/abs/2302.05543"
+   }
+  },
+  {
+   "id": "flow-transformers",
+   "name": "Transformers, flow matching and open video",
+   "from": 2024,
+   "to": 2024,
+   "blurb": "The U-Net gives way to Transformers and flow matching: SD3 and FLUX. Sora sets a bar for video, and open video and image-to-3D models follow.",
+   "source": {
+    "title": "Announcing Black Forest Labs (2024-08-01)",
+    "url": "https://bfl.ai/blog/24-08-01-bfl"
+   }
+  },
+  {
+   "id": "open-catches-up",
+   "name": "Open models catch up",
+   "from": 2025,
+   "to": 2025,
+   "blurb": "Open weights reach or approach closed quality in video (Wan), images (Qwen-Image, Z-Image, FLUX.2), 3D and music, under permissive licences.",
+   "source": {
+    "title": "Wan: Open and Advanced Large-Scale Video Generative Models (Wan Team, 2025)",
+    "url": "https://arxiv.org/abs/2503.20314"
+   }
+  },
+  {
+   "id": "today",
+   "name": "Today",
+   "from": 2026,
+   "to": 2026,
+   "blurb": "Joint audio-video models, multi-reference editing and local-first tooling. Many 2026 dates here are Hugging Face repository dates, not announcements.",
+   "source": {
+    "title": "FLUX.2 repository: klein release, 15 Jan 2026 (Black Forest Labs)",
+    "url": "https://github.com/black-forest-labs/flux2"
+   }
+  }
+ ],
+ "models": [
+  {
+   "id": "vae",
+   "name": "Variational autoencoder (VAE)",
+   "org": "Kingma and Welling",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2013-12-20",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Auto-Encoding Variational Bayes",
+    "url": "https://arxiv.org/abs/1312.6114"
+   },
+   "what": "Trains an encoder and a decoder together so images compress into a smooth latent space and can be sampled back out.",
+   "why": "Every image and video model in this studio decodes its result through a VAE; the latent in latent diffusion starts here.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "gan",
+   "name": "Generative adversarial networks (GAN)",
+   "org": "Goodfellow et al.",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2014-06-10",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Generative Adversarial Networks",
+    "url": "https://arxiv.org/abs/1406.2661"
+   },
+   "what": "Two networks train against each other: a generator forges samples and a discriminator tries to tell them from real data.",
+   "why": "The first widely used way to generate sharp images, and the standard that diffusion models later had to beat.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "sohl-dickstein",
+   "name": "Diffusion probabilistic model",
+   "org": "Sohl-Dickstein et al.",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2015-03-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Deep Unsupervised Learning using Nonequilibrium Thermodynamics",
+    "url": "https://arxiv.org/abs/1503.03585"
+   },
+   "what": "Builds a generative model by slowly destroying data with noise and learning to reverse each small step.",
+   "why": "The first diffusion model. It was largely overlooked until DDPM in 2020.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "dcgan",
+   "name": "DCGAN",
+   "org": "Radford, Metz, Chintala",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2015-11-19",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks",
+    "url": "https://arxiv.org/abs/1511.06434"
+   },
+   "what": "A convolutional GAN architecture with design rules that made GAN training reliable on images.",
+   "why": "The recipe most later image GANs copied.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "wavenet",
+   "name": "WaveNet",
+   "org": "van den Oord et al.",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2016-09-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "WaveNet: A Generative Model for Raw Audio",
+    "url": "https://arxiv.org/abs/1609.03499"
+   },
+   "what": "An autoregressive network that predicts raw audio one sample at a time with dilated convolutions.",
+   "why": "Showed neural networks could generate natural speech and music directly as waveforms: the start of neural audio generation.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "transformer",
+   "name": "Transformer (Attention Is All You Need)",
+   "org": "Vaswani et al.",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "llm",
+    "image",
+    "video",
+    "audio"
+   ],
+   "date": "2017-06-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Attention Is All You Need",
+    "url": "https://arxiv.org/abs/1706.03762"
+   },
+   "what": "Replaces recurrence with self-attention so a model reads a whole sequence in parallel.",
+   "why": "The architecture under today's language models and, through DiT, most of the image and video generators in this atlas.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "vqvae",
+   "name": "VQ-VAE",
+   "org": "van den Oord et al.",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2017-11-02",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Neural Discrete Representation Learning",
+    "url": "https://arxiv.org/abs/1711.00937"
+   },
+   "what": "A VAE whose latent code is a choice from a learned codebook instead of continuous numbers.",
+   "why": "Turned images into token sequences a Transformer can model; the line runs to DALL-E and to latent diffusion's autoencoders.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "biggan",
+   "name": "BigGAN",
+   "org": "Brock, Donahue, Simonyan",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2018-09-28",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Large Scale GAN Training for High Fidelity Natural Image Synthesis",
+    "url": "https://arxiv.org/abs/1809.11096"
+   },
+   "what": "Class-conditional GANs trained with very large batches and a truncation trick.",
+   "why": "Showed GAN quality keeps improving with scale, at 512-pixel ImageNet resolution.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "stylegan",
+   "name": "StyleGAN",
+   "org": "Karras, Laine, Aila",
+   "family": null,
+   "era": "gans-vaes",
+   "kinds": [
+    "image"
+   ],
+   "date": "2018-12-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "A Style-Based Generator Architecture for Generative Adversarial Networks",
+    "url": "https://arxiv.org/abs/1812.04948"
+   },
+   "what": "A generator that injects a style vector at every layer, giving control from coarse to fine features.",
+   "why": "Made photorealistic synthetic faces routine and editable.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "ncsn",
+   "name": "Score-based generative modelling (NCSN)",
+   "org": "Song and Ermon",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "image"
+   ],
+   "date": "2019-07-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Generative Modeling by Estimating Gradients of the Data Distribution",
+    "url": "https://arxiv.org/abs/1907.05600"
+   },
+   "what": "Learns the score, the direction in which data becomes more likely, at several noise levels and samples by following it.",
+   "why": "The score-based route to diffusion; it merges with DDPM in 2020.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "nerf",
+   "name": "NeRF",
+   "org": "Mildenhall et al.",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2020-03-19",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis",
+    "url": "https://arxiv.org/abs/2003.08934"
+   },
+   "what": "A small network maps a 3D position and viewing direction to colour and density, trained from a set of photos.",
+   "why": "Made photoreal new views from photos practical; text-to-3D methods such as DreamFusion build on it.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "gpt3",
+   "name": "GPT-3",
+   "org": "Brown et al., OpenAI",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2020-05-28",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Language Models are Few-Shot Learners",
+    "url": "https://arxiv.org/abs/2005.14165"
+   },
+   "what": "A 175-billion-parameter language model that follows examples given in its prompt.",
+   "why": "Showed that scale alone gives in-context learning, the basis of prompting every model since.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "ddpm",
+   "name": "DDPM",
+   "org": "Ho, Jain, Abbeel",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "image"
+   ],
+   "date": "2020-06-19",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Denoising Diffusion Probabilistic Models",
+    "url": "https://arxiv.org/abs/2006.11239"
+   },
+   "what": "Trains a network to remove a little noise at each of about a thousand steps; sampling runs the chain backward from pure noise.",
+   "why": "Showed diffusion can match the best GANs with a simple, stable loss: the template for every diffusion model here.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "ddim",
+   "name": "DDIM",
+   "org": "Song, Meng, Ermon",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "image"
+   ],
+   "date": "2020-10-06",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Denoising Diffusion Implicit Models",
+    "url": "https://arxiv.org/abs/2010.02502"
+   },
+   "what": "A deterministic sampler for DDPM-trained models that skips steps.",
+   "why": "Cut sampling from hundreds of steps to tens: the origin of fast samplers.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "frame-interp",
+   "name": "Frame interpolation (RIFE, FILM, GIMM-VFI)",
+   "org": "Huang et al. (RIFE)",
+   "family": "frame_interpolation",
+   "era": "diffusion-appears",
+   "kinds": [
+    "video"
+   ],
+   "date": "2020-11-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Real-Time Intermediate Flow Estimation for Video Frame Interpolation",
+    "url": "https://arxiv.org/abs/2011.06294"
+   },
+   "what": "Models that insert frames between frames. The date is the RIFE paper's.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "rife",
+   "name": "RIFE v4.9 (ONNX)",
+   "org": "Huang et al.",
+   "family": "rife",
+   "era": "diffusion-appears",
+   "kinds": [
+    "video"
+   ],
+   "date": "2020-11-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Real-Time Intermediate Flow Estimation for Video Frame Interpolation",
+    "url": "https://arxiv.org/abs/2011.06294"
+   },
+   "what": "RIFE real-time intermediate flow estimation for frame interpolation, in ONNX form.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "score-sde",
+   "name": "Score SDE",
+   "org": "Song et al.",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "image"
+   ],
+   "date": "2020-11-26",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+    "url": "https://arxiv.org/abs/2011.13456"
+   },
+   "what": "Describes diffusion as a stochastic differential equation and sampling as solving its reverse, unifying the score and DDPM views.",
+   "why": "The maths behind samplers, schedulers and the later flow-matching view.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "vqgan",
+   "name": "VQGAN (Taming Transformers)",
+   "org": "Esser, Rombach, Ommer",
+   "family": null,
+   "era": "diffusion-appears",
+   "kinds": [
+    "image"
+   ],
+   "date": "2020-12-17",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Taming Transformers for High-Resolution Image Synthesis",
+    "url": "https://arxiv.org/abs/2012.09841"
+   },
+   "what": "Combines a VQ autoencoder trained with a GAN and perceptual loss with an autoregressive Transformer.",
+   "why": "Its perceptual compression is the autoencoder that latent diffusion reuses.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "face-restore",
+   "name": "Face restoration (GFPGAN, CodeFormer, GPEN)",
+   "org": "Wang et al. (GFPGAN)",
+   "family": "face",
+   "era": "text-meets-image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2021-01-11",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Towards Real-World Blind Face Restoration with Generative Facial Prior",
+    "url": "https://arxiv.org/abs/2101.04061"
+   },
+   "what": "Face restoration models. The date is the GFPGAN paper's; the others were not checked.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "dalle1",
+   "name": "DALL-E (zero-shot text-to-image)",
+   "org": "Ramesh et al., OpenAI",
+   "family": null,
+   "era": "text-meets-image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2021-02-24",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Zero-Shot Text-to-Image Generation",
+    "url": "https://arxiv.org/abs/2102.12092"
+   },
+   "what": "A 12-billion-parameter autoregressive Transformer over text tokens and image tokens.",
+   "why": "First broad demonstration that a text prompt could steer a general image generator.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "clip",
+   "name": "CLIP",
+   "org": "Radford et al., OpenAI",
+   "family": null,
+   "era": "text-meets-image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2021-02-26",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Learning Transferable Visual Models From Natural Language Supervision",
+    "url": "https://arxiv.org/abs/2103.00020"
+   },
+   "what": "Trains an image encoder and a text encoder so matching pictures and captions land close together.",
+   "why": "CLIP text encoders condition Stable Diffusion 1.x and SDXL, and CLIP is a common way to score prompt match.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "adm",
+   "name": "Diffusion models beat GANs",
+   "org": "Dhariwal and Nichol, OpenAI",
+   "family": null,
+   "era": "text-meets-image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2021-05-11",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Diffusion Models Beat GANs on Image Synthesis",
+    "url": "https://arxiv.org/abs/2105.05233"
+   },
+   "what": "Architecture changes and classifier guidance that push diffusion past BigGAN on ImageNet.",
+   "why": "The result that moved the field from GANs to diffusion.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "lora",
+   "name": "LoRA",
+   "org": "Hu et al., Microsoft",
+   "family": null,
+   "era": "text-meets-image",
+   "kinds": [
+    "llm",
+    "image",
+    "video"
+   ],
+   "date": "2021-06-17",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+    "url": "https://arxiv.org/abs/2106.09685"
+   },
+   "what": "Freezes a model and trains small low-rank update matrices instead of the full weights.",
+   "why": "Made fine-tuning cheap: most community styles and characters for the image and video models here ship as LoRAs.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "ldm",
+   "name": "Latent diffusion",
+   "org": "Rombach et al.",
+   "family": null,
+   "era": "text-meets-image",
+   "kinds": [
+    "image"
+   ],
+   "date": "2021-12-20",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+    "url": "https://arxiv.org/abs/2112.10752"
+   },
+   "what": "Runs diffusion in the compressed latent space of a pretrained autoencoder instead of in pixels, with cross-attention for text.",
+   "why": "Cut the cost of high-resolution diffusion enough for consumer GPUs; the basis of Stable Diffusion.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "vdm",
+   "name": "Video diffusion models",
+   "org": "Ho et al., Google",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "video"
+   ],
+   "date": "2022-04-07",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Video Diffusion Models",
+    "url": "https://arxiv.org/abs/2204.03458"
+   },
+   "what": "Extends image diffusion to video with a 3D U-Net that denoises many frames at once.",
+   "why": "An early diffusion model for video: the line to Sora and the open video models below.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "dalle2",
+   "name": "DALL-E 2 (unCLIP)",
+   "org": "Ramesh et al., OpenAI",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "image"
+   ],
+   "date": "2022-04-13",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Hierarchical Text-Conditional Image Generation with CLIP Latents",
+    "url": "https://arxiv.org/abs/2204.06125"
+   },
+   "what": "Generates a CLIP image embedding from the caption, then decodes it to pixels with diffusion.",
+   "why": "Showed CLIP embeddings plus diffusion give photorealistic text-to-image.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "imagen",
+   "name": "Imagen",
+   "org": "Saharia et al., Google",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "image"
+   ],
+   "date": "2022-05-23",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding",
+    "url": "https://arxiv.org/abs/2205.11487"
+   },
+   "what": "Text-to-image diffusion conditioned on a large frozen T5 language model.",
+   "why": "Found that scaling the text encoder helps more than scaling the image model; SD3 and FLUX later use T5 too.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "cfg",
+   "name": "Classifier-free guidance",
+   "org": "Ho and Salimans",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "image",
+    "video"
+   ],
+   "date": "2022-07-26",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Classifier-Free Diffusion Guidance",
+    "url": "https://arxiv.org/abs/2207.12598"
+   },
+   "what": "Trains one model with and without the prompt, then extrapolates between the two at sampling time.",
+   "why": "The CFG scale in every workflow here is this.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "sd1",
+   "name": "Stable Diffusion 1.x",
+   "org": "Stability AI with CompVis",
+   "family": "SD15",
+   "era": "diffusion-public",
+   "kinds": [
+    "image"
+   ],
+   "date": "2022-08-22",
+   "date_precision": "day",
+   "date_basis": "Stability AI release post (fetched)",
+   "date_verified": true,
+   "licence": "CreativeML Open RAIL-M",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Stable Diffusion Public Release",
+    "url": "https://stability.ai/news/stable-diffusion-public-release"
+   },
+   "what": "A latent diffusion text-to-image model with downloadable weights, released publicly by Stability AI under the CreativeML Open RAIL-M licence.",
+   "why": "Anyone could run, fine-tune and modify it on a home GPU; the community of checkpoints, LoRAs and ComfyUI grew from it.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 1,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "dreambooth",
+   "name": "DreamBooth",
+   "org": "Ruiz et al., Google",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "image"
+   ],
+   "date": "2022-08-25",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation",
+    "url": "https://arxiv.org/abs/2208.12242"
+   },
+   "what": "Fine-tunes a text-to-image model on a few photos of one subject, tied to a rare token.",
+   "why": "Started personalised models, which LoRA later made cheap.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "rectified-flow",
+   "name": "Rectified flow and flow matching",
+   "org": "Liu et al.; Lipman et al.",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "image",
+    "video"
+   ],
+   "date": "2022-09-07",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow",
+    "url": "https://arxiv.org/abs/2209.03003"
+   },
+   "what": "Learns straight-line paths between noise and data. Flow matching (arXiv 2210.02747, October 2022) gives the same idea a simulation-free training objective.",
+   "why": "The training objective behind SD3, FLUX and Wan, and most models from 2024 on in this atlas.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "dreamfusion",
+   "name": "DreamFusion",
+   "org": "Poole et al., Google",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2022-09-29",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "DreamFusion: Text-to-3D using 2D Diffusion",
+    "url": "https://arxiv.org/abs/2209.14988"
+   },
+   "what": "Optimises a NeRF so its renders score well under a frozen text-to-image diffusion model (score distillation).",
+   "why": "Text-to-3D with no 3D training data.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "make-a-video",
+   "name": "Make-A-Video",
+   "org": "Singer et al., Meta",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "video"
+   ],
+   "date": "2022-09-29",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Make-A-Video: Text-to-Video Generation without Text-Video Data",
+    "url": "https://arxiv.org/abs/2209.14792"
+   },
+   "what": "Text-to-video built from a text-to-image model plus unlabelled video, with no paired text-video data.",
+   "why": "Showed video generation could be bootstrapped from image models.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "chatgpt",
+   "name": "ChatGPT",
+   "org": "OpenAI",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2022-11-30",
+   "date_precision": "day",
+   "date_basis": "OpenAI announcement (fetched)",
+   "date_verified": true,
+   "licence": "Closed: product or API only",
+   "licence_class": "proprietary",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Introducing ChatGPT",
+    "url": "https://openai.com/index/chatgpt/"
+   },
+   "what": "A conversational model trained with reinforcement learning from human feedback, released as a free research preview.",
+   "why": "Brought language models to mainstream users.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "dit",
+   "name": "DiT (diffusion Transformer)",
+   "org": "Peebles and Xie",
+   "family": null,
+   "era": "diffusion-public",
+   "kinds": [
+    "image",
+    "video"
+   ],
+   "date": "2022-12-19",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Scalable Diffusion Models with Transformers",
+    "url": "https://arxiv.org/abs/2212.09748"
+   },
+   "what": "Replaces the diffusion U-Net with a Transformer over latent patches.",
+   "why": "Transformers scale predictably; SD3, FLUX, Wan, Qwen-Image and Z-Image all follow this design.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "controlnet",
+   "name": "ControlNet",
+   "org": "Zhang, Rao, Agrawala",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-02-10",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Adding Conditional Control to Text-to-Image Diffusion Models",
+    "url": "https://arxiv.org/abs/2302.05543"
+   },
+   "what": "Adds a trainable copy of an encoder that reads an edge, depth or pose map and steers a frozen diffusion model.",
+   "why": "Gave artists precise control of composition; the pose, depth and edge control models in ComfyUI descend from it.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "llama",
+   "name": "LLaMA",
+   "org": "Touvron et al., Meta",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2023-02-27",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Research-only licence (not verified here)",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "LLaMA: Open and Efficient Foundation Language Models",
+    "url": "https://arxiv.org/abs/2302.13971"
+   },
+   "what": "A family of 7B to 65B language models trained on public data.",
+   "why": "Its weights reached researchers and the community and started the open-weight language model wave.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "consistency",
+   "name": "Consistency models",
+   "org": "Song et al., OpenAI",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-03-02",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Consistency Models",
+    "url": "https://arxiv.org/abs/2303.01469"
+   },
+   "what": "Maps any point on a noise-to-data path straight to the clean image, allowing one- or few-step sampling.",
+   "why": "A basis of few-step distillation; the 4-step and 8-step distilled checkpoints here use related ideas.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "shap-e",
+   "name": "Shap-E",
+   "org": "Jun and Nichol, OpenAI",
+   "family": "Shap-E",
+   "era": "control-open",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2023-05-03",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Shap-E: Generating Conditional 3D Implicit Functions",
+    "url": "https://arxiv.org/abs/2305.02463"
+   },
+   "what": "Generates the parameters of 3D implicit functions from text or an image.",
+   "why": "An early open text-to-3D model with weights under the MIT licence.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ldm3d",
+   "name": "LDM3D (4-channel)",
+   "org": "Intel",
+   "family": "LDM3D-4C",
+   "era": "control-open",
+   "kinds": [
+    "image",
+    "3d"
+   ],
+   "date": "2023-05-18",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "CreativeML Open RAIL-M",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "LDM3D: Latent Diffusion Model for 3D",
+    "url": "https://arxiv.org/abs/2305.10853"
+   },
+   "what": "A latent diffusion model that generates an RGB image and its depth map together.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "musicgen",
+   "name": "MusicGen",
+   "org": "Copet et al., Meta",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2023-06-08",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "CC BY-NC 4.0",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Simple and Controllable Music Generation",
+    "url": "https://arxiv.org/abs/2306.05284"
+   },
+   "what": "A single Transformer over EnCodec audio tokens, conditioned on text or a melody.",
+   "why": "An open text-to-music baseline; the released weights are non-commercial.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "llama2",
+   "name": "Llama 2",
+   "org": "Touvron et al., Meta",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2023-07-18",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Llama 2 Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+    "url": "https://arxiv.org/abs/2307.09288"
+   },
+   "what": "Open-weight chat and base models from 7B to 70B parameters.",
+   "why": "Allowed commercial use under a community licence, which brought open models into business use.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "sdxl",
+   "name": "SDXL",
+   "org": "Stability AI",
+   "family": "SDXL",
+   "era": "control-open",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-07-26",
+   "date_precision": "day",
+   "date_basis": "Stability AI release post (fetched); paper arXiv 2307.01952 is dated 2023-07-04",
+   "date_verified": true,
+   "licence": "CreativeML Open RAIL++-M",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Announcing SDXL 1.0",
+    "url": "https://stability.ai/news/stable-diffusion-sdxl-1-announcement"
+   },
+   "what": "A latent diffusion model with a larger U-Net, two text encoders and a refinement stage, trained for 1024-pixel images.",
+   "why": "The base for a large share of community checkpoints, LoRAs and ControlNets.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 1,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "dwpose",
+   "name": "DWPose",
+   "org": "Yang et al.",
+   "family": "dwpose",
+   "era": "control-open",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-07-29",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Effective Whole-body Pose Estimation with Two-stages Distillation",
+    "url": "https://arxiv.org/abs/2307.15880"
+   },
+   "what": "Whole-body pose estimation with two-stage distillation; used to make pose control images.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "3dgs",
+   "name": "3D Gaussian splatting",
+   "org": "Kerbl et al.",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2023-08-08",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Paper only, no weights",
+   "licence_class": "paper",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "3D Gaussian Splatting for Real-Time Radiance Field Rendering",
+    "url": "https://arxiv.org/abs/2308.04079"
+   },
+   "what": "Represents a scene as millions of 3D Gaussians drawn by fast rasterisation.",
+   "why": "Real-time photoreal scenes from photos; the main alternative to NeRF.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "ip-adapter",
+   "name": "IP-Adapter",
+   "org": "Ye et al.",
+   "family": "IP-Adapter",
+   "era": "control-open",
+   "kinds": [
+    "image"
+   ],
+   "date": "2023-08-13",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "IP-Adapter: Text Compatible Image Prompt Adapter for Text-to-Image Diffusion Models",
+    "url": "https://arxiv.org/abs/2308.06721"
+   },
+   "what": "A small adapter that feeds image features into cross-attention so a picture acts like a prompt.",
+   "why": "Image prompting, style and identity transfer without fine-tuning.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "mistral7b",
+   "name": "Mistral 7B",
+   "org": "Mistral AI",
+   "family": null,
+   "era": "control-open",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2023-10-10",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Mistral 7B",
+    "url": "https://arxiv.org/abs/2310.06825"
+   },
+   "what": "A 7B model with grouped-query and sliding-window attention.",
+   "why": "The paper reports it outperforms Llama 2 13B on its benchmarks, under the Apache-2.0 licence.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "svd",
+   "name": "Stable Video Diffusion",
+   "org": "Stability AI",
+   "family": "SVD",
+   "era": "control-open",
+   "kinds": [
+    "video"
+   ],
+   "date": "2023-11-25",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Stable Video Diffusion Community licence",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets",
+    "url": "https://arxiv.org/abs/2311.15127"
+   },
+   "what": "A latent video diffusion model trained in stages on a curated video dataset; image-to-video weights were released.",
+   "why": "An early widely used open image-to-video model.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "stable-cascade",
+   "name": "Stable Cascade",
+   "org": "Stability AI",
+   "family": "Stable-Cascade",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-02-12",
+   "date_precision": "day",
+   "date_basis": "Stability AI release post (fetched)",
+   "date_verified": true,
+   "licence": "Non-commercial research licence",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Introducing Stable Cascade",
+    "url": "https://stability.ai/news/introducing-stable-cascade"
+   },
+   "what": "A three-stage model built on the Wuerstchen architecture, working in a very compressed latent space.",
+   "why": "Stability AI's post says the three-stage design makes it easy to train and fine-tune on consumer hardware.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "sora",
+   "name": "Sora",
+   "org": "OpenAI",
+   "family": null,
+   "era": "flow-transformers",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-02-15",
+   "date_precision": "day",
+   "date_basis": "OpenAI technical report (fetched)",
+   "date_verified": true,
+   "licence": "Closed: product or API only",
+   "licence_class": "proprietary",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Video generation models as world simulators",
+    "url": "https://openai.com/index/video-generation-models-as-world-simulators/"
+   },
+   "what": "A diffusion Transformer over spacetime patches of video latents; the report says it can generate a minute of video.",
+   "why": "Reset expectations for video quality and for the world-simulator framing that open video models chase.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "triposr",
+   "name": "TripoSR",
+   "org": "",
+   "family": "TripoSR",
+   "era": "flow-transformers",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-03-04",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "TripoSR: Fast 3D Object Reconstruction from a Single Image",
+    "url": "https://arxiv.org/abs/2403.02151"
+   },
+   "what": "Fast 3D reconstruction of an object from a single image.",
+   "why": "A small MIT-licensed image-to-3D model that runs in seconds on a desktop GPU is the paper's claim; this studio runs it as a family instance.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "pixart-sigma",
+   "name": "PixArt-Sigma",
+   "org": "PixArt-alpha",
+   "family": "PixArt-Sigma",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-03-07",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "CreativeML Open RAIL++-M",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "PixArt-Σ: Weak-to-Strong Training of Diffusion Transformer for 4K Text-to-Image Generation",
+    "url": "https://arxiv.org/abs/2403.04692"
+   },
+   "what": "Weak-to-strong training of a diffusion Transformer for 4K text-to-image.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "instantmesh",
+   "name": "InstantMesh",
+   "org": "TencentARC",
+   "family": "InstantMesh",
+   "era": "flow-transformers",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-04-10",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models",
+    "url": "https://arxiv.org/abs/2404.07191"
+   },
+   "what": "Efficient 3D mesh generation from a single image with a sparse-view reconstruction model.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "hunyuandit",
+   "name": "Hunyuan-DiT",
+   "org": "Tencent Hunyuan",
+   "family": "HunyuanDiT-1.2",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-05-14",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Hunyuan-DiT: A Powerful Multi-Resolution Diffusion Transformer with Fine-Grained Chinese Understanding",
+    "url": "https://arxiv.org/abs/2405.08748"
+   },
+   "what": "A multi-resolution diffusion Transformer with fine-grained Chinese understanding.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "kolors",
+   "name": "Kolors",
+   "org": "Kuaishou Kolors",
+   "family": "Kolors",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-06-05",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Kolors model card",
+    "url": "https://huggingface.co/Kwai-Kolors/Kolors"
+   },
+   "what": "Kuaishou's text-to-image model.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "sd3",
+   "name": "Stable Diffusion 3 and 3.5",
+   "org": "Stability AI",
+   "family": "SD3-SD3.5",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-06-12",
+   "date_precision": "day",
+   "date_basis": "Stability AI release post (fetched); paper arXiv 2403.03206 is dated 2024-03-05",
+   "date_verified": true,
+   "licence": "Stability AI Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Stable Diffusion 3 Medium",
+    "url": "https://stability.ai/news/stable-diffusion-3-medium"
+   },
+   "what": "A multimodal diffusion Transformer trained with rectified flow and three text encoders. SD3 Medium weights came in June 2024, SD 3.5 in October 2024.",
+   "why": "Moved Stability AI's line from the U-Net to Transformers and flow matching.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "stable-fast-3d",
+   "name": "Stable Fast 3D",
+   "org": "Stability AI",
+   "family": "Stable-Fast-3D",
+   "era": "flow-transformers",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-07-17",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Stability AI Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Stable Fast 3D model card",
+    "url": "https://huggingface.co/stabilityai/stable-fast-3d"
+   },
+   "what": "Fast single-image 3D mesh generation from Stability AI.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "flux1",
+   "name": "FLUX.1",
+   "org": "Black Forest Labs",
+   "family": "Flux.1",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-08-01",
+   "date_precision": "day",
+   "date_basis": "Black Forest Labs announcement (fetched)",
+   "date_verified": true,
+   "licence": "[schnell] Apache-2.0; [dev] FLUX.1 [dev] Non-Commercial License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Announcing Black Forest Labs",
+    "url": "https://bfl.ai/blog/24-08-01-bfl"
+   },
+   "what": "A 12B-parameter flow-matching Transformer with parallel attention blocks, released as [pro] (API), [dev] (open weights, non-commercial) and [schnell] (Apache-2.0).",
+   "why": "Raised the open-weight bar for image detail, text and prompt following.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 2,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "cogvideox",
+   "name": "CogVideoX",
+   "org": "THUDM (Zhipu AI)",
+   "family": "CogVideoX",
+   "era": "flow-transformers",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-08-12",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "2B is Apache-2.0; the 5B has its own licence on the model card.",
+   "licence_verified": true,
+   "source": {
+    "title": "CogVideoX: Text-to-Video Diffusion Models with An Expert Transformer",
+    "url": "https://arxiv.org/abs/2408.06072"
+   },
+   "what": "Expert-Transformer text-to-video models with a 3D causal VAE, in 2B and 5B sizes.",
+   "why": "Its README says the 2B model runs on a GTX 1080 Ti and the 5B on an RTX 3060, so open video reached desktop GPUs.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "allegro",
+   "name": "Allegro",
+   "org": "Rhymes AI",
+   "family": "Allegro",
+   "era": "flow-transformers",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-10-16",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Allegro model card",
+    "url": "https://huggingface.co/rhymes-ai/Allegro"
+   },
+   "what": "An open text-to-video model from Rhymes AI.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "mochi",
+   "name": "Mochi 1",
+   "org": "Genmo",
+   "family": "Mochi",
+   "era": "flow-transformers",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-10-22",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Mochi 1 README",
+    "url": "https://github.com/genmoai/mochi"
+   },
+   "what": "A 10-billion-parameter asymmetric diffusion Transformer trained from scratch.",
+   "why": "Released under Apache-2.0; its README calls it the largest openly released video model at the time.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ltx-video",
+   "name": "LTX-Video",
+   "org": "Lightricks",
+   "family": null,
+   "era": "flow-transformers",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-11-21",
+   "date_precision": "day",
+   "date_basis": "Lightricks README: initial release v0.9.0 (fetched); paper arXiv 2501.00103 is dated 2024-12-30",
+   "date_verified": true,
+   "licence": "Custom licence (see the model card)",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "LTX-Video: Realtime Video Latent Diffusion",
+    "url": "https://arxiv.org/abs/2501.00103"
+   },
+   "what": "A Transformer video model with a highly compressed video VAE, aimed at real-time generation.",
+   "why": "Showed open video generation could run near real time; the line continues as LTX-2.5 below.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "trellis",
+   "name": "TRELLIS",
+   "org": "Xiang et al., Microsoft",
+   "family": null,
+   "era": "flow-transformers",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2024-12-02",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Structured 3D Latents for Scalable and Versatile 3D Generation",
+    "url": "https://arxiv.org/abs/2412.01506"
+   },
+   "what": "Generates 3D assets from text or an image through structured 3D latents decoded to Gaussians, radiance fields or meshes.",
+   "why": "A common starting point for open image-to-3D pipelines; TRELLIS.2 follows in 2025.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "hunyuanvideo",
+   "name": "HunyuanVideo",
+   "org": "Tencent Hunyuan",
+   "family": "HunyuanVideo",
+   "era": "flow-transformers",
+   "kinds": [
+    "video"
+   ],
+   "date": "2024-12-03",
+   "date_precision": "day",
+   "date_basis": "Tencent README: code and weights released (fetched)",
+   "date_verified": true,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "HunyuanVideo README",
+    "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo"
+   },
+   "what": "Tencent's open video foundation model with a systematic data-to-inference framework.",
+   "why": "Open weights for a large text-to-video model, adapted widely after release (Diffusers support and FP8 weights followed within two weeks).",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 2,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "fitdit",
+   "name": "FitDiT",
+   "org": "BoyuanJiang",
+   "family": "FitDiT",
+   "era": "flow-transformers",
+   "kinds": [
+    "image"
+   ],
+   "date": "2024-12-17",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "CC BY-NC-SA 4.0",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "FitDiT model card",
+    "url": "https://huggingface.co/BoyuanJiang/FitDiT"
+   },
+   "what": "A garment virtual try-on model.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "deepseek-r1",
+   "name": "DeepSeek-R1",
+   "org": "DeepSeek",
+   "family": null,
+   "era": "open-catches-up",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2025-01-20",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created; paper arXiv 2501.12948 is dated 2025-01-22",
+   "date_verified": false,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+    "url": "https://arxiv.org/abs/2501.12948"
+   },
+   "what": "A reasoning model trained with large-scale reinforcement learning.",
+   "why": "Open weights under the MIT licence for a reasoning model.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "lumina2",
+   "name": "Lumina-Image 2.0",
+   "org": "Alpha-VLLM",
+   "family": "Lumina-2",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-01-22",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created; paper arXiv 2503.21758 is dated 2025-03-27",
+   "date_verified": false,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Lumina-Image 2.0: A Unified and Efficient Image Generative Framework",
+    "url": "https://arxiv.org/abs/2503.21758"
+   },
+   "what": "A unified, efficient image generation framework.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "wan21",
+   "name": "Wan 2.1",
+   "org": "Alibaba (Wan-Video)",
+   "family": "Wan2.1",
+   "era": "open-catches-up",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-02-25",
+   "date_precision": "day",
+   "date_basis": "Wan2.1 README: inference code and weights released (fetched)",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Wan: Open and Advanced Large-Scale Video Generative Models",
+    "url": "https://arxiv.org/abs/2503.20314"
+   },
+   "what": "Alibaba's open video suite: text-to-video at 1.3B and 14B and image-to-video, with a custom VAE. The README says the 1.3B model needs about 8 GB of VRAM.",
+   "why": "Apache-2.0 video that the authors report ahead of other open models; the base for many LoRAs and for Wan 2.2.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "midi3d",
+   "name": "MIDI-3D",
+   "org": "VAST-AI",
+   "family": "MIDI-3D",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-03-09",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "MIDI-3D model card",
+    "url": "https://huggingface.co/VAST-AI/MIDI-3D"
+   },
+   "what": "Single image to compositional 3D scene generation with multi-instance diffusion.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "yue",
+   "name": "YuE",
+   "org": "HKUST and M-A-P",
+   "family": null,
+   "era": "open-catches-up",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2025-03-11",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "YuE: Scaling Open Foundation Models for Long-Form Music Generation",
+    "url": "https://arxiv.org/abs/2503.08638"
+   },
+   "what": "An open lyrics-to-song foundation model that makes long songs with vocals and accompaniment.",
+   "why": "Open weights under Apache-2.0 for full songs; YuE2 follows in 2026.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "hidream",
+   "name": "HiDream-I1 and O1",
+   "org": "HiDream.ai",
+   "family": "HiDream",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-04-06",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created (I1)",
+   "date_verified": false,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "HiDream-I1: A High-Efficient Image Generative Foundation Model with Sparse Diffusion Transformer",
+    "url": "https://arxiv.org/abs/2505.22705"
+   },
+   "what": "HiDream-I1 (April 2025) is a sparse diffusion Transformer image model. HiDream-O1-Image (May 2026) is a pixel-space unified model with no separate VAE or text encoder.",
+   "why": "MIT-licensed, so it can be used commercially.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 1,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "unirig",
+   "name": "UniRig",
+   "org": "Zhang et al.",
+   "family": "UniRig",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-04-16",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "One Model to Rig Them All: Diverse Skeleton Rigging with UniRig",
+    "url": "https://arxiv.org/abs/2504.12451"
+   },
+   "what": "Automatic skeleton rigging for diverse 3D models.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 2,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "cosmos",
+   "name": "Cosmos-Predict2 14B text-to-image",
+   "org": "NVIDIA",
+   "family": "Cosmos",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-04-22",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "NVIDIA Open Model License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Cosmos-Predict2 14B text-to-image model card",
+    "url": "https://huggingface.co/nvidia/Cosmos-Predict2-14B-Text2Image"
+   },
+   "what": "An NVIDIA Cosmos-Predict2 text-to-image checkpoint (14B).",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "qwen3",
+   "name": "Qwen3",
+   "org": "Alibaba Qwen",
+   "family": null,
+   "era": "open-catches-up",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2025-04-29",
+   "date_precision": "day",
+   "date_basis": "Qwen blog post (fetched)",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Qwen3: Think Deeper, Act Faster",
+    "url": "https://qwenlm.github.io/blog/qwen3/"
+   },
+   "what": "Qwen's third-generation language models: dense models from 0.6B to 32B and two mixture-of-experts models.",
+   "why": "Open weights under Apache-2.0 at every size.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "partcrafter",
+   "name": "PartCrafter",
+   "org": "wgsxm et al.",
+   "family": "PartCrafter",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-06-05",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "PartCrafter: Structured 3D Mesh Generation via Compositional Latent Diffusion Transformers",
+    "url": "https://arxiv.org/abs/2506.05573"
+   },
+   "what": "Structured 3D mesh generation of separate parts from one image with compositional latent diffusion Transformers.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "seedvr2",
+   "name": "SeedVR2",
+   "org": "ByteDance Seed",
+   "family": "SeedVR2",
+   "era": "open-catches-up",
+   "kinds": [
+    "video",
+    "image"
+   ],
+   "date": "2025-06-05",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "SeedVR2: One-Step Video Restoration via Diffusion Adversarial Post-Training",
+    "url": "https://arxiv.org/abs/2506.05301"
+   },
+   "what": "One-step video restoration through diffusion adversarial post-training.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 2,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "hunyuan3d",
+   "name": "Hunyuan3D 2.1",
+   "org": "Tencent Hunyuan",
+   "family": "Hunyuan3D-2.1",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-06-13",
+   "date_precision": "day",
+   "date_basis": "Hunyuan3D-2.1 README (fetched)",
+   "date_verified": true,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Hunyuan3D-2.1 README",
+    "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1"
+   },
+   "what": "Image-to-3D with a shape model and a physically based (PBR) texture model.",
+   "why": "Textured PBR assets that drop into game and DCC tools.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 1,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "flux-kontext",
+   "name": "FLUX.1 Kontext",
+   "org": "Black Forest Labs",
+   "family": "Flux-Kontext",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-06-17",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "FLUX.1 [dev] Non-Commercial License",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "FLUX.1 Kontext: Flow Matching for In-Context Image Generation and Editing in Latent Space",
+    "url": "https://arxiv.org/abs/2506.15742"
+   },
+   "what": "In-context image editing and generation: an input image plus an instruction gives an edited image.",
+   "why": "Made instruction-based editing with consistent characters an open-weight workflow ([dev], non-commercial).",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "omnigen2",
+   "name": "OmniGen2",
+   "org": "VectorSpaceLab",
+   "family": "Omnigen-2",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-06-23",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "OmniGen2: Towards Instruction-Aligned Multimodal Generation",
+    "url": "https://arxiv.org/abs/2506.18871"
+   },
+   "what": "Instruction-aligned multimodal generation: text-to-image, editing and in-context generation.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "hunyuanworld",
+   "name": "HunyuanWorld 1.0",
+   "org": "Tencent Hunyuan",
+   "family": "HunyuanWorld",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-07-26",
+   "date_precision": "day",
+   "date_basis": "Hunyuan3D-2.1 README release line (fetched)",
+   "date_verified": true,
+   "licence": "Tencent HunyuanWorld-1.0 Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "HunyuanWorld 1.0 model card",
+    "url": "https://huggingface.co/tencent/HunyuanWorld-1"
+   },
+   "what": "Generates explorable 3D worlds from words or pixels.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "wan22",
+   "name": "Wan 2.2",
+   "org": "Alibaba (Wan-Video)",
+   "family": "Wan2.2",
+   "era": "open-catches-up",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-07-28",
+   "date_precision": "day",
+   "date_basis": "Wan2.2 repository initial upload (fetched)",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Wan2.2 repository",
+    "url": "https://github.com/Wan-Video/Wan2.2"
+   },
+   "what": "Alibaba's second-generation open video models. This studio runs the 5B text-and-image-to-video model for its Video and Animate goals, and the Fun Camera model for reshoots.",
+   "why": "Apache-2.0 video the studio renders locally at 480p to 720p.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "video",
+     "animate",
+     "reshoot_wan"
+    ]
+   },
+   "proof": {
+    "tested": 5,
+    "mixed": 7,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "qwen-image",
+   "name": "Qwen-Image",
+   "org": "Alibaba Qwen",
+   "family": null,
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-08-04",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Qwen-Image Technical Report",
+    "url": "https://arxiv.org/abs/2508.02324"
+   },
+   "what": "Alibaba Qwen's open image foundation model.",
+   "why": "Apache-2.0, and the base of the Qwen-Image 2.x line below.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "gpt-oss",
+   "name": "gpt-oss",
+   "org": "OpenAI",
+   "family": null,
+   "era": "open-catches-up",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2025-08-05",
+   "date_precision": "day",
+   "date_basis": "OpenAI announcement (fetched)",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Introducing gpt-oss",
+    "url": "https://openai.com/index/introducing-gpt-oss/"
+   },
+   "what": "OpenAI's open-weight reasoning models gpt-oss-120b and gpt-oss-20b.",
+   "why": "Open weights under Apache-2.0; the 120b fits one 80 GB GPU and the 20b runs in 16 GB of memory, per OpenAI.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "matrix-game2",
+   "name": "Matrix-Game 2.0",
+   "org": "Skywork",
+   "family": "Matrix-Game-2",
+   "era": "open-catches-up",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-08-08",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Matrix-Game 2.0 model card",
+    "url": "https://huggingface.co/Skywork/Matrix-Game-2.0"
+   },
+   "what": "A 1.8B interactive world model that generates long videos on the fly with few-step autoregressive diffusion.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "wan22-animate",
+   "name": "Wan 2.2 Animate 14B",
+   "org": "Alibaba (Wan-Video)",
+   "family": "Wan2.2-Animate",
+   "era": "open-catches-up",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-09-11",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Wan 2.2 Animate 14B model card",
+    "url": "https://huggingface.co/Wan-AI/Wan2.2-Animate-14B"
+   },
+   "what": "Character animation and replacement from a reference video, built on Wan 2.2.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "sana-video",
+   "name": "SANA-Video",
+   "org": "Efficient-Large-Model",
+   "family": "SANA-Video",
+   "era": "open-catches-up",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-10-27",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "SANA-Video model card",
+    "url": "https://huggingface.co/Efficient-Large-Model/SANA-Video_2B_480p"
+   },
+   "what": "Efficient video generation from the Efficient-Large-Model group.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "flashvsr",
+   "name": "FlashVSR 1.1",
+   "org": "Junhao Zhuang",
+   "family": "FlashVSR-v1.1",
+   "era": "open-catches-up",
+   "kinds": [
+    "video"
+   ],
+   "date": "2025-10-31",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "FlashVSR 1.1 model card",
+    "url": "https://huggingface.co/JunhaoZhuang/FlashVSR-v1.1"
+   },
+   "what": "Diffusion-based video super-resolution.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "kandinsky5",
+   "name": "Kandinsky 5.0 T2I Lite",
+   "org": "Kandinsky Lab",
+   "family": "Kandinsky-5.0-T2I-Lite",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-19",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Kandinsky 5.0 T2I Lite model card",
+    "url": "https://huggingface.co/kandinskylab/Kandinsky-5.0-T2I-Lite-sft-Diffusers"
+   },
+   "what": "A 6B text-to-image model (latent diffusion with flow matching) from the Kandinsky 5.0 family.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "sam3d",
+   "name": "SAM 3D Objects",
+   "org": "Meta",
+   "family": "SAM-3D-Objects",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-11-19",
+   "date_precision": "day",
+   "date_basis": "SAM 3D Objects README: checkpoints launched (fetched)",
+   "date_verified": true,
+   "licence": "Custom licence (see the model card)",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "sam-3d-objects repository",
+    "url": "https://github.com/facebookresearch/sam-3d-objects"
+   },
+   "what": "Meta's model that reconstructs 3D objects from a single image.",
+   "why": "Single-photo 3D with checkpoints released in November 2025.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 2,
+    "mixed": 1,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "flux2",
+   "name": "FLUX.2 [dev]",
+   "org": "Black Forest Labs",
+   "family": "Flux.2",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-25",
+   "date_precision": "day",
+   "date_basis": "Black Forest Labs README (fetched)",
+   "date_verified": true,
+   "licence": "FLUX Non-Commercial License",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "FLUX.2 repository",
+    "url": "https://github.com/black-forest-labs/flux2"
+   },
+   "what": "A 32B-parameter model for text-to-image and editing with single and multiple reference images.",
+   "why": "Open weights under the FLUX Non-Commercial License.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "z-image",
+   "name": "Z-Image",
+   "org": "Tongyi-MAI (Alibaba)",
+   "family": "Z-Image",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-25",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created (Turbo); paper arXiv 2511.22699 is dated 2025-11-27",
+   "date_verified": false,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Z-Image: An Efficient Image Generation Foundation Model with Single-Stream Diffusion Transformer",
+    "url": "https://arxiv.org/abs/2511.22699"
+   },
+   "what": "A 6B-parameter single-stream diffusion Transformer family; Z-Image-Turbo is distilled to 8 function evaluations.",
+   "why": "A small, fast, Apache-2.0 image model for consumer cards.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ovis-image",
+   "name": "Ovis-Image 7B",
+   "org": "AIDC-AI",
+   "family": "Ovis-Image",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-11-28",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Ovis-Image 7B model card",
+    "url": "https://huggingface.co/AIDC-AI/Ovis-Image-7B"
+   },
+   "what": "A 7B text-to-image model.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "trellis2",
+   "name": "TRELLIS.2",
+   "org": "Microsoft",
+   "family": "TRELLIS-2-4B",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-12-01",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "TRELLIS.2 model card",
+    "url": "https://huggingface.co/microsoft/TRELLIS.2-4B"
+   },
+   "what": "Microsoft's 4B-parameter successor to TRELLIS for image-to-3D.",
+   "why": "MIT-licensed image-to-3D that this studio can run as a family instance.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 1,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "longcat-image",
+   "name": "LongCat-Image",
+   "org": "Meituan LongCat",
+   "family": "LongCat-Image",
+   "era": "open-catches-up",
+   "kinds": [
+    "image"
+   ],
+   "date": "2025-12-04",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "LongCat-Image model card",
+    "url": "https://huggingface.co/meituan-longcat/LongCat-Image"
+   },
+   "what": "A 6B bilingual (Chinese and English) text-to-image model with strong Chinese text rendering.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "hy-motion",
+   "name": "HY-Motion 1.0",
+   "org": "Tencent Hunyuan",
+   "family": "HY-Motion",
+   "era": "open-catches-up",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2025-12-30",
+   "date_precision": "day",
+   "date_basis": "Model card news line (fetched)",
+   "date_verified": true,
+   "licence": "Tencent Hunyuan Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "HY-Motion 1.0 model card",
+    "url": "https://huggingface.co/tencent/HY-Motion-1.0"
+   },
+   "what": "Text-to-3D human motion generation with a diffusion Transformer and flow matching.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "flux2-klein",
+   "name": "FLUX.2 [klein]",
+   "org": "Black Forest Labs",
+   "family": null,
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-01-15",
+   "date_precision": "day",
+   "date_basis": "Black Forest Labs README (fetched)",
+   "date_verified": true,
+   "licence": "4B: Apache-2.0; 9B: FLUX Non-Commercial License",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "FLUX.2 repository",
+    "url": "https://github.com/black-forest-labs/flux2"
+   },
+   "what": "A family of fast FLUX.2 models: 4B and 9B, distilled and base. Black Forest Labs' README says sub-second generation on consumer GPUs. The 4B is Apache-2.0; the 9B is non-commercial.",
+   "why": "The model behind this studio's Image goal.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "image"
+    ]
+   },
+   "proof": {
+    "tested": 2,
+    "mixed": 1,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "ace-step",
+   "name": "ACE-Step 1.5",
+   "org": "ACE-Step",
+   "family": "ACE-Step-1.5",
+   "era": "today",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-01-23",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "ACE-Step 1.5 model card",
+    "url": "https://huggingface.co/ACE-Step/Ace-Step1.5"
+   },
+   "what": "An open music generation foundation model. Version 1 (April 2025, Apache-2.0) is described in arXiv 2506.00045; 1.5 followed in January 2026.",
+   "why": "Local song generation that runs as a family instance here.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 1,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "anima",
+   "name": "Anima",
+   "org": "CircleStone Labs and Comfy Org",
+   "family": "Anima",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-01-29",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "CircleStone Labs Non-Commercial License",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Anima model card",
+    "url": "https://huggingface.co/circlestone-labs/Anima"
+   },
+   "what": "A 2B text-to-image model for anime and non-photorealistic art, made by CircleStone Labs with Comfy Org.",
+   "why": "The studio's Anime goal.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "anime"
+    ]
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "mova",
+   "name": "MOVA",
+   "org": "OpenMOSS",
+   "family": "MOVA",
+   "era": "today",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-02-09",
+   "date_precision": "day",
+   "date_basis": "arXiv v1",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "MOVA: Towards Scalable and Synchronized Video-Audio Generation",
+    "url": "https://arxiv.org/abs/2602.08794"
+   },
+   "what": "Open video-and-audio generation with an asymmetric dual-tower design (32B mixture of experts, 18B active).",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "pixeldit",
+   "name": "PixelDiT",
+   "org": "NVIDIA",
+   "family": "PixelDiT",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-03-30",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "NVIDIA licence nsclv1 (see the model card)",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "PixelDiT model card",
+    "url": "https://huggingface.co/nvidia/PixelDiT-1300M-1024px"
+   },
+   "what": "A VAE-free pixel diffusion Transformer with patch-level and pixel-level stages and a Gemma-2-2B text encoder.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ernie-image",
+   "name": "ERNIE-Image",
+   "org": "Baidu",
+   "family": "Ernie-Image",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-04-07",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "ERNIE-Image model card",
+    "url": "https://huggingface.co/baidu/ERNIE-Image"
+   },
+   "what": "Baidu's open text-to-image model, a single-stream diffusion Transformer.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "pixal3d",
+   "name": "Pixal3D",
+   "org": "TencentARC",
+   "family": "Pixal3D",
+   "era": "today",
+   "kinds": [
+    "3d"
+   ],
+   "date": "2026-04-30",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Pixal3D model card",
+    "url": "https://huggingface.co/TencentARC/Pixal3D"
+   },
+   "what": "Pixel-aligned 3D generation from a single image (SIGGRAPH 2026).",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "longcat-avatar",
+   "name": "LongCat-Video-Avatar 1.5",
+   "org": "Meituan LongCat",
+   "family": "LongCat-Avatar-15",
+   "era": "today",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-05-21",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "LongCat-Video-Avatar 1.5 model card",
+    "url": "https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.5"
+   },
+   "what": "Audio-driven human video generation: audio-text-to-video, audio-text-image-to-video and video continuation.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 1,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ideogram4",
+   "name": "Ideogram 4",
+   "org": "Ideogram",
+   "family": "Ideogram4",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-05-30",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Ideogram 4 Non-Commercial licence",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Ideogram 4 model card",
+    "url": "https://huggingface.co/ideogram-ai/ideogram-4-fp8"
+   },
+   "what": "Ideogram's text-to-image model, with open weights on Hugging Face.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 1,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "scail2",
+   "name": "SCAIL-2",
+   "org": "zai-org",
+   "family": "Wan-SCAIL-2",
+   "era": "today",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-06-09",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "SCAIL-2 model card",
+    "url": "https://huggingface.co/zai-org/SCAIL-2"
+   },
+   "what": "End-to-end controlled character animation: animates a reference character with a driving video, and supports replacement and multi-character scenes.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "boogu",
+   "name": "Boogu-Image 0.1",
+   "org": "Boogu",
+   "family": "Boogu",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-06-16",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Boogu-Image 0.1 model card",
+    "url": "https://huggingface.co/Boogu/Boogu-Image-0.1-Base"
+   },
+   "what": "Open image generation and editing models (Base, Edit, Edit-Turbo).",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "krea2",
+   "name": "Krea 2",
+   "org": "Krea",
+   "family": "Krea2",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-06-16",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created (Comfy-Org repackage)",
+   "date_verified": true,
+   "licence": "Krea 2 Community License",
+   "licence_class": "community",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Krea 2 model card",
+    "url": "https://huggingface.co/Comfy-Org/Krea-2"
+   },
+   "what": "Krea's text-to-image model; the installed files are the Comfy-Org repackage.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 1,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ltx25",
+   "name": "LTX-2.5",
+   "org": "Lightricks",
+   "family": "LTX-2.5",
+   "era": "today",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-07-23",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "LTX-2.x Community License",
+   "licence_class": "community",
+   "licence_note": "Free below a revenue threshold set in the licence; larger organisations need a paid licence.",
+   "licence_verified": true,
+   "source": {
+    "title": "LTX-2.5 model card",
+    "url": "https://huggingface.co/Lightricks/LTX-2.5"
+   },
+   "what": "A 22B open audio-and-video model with native multishot generation, a Gemma 4 12B text encoder and a diffusion video decoder.",
+   "why": "The studio's Video + sound, Animate + sound and VFX goals.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "video_ltx",
+     "animate_ltx",
+     "vfx_ltx"
+    ]
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 2,
+    "untested": 0,
+    "unknown": 1
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "minimax-h3",
+   "name": "MiniMax H3",
+   "org": "MiniMax",
+   "family": "MiniMax-H3",
+   "era": "today",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-07-28",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MiniMax H3 Community License Agreement",
+   "licence_class": "community",
+   "licence_note": "The licence's territory is worldwide excluding the European Union, the United Kingdom, the Republic of Korea and the United States of America (clauses 3 and 5, read from the licence file). Read it before use.",
+   "licence_verified": true,
+   "source": {
+    "title": "MiniMax H3 model card",
+    "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
+   },
+   "what": "An omni-modal system that generates video with native stereo audio, up to 2K and 15 seconds, from text, images, video and audio references.",
+   "why": "The studio's Video H3, Animate H3, Recast, Reshoot and Director goals.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "h3_video",
+     "h3_animate",
+     "recast",
+     "reshoot",
+     "director",
+     "director_keyframes"
+    ]
+   },
+   "proof": {
+    "tested": 4,
+    "mixed": 10,
+    "untested": 2,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "sefi-image",
+   "name": "SeFi-Image 2B turbo",
+   "org": "SeFi-Image",
+   "family": "SeFi-Image-2B-turbo",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-08-03",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "CC BY-NC 4.0",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "SeFi-Image 2B turbo model card",
+    "url": "https://huggingface.co/SeFi-Image/SeFi-Image-2B-turbo-diffusers"
+   },
+   "what": "A 2B turbo text-to-image model; the model card has no description.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "joyai-video-edit",
+   "name": "JoyAI-Video-Edit",
+   "org": "JD Open Source",
+   "family": "JoyAI-Video-Edit",
+   "era": "today",
+   "kinds": [
+    "video"
+   ],
+   "date": "2026-08-04",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "JoyAI-Video-Edit model card",
+    "url": "https://huggingface.co/jdopensource/JoyAI-Video-Edit"
+   },
+   "what": "Real-time, instruction-guided video editing with autoregressive diffusion.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 1,
+    "mixed": 1,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "minimax-music3",
+   "name": "MiniMax Music 3",
+   "org": "MiniMax",
+   "family": "Mini-Max-Music3",
+   "era": "today",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-08-07",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": false,
+   "licence": "Not stated in the upstream card metadata; the Comfy-Org repackage is tagged Apache-2.0. Read the upstream LICENSE.",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "MiniMax-Music3 model card",
+    "url": "https://huggingface.co/MiniMaxAI/MiniMax-Music3"
+   },
+   "what": "Full songs up to five minutes from lyrics and a music description: an 8B global LM, a 0.6B local LM and a flow-matching synthesis stage, 32 kHz stereo.",
+   "why": "The studio's Music goal.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "music"
+    ]
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 2,
+    "untested": 2,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "qwen38",
+   "name": "Qwen3.8",
+   "org": "Alibaba Qwen",
+   "family": null,
+   "era": "today",
+   "kinds": [
+    "llm"
+   ],
+   "date": "2026-08-13",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created (27B-FP8)",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Qwen3.8 model card",
+    "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8"
+   },
+   "what": "Qwen's August 2026 models; this studio's top crew LLM tier runs the 27B FP8 build with vLLM.",
+   "why": "Apache-2.0.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "dreamx",
+   "name": "DreamX-Creator 1.0",
+   "org": "GD-ML",
+   "family": "DreamX-Creator",
+   "era": "today",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-09-02",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "DreamX-Creator 1.0 model card",
+    "url": "https://huggingface.co/GD-ML/DreamX-Creator"
+   },
+   "what": "A research framework for native joint audio-video generation: a 7B base generator and a one-step 2K refiner.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "yue2",
+   "name": "YuE2 3B",
+   "org": "M-A-P",
+   "family": "yue2",
+   "era": "today",
+   "kinds": [
+    "audio"
+   ],
+   "date": "2026-09-09",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "CC BY-NC 4.0",
+   "licence_class": "noncommercial",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "YuE2 3B model card",
+    "url": "https://huggingface.co/m-a-p/YuE2-3B"
+   },
+   "what": "Open music generation, with text-to-music and music-cover workflows.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "qwen-image-21",
+   "name": "Qwen-Image 2.1",
+   "org": "Alibaba Qwen",
+   "family": "Qwen-Image-2.1",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-09-14",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Qwen Research License",
+   "licence_class": "research",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Qwen-Image 2.1 model card",
+    "url": "https://huggingface.co/Qwen/Qwen-Image-2.1"
+   },
+   "what": "A unified text-to-image and image-editing model with a 7B visual generation component of 32 single-stream DiT layers.",
+   "why": "Released under the Qwen Research License rather than Apache-2.0 like Qwen-Image.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 2,
+    "mixed": 4,
+    "untested": 1,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "ming-image",
+   "name": "Ming-Image 0.1 Design",
+   "org": "inclusionAI",
+   "family": "Ming-Image",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-09-17",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Ming-Image 0.1 Design model card",
+    "url": "https://huggingface.co/inclusionAI/Ming-Image-0.1-Design"
+   },
+   "what": "A 6B text-to-image model for UI, infographics, posters and other text-rich designs, with transparent RGBA output.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "prism-alpha",
+   "name": "Prism (preview alpha)",
+   "org": "Fudan University and Tencent Hunyuan",
+   "family": "Prism-Alpha",
+   "era": "today",
+   "kinds": [
+    "video",
+    "audio"
+   ],
+   "date": "2026-09-24",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "MIT",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Prism (preview alpha) model card",
+    "url": "https://huggingface.co/FrancisRing/Prism"
+   },
+   "what": "Dynamic sparse attention for native 2K joint video-audio generation; the preview weights build on MOVA.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "iris3b",
+   "name": "Iris-3B",
+   "org": "speridlabs",
+   "family": "Iris-3B",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-10-05",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "Iris-3B model card",
+    "url": "https://huggingface.co/speridlabs/iris-3b"
+   },
+   "what": "A 3B pixel-space image generator with no VAE or latent space; fine-tuned, it also estimates depth and restores images.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "moss-image",
+   "name": "MOSS-Image",
+   "org": "OpenMOSS",
+   "family": "Moss-Image",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-10-11",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "licence_note": "",
+   "licence_verified": true,
+   "source": {
+    "title": "MOSS-Image model card",
+    "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-SFT"
+   },
+   "what": "A text-to-image family from OpenMOSS (Base and SFT) that accepts prompts, tag sequences and JSON layouts.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "flux3-klein",
+   "name": "FLUX 3 Image Klein",
+   "org": "Black Forest Labs",
+   "family": "Flux.3-Klein",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": "2026-10-13",
+   "date_precision": "day",
+   "date_basis": "Hugging Face repo created",
+   "date_verified": true,
+   "licence": "FLUX Kommunity License",
+   "licence_class": "community",
+   "licence_note": "Non-commercial, with a commercial-output exception for qualifying users (see the licence).",
+   "licence_verified": true,
+   "source": {
+    "title": "FLUX 3 Image Klein model card",
+    "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein"
+   },
+   "what": "A 5.6B open-weight model for text-to-image and editing with up to 10 reference images, bounding-box layout control and a Qwen3-VL-4B text encoder.",
+   "why": "The studio's Image HQ goal.",
+   "featured": true,
+   "run": {
+    "goals": [
+     "flux3"
+    ]
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 1,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "greyscale-rgba",
+   "name": "Greyscale to colour",
+   "org": "",
+   "family": "greyscale_to_rgba",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Greyscale to colour",
+    "url": ""
+   },
+   "what": "A colourisation model file. Source, date and licence were not verified here.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "upscalers",
+   "name": "Image and video upscalers",
+   "org": "",
+   "family": "upscale_models",
+   "era": "today",
+   "kinds": [
+    "image",
+    "video"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Image and video upscalers",
+    "url": ""
+   },
+   "what": "A folder of upscalers and restorers (ESRGAN-style, NAFNet, DiffBIR, VEnhancer and others). Not verified model by model.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "colorization",
+   "name": "Image colourisation (ONNX)",
+   "org": "",
+   "family": "colorization",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Image colourisation (ONNX)",
+    "url": ""
+   },
+   "what": "An image colourisation model in ONNX form. Source, date and licence were not verified here.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "instantcharacter",
+   "name": "InstantCharacter",
+   "org": "Tencent",
+   "family": "instantCharacter",
+   "era": "today",
+   "kinds": [
+    "image"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not stated in the Hugging Face metadata (unverified)",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "InstantCharacter",
+    "url": ""
+   },
+   "what": "Character-consistent image generation with an IP-Adapter. Date and licence not verified here.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "matrix3d",
+   "name": "Matrix-3D",
+   "org": "Skywork",
+   "family": "Matrix-3D",
+   "era": "today",
+   "kinds": [
+    "3d",
+    "video"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Matrix-3D model card",
+    "url": "https://huggingface.co/Skywork/Matrix-3D"
+   },
+   "what": "Panorama video generation and large reconstruction models for building 3D scenes.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "qwen35",
+   "name": "Qwen3.5",
+   "org": "Alibaba Qwen",
+   "family": null,
+   "era": "today",
+   "kinds": [
+    "llm"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Qwen3.5 model card",
+    "url": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B"
+   },
+   "what": "Qwen's 2026 language and vision-language models. This studio's crew LLM tiers run the 2B, 4B, 9B, 27B and 35B-A3B sizes.",
+   "why": "Apache-2.0 at every tier the studio uses.",
+   "featured": true,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": null
+  },
+  {
+   "id": "sam3-body",
+   "name": "SAM 3 (human rig model)",
+   "org": "",
+   "family": "sam3",
+   "era": "today",
+   "kinds": [
+    "3d"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "SAM 3 (human rig model)",
+    "url": ""
+   },
+   "what": "Holds a human body model file used for photo-to-3D-body. Source, date and licence were not verified here.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "vlm-encoders",
+   "name": "Text and vision encoders",
+   "org": "",
+   "family": "VLM",
+   "era": "today",
+   "kinds": [
+    "llm",
+    "image"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Text and vision encoders",
+    "url": ""
+   },
+   "what": "Text and vision encoders used by the image and video models (CLIP, Gemma, Qwen-VL and others). Not verified model by model.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "turbowan",
+   "name": "TurboWan 2.2 image-to-video",
+   "org": "",
+   "family": "TurboWan2.2-I2V",
+   "era": "today",
+   "kinds": [
+    "video"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "TurboWan 2.2 image-to-video",
+    "url": ""
+   },
+   "what": "An accelerated Wan 2.2 image-to-video build. Source, date and licence were not verified here.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  },
+  {
+   "id": "wan22-dancer",
+   "name": "Wan 2.2 Dancer 14B",
+   "org": "",
+   "family": "Wan2.2-Dancer",
+   "era": "today",
+   "kinds": [
+    "video"
+   ],
+   "date": null,
+   "date_precision": "none",
+   "date_basis": "Date not verified here",
+   "date_verified": false,
+   "licence": "Not verified here",
+   "licence_class": "unverified",
+   "licence_note": "",
+   "licence_verified": false,
+   "source": {
+    "title": "Wan 2.2 Dancer 14B",
+    "url": ""
+   },
+   "what": "A 14B Wan 2.2 variant (local and global fp8 builds). Source, date and licence were not verified here.",
+   "why": "",
+   "featured": false,
+   "run": {
+    "goals": []
+   },
+   "proof": {
+    "tested": 0,
+    "mixed": 0,
+    "untested": 0,
+    "unknown": 0
+   },
+   "instance_check": "starts and loads nodes"
+  }
+ ]
+}

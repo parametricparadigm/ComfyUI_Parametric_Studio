@@ -1,0 +1,62 @@
+{
+ "code": "CU-503",
+ "title": "History 3: Pixel by pixel, autoregressive image models",
+ "level": "200",
+ "questions": [
+  {
+   "q": "In the context of autoregressive image models, what is the primary trade-off compared to diffusion models?",
+   "options": [
+    "Autoregressive models sacrifice speed for rigorous, token-by-token construction of reality.",
+    "Autoregressive models sacrifice precision for parallel processing speed.",
+    "Autoregressive models sacrifice global consistency for local detail.",
+    "Autoregressive models sacrifice memory usage for faster inference."
+   ],
+   "answer": "Autoregressive models sacrifice speed for rigorous, token-by-token construction of reality.",
+   "why": "The lesson states: 'Autoregressive models sacrifice speed for a rigorous, token-by-token construction of reality.' It contrasts this with diffusion models which 'sacrifice sequential context for speed.'"
+  },
+  {
+   "q": "How does the causal mask function in an autoregressive image model when predicting pixel i?",
+   "options": [
+    "It allows the model to attend to pixels 0 through i-1, while remaining blind to pixels i+1 through N.",
+    "It allows the model to attend to all pixels in the image simultaneously to ensure global consistency.",
+    "It restricts the model to only attending to the immediate previous pixel i-1.",
+    "It allows the model to attend to future pixels i+1 through N to predict the current pixel."
+   ],
+   "answer": "It allows the model to attend to pixels 0 through i-1, while remaining blind to pixels i+1 through N.",
+   "why": "The lesson explains: 'When the model predicts pixel i, it is allowed to \"attend\" to pixels 0 through i-1. It is blind to pixels i+1 through N.'"
+  },
+  {
+   "q": "In the provided lab simulation, why is the prediction for the first pixel (pred_0) equal to 0?",
+   "options": [
+    "Because the first pixel in the image is always zero by definition.",
+    "Because the model defaults to 0 when there is no previous history (cold start).",
+    "Because the mean of an empty set is defined as 0 in PyTorch.",
+    "Because the causal mask blocks all inputs for the first step."
+   ],
+   "answer": "Because the model defaults to 0 when there is no previous history (cold start).",
+   "why": "The lab analysis states: 'RESULT pred_0 = 0: The first pixel has no history. The model defaults to 0. This proves the cold start problem of autoregression: the first token is generated without context.'"
+  },
+  {
+   "q": "What is the specific role of the PixelTokenEmbedder module in the PixDiT architecture described in the lesson?",
+   "options": [
+    "It processes 16x16 latent patches to reduce computational load.",
+    "It lifts each individual RGB pixel to the hidden size, allowing for fine-grained sequential or local attention.",
+    "It injects low-quality latent features into the pixel-level transformer.",
+    "It applies rotary positional encoding to the entire image grid."
+   ],
+   "answer": "It lifts each individual RGB pixel to the hidden size, allowing for fine-grained sequential or local attention.",
+   "why": "The lesson states: 'PixelTokenEmbedder: This module lifts each individual RGB pixel to the hidden size... Instead of processing a 16x16 latent patch, it processes individual pixels, allowing for fine-grained sequential or local attention.'"
+  },
+  {
+   "q": "According to the lesson, what is a common mistake regarding the definition of 'autoregressive' in modern image models?",
+   "options": [
+    "Assuming that autoregressive models always process individual pixels rather than patches or tokens.",
+    "Believing that diffusion models are strictly sequential in their inference process.",
+    "Thinking that causal masking is unnecessary for autoregressive models.",
+    "Assuming that PixelRNN and PixelCNN are the most common models in standard ComfyUI workflows."
+   ],
+   "answer": "Assuming that autoregressive models always process individual pixels rather than patches or tokens.",
+   "why": "The 'Common mistakes' section states: 'Many students assume \"autoregressive\" means \"slow.\" While true for pixel-level autoregression... modern models often autoregress over patches or tokens, not individual pixels.'"
+  }
+ ]
+}

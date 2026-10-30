@@ -1,0 +1,12 @@
+{
+ "title": "History 14: The speed era: LCM, turbo and distillation",
+ "level": "300",
+ "char": "denoise",
+ "hook": "Discover how we tricked diffusion models into thinking they were already finished, slashing generation time from minutes to seconds.",
+ "code": "CU-514",
+ "prereq": [
+  "CU-308"
+ ],
+ "status": "draft",
+ "code_refs": []
+}

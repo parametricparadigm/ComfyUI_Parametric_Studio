@@ -1,0 +1,57 @@
+{
+ "code": "CU-410",
+ "title": "Quantization error propagation through layers",
+ "level": "400",
+ "questions": [
+  {
+   "q": "According to the lesson, why is the strategy of 'just quantize everything to INT8' considered dangerous without proper calibration?",
+   "options": [
+    "Because INT8 format is not supported by most modern GPUs.",
+    "Because error is multiplicative and chaotic, meaning small errors in early layers can be amplified by subsequent layers.",
+    "Because INT8 quantization increases the memory footprint of the model.",
+    "Because it prevents the use of mixed-precision operations in ComfyUI."
+   ],
+   "answer": "Because error is multiplicative and chaotic, meaning small errors in early layers can be amplified by subsequent layers.",
+   "why": "The lesson states that 'error is not additive; it is multiplicative and chaotic' and that 'a small error in an early layer can be amplified by subsequent layers,' making uncalibrated uniform quantization dangerous."
+  },
+  {
+   "q": "In the mathematical derivation for a two-layer network, what does the term $W_2 \\epsilon_1$ represent in the total error equation?",
+   "options": [
+    "The bias error introduced by the second layer.",
+    "The amplification of the first layer's error by the weights of the second layer.",
+    "The quantization error specific to the second layer's weights.",
+    "The cancellation of errors between the first and second layers."
+   ],
+   "answer": "The amplification of the first layer's error by the weights of the second layer.",
+   "why": "The lesson explicitly notes: 'Notice the term $W_2 \\epsilon_1$. The error from the first layer ($\\epsilon_1$) is multiplied by the weights of the second layer ($W_2$). If $W_2$ has large values, the error from Layer 1 is amplified.'"
+  },
+  {
+   "q": "What is the primary purpose of calibration data in the context of quantization error propagation?",
+   "options": [
+    "To increase the bit-width of the weights to 16-bit.",
+    "To estimate the distribution of inputs and activations to choose a quantization scale that minimizes error.",
+    "To automatically disable quantization on unsupported hardware.",
+    "To replace floating-point weights with binary integers."
+   ],
+   "answer": "To estimate the distribution of inputs and activations to choose a quantization scale that minimizes error.",
+   "why": "The lesson states: 'Calibration data allows you to estimate the distribution of $x$ (the inputs) and $y$ (the activations). By knowing the typical magnitude of $x$, you can choose a quantization scale that minimizes $\\Delta W x$ for the most common inputs.'"
+  },
+  {
+   "q": "In the provided lab simulation, what was the calculated `max_abs_error` between the full-precision and quantized outputs?",
+   "options": null,
+   "answer": "0.0167379",
+   "why": "The lab output section explicitly lists: 'RESULT max_abs_error = 0.0167379'."
+  },
+  {
+   "q": "Which file in the ComfyUI codebase contains `LazyCastingParam`, which allows weights to be cast to different dtypes on-the-fly?",
+   "options": [
+    "comfy/ops.py",
+    "tests-unit/comfy_quant/test_mixed_precision.py",
+    "comfy/model_patcher.py",
+    "comfy/ldm/ace"
+   ],
+   "answer": "comfy/model_patcher.py",
+   "why": "The lesson states: 'The `comfy/model_patcher.py` file contains `LazyCastingParam`, which allows weights to be cast to different dtypes on-the-fly.'"
+  }
+ ]
+}

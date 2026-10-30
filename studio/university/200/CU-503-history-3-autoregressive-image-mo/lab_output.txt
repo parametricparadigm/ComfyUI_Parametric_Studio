@@ -1,0 +1,5 @@
+RESULT mse = 0.020625
+RESULT pred_0 = 0
+RESULT pred_1 = 0.1
+RESULT pred_2 = 0.15
+RESULT pred_3 = 0.2
