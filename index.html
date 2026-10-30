@@ -17,10 +17,11 @@
 <link rel="stylesheet" href="skin.css">
 <link rel="preload" href="vendor/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>/* read-only demo: GET /api/x comes from saved files, POST explains how to run it for real */
-(() => { const real = window.fetch.bind(window), base = new URL("demo-api/", location.href).href, json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } });
+(() => { window.STUDIO_DEMO = true; const real = window.fetch.bind(window), base = new URL("demo-api/", location.href).href, json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } }), saved = real(base + "_index.json").then((r) => r.json()).then((a) => new Set(a)).catch(() => null);
+  const answer = async (k) => { const have = await saved; if (have && !have.has(k)) return json({ detail: "Not available in the read-only demo." }, 404); const r = await real(base + k + ".json"); return r.ok ? r : json({ detail: "Not available in the read-only demo." }, 404); };
   window.fetch = async (u, o = {}) => { const m = String(u && u.url || u).match(/(?:^|\/)api\/(.*)$/); if (!m) return real(u, o);
-    if ((o.method || "GET").toUpperCase() !== "GET") return json({ detail: "This is the read-only demo. Install Parametric Studio to run this on your own GPU." }, 403);
-    const k = decodeURIComponent(m[1]).split("?")[0].replace(/[^\w.-]+/g, "__"); const r = await real(base + k + ".json"); return r.ok ? r : json({ detail: "Not available in the read-only demo." }, 404); }; })();</script>
+    if ((o.method || "GET").toUpperCase() !== "GET") { if (m[1].split("?")[0] === "graph") { let g = ""; try { g = JSON.parse(o.body).goal; } catch {} const r = await answer("graphs__" + String(g).replace(/[^\w.-]+/g, "__")); if (r.ok) return r; } return json({ detail: "This is the read-only demo. Install Parametric Studio to run this on your own GPU." }, 403); }
+    return answer(decodeURIComponent(m[1]).split("?")[0].replace(/[^\w.-]+/g, "__")); }; })();</script>
 <script type="importmap">{"imports":{"preact":"./vendor/preact.mjs","preact/hooks":"./vendor/hooks.mjs","htm":"./vendor/htm.mjs","three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
 </head>
 <body>

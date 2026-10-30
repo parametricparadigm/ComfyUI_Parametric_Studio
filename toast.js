@@ -41,7 +41,7 @@ export function Toasts({ state, onDismiss }) {
             <span class="small">${item.text}${item.count > 1 ? ` (${item.count})` : ''}</span>
             <button
               class="btn small"
-              onClick={() => onDismiss(item.id)}
+              onClick=${() => onDismiss(item.id)}
               aria-label="Dismiss notification"
             >
               ×

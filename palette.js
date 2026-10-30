@@ -48,8 +48,8 @@ export function Palette({ items, onPick, onClose }) {
   };
 
   return html`
-    <div class="palette-overlay" role="dialog" aria-label="Command palette">
-      <div class="palette-modal">
+    <div class="palette-overlay" role="dialog" aria-label="Command palette" onclick=${onClose}>
+      <div class="palette-modal" onclick=${(e) => e.stopPropagation()}>
         <input
           ref=${inputRef}
           type="text"

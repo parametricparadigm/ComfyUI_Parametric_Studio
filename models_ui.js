@@ -73,7 +73,7 @@ export function AttachCard() {
   const [cur, setCur] = useState(null), [url, setUrl] = useState(""), [res, setRes] = useState(null), [busy, setBusy] = useState(""), [msg, setMsg] = useState("");
   const load = () => api("/api/models/attach").then((d) => { setCur(d); setUrl((u) => u || d.default_url); }).catch(() => {});
   useEffect(() => { load(); }, []);
-  const run = async (what) => { setBusy(what); setMsg(""); try { const r = await post(what === "use" ? "/api/models/attach" : "/api/models/attach/test", { url }); setRes(r); if (what === "use") { setMsg("The studio now uses this ComfyUI."); await load(); loadReady(); } } catch (e) { setRes(null); setMsg(e.message); } setBusy(""); };
+  const run = async (what) => { setBusy(what); setMsg(""); try { const r = await post(what === "use" ? "/api/models/attach" : "/api/models/attach/test", { url }); setRes(r); if (r.ok === false) setMsg(r.error || "Could not reach ComfyUI at that address."); else if (what === "use") { setMsg("The studio now uses this ComfyUI."); await load(); loadReady(); } } catch (e) { setRes(null); setMsg(e.message); } setBusy(""); };
   const reset = async () => { setBusy("reset"); try { const d = await post("/api/models/attach/reset", {}); setCur(d); setUrl(d.url); setRes(null); setMsg("Back on the original ComfyUI."); loadReady(); } catch (e) { setMsg(e.message); } setBusy(""); };
   const lacking = res && res.ok ? res.goals.filter((g) => g.missing_models.length || g.missing_nodes.length) : [];
   return html`<div class="card attach"><h3>Use your own ComfyUI</h3><p class="small" style="margin:0 0 8px">Already running ComfyUI somewhere on this machine or your network? Point the studio at it. ${cur ? html`Now using <code>${cur.url}</code>.` : ""}</p>

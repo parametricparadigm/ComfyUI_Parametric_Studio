@@ -13,9 +13,10 @@ export function useShortcuts(registry) {
 
 export function ShortcutHelp({ registry, onClose }) {
   const items = registry.list();
+  useEffect(() => { const k = (e) => { if (e.key === "Escape") onClose(); }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose]);
   return html`
-    <div role="dialog" aria-modal="true" class="card" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">
-      <div class="card" style="max-width:400px;width:90%;padding:1rem;">
+    <div role="dialog" aria-modal="true" class="card" onclick=${onClose} style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">
+      <div class="card" onclick=${(e) => e.stopPropagation()} style="max-width:400px;width:90%;padding:1rem;">
         <div class="row" style="justify-content:space-between;margin-bottom:1rem;">
           <h3>Keyboard Shortcuts</h3>
           <button class="btn small" onclick=${onClose}>Close</button>

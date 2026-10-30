@@ -74,12 +74,9 @@ export function Timeline({ library, onRender, rendering }) {
 
   const handleRender = () => {
     const edl = toEDL(state);
-    const validation = validateEDL(edl);
-    if (validation.ok) {
-      onRender(edl);
-    } else {
-      setProblems(validation.problems || [validation.error || "Validation failed"]);
-    }
+    const found = edl.tracks.some((t) => t.clips.length) ? validateEDL(edl) : ["Add at least one clip before rendering."];
+    setProblems(found);
+    if (!found.length) onRender(edl);
   };
 
   const handleRulerClick = (e) => {

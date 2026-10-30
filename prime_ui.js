@@ -72,6 +72,7 @@ const NO_LLM = "No language model is running on this machine yet, so I can't loo
 const NOTES_REST = "I'm resting while the GPU renders, so here's the closest part of my notes, word for word.";
 const NOTES_NONE = "No language model is running here, so here's the closest part of my notes, word for word.";
 const ERR = "That took too long. The language model may be busy or asleep while a render runs. Try me again in a moment.";
+const errLine = (er) => (er && er.status >= 400 && er.status < 500 ? er.message : ERR);
 
 /* The first short answer is taken as the name, unless it is plainly not one. */
 export const nameFrom = (text, explicitOnly) => {
@@ -142,7 +143,7 @@ export function PrimeDock({ goal }) {
       if (m.id === "auto") setWho(f);
       line(res.answer || "I can't back that up from my notes.", f, { quotes: res.quotes || [], unsupported: res.supported === false && !empty ? res.problems || [] : null });
       return true;
-    } catch (er) { line(ERR, m.id === "auto" ? PRIME : m); return false; } finally { if (!inner) setBusy(false); }
+    } catch (er) { line(errLine(er), m.id === "auto" ? PRIME : m); return false; } finally { if (!inner) setBusy(false); }
   };
   const deliver = async (raw, typed) => {
     const t = raw.trim(); if (!t || S.current.busy) return; push("me", t); speaker.current.stop(); const { who: w, name: known } = S.current; const said = nameFrom(t, known !== "");
@@ -155,7 +156,7 @@ export function PrimeDock({ goal }) {
       const v = v0 || await refresh();
       if (v.llm !== "awake" && v.llm !== "unknown") { if (/\?$|^(how|what|why|which|when|where|can|does|do|is|are|should|will)\b/i.test(t) && t.length >= 3) { await ask(t, w, true); return; } line(v.llm === "asleep" ? REST : NO_LLM, w); if (typed) setText(t); return; }
       const r = await timed("/api/prime", { text: t, history: hist.current.slice(-8), goal: S.current.goal || "" }); line(r.say, w); hist.current.push({ role: "assistant", text: r.say }); for (const a of r.actions) await act(a);
-    } catch (er) { line(ERR, w); if (typed) setText(t); } finally { setBusy(false); }
+    } catch (er) { line(errLine(er), w); if (typed) setText(t); } finally { setBusy(false); }
   };
   const send = (e) => { e && e.preventDefault(); const t = text; setText(""); deliver(t, true); };
 

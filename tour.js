@@ -1,19 +1,10 @@
 import { h, render } from "preact";
 import { useState, useEffect, useRef, useMemo } from "preact/hooks";
 import html from "./common.js";
-import { createTour, start, next, back, skip, current, progress, shouldAutoStart } from "./tour_logic.js";
+import { createTour, start, next, back, skip, current, progress } from "./tour_logic.js";
 
 export function Tour({ steps, onClose, speak }) {
-  const [tour, setTour] = useState(() => {
-    let stored = null;
-    try {
-      stored = localStorage.getItem('tour_done');
-    } catch (e) {}
-    if (shouldAutoStart(stored)) {
-      return start(createTour(steps));
-    }
-    return { ...createTour(steps), done: true };
-  });
+  const [tour, setTour] = useState(() => start(createTour(steps)));
 
   const [rect, setRect] = useState(null);
   const overlayRef = useRef(null);
@@ -47,17 +38,25 @@ export function Tour({ steps, onClose, speak }) {
     };
 
     updateRect();
+    const settle = setTimeout(() => {
+      const el = step.target && document.querySelector(step.target);
+      if (el) el.scrollIntoView({ block: 'center', inline: 'nearest' });
+      updateRect();
+    }, 150);
     window.addEventListener('resize', updateRect);
-    window.addEventListener('scroll', updateRect);
+    window.addEventListener('scroll', updateRect, true);
 
     return () => {
+      clearTimeout(settle);
       window.removeEventListener('resize', updateRect);
-      window.removeEventListener('scroll', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
     };
   }, [step, speak]);
 
   useEffect(() => {
     const handleKey = (e) => {
+      const el = e.target || {};
+      if (/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName || '') || el.isContentEditable) return;
       if (e.key === 'ArrowRight') {
         handleNext();
       } else if (e.key === 'ArrowLeft') {
@@ -71,9 +70,6 @@ export function Tour({ steps, onClose, speak }) {
   }, [tour]);
 
   const finish = () => {
-    try {
-      localStorage.setItem('tour_done', 'done');
-    } catch (e) {}
     if (onClose) onClose();
   };
 
@@ -107,7 +103,7 @@ export function Tour({ steps, onClose, speak }) {
     : null;
 
   return html`
-    <div class="tour-overlay" role="dialog" aria-label="Guided Tour">
+    <div class=${"tour-overlay" + (spotlightStyle ? "" : " dim")} role="dialog" aria-label="Guided Tour">
       ${spotlightStyle ? html`
         <div class="tour-spotlight" style=${spotlightStyle}></div>
       ` : null}

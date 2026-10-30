@@ -4,11 +4,11 @@ import { html, api, post } from "./common.js";
 import { useShowcase, LiveMedia } from "./showcase.js";
 
 const KIND = { goal: "Studio app", recipe: "Recipe", family: "Family graph" };
-const base = () => (location.origin === "null" ? "http://localhost:8310" : location.origin);
+const base = () => (location.origin === "null" || window.STUDIO_DEMO ? "http://localhost:8310" : location.origin);
 const nameOf = (o) => o.title || o.name || o.id;
 export const rowsOf = (graphs, recipes, famg, items) => [
   ...graphs.map((g) => ({ key: "goal:" + g.goal, kind: "goal", id: g.goal, label: g.label, sub: g.model, media: items.find((x) => x.goal === g.goal && x.kind !== "audio") })),
-  ...recipes.map((r) => { const g = (r.steps || []).map((s) => s.goal).find(Boolean), m = items.find((x) => x.goal === g && x.poster); return { key: "recipe:" + r.id, kind: "recipe", id: r.id, label: nameOf(r), sub: (r.models || []).join(", ") || "Recipe", art: m && m.poster }; }),
+  ...recipes.map((r) => { const g = (r.steps || []).map((s) => s.goal).find(Boolean), m = items.find((x) => x.goal === g && x.poster); return { key: "recipe:" + r.id, kind: "recipe", id: r.id, label: nameOf(r), sub: (r.models || []).map((m) => m.name || m).join(", ") || "Recipe", art: m && m.poster }; }),
   ...famg.map((g) => ({ key: `family:${g.slug}/${g.name}`, kind: "family", id: g.name, slug: g.slug, label: g.title, sub: g.family, art: g.art })),
 ];
 export async function loadGraph(row) {
@@ -72,7 +72,7 @@ export function ApiPage() {
   const [graphs, setGraphs] = useState([]), [recipes, setRecipes] = useState([]), [famg, setFamg] = useState([]), [cur, setCur] = useState(null), [detail, setDetail] = useState(null), [lang, setLang] = useState("curl"), [copied, setCopied] = useState(false), [live, setLive] = useState(null), [err, setErr] = useState(""), [q, setQ] = useState(""), [sec, setSec] = useState("all"), items = useShowcase();
   useEffect(() => { api("/api/graphs").then(setGraphs).catch((e) => setErr(e.message)); api("/api/recipes").then((d) => setRecipes(d.recipes || d)).catch(() => {}); api("/api/family-graphs").then((d) => setFamg(d.graphs)).catch(() => {}); }, []);
   const rows = useMemo(() => rowsOf(graphs, recipes, famg, items), [graphs, recipes, famg, items]);
-  useEffect(() => { if (cur || !rows.length) return; let pick = null; try { pick = sessionStorage.getItem("api_pick"); } catch {} const found = pick && rows.find((r) => r.key === pick); if (pick && !found && !famg.length) return; try { sessionStorage.removeItem("api_pick"); } catch {} setCur(found || rows[0]); }, [rows]);
+  useEffect(() => { if (cur || !rows.length || (!graphs.length && !err)) return; let pick = null; try { pick = sessionStorage.getItem("api_pick"); } catch {} const found = pick && rows.find((r) => r.key === pick); if (pick && !found && !famg.length) return; try { sessionStorage.removeItem("api_pick"); } catch {} setCur(found || rows[0]); }, [rows, err]);
   useEffect(() => { if (!cur) return; setDetail(null); setLive(null); setErr(""); loadGraph(cur).then(setDetail).catch((e) => setErr(e.message)); }, [cur && cur.key]);
   const shown = rows.filter((r) => (sec === "all" || r.kind === sec) && (!q.trim() || [r.label, r.sub].join(" ").toLowerCase().includes(q.trim().toLowerCase()))), snippet = cur ? code(lang, cur) : "";
   const copy = async () => { try { await navigator.clipboard.writeText(snippet); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch {} };
