@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Viewer3D } from "./viewer3d.js";
 import { SAMPLES } from "./wk_example.js";
-import { TYPES, TYPE_LABELS, PROP_SOURCES, fileUrl, exportUrl, statusChip, summaryOf, filterAssets, canApprove, canRetry, canMakeProp, createPayload, stepRows, addClip, blockers, makerBoard, stepLabel, stepDone, scaleCompare, shopCounts, firstAsset, nextStep } from "./worldkit_helpers.js";
+import { TYPES, TYPE_LABELS, PROP_SOURCES, fileUrl, exportUrl, statusChip, summaryOf, filterAssets, canApprove, canRetry, canMakeProp, createPayload, meshChoices, stepRows, addClip, blockers, makerBoard, stepLabel, stepDone, scaleCompare, shopCounts, firstAsset, nextStep } from "./worldkit_helpers.js";
 
 const errText = (e) => String((e && e.message) || e);
-const BLANK = { name: "", tags: "", characterId: "", prompt: "", image: "", mesh: "", via: "mesh", size: "", brief: "", preset: "", time: "", weather: "", textures: "" };
+const BLANK = { name: "", tags: "", characterId: "", prompt: "", image: "", mesh: "", meshModel: "", via: "mesh", size: "", brief: "", preset: "", time: "", weather: "", textures: "" };
 const Chip = ({ c }) => html`<span class=${"wk-chip " + c.cls}>${c.label}</span>`;
 const quiet = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 const STEP_MARK = { done: "M4 12l5 5 11-11", skipped: "M5 12h14", failed: "M6 6l12 12 M18 6L6 18", running: "M12 4a8 8 0 1 0 8 8" };
@@ -23,11 +23,13 @@ function NewAsset({ onCreated, caps, reloadCaps, start, onClose }) {
   const [chars, setChars] = useState({ characters: [], enabled: false, message: "" });
   const [looks, setLooks] = useState({ looks: [], times: [], weathers: [] });
   const [meshes, setMeshes] = useState([]);
+  const [models3d, setModels3d] = useState([]);
   const [err, setErr] = useState(""), [busy, setBusy] = useState(false);
   useEffect(() => {
     api("/api/worldkit/characters").then(setChars).catch(() => {});
     api("/api/worldkit/looks").then(setLooks).catch((e) => setErr(errText(e)));
     api("/api/worldkit/meshes").then((r) => setMeshes(r.items || [])).catch(() => {});
+    api("/api/3d/models").then((r) => setModels3d(r.models || [])).catch(() => {});
     reloadCaps();
   }, []);
   useEffect(() => { if (start) { setType(start.type); setForm({ ...BLANK, via: start.via || "mesh" }); setErr(""); } }, [start]);
@@ -56,6 +58,7 @@ function NewAsset({ onCreated, caps, reloadCaps, start, onClose }) {
         ${form.via === "mesh" && html`<label class="wk-f wide"><span>3D result</span><select class="wk-in" aria-label="3D result" value=${form.mesh} onChange=${set("mesh")}><option value="">${meshes.length ? "Pick a 3D result" : "No .glb in the outputs folder yet"}</option>${meshes.map((m) => html`<option value=${m}>${m}</option>`)}</select></label>`}
         ${form.via === "image" && html`<label class="wk-f wide"><span>Picture</span><input class="wk-in" type="file" accept="image/png,image/jpeg,image/webp" onChange=${upload}/></label>${form.image && html`<p class="wk-hint wide">Picture: ${form.image}</p>`}`}
         ${form.via === "text" && html`<label class="wk-f wide"><span>Describe the object</span><textarea class="wk-in" rows="2" value=${form.prompt} onInput=${set("prompt")}></textarea></label>`}
+        ${form.via !== "mesh" && html`<label class="wk-f wide"><span>3D model</span><select class="wk-in" aria-label="3D model" value=${form.meshModel} onChange=${set("meshModel")}><option value="">The studio picks</option>${meshChoices(models3d, form.via).map((m) => html`<option value=${m.id}>${m.label}</option>`)}</select></label>`}
         <label class="wk-f wide"><span>Longest side in metres (optional, guessed from the name)</span><input class="wk-in" type="text" inputmode="decimal" value=${form.size} onInput=${set("size")} aria-label="Size in metres"/></label>`}
       ${type === "place" && html`<label class="wk-f wide"><span>The brief</span><textarea class="wk-in" rows="2" placeholder="Rainy downtown block at night, beach boardwalk, cafe interior" value=${form.brief} onInput=${set("brief")}></textarea></label>
         <label class="wk-f wide"><span>Textures</span><select class="wk-in" aria-label="Textures" value=${form.textures} onChange=${set("textures")}>

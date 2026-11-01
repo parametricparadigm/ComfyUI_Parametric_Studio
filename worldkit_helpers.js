@@ -41,6 +41,12 @@ export function canMakeProp(meta) {
 
 export const parseTags = (s) => String(s || "").split(",").map((t) => t.trim().toLowerCase()).filter(Boolean).slice(0, 12);
 
+// The mesh models a prop can use, for a picture or for words, from /api/3d/models. Only what can run now; "" lets the studio pick.
+export function meshChoices(models, via) {
+  const job = via === "text" ? ["mesh_from_text", "mesh_from_image"] : ["mesh_from_image"];
+  return (models || []).filter((m) => m.ready && job.includes(m.job)).map((m) => ({ id: m.id, label: m.label + (m.job === "mesh_from_text" ? " (words straight to a mesh)" : "") }));
+}
+
 export function createPayload(type, form) {
   const out = { type, name: String(form.name || "").trim(), tags: parseTags(form.tags), source: {} };
   if (type === "character") out.source = { character_id: form.characterId };
@@ -49,6 +55,7 @@ export function createPayload(type, form) {
     out.source = via === "mesh" ? { mesh: form.mesh } : via === "image" ? { image: form.image } : { prompt: String(form.prompt || "").trim() };
     const size = parseFloat(form.size);
     if (size > 0) out.recipe = { size_m: size };
+    if (via !== "mesh" && form.meshModel) out.recipe = { ...(out.recipe || {}), mesh_model: form.meshModel };
   } else if (type === "place") {
     out.source = { brief: String(form.brief || "").trim() };
     const recipe = {};

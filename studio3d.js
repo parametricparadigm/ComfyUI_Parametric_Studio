@@ -1,6 +1,6 @@
 /* The 3D page: a dark stage with real lighting, one real mesh on a turntable, a shelf to swap between meshes, four ways to look at it, and readouts measured from the file itself. Three.js is loaded only here, on demand. */
 import { useEffect, useRef, useState } from "preact/hooks";
-import { html, api } from "./common.js";
+import { html, api, post } from "./common.js";
 import { fitDistance } from "./fit_distance.js";
 
 const calm = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -29,7 +29,7 @@ function Stage({ item, mode, spin, onLoaded, onFail }) {
         /* a rigged mesh's file bounds are for its rest pose before the bones act, so measure those vertex by vertex */
         model.updateMatrixWorld(true); const solid = new THREE.Box3(), every = new THREE.Box3(); let scenery = false; model.traverse((o) => { if (!o.isMesh || !o.visible) return; every.expandByObject(o, !!o.isSkinnedMesh); const named = (s) => /^(backdrop|sea)/i.test((s && s.name) || ""); if (named(o) || named(o.parent)) scenery = true; else solid.expandByObject(o, !!o.isSkinnedMesh); });
         const bb = scenery && !solid.isEmpty() ? solid : every, size = bb.getSize(new THREE.Vector3()), mid = bb.getCenter(new THREE.Vector3()), big = Math.max(size.x, size.y, size.z) || 1;
-        model.position.set(-mid.x, -bb.min.y, -mid.z); const turntable = new THREE.Group(); turntable.add(model); scene.add(turntable);
+        model.position.set(-mid.x, -bb.min.y, -mid.z); const turntable = new THREE.Group(); turntable.rotation.y = ((item.yaw || 0) * Math.PI) / 180; turntable.add(model); scene.add(turntable);
         let tris = 0, verts = 0; const mats = new Set(); st.meshes = [];
         model.traverse((o) => { if (!o.isMesh) return; o.castShadow = o.receiveShadow = true; const g = o.geometry, p = g.attributes.position; if (!g.attributes.normal) { g.computeVertexNormals(); (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => { m.flatShading = false; m.needsUpdate = true; }); } verts += p ? p.count : 0; tris += g.index ? g.index.count / 3 : p ? p.count / 3 : 0; (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => mats.add(m)); st.meshes.push({ o, orig: o.material }); });
         const hasColour = [...mats].some((m) => m.map || m.vertexColors || (m.color && m.color.getHex() !== 0xffffff));
@@ -65,11 +65,37 @@ function Stage({ item, mode, spin, onLoaded, onFail }) {
   return html`<div class="v3x-canvas" ref=${box}></div>`;
 }
 
+/* the controls under the stage: pick a model, give it a picture, words or a mesh, and what it makes lands on the shelf */
+const JOB_LABEL = { mesh_from_image: "Picture to mesh", mesh_from_text: "Words to mesh", relief_from_image: "Picture to a one-sided relief", splat_from_image: "Picture to splat", rig: "Rig a mesh", motion: "Words to motion" };
+function Make3D({ meshes, onMade }) {
+  const [models, setModels] = useState([]), [pick, setPick] = useState(""), [image, setImage] = useState(""), [prompt, setPrompt] = useState(""), [mesh, setMesh] = useState(""), [job, setJob] = useState(null), [err, setErr] = useState("");
+  useEffect(() => { api("/api/3d/models").then((d) => { setModels(d.models); const r = d.models.find((m) => m.ready); if (r) setPick(r.id); }).catch((e) => setErr(e.message)); }, []);
+  useEffect(() => { if (!job || job.status !== "running") return undefined; const t = setInterval(() => api("/api/3d/jobs/" + job.job).then((s) => { setJob(s); if (s.status === "done") onMade(s); }).catch((e) => setErr(e.message)), 2500); return () => clearInterval(t); }, [job && job.job, job && job.status]);
+  const m = models.find((x) => x.id === pick), busy = job && job.status === "running";
+  const upload = async (e) => { const f = e.target.files && e.target.files[0]; if (!f) return; const b = new FormData(); b.append("file", f); try { setImage((await api("/api/upload", { method: "POST", body: b })).name); } catch (x) { setErr(x.message); } };
+  const needsPic = m && ["mesh_from_image", "relief_from_image", "splat_from_image"].includes(m.job), needsText = m && ["mesh_from_text", "motion"].includes(m.job), needsMesh = m && m.job === "rig";
+  const canGo = m && m.ready && !busy && (!needsPic || image) && (!needsText || prompt.trim()) && (!needsMesh || mesh);
+  const go = async () => { setErr(""); try { setJob(await post("/api/3d/run", { model: pick, image, prompt, mesh })); } catch (x) { setErr(x.message); } };
+  const made = job && job.status === "done";
+  return html`<section class="v3m" aria-label="Make something"><h3>Make something</h3>
+    <div class="v3m-row"><label class="lk-field"><span>Model</span><select value=${pick} onChange=${(e) => setPick(e.target.value)}>${Object.keys(JOB_LABEL).map((j) => html`<optgroup key=${j} label=${JOB_LABEL[j]}>${models.filter((x) => x.job === j).map((x) => html`<option key=${x.id} value=${x.id} disabled=${!x.ready}>${x.label}${x.ready ? "" : " (not ready)"}</option>`)}</optgroup>`)}</select></label>
+      ${needsPic && html`<label class="lk-field"><span>Picture of the object</span><input type="file" accept="image/png,image/jpeg,image/webp" onChange=${upload}/></label>`}
+      ${needsText && html`<label class="lk-field v3m-wide"><span>${m.job === "motion" ? "The motion, in words" : "The object, in words"}</span><input type="text" placeholder=${m.job === "motion" ? "a person walks forward, then waves" : "a wooden chair"} value=${prompt} onInput=${(e) => setPrompt(e.target.value)}/></label>`}
+      ${needsMesh && html`<label class="lk-field v3m-wide"><span>Mesh to rig</span><select value=${mesh} onChange=${(e) => setMesh(e.target.value)}><option value="">Pick a mesh from your output folder</option>${meshes.map((x) => html`<option key=${x} value=${x}>${x.split("/").pop()}</option>`)}</select></label>`}
+      <button class="btn primary" type="button" disabled=${!canGo} onClick=${go}>${busy ? "Running" : "Make it"}</button></div>
+    ${m && html`<p class="lk-plain v3x-scale">${m.note} Licence: ${m.licence}. ${m.proof.status === "not run" ? "Not run on this machine yet." : `Run here: ${m.proof.seconds} s${m.proof.peak_gib ? `, ${m.proof.peak_gib} GB peak` : ""}.`}</p>`}
+    ${m && !m.ready && html`<p class="small warn" role="status">${m.why_not}</p>`}
+    ${made && html`<p class="lk-plain v3x-scale" role="status">Done in ${job.seconds} s: ${job.file}. ${job.glb ? "It is on the shelf and on the stage, and World Kit can take it as a prop." : "It is in your output folder; this stage shows .glb files only."}</p>`}
+    ${job && job.status === "error" && html`<p class="small" style="color:var(--err)" role="alert">${job.error}</p>`}${err && html`<p class="small" style="color:var(--err)" role="alert">${err}</p>`}</section>`;
+}
+
 export function Studio3D() {
   const [samples, setSamples] = useState([]), [mine, setMine] = useState([]), [cur, setCur] = useState(null), [mode, setMode] = useState("textured"), [spin, setSpin] = useState(!calm()), [info, setInfo] = useState(null), [loading, setLoading] = useState(true), [err, setErr] = useState(""), [listErr, setListErr] = useState(""), [thumbs, setThumbs] = useState({});
+  const loadMine = () => api("/api/models3d").then((d) => { const rows = [...(d.items || []).map((m) => ({ id: m.url, url: m.url, bytes: m.bytes, name: m.path.split("/").pop(), made: "In your output folder" })), ...(d.family_items || []).map((m) => ({ id: m.url, url: m.url, bytes: m.bytes, name: m.path.split("/").pop(), made: `From ${m.family}'s own ComfyUI` }))]; setMine(rows); return rows; }).catch((e) => setListErr(e.message));
+  const madeOne = (job) => { if (!job.glb) { loadMine(); return; } loadMine().then((rows) => { const x = (rows || []).find((r) => decodeURIComponent(r.url).endsWith(job.file)); if (x) pick(x); }); };
   useEffect(() => {
     fetch("mesh_art/index.json").then((r) => (r.ok ? r.json() : [])).then((d) => { const rows = d.map((x) => ({ ...x, url: "mesh_art/" + x.file, thumb: "mesh_art/" + x.thumb, sample: true })); setSamples(rows); setCur((c) => c || rows[0] || null); }).catch(() => {});
-    api("/api/models3d").then((d) => setMine([...(d.items || []).map((m) => ({ id: m.url, url: m.url, bytes: m.bytes, name: m.path.split("/").pop(), made: "In your output folder" })), ...(d.family_items || []).map((m) => ({ id: m.url, url: m.url, bytes: m.bytes, name: m.path.split("/").pop(), made: `From ${m.family}'s own ComfyUI` }))])).catch((e) => setListErr(e.message));
+    loadMine();
   }, []);
   const pick = (x) => { if (cur && x.id === cur.id) return; setCur(x); setInfo(null); setErr(""); setLoading(true); };
   const shelf = [...mine, ...samples];
@@ -94,6 +120,7 @@ export function Studio3D() {
     </dl>
     ${!cur.scale_m && html`<p class="lk-plain v3x-scale">glTF files count in metres, but a model made from a single picture does not know its real size, so read these as the file's own units.</p>`}
     ${info && !info.hasColour && mode === "textured" && html`<p class="lk-plain v3x-scale">This file has no texture or colour of its own, so Textured looks plain.</p>`}
+    <${Make3D} meshes=${mine.filter((x) => x.url.startsWith("/api/file3d")).map((x) => new URLSearchParams(x.url.split("?")[1]).get("path"))} onMade=${madeOne}/>
     <section aria-label="Shelf"><div class="v3x-shelfhead"><h3>The shelf</h3><p>${mine.length ? `${mine.length} made on this machine, ${samples.length} of our test builds.` : `No generated .glb files yet, so these are our own ${samples.length} test builds, not your work.`}</p></div>
       <ul class="v3x-shelf">${shelf.map((x) => html`<li key=${x.id}><button type="button" aria-pressed=${x.id === cur.id} onClick=${() => pick(x)}><span class="v3x-thumb">${thumbs[x.id] || x.thumb ? html`<img src=${thumbs[x.id] || x.thumb} alt="" loading="lazy"/>` : html`<i aria-hidden="true">3D</i>`}</span><b>${x.name}</b><small>${x.sample ? "Our test build" : x.made}${x.bytes ? `, ${mb(x.bytes)}` : ""}</small></button></li>`)}</ul>
       ${listErr && html`<p class="small" style="color:var(--err)" role="alert">Your own models could not be listed: ${listErr}</p>`}</section>
