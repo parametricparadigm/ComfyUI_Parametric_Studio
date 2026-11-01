@@ -1,0 +1,68 @@
+{
+ "brief": {
+  "name": "The Night Shift",
+  "voice": "dark, loud",
+  "brand": "#27e07f",
+  "pages": [
+   "Home",
+   "Shows"
+  ],
+  "facts": {
+   "Sound": "Three-piece synth rock",
+   "Next show": "Friday at the Old Mill",
+   "Booking": "Use the contact form"
+  }
+ },
+ "copy": {
+  "pages": [
+   {
+    "slug": "home",
+    "title": "Home",
+    "description": "The Night Shift, a three-piece synth rock band.",
+    "sections": [
+     {
+      "id": "sound",
+      "heading": "Three people. A lot of synth.",
+      "body": "The Night Shift is a three-piece synth rock band. It is dark and it is loud, and that is the whole idea.",
+      "alt": "A record cover with a golden sun over green waves, leaning on a black vinyl disc",
+      "image_prompt": "A record cover with a golden sun over green waves, leaning on a black vinyl disc"
+     }
+    ]
+   },
+   {
+    "slug": "shows",
+    "title": "Shows",
+    "description": "The next show from The Night Shift.",
+    "sections": [
+     {
+      "id": "next",
+      "heading": "Friday at the Old Mill",
+      "body": "The next show is on Friday at the Old Mill. To book the band, use the contact form.",
+      "alt": "A record cover with a golden sun over green waves",
+      "image_prompt": "A record cover with a golden sun over green waves"
+     }
+    ]
+   }
+  ]
+ },
+ "tokens": {
+  "light": {
+   "bg": "#ffffff",
+   "surface": "#f4f6f9",
+   "text": "#1b1f24",
+   "muted": "#5b6572",
+   "accent": "#167d47",
+   "on_accent": "#ffffff"
+  },
+  "dark": {
+   "bg": "#12151a",
+   "surface": "#1b2028",
+   "text": "#eef1f5",
+   "muted": "#a3acb8",
+   "accent": "#27e07f",
+   "on_accent": "#000000"
+  },
+  "font": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "radius": "12px"
+ }
+}

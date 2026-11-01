@@ -1,6 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { Viewer3D } from "./viewer3d.js";
 import { Face, familyLabel } from "./prime_ui.js";
 import { GraphPanel } from "./apipage.js";
 import { Empty, Head, Offline, Stage, Stats, Strip, useHealth } from "./look.js";
@@ -28,52 +27,57 @@ export function Crew() {
 }
 
 /* ---------- Site builder ---------- */
-const SITE_EXAMPLES = [
-  { label: "Bakery", name: "Golden Crumb", brand: "warm, handmade, gold and cream", pages: "home, menu, about, contact", facts: [["Hours", "Tuesday to Sunday, 7 to 3"], ["Known for", "Sourdough baked before dawn"], ["Where", "Corner of Pine and 4th"]] },
-  { label: "Band", name: "The Night Shift", brand: "dark, loud, neon green", pages: "home, shows, music, contact", facts: [["Sound", "Three-piece synth rock"], ["Next show", "Friday at the Old Mill"], ["Booking", "Use the contact form"]] },
-  { label: "Studio", name: "Parallel Frame", brand: "minimal, cinematic, black and white", pages: "home, work, services, contact", facts: [["What we do", "Short films and product videos"], ["Team", "Two directors and an editor"], ["Turnaround", "Two weeks"]] },
-];
-const SITE_ART = ["showcase/p_teapot.webp", "showcase/a_score.webp", "showcase/short_film.webp"];
+const SITE_NOTE = "Six sample sites, built by this studio's page builder from invented briefs. We wrote their words by hand from each brief, because the local AI was asleep when we made them, and put our own renders in the picture slots. Press Build and the local AI writes yours.";
+function SiteTile({ x, hidden }) {
+  return html`<a class="sw-site" href=${`site_examples/${x.slug}/index.html`} target="_blank" rel="noopener noreferrer" tabindex=${hidden ? "-1" : undefined} aria-hidden=${hidden ? "true" : undefined}>
+    <span class="sw-browser"><span class="sw-bar" aria-hidden="true"><i></i><i></i><i></i><u>${x.slug}</u></span><span class="sw-page"><img src=${`site_examples/${x.slug}_desktop.webp`} alt=${hidden ? "" : `The ${x.name} sample site on a desktop`} loading="lazy"/></span></span>
+    <span class="sw-phone"><img src=${`site_examples/${x.slug}_phone.webp`} alt=${hidden ? "" : `The ${x.name} sample site on a phone`} loading="lazy"/></span>
+    <span class="sw-cap"><b>${x.name}</b><small>${x.label}, sample. Opens the real pages.</small></span></a>`;
+}
+function SiteWipe({ sites }) {
+  const [at, setAt] = useState(0), [pos, setPos] = useState(55); const x = sites[at] || sites[0];
+  if (!x) return null;
+  return html`<div class="sw-wipe film"><div class="sw-wipestage" style=${{ "--pos": pos + "%" }}>
+      <div class="sw-brief"><span class="lk-tag">The brief</span><h3>${x.name}</h3><dl><div><dt>Voice</dt><dd>${x.voice}</dd></div><div><dt>Colour</dt><dd><i style=${{ background: x.brand }}></i>${x.brand}</dd></div><div><dt>Pages</dt><dd>${x.pages}</dd></div>${Object.entries(x.facts).map(([k, v]) => html`<div key=${k}><dt>${k}</dt><dd>${v}</dd></div>`)}</dl></div>
+      <div class="sw-after"><img src=${`site_examples/${x.slug}_desktop.webp`} alt=${`The finished ${x.name} site`}/><span class="lk-tag">The site</span></div>
+      <span class="sw-line" aria-hidden="true"></span><input type="range" min="0" max="100" value=${pos} onInput=${(e) => setPos(+e.target.value)} aria-label="Wipe from the brief to the finished site"/></div>
+    <div class="sw-wipeside"><ul class="lk-rack">${sites.map((y, i) => html`<li key=${y.slug}><button type="button" aria-pressed=${i === at} onClick=${() => setAt(i)}><img src=${`site_examples/${y.slug}_desktop.webp`} alt="" loading="lazy"/><span><b>${y.name}</b><small>${y.label}</small></span></button></li>`)}</ul><a class="btn primary sw-open" href=${`site_examples/${x.slug}/index.html`} target="_blank" rel="noopener noreferrer">Open ${x.name}</a></div></div>`;
+}
 export function Site() {
-  const [name, setName] = useState(""); const [brand, setBrand] = useState(""); const [pages, setPages] = useState("home, about, contact"); const [facts, setFacts] = useState([["", ""], ["", ""], ["", ""]]); const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [site, setSite] = useState(null);
+  const [name, setName] = useState(""); const [brand, setBrand] = useState(""); const [colour, setColour] = useState("#b5651d"); const [pages, setPages] = useState("home, about, contact"); const [facts, setFacts] = useState([["", ""], ["", ""], ["", ""]]); const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [site, setSite] = useState(null);
+  const [sites, setSites] = useState([]), [doc, setDoc] = useState(""), [wide, setWide] = useState(true), [warn, setWarn] = useState("");
+  useEffect(() => { fetch("site_examples/index.json").then((r) => (r.ok ? r.json() : [])).then(setSites).catch(() => {}); }, []);
+  const brief = () => ({ name, voice: brand, brand: colour, pages: pages.split(",").map((x) => x.trim()).filter(Boolean), facts: Object.fromEntries(facts.filter(([k, v]) => k.trim() && v.trim())) });
+  useEffect(() => { const t = setTimeout(() => post("/api/site/preview", { brief: brief() }).then((r) => { setDoc(r.html); setWarn(""); }).catch((e) => setWarn(e.message)), 180); return () => clearTimeout(t); }, [name, brand, colour, pages, JSON.stringify(facts)]);
   const go = async () => {
     setBusy(true); setErr(""); setSite(null);
-    const f = Object.fromEntries(facts.filter(([k, v]) => k.trim() && v.trim()));
-    try { const r = await post("/api/site/build", { brief: { name, brand, pages: pages.split(",").map((x) => x.trim()).filter(Boolean), facts: f } }); if ((r.files || []).length) setSite(r); else setErr((r.problems || []).join("; ") || "The site could not be built."); } catch (e) { setErr(e.message); }
+    try { const r = await post("/api/site/build", { brief: brief() }); if ((r.files || []).length && !(r.problems || []).length) setSite(r); else setErr((r.problems || []).join("; ") || "The site could not be built."); } catch (e) { setErr(e.message); }
     setBusy(false);
   };
-  const fill = (x) => { setName(x.name); setBrand(x.brand); setPages(x.pages); setFacts(x.facts); };
-  const facing = busy ? "Building your site." : "Your site shows up here.";
+  const fill = (x) => { setName(x.name); setBrand(x.voice); setColour(x.brand); setPages(x.pages); setFacts(Object.entries(x.facts).slice(0, 3)); document.getElementById("st-b")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); };
+  const rows = [sites.filter((_, i) => i % 2 === 0), sites.filter((_, i) => i % 2 === 1)];
   return html`<div class="lk st-page">
     <p class="lk-plain">Describe a small business or project and the studio writes and builds a clean, accessible, safe-for-work website from your facts only. It never invents details. A local AI writes the pages, the studio builds them, and you keep clean files to host anywhere. Open it, or hand it to your editor.</p>
-    <section aria-labelledby="st-ex"><${Head} n=${1} id="st-ex" sub="Each one fills in the form below, and nothing runs until you press Build. The pictures are our own renders, not websites.">Start from an example<//>
-      <div class="st-examples">${SITE_EXAMPLES.map((x, i) => html`<button key=${x.label} type="button" class="st-example" onClick=${() => fill(x)}><img src=${SITE_ART[i]} alt="" loading="lazy"/><span class="st-exshade"></span><span class="st-extext"><b>${x.label}</b><small>${x.name}: ${x.brand}</small></span></button>`)}</div></section>
+    ${sites.length > 0 && html`<section class="sw-wall film" aria-label="Sample sites"><div class="sw-rows">${rows.map((row, r) => html`<div class=${"sw-row" + (r ? " rev" : "")} key=${r}><div class="sw-track">${row.map((x) => html`<${SiteTile} key=${x.slug} x=${x}/>`)}${row.map((x) => html`<${SiteTile} key=${x.slug + "b"} x=${x} hidden/>`)}</div></div>`)}</div><p class="lk-stagenote">${SITE_NOTE}</p></section>`}
+    ${sites.length > 0 && html`<section aria-labelledby="st-w"><${Head} n=${1} id="st-w" sub="Drag across, or use the arrow keys. Left is what went in, right is what came out.">A brief in. A site out.<//><${SiteWipe} sites=${sites}/></section>`}
+    <section aria-labelledby="st-ex"><${Head} n=${2} id="st-ex" sub="Each one fills in the form below, and nothing runs until you press Build.">Start from one of these<//>
+      <div class="chips st-fills">${sites.map((x) => html`<button key=${x.slug} type="button" class="chip" onClick=${() => fill(x)}>${x.label}</button>`)}</div></section>
     <div class="st-work">
-      <section class="card st-brief" aria-labelledby="st-b"><${Head} n=${2} id="st-b">Your brief<//>
+      <section class="card st-brief" aria-labelledby="st-b"><${Head} n=${3} id="st-b">Your brief<//>
         <label class="lk-field">Name (required)<input type="text" value=${name} onInput=${(e) => setName(e.target.value)}/></label>
-        <label class="lk-field">Brand voice<input type="text" placeholder="e.g. warm, playful, precise" value=${brand} onInput=${(e) => setBrand(e.target.value)}/></label>
+        <div class="st-pair"><label class="lk-field">Brand voice<input type="text" placeholder="e.g. warm, playful, precise" value=${brand} onInput=${(e) => setBrand(e.target.value)}/></label><label class="lk-field st-colour">Colour<input type="color" value=${colour} onInput=${(e) => setColour(e.target.value)}/></label></div>
         <label class="lk-field">Pages (comma separated)<input type="text" value=${pages} onInput=${(e) => setPages(e.target.value)}/></label>
         <h3>Facts the copy may use</h3>
         ${facts.map((p, i) => html`<div class="st-fact"><input type="text" placeholder="e.g. hours" value=${p[0]} onInput=${(e) => setFacts(facts.map((x, j) => (j === i ? [e.target.value, x[1]] : x)))} aria-label=${`Fact ${i + 1} name`}/><input type="text" placeholder="e.g. Mon-Fri 9 to 5" value=${p[1]} onInput=${(e) => setFacts(facts.map((x, j) => (j === i ? [x[0], e.target.value] : x)))} aria-label=${`Fact ${i + 1} text`}/></div>`)}
-        <button class="btn primary st-go" disabled=${busy || !name.trim()} onClick=${go}>${busy ? "Building..." : "Build the site"}</button>${err && html`<p class="small" style="color:var(--err)" role="alert">${err}</p>`}</section>
-      <section class="card st-preview" aria-labelledby="st-p"><${Head} n=${3} id="st-p">Preview<//>${site ? html`<iframe title="site preview" sandbox="" src=${`/api/site/${site.site_id}/index.html`} class="st-frame"></iframe><div class="row"><a class="btn small" target="_blank" rel="noopener noreferrer" href=${`/api/site/${site.site_id}/index.html`}>Open in a tab</a><span class="small">${(site.files || []).length} files</span></div>${(site.problems || []).length > 0 && html`<p class="small warn" style="margin:8px 0 0">${site.problems.join("; ")}</p>`}` : html`<div class="st-blank" role="status"><b>${facing}</b><p>Nothing has been made yet. The preview opens here when the build finishes.</p></div>`}</section>
+        <button class="btn primary st-go" disabled=${busy || !name.trim()} onClick=${go}>${busy ? "Building..." : "Build the site"}</button><p class="small st-needs">Build needs the local AI running, to write the words. The preview does not.</p>${err && html`<p class="small" style="color:var(--err)" role="alert">${err}</p>`}</section>
+      <section class="card st-preview" aria-labelledby="st-p"><${Head} n=${4} id="st-p">${site ? "Your site" : "Assembling as you type"}<//>
+        ${site ? html`<div class="st-frameb"><span class="sw-bar" aria-hidden="true"><i></i><i></i><i></i><u>${name}</u></span><iframe title="site preview" sandbox="" src=${`/api/site/${site.site_id}/index.html`} class="st-frame"></iframe></div><div class="row"><a class="btn small" target="_blank" rel="noopener noreferrer" href=${`/api/site/${site.site_id}/index.html`}>Open in a tab</a><span class="small">${(site.files || []).length} files</span></div>` : html`<div class="st-seg" role="group" aria-label="Preview size"><button type="button" class=${"chip" + (wide ? " on" : "")} aria-pressed=${wide} onClick=${() => setWide(true)}>Desktop</button><button type="button" class=${"chip" + (!wide ? " on" : "")} aria-pressed=${!wide} onClick=${() => setWide(false)}>Phone</button></div>
+          <div class=${"st-frameb" + (wide ? "" : " narrow")}><span class="sw-bar" aria-hidden="true"><i></i><i></i><i></i><u>${name || "your site"}</u></span><iframe title="preview of your brief" sandbox="" srcdoc=${doc} class="st-frame"></iframe></div>${warn ? html`<p class="small" style="color:var(--err)" role="alert">${warn}</p>` : html`<p class="small">A preview of your name, pages, facts and colour, with the builder's real styles. Nothing has been written or saved yet.</p>`}`}</section>
     </div></div>`;
 }
 
 /* ---------- 3D ---------- */
-const MAKE_3D = [["#worldkit", "wk_art/street_above.webp", "World Kit", "Real-scale places, props and looks, built on this machine."], ["#processes", "wk_art/knot.webp", "Processes", "Each photo-to-3D method says here whether it opens today."], ["#virtualset", "wk_art/cafe.webp", "Virtual Set", "Direct a video from a 3D scene."]];
-export function Studio3D() {
-  const [items, setItems] = useState([]); const [sel, setSel] = useState("/api/sample.glb"); const [err, setErr] = useState("");
-  useEffect(() => { api("/api/models3d").then((d) => setItems(d.items)).catch((e) => setErr(e.message)); }, []);
-  const name = sel === "/api/sample.glb" ? "Sample knot" : ((items.find((m) => m.url === sel) || {}).path || "").split("/").pop();
-  return html`<div class="lk v3-page"><p class="lk-plain">Look at 3D results straight from the studio: drag to orbit, scroll to zoom. The gold knot is a built-in sample; models generated by the 3D pipelines appear below as soon as they exist.</p>
-    ${err && html`<p class="small" style="color:var(--err)" role="alert">${err}</p>`}
-    <section aria-labelledby="v3-look"><${Head} n=${1} id="v3-look">Orbit it<//>
-      <div class="v3-stage film"><div class="v3-view"><${Viewer3D} key=${sel} url=${sel} height="100%" background=${0x0b0d0b} label=${"3D view of " + name}/></div>
-        <div class="v3-side"><${Stats} items=${[[items.length, items.length === 1 ? "generated model" : "generated models"]]}/><h3>Models</h3><ul class="v3-list"><li><button class=${"chip" + (sel === "/api/sample.glb" ? " on" : "")} aria-pressed=${sel === "/api/sample.glb"} onClick=${() => setSel("/api/sample.glb")}>Sample knot</button></li>${items.map((m) => html`<li key=${m.url}><button class=${"chip" + (sel === m.url ? " on" : "")} aria-pressed=${sel === m.url} onClick=${() => setSel(m.url)}>${m.path.split("/").pop()}</button></li>`)}</ul>${!items.length && html`<p class="small">No generated .glb files yet. Until there is one, you are looking at the sample, not your work.</p>`}</div></div></section>
-    <section aria-labelledby="v3-make"><${Head} n=${2} id="v3-make" sub="The pictures are our own test builds, not yours.">Make one to look at<//>
-      <div class="lk-tiles">${MAKE_3D.map(([href, art, t, sub]) => html`<a key=${href} class="lk-tile v3-make" href=${href}><span class="lk-tilepic"><img src=${art} alt="" loading="lazy"/></span><span class="lk-tilebody"><b>${t}</b><small>${sub}</small></span></a>`)}</div></section></div>`;
-}
+export { Studio3D } from "./studio3d.js";
 
 /* ---------- Edit: a real multi-track timeline over your own results ---------- */
 import { Timeline } from "./timeline_ui.js";

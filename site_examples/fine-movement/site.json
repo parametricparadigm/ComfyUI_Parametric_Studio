@@ -1,0 +1,68 @@
+{
+ "brief": {
+  "name": "Fine Movement",
+  "voice": "precise, quiet",
+  "brand": "#7a5c1e",
+  "pages": [
+   "Home",
+   "Repairs"
+  ],
+  "facts": {
+   "What we do": "Mechanical watch repair",
+   "Where": "Upstairs at 12 Clock Yard",
+   "Booking": "By appointment"
+  }
+ },
+ "copy": {
+  "pages": [
+   {
+    "slug": "home",
+    "title": "Home",
+    "description": "Mechanical watch repair at 12 Clock Yard.",
+    "sections": [
+     {
+      "id": "repair",
+      "heading": "Mechanical watches, repaired",
+      "body": "Fine Movement repairs mechanical watches, upstairs at 12 Clock Yard.",
+      "alt": "The gold gears and purple jewels of an open mechanical watch movement",
+      "image_prompt": "The gold gears and purple jewels of an open mechanical watch movement"
+     }
+    ]
+   },
+   {
+    "slug": "repairs",
+    "title": "Repairs",
+    "description": "How to book a watch repair.",
+    "sections": [
+     {
+      "id": "book",
+      "heading": "By appointment",
+      "body": "Repairs are by appointment. Find us upstairs at 12 Clock Yard.",
+      "alt": "The gold gears of an open mechanical watch movement",
+      "image_prompt": "The gold gears of an open mechanical watch movement"
+     }
+    ]
+   }
+  ]
+ },
+ "tokens": {
+  "light": {
+   "bg": "#ffffff",
+   "surface": "#f4f6f9",
+   "text": "#1b1f24",
+   "muted": "#5b6572",
+   "accent": "#7a5c1e",
+   "on_accent": "#ffffff"
+  },
+  "dark": {
+   "bg": "#12151a",
+   "surface": "#1b2028",
+   "text": "#eef1f5",
+   "muted": "#a3acb8",
+   "accent": "#988050",
+   "on_accent": "#000000"
+  },
+  "font": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "radius": "12px"
+ }
+}

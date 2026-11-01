@@ -1,0 +1,38 @@
+[
+ {
+  "id": "hunyuan3d",
+  "name": "Hunyuan3D bear",
+  "file": "hunyuan3d.glb",
+  "thumb": "hunyuan3d.webp",
+  "scale_m": null,
+  "made": "Made here by the Hunyuan3D 2.1 image-to-model template. Shape only, no texture.",
+  "file_bytes": 3194260
+ },
+ {
+  "id": "knot",
+  "name": "Gold knot sculpture",
+  "file": "knot.glb",
+  "thumb": "knot.webp",
+  "scale_m": 1.2,
+  "made": "World Kit prop",
+  "file_bytes": 452068
+ },
+ {
+  "id": "downtown",
+  "name": "Rainy downtown block",
+  "file": "downtown.glb",
+  "thumb": "downtown.webp",
+  "scale_m": 40,
+  "made": "World Kit place, built in Blender",
+  "file_bytes": 1014924
+ },
+ {
+  "id": "boardwalk",
+  "name": "Sunny boardwalk",
+  "file": "boardwalk.glb",
+  "thumb": "boardwalk.webp",
+  "scale_m": 40,
+  "made": "World Kit place, built in Blender",
+  "file_bytes": 771800
+ }
+]

@@ -1,0 +1,68 @@
+{
+ "brief": {
+  "name": "Parallel Frame",
+  "voice": "minimal, cinematic",
+  "brand": "#d9a900",
+  "pages": [
+   "Home",
+   "Work"
+  ],
+  "facts": {
+   "What we do": "Short films and product videos",
+   "Team": "Two directors and an editor",
+   "Turnaround": "Two weeks"
+  }
+ },
+ "copy": {
+  "pages": [
+   {
+    "slug": "home",
+    "title": "Home",
+    "description": "Parallel Frame makes short films and product videos.",
+    "sections": [
+     {
+      "id": "what",
+      "heading": "Short films. Product videos.",
+      "body": "Parallel Frame is two directors and an editor. We make short films and product videos, with a turnaround of two weeks.",
+      "alt": "An old man in a pointed hat rowing a small boat through a flooded city at night",
+      "image_prompt": "An old man in a pointed hat rowing a small boat through a flooded city at night"
+     }
+    ]
+   },
+   {
+    "slug": "work",
+    "title": "Work",
+    "description": "How Parallel Frame works.",
+    "sections": [
+     {
+      "id": "how",
+      "heading": "Two weeks, start to finish",
+      "body": "Two directors and an editor take your film or product video from start to finish in two weeks.",
+      "alt": "A lone traveller walking across a white salt flat at dusk",
+      "image_prompt": "A lone traveller walking across a white salt flat at dusk"
+     }
+    ]
+   }
+  ]
+ },
+ "tokens": {
+  "light": {
+   "bg": "#ffffff",
+   "surface": "#f4f6f9",
+   "text": "#1b1f24",
+   "muted": "#5b6572",
+   "accent": "#8f6f00",
+   "on_accent": "#ffffff"
+  },
+  "dark": {
+   "bg": "#12151a",
+   "surface": "#1b2028",
+   "text": "#eef1f5",
+   "muted": "#a3acb8",
+   "accent": "#d9a900",
+   "on_accent": "#000000"
+  },
+  "font": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "radius": "12px"
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "brief": {
+  "name": "Golden Crumb",
+  "voice": "warm, handmade",
+  "brand": "#b5651d",
+  "pages": [
+   "Home",
+   "Visit"
+  ],
+  "facts": {
+   "Hours": "Tuesday to Sunday, 7 to 3",
+   "Known for": "Sourdough baked before dawn",
+   "Where": "Corner of Pine and 4th"
+  }
+ },
+ "copy": {
+  "pages": [
+   {
+    "slug": "home",
+    "title": "Home",
+    "description": "A small bakery known for sourdough baked before dawn.",
+    "sections": [
+     {
+      "id": "welcome",
+      "heading": "Baked before dawn",
+      "body": "Golden Crumb is known for one thing above all: sourdough baked before dawn, so the first loaves are ready when the door opens.\n\nCome by, have a look, and take one home.",
+      "alt": "A green glazed teapot on a mossy rock in soft golden light",
+      "image_prompt": "A green glazed teapot on a mossy rock in soft golden light"
+     }
+    ]
+   },
+   {
+    "slug": "visit",
+    "title": "Visit",
+    "description": "Where and when to find Golden Crumb.",
+    "sections": [
+     {
+      "id": "when",
+      "heading": "Find us",
+      "body": "We are on the corner of Pine and 4th, open Tuesday to Sunday, from 7 to 3.",
+      "alt": "A green glazed teapot in soft light",
+      "image_prompt": "A green glazed teapot in soft light"
+     }
+    ]
+   }
+  ]
+ },
+ "tokens": {
+  "light": {
+   "bg": "#ffffff",
+   "surface": "#f4f6f9",
+   "text": "#1b1f24",
+   "muted": "#5b6572",
+   "accent": "#a75d1b",
+   "on_accent": "#ffffff"
+  },
+  "dark": {
+   "bg": "#12151a",
+   "surface": "#1b2028",
+   "text": "#eef1f5",
+   "muted": "#a3acb8",
+   "accent": "#bb712f",
+   "on_accent": "#000000"
+  },
+  "font": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "radius": "12px"
+ }
+}

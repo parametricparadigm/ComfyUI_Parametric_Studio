@@ -1,0 +1,68 @@
+{
+ "brief": {
+  "name": "Verdant Glass",
+  "voice": "calm, green",
+  "brand": "#0f9d55",
+  "pages": [
+   "Home",
+   "Visit"
+  ],
+  "facts": {
+   "What we grow": "Ferns and climbing plants",
+   "Where": "The old glasshouse on Mill Lane",
+   "Open": "Weekends, 9 to 5"
+  }
+ },
+ "copy": {
+  "pages": [
+   {
+    "slug": "home",
+    "title": "Home",
+    "description": "A nursery for ferns and climbing plants.",
+    "sections": [
+     {
+      "id": "grow",
+      "heading": "Ferns and climbers, under glass",
+      "body": "Verdant Glass grows ferns and climbing plants in the old glasshouse on Mill Lane.",
+      "alt": "A huge glass greenhouse glowing green at night",
+      "image_prompt": "A huge glass greenhouse glowing green at night"
+     }
+    ]
+   },
+   {
+    "slug": "visit",
+    "title": "Visit",
+    "description": "When to visit Verdant Glass.",
+    "sections": [
+     {
+      "id": "open",
+      "heading": "Open at weekends",
+      "body": "Come and walk the rows at weekends, from 9 to 5, at the old glasshouse on Mill Lane.",
+      "alt": "A huge glass greenhouse glowing green at night",
+      "image_prompt": "A huge glass greenhouse glowing green at night"
+     }
+    ]
+   }
+  ]
+ },
+ "tokens": {
+  "light": {
+   "bg": "#ffffff",
+   "surface": "#f4f6f9",
+   "text": "#1b1f24",
+   "muted": "#5b6572",
+   "accent": "#0d8448",
+   "on_accent": "#ffffff"
+  },
+  "dark": {
+   "bg": "#12151a",
+   "surface": "#1b2028",
+   "text": "#eef1f5",
+   "muted": "#a3acb8",
+   "accent": "#0f9d55",
+   "on_accent": "#000000"
+  },
+  "font": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "radius": "12px"
+ }
+}

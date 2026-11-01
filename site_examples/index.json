@@ -1,0 +1,80 @@
+[
+ {
+  "slug": "golden-crumb",
+  "label": "Bakery",
+  "name": "Golden Crumb",
+  "voice": "warm, handmade",
+  "brand": "#b5651d",
+  "pages": "home, visit",
+  "facts": {
+   "Hours": "Tuesday to Sunday, 7 to 3",
+   "Known for": "Sourdough baked before dawn",
+   "Where": "Corner of Pine and 4th"
+  }
+ },
+ {
+  "slug": "night-shift",
+  "label": "Band",
+  "name": "The Night Shift",
+  "voice": "dark, loud",
+  "brand": "#27e07f",
+  "pages": "home, shows",
+  "facts": {
+   "Sound": "Three-piece synth rock",
+   "Next show": "Friday at the Old Mill",
+   "Booking": "Use the contact form"
+  }
+ },
+ {
+  "slug": "parallel-frame",
+  "label": "Film studio",
+  "name": "Parallel Frame",
+  "voice": "minimal, cinematic",
+  "brand": "#d9a900",
+  "pages": "home, work",
+  "facts": {
+   "What we do": "Short films and product videos",
+   "Team": "Two directors and an editor",
+   "Turnaround": "Two weeks"
+  }
+ },
+ {
+  "slug": "verdant-glass",
+  "label": "Plant nursery",
+  "name": "Verdant Glass",
+  "voice": "calm, green",
+  "brand": "#0f9d55",
+  "pages": "home, visit",
+  "facts": {
+   "What we grow": "Ferns and climbing plants",
+   "Where": "The old glasshouse on Mill Lane",
+   "Open": "Weekends, 9 to 5"
+  }
+ },
+ {
+  "slug": "fine-movement",
+  "label": "Watch repair",
+  "name": "Fine Movement",
+  "voice": "precise, quiet",
+  "brand": "#7a5c1e",
+  "pages": "home, repairs",
+  "facts": {
+   "What we do": "Mechanical watch repair",
+   "Where": "Upstairs at 12 Clock Yard",
+   "Booking": "By appointment"
+  }
+ },
+ {
+  "slug": "stride-lab",
+  "label": "Running shop",
+  "name": "Stride Lab",
+  "voice": "fast, bright",
+  "brand": "#5b8def",
+  "pages": "home, fitting",
+  "facts": {
+   "What we sell": "Running shoes",
+   "Service": "Free gait check with every fitting",
+   "Where": "Station Road"
+  }
+ }
+]

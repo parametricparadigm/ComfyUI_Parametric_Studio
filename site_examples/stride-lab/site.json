@@ -1,0 +1,68 @@
+{
+ "brief": {
+  "name": "Stride Lab",
+  "voice": "fast, bright",
+  "brand": "#5b8def",
+  "pages": [
+   "Home",
+   "Fitting"
+  ],
+  "facts": {
+   "What we sell": "Running shoes",
+   "Service": "Free gait check with every fitting",
+   "Where": "Station Road"
+  }
+ },
+ "copy": {
+  "pages": [
+   {
+    "slug": "home",
+    "title": "Home",
+    "description": "Running shoes on Station Road.",
+    "sections": [
+     {
+      "id": "shoes",
+      "heading": "Shoes for running",
+      "body": "Stride Lab sells running shoes on Station Road, with a free gait check at every fitting.",
+      "alt": "A black and gold running shoe splashing through still water",
+      "image_prompt": "A black and gold running shoe splashing through still water"
+     }
+    ]
+   },
+   {
+    "slug": "fitting",
+    "title": "Fitting",
+    "description": "What happens at a fitting.",
+    "sections": [
+     {
+      "id": "gait",
+      "heading": "A free gait check",
+      "body": "Every fitting comes with a free gait check, so you leave with a shoe that suits how you run.",
+      "alt": "A black and gold running shoe splashing through still water",
+      "image_prompt": "A black and gold running shoe splashing through still water"
+     }
+    ]
+   }
+  ]
+ },
+ "tokens": {
+  "light": {
+   "bg": "#ffffff",
+   "surface": "#f4f6f9",
+   "text": "#1b1f24",
+   "muted": "#5b6572",
+   "accent": "#476eba",
+   "on_accent": "#ffffff"
+  },
+  "dark": {
+   "bg": "#12151a",
+   "surface": "#1b2028",
+   "text": "#eef1f5",
+   "muted": "#a3acb8",
+   "accent": "#5b8def",
+   "on_accent": "#000000"
+  },
+  "font": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "radius": "12px"
+ }
+}
