@@ -18,6 +18,7 @@ import { Recipes } from "./recipes.js";
 import { ShotBoard } from "./shotboard.js";
 import { WorldKit } from "./worldkit.js";
 import { Train, TrainedLoras } from "./train.js";
+import { University } from "./university.js";
 import { SamplingLab } from "./samplinglab.js";
 import { Res4lyf } from "./res4lyf.js";
 import { VirtualSet } from "./virtualset.js";
@@ -199,32 +200,6 @@ function Library() {
   </div>`;
 }
 
-/* ---------- University ---------- */
-function Quiz({ items }) {
-  const [pick, setPick] = useState({}); const [show, setShow] = useState({});
-  const right = (q, o, i) => { const a = String(q.answer || "").trim(); return a === o || a.toLowerCase().startsWith(String.fromCharCode(97 + i) + ")") || a.toLowerCase().startsWith(String.fromCharCode(97 + i) + ".") || a === String.fromCharCode(65 + i) || (a.length > 3 && o.toLowerCase().includes(a.toLowerCase())) || (o.length > 3 && a.toLowerCase().includes(o.toLowerCase())); };
-  return html`<div>${(items || []).map((q, qi) => html`<div class=${"q" + (pick[qi] != null ? (q.options && right(q, q.options[pick[qi]], pick[qi]) ? " ok" : " no") : "")}><b>${qi + 1}. ${q.q}</b>
-    ${q.options ? q.options.map((o, oi) => html`<button class="opt" onClick=${() => { setPick({ ...pick, [qi]: oi }); setShow({ ...show, [qi]: true }); }}>${o}</button>`) : null}
-    <div class="row"><button class="btn small" onClick=${() => setShow({ ...show, [qi]: !show[qi] })}>${show[qi] ? "Hide answer" : "Show answer"}</button></div>
-    ${show[qi] && html`<p class="small"><b>Answer:</b> ${q.answer}. ${q.why}</p>`}</div>`)}</div>`;
-}
-function University({ route }) {
-  const [cat, setCat] = useState(null); const [lvl, setLvl] = useState("all"); const [course, setCourse] = useState(null); const [err, setErr] = useState(""); const code = (route || "").split("/")[1] || "";
-  useEffect(() => { api("/api/university").then(setCat).catch((e) => setErr(e.message)); }, []);
-  useEffect(() => { if (!code) { setCourse(null); return; } let on = true; api("/api/university/" + code).then((d) => { if (on) { setCourse(d); window.scrollTo(0, 0); } }).catch((e) => { if (on) setErr(e.message); }); return () => { on = false; }; }, [code]);
-  const openCourse = (c) => { location.hash = "university/" + c.code; };
-  if (course && code) return html`<div><button class="btn small" onClick=${() => { location.hash = "university"; }}>All courses</button>
-    <div class="md" style="margin-top:14px" dangerouslySetInnerHTML=${{ __html: md(course.lesson) }}></div>
-    <div class="md"><h2>The lab you can run yourself</h2><p class="small">Run it with <code>python lab.py</code>; it prints the same lines every time.</p><pre><code>${course.lab}</code></pre><h3>What it printed</h3><pre><code>${course.lab_output}</code></pre><h2>Check yourself</h2></div><${Quiz} items=${course.quiz}/></div>`;
-  if (!cat) return html`<p class="small">${err || "Loading..."}</p>`;
-  const lv = Object.entries(cat.levels);
-  return html`<div><p class="small" style="max-width:720px">ComfyUniversity: tiered courses on how generative AI really works, from pressing Queue (100) to building and measuring models (400). Every lesson comes with a lab that runs on a CPU and prints real numbers.</p>
-    <section class="walksoon"><span class="gflag soon">Coming soon</span><div><h3>Interactive graph-building walkthroughs</h3><p>Build a real ComfyUI graph one node at a time, with a crew member beside you and the studio checking each wire before you press Queue.</p></div><div class="walksteps" aria-hidden="true"><i>Load</i><b></b><i>Encode</i><b></b><i>Sample</i><b></b><i>Decode</i><b></b><i>Save</i></div></section>
-    <div class="tabs"><button class=${"chip" + (lvl === "all" ? " on" : "")} onClick=${() => setLvl("all")}>All levels</button>${lv.map(([k, v]) => html`<button class=${"chip" + (lvl === k ? " on" : "")} onClick=${() => setLvl(k)}>${k}</button>`)}</div>
-    ${lv.filter(([k]) => lvl === "all" || lvl === k).map(([k, v]) => html`<div class="lvl"><h2>${k}</h2><span>${v}</span></div><div class="grid">${cat.courses.filter((c) => c.level === k).map((c) => html`<div class="card course tilt3d" onClick=${() => openCourse(c)}><div class="code">${c.code}</div><h4>${c.title}</h4><p>${c.hook}</p><div class="by">${(cat.characters[c.char] || {}).name || ""}</div></div>`)}</div>`)}
-    ${!cat.courses.length && html`<div class="empty"><h2>Courses are being written</h2>Check back in a few minutes.</div>`}</div>`;
-}
-
 /* ---------- Models ---------- */
 function Models() {
   const [fams, setFams] = useState([]); const [src, setSrc] = useState("local"); const [q, setQ] = useState(""); const [kind, setKind] = useState(""); const [items, setItems] = useState([]); const [err, setErr] = useState(""); const [busy, setBusy] = useState(false); const [ok, setOk] = useState(false); const [msg, setMsg] = useState("");
@@ -273,7 +248,7 @@ function Pro({ draft, health, goals }) {
 
 /* ---------- shell ---------- */
 const TABS = [["create", "Create"], ["shots", "Shot Board"], ["library", "Library"], ["families", "Families"], ["atlas", "Atlas"], ["recipes", "Recipes"], ["apps", "Apps"], ["processes", "Processes"], ["design", "Design"], ["auto", "Auto"], ["edit", "Edit"], ["university", "Learn"], ["models", "Models"], ["crew", "Crew"], ["site", "Sites"], ["viewer", "3D"], ["worldkit", "World Kit"], ["train", "Train"], ["virtualset", "Virtual Set"], ["sampling", "Sampling"], ["res4lyf", "RES4LYF"], ["api", "API"], ["pro", "Pro"]];
-const TITLES = { res4lyf: ["RES4LYF", "A thank-you to ClownsharkBatwing's sampling node pack."], sampling: ["Sampling Lab", "Noise in. A picture out. The code between."], train: ["Train", "Your pictures in. A LoRA out."], virtualset: ["Virtual Set", "A 3D scene in. A directed video out."], worldkit: ["World Kit", "Real-scale 3D, built on this machine."], shots: ["Shot Board", "One clip in. A whole shoot out."], api: ["API", "Every graph, callable from anything."], processes: ["Processes", "Every process from the earlier studio: what opens here today, what is coming soon, and a guide for each."], recipes: ["Recipes", "Models chained together: music videos, short films, product ads and more."], create: ["Create", "Pick what you want to make, describe it, and generate."], library: ["Library", "Everything you have made."], families: ["Model families", "Every model on this machine, with its own ComfyUI, its real state and what it has made."], atlas: ["Atlas", "Generative AI from 2013 to today: what each model was, its licence, and whether this studio runs it."], apps: ["ComfyUI Apps", "Any ComfyUI app, as a simple form."], auto: ["Auto", "Set it and forget it: scheduled creations."], design: ["Designers", "Products, vehicles, settings, fashion and more, as whole sheets."], edit: ["Edit", "AI video edits, and a timeline to cut it all together."], university: ["ComfyUniversity", "Learn how it all works, level by level."], models: ["Models", "What runs on this machine, and where to find more."], crew: ["The Crew", "Specialists who know every model, and show their sources."], site: ["Site builder", "Facts in, a clean website out."], viewer: ["3D viewer", "Orbit your 3D results."], pro: ["Pro mode", "The exact graph behind every result."] };
+const TITLES = { res4lyf: ["RES4LYF", "A thank-you to ClownsharkBatwing's sampling node pack."], sampling: ["Sampling Lab", "Noise in. A picture out. The code between."], train: ["Train", "Your pictures in. A LoRA out."], virtualset: ["Virtual Set", "A 3D scene in. A directed video out."], worldkit: ["World Kit", "Real-scale 3D, built on this machine."], shots: ["Shot Board", "One clip in. A whole shoot out."], api: ["API", "Every graph, callable from anything."], processes: ["Processes", "Every process from the earlier studio: what opens here today, what is coming soon, and a guide for each."], recipes: ["Recipes", "Models chained together: music videos, short films, product ads and more."], create: ["Create", "Pick what you want to make, describe it, and generate."], library: ["Library", "Everything you have made."], families: ["Model families", "Every model on this machine, with its own ComfyUI, its real state and what it has made."], atlas: ["Atlas", "Generative AI from 2013 to today: what each model was, its licence, and whether this studio runs it."], apps: ["ComfyUI Apps", "Any ComfyUI app, as a simple form."], auto: ["Auto", "Set it and forget it: scheduled creations."], design: ["Designers", "Products, vehicles, settings, fashion and more, as whole sheets."], edit: ["Edit", "AI video edits, and a timeline to cut it all together."], university: ["ComfyUniversity", "Learn ComfyUI by doing it."], models: ["Models", "What runs on this machine, and where to find more."], crew: ["The Crew", "Specialists who know every model, and show their sources."], site: ["Site builder", "Facts in, a clean website out."], viewer: ["3D viewer", "Orbit your 3D results."], pro: ["Pro mode", "The exact graph behind every result."] };
 function App() {
   const [tab, setTab] = useState((location.hash || "#create").slice(1)); const [health, setHealth] = useState(null); const [draft, setDraft] = useState(null); const [pinned, setPinned] = useState(null);
   const [phone, setPhone] = useState(false); const [pal, setPal] = useState(false), [help, setHelp] = useState(false), [tour, setTour] = useState(false), [toasts, setToasts] = useState(createToasts()), [goalsList, setGoalsList] = useState({});
