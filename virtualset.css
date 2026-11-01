@@ -143,3 +143,5 @@ body.on-virtualset.virtualset-busy main>.top .sub{margin-top:2px;font-size:clamp
   .vs .btn,.vs .btn.small{min-height:44px}.vs-seg button{padding:11px 13px}.vs-frame{width:150px}
 }
 @media (prefers-reduced-motion:reduce){.vs-plate,.vs-mode{transition:none}}
+.vs-outhead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}.vs-engines{display:inline-flex;border:1px solid rgba(255,255,255,.18);border-radius:8px;overflow:hidden}.vs-engines button{min-height:40px;padding:0 16px;background:transparent;border:0;color:inherit;font:700 14px/1 var(--display);font-stretch:90%;cursor:pointer}.vs-engines button+button{border-left:1px solid rgba(255,255,255,.18)}.vs-engines button[aria-pressed="true"]{background:#f5c518;color:#141006}.vs-engines button:focus-visible{outline:2px solid #f5c518;outline-offset:-2px}
+.vs-outhead>div:first-child{min-width:0;max-width:100%}.vs-outhead h2{overflow-wrap:anywhere}@media (max-width:640px){.vs-outhead h2{font-size:clamp(24px,7.4vw,34px)}}

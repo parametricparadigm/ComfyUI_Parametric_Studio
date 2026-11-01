@@ -1,7 +1,7 @@
 // The Virtual Set hero (3D scene in, directed video out) and the wipe that compares a pass with its result. Pass names and clips arrive as props, so a real shot uses the same wipe.
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html } from "./common.js";
-import { EXAMPLE } from "./vset_example.js";
+import { EXAMPLES } from "./vset_example.js";
 import { routeStatus, needsSync } from "./vset_helpers.js";
 
 const quiet = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -29,25 +29,26 @@ export function Wipe({ over, overLabel, under, underLabel, overPoster, underPost
 }
 
 export function Hero({ caps }) {
-  const [at, setAt] = useState(0), p = EXAMPLE.passes[at];
+  const [which, setWhich] = useState(0), [at, setAt] = useState(0), EXAMPLE = EXAMPLES[which], p = EXAMPLE.passes[Math.min(at, EXAMPLE.passes.length - 1)];
   const st = routeStatus(caps && caps.routes && caps.routes[EXAMPLE.mode]);
   return html`<section class="vs-hero film" aria-label="What Virtual Set does">
     <div class="vs-hgrid">
       <div class="vs-scene">
         <p class="vs-kicker">In</p><h2>A 3D scene</h2>
-        <p class="vs-lead">Build the set, place the camera. Blender renders the same frames four ways. Pick one to compare.</p>
-        <div class="vs-stack" role="group" aria-label="The passes for this shot">${EXAMPLE.passes.map((x, i) => html`<button type="button" class=${"vs-plate p" + i} style=${{ "--i": i }} aria-pressed=${i === at} onClick=${() => setAt(i)}><img src=${x.still} alt="" width="854" height="488"/><span><b>${x.label}</b><small>${x.what}</small></span></button>`)}</div>
+        <p class="vs-lead">Build the set, place the camera. Blender renders the same frames several ways. Pick one to compare.</p>
+        <div class="vs-stack" role="group" aria-label="The passes for this shot">${EXAMPLE.passes.map((x, i) => html`<button type="button" class=${"vs-plate p" + i} style=${{ "--i": i }} aria-pressed=${x === p} onClick=${() => setAt(i)}><img src=${x.still} alt="" width="854" height="488"/><span><b>${x.label}</b><small>${x.what}</small></span></button>`)}</div>
       </div>
       <div class="vs-arrow" aria-hidden="true"><svg viewBox="0 0 64 24"><path d="M2 12h56 M46 3l14 9-14 9"/></svg></div>
       <div class="vs-out">
-        <p class="vs-kicker">Out</p><h2>A directed video</h2>
-        <${Wipe} over=${p.clip} overLabel=${p.label + " pass"} overPoster=${p.still} under=${EXAMPLE.result.clip} underLabel="Final video" underPoster=${EXAMPLE.result.still} autoplay=${true}/>
+        <div class="vs-outhead"><div><p class="vs-kicker">Out</p><h2>A directed video</h2></div>
+          <div class="vs-engines" role="group" aria-label="Which engine rendered this scene">${EXAMPLES.map((x, i) => html`<button type="button" aria-pressed=${i === which} onClick=${() => setWhich(i)}>${x.engine}</button>`)}</div></div>
+        <${Wipe} key=${EXAMPLE.id} over=${p.clip} overLabel=${p.label + " pass"} overPoster=${p.still} under=${EXAMPLE.result.clip} underLabel=${EXAMPLE.engine} underPoster=${EXAMPLE.result.still} autoplay=${true}/>
       </div>
     </div>
     <div class="vs-truth">
-      <div class="vs-truthlead"><p class="vs-kicker">Our test, not a promise</p><b>${EXAMPLE.name}, mode ${EXAMPLE.mode}.</b> <span>Our own render, LTX-2.5 from the raw shaded keyframes and the depth pass. ${EXAMPLE.size}, ${EXAMPLE.fps} fps, ${EXAMPLE.frames} frames, seed ${EXAMPLE.seed}.</span></div>
-      <div class="vs-held"><h3>What held</h3><p>The layout, the camera and the set itself. The buildings, the lamp posts and the knot sculpture stay where the passes put them, all the way through the push-in.</p></div>
-      <div class="vs-lost"><h3>What did not</h3><p>Realism. It still looks like a CG render, and the rain in the prompt never appeared. Started from the raw keyframes, LTX-2.5 keeps the set exact and does not make it photoreal.</p></div>
+      <div class="vs-truthlead"><p class="vs-kicker">Our test, not a promise</p><b>${EXAMPLE.name}, mode ${EXAMPLE.mode}.</b> <span>${EXAMPLE.how} ${EXAMPLE.size}, ${EXAMPLE.fps} fps, ${EXAMPLE.frames} frames, seed ${EXAMPLE.seed}.</span></div>
+      <div class="vs-held"><h3>What held</h3><p>${EXAMPLE.held}</p></div>
+      <div class="vs-lost"><h3>What did not</h3><p>${EXAMPLE.lost}</p></div>
       <div class="vs-nums"><h3>Automatic checks</h3><p>Flicker ${EXAMPLE.flicker}, layout ${EXAMPLE.layout}. Numbers for review. They do not judge the picture.</p><p class=${"vs-livenote " + st.cls}>Mode ${EXAMPLE.mode} on this machine now: ${st.label}.</p></div>
     </div>
   </section>`;
