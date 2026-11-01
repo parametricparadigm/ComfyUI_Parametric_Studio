@@ -66,14 +66,14 @@ function Stage({ item, mode, spin, onLoaded, onFail }) {
 }
 
 /* the controls under the stage: pick a model, give it a picture, words or a mesh, and what it makes lands on the shelf */
-const JOB_LABEL = { mesh_from_image: "Picture to mesh", mesh_from_text: "Words to mesh", relief_from_image: "Picture to a one-sided relief", splat_from_image: "Picture to splat", rig: "Rig a mesh", motion: "Words to motion" };
+const JOB_LABEL = { mesh_from_image: "Picture to mesh", mesh_from_text: "Words to mesh", relief_from_image: "Picture to a one-sided relief", splat_from_image: "Picture to splat", rigged_from_image: "Picture to a rigged mesh", rig: "Rig a mesh", motion: "Words to motion" };
 function Make3D({ meshes, onMade }) {
   const [models, setModels] = useState([]), [pick, setPick] = useState(""), [image, setImage] = useState(""), [prompt, setPrompt] = useState(""), [mesh, setMesh] = useState(""), [job, setJob] = useState(null), [err, setErr] = useState("");
   useEffect(() => { api("/api/3d/models").then((d) => { setModels(d.models); const r = d.models.find((m) => m.ready); if (r) setPick(r.id); }).catch((e) => setErr(e.message)); }, []);
   useEffect(() => { if (!job || job.status !== "running") return undefined; const t = setInterval(() => api("/api/3d/jobs/" + job.job).then((s) => { setJob(s); if (s.status === "done") onMade(s); }).catch((e) => setErr(e.message)), 2500); return () => clearInterval(t); }, [job && job.job, job && job.status]);
   const m = models.find((x) => x.id === pick), busy = job && job.status === "running";
   const upload = async (e) => { const f = e.target.files && e.target.files[0]; if (!f) return; const b = new FormData(); b.append("file", f); try { setImage((await api("/api/upload", { method: "POST", body: b })).name); } catch (x) { setErr(x.message); } };
-  const needsPic = m && ["mesh_from_image", "relief_from_image", "splat_from_image"].includes(m.job), needsText = m && ["mesh_from_text", "motion"].includes(m.job), needsMesh = m && m.job === "rig";
+  const needsPic = m && ["mesh_from_image", "relief_from_image", "rigged_from_image", "splat_from_image"].includes(m.job), needsText = m && ["mesh_from_text", "motion"].includes(m.job), needsMesh = m && m.job === "rig";
   const canGo = m && m.ready && !busy && (!needsPic || image) && (!needsText || prompt.trim()) && (!needsMesh || mesh);
   const go = async () => { setErr(""); try { setJob(await post("/api/3d/run", { model: pick, image, prompt, mesh })); } catch (x) { setErr(x.message); } };
   const made = job && job.status === "done";
