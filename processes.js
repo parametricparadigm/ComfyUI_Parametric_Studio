@@ -1,6 +1,7 @@
 /* Processes: every process from the author's earlier studio, with what it needs, an Open button when something here does the job, and its guide. Nothing to open means coming soon. */
 import { html, api } from "./common.js";
 import { useState, useEffect, useMemo } from "preact/hooks";
+import { Stage, Stats, Strip } from "./look.js";
 const CSS = `
 .pcontrols{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .psearch{width:100%;max-width:520px;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:inherit;font:inherit}
@@ -77,19 +78,20 @@ export function Processes({ goTab }) {
     else if (o.type === "recipe") { try { const m = await import("./recipes.js"); try { sessionStorage.setItem("recipe_open", JSON.stringify({ id: o.id, run: null })); } catch {} setSub(() => m.Recipes); scrollTo(0, 0); } catch (e) { setErr("Could not open that recipe: " + e.message); } }
   };
   const readDoc = (p) => api(`/api/processes/${p.id}/doc`).then((x) => { setDoc(x); scrollTo(0, 0); }).catch((e) => setErr(e.message));
-  if (Sub) return html`<div><button class="pbtn" style="margin-bottom:12px" onClick=${() => setSub(null)}>Back to processes</button><${Sub}/></div>`;
-  if (doc) return html`<div><button class="pbtn" style="margin-bottom:12px" onClick=${() => setDoc(null)}>Back to processes</button><div class="pmd" dangerouslySetInnerHTML=${{ __html: md(doc.markdown) }}></div></div>`;
+  if (Sub) return html`<div class="pr-page"><button class="pbtn" style="margin-bottom:12px" onClick=${() => setSub(null)}>Back to processes</button><${Sub}/></div>`;
+  if (doc) return html`<div class="pr-page"><button class="pbtn" style="margin-bottom:12px" onClick=${() => setDoc(null)}>Back to processes</button><div class="pmd" dangerouslySetInnerHTML=${{ __html: md(doc.markdown) }}></div></div>`;
   if (!d) return html`<p class="small">${err || "Loading the processes..."}</p>`;
   const count = (f) => rows.filter(f).length;
   const ready = shown.filter((p) => p.open).sort((x, y) => "here open near".indexOf(stateOf(x)) - "here open near".indexOf(stateOf(y))), soon = shown.filter((p) => !p.open), opens = count((p) => p.open), cards = (list) => html`<div class="fgrid">${list.map((p) => html`<${Card} key=${p.id} p=${p} kinds=${kinds} art=${artOf(p)} onOpen=${open} onDoc=${readDoc}/>`)}</div>`;
-  const chip = (k, l) => html`<button class=${"pchip" + (status === k ? " on" : "")} onClick=${() => setStatus(k)}>${l}</button>`;
-  return html`<div>${err && html`<p class="small">${err}</p>`}
-    <section class="apihero"><div><h2>Every way <em>we make things.</em></h2><p>${rows.length} production methods, written up from real work. ${opens} open something in this studio today. The rest are coming soon, with their guides ready to read.</p></div><div class="apistats"><div><b>${opens}</b><span>open here</span></div><div><b>${count((p) => p.doc)}</b><span>guides</span></div><div><b>${rows.length - opens}</b><span>coming soon</span></div></div></section>
+    const lead = rows.filter((p) => p.open && stateOf(p) === "here" && artOf(p)).concat(rows.filter((p) => p.open && stateOf(p) === "open" && artOf(p))).slice(0, 6).map((p) => ({ id: p.id, src: artOf(p), kind: "image", title: p.name, sub: kinds[p.kind] || p.kind, kicker: STATE[stateOf(p)][1] }));
+  return html`<div class="lk pr-page">${err && html`<p class="small" role="alert">${err}</p>`}
+    <div class="lk-lead"><p class="lk-plain">${rows.length} production methods, written up from real work. ${opens} open something in this studio today. The rest are coming soon, with their guides ready to read.</p><${Stats} items=${[[opens, "open here"], [count((p) => p.doc), "guides"], [rows.length - opens, "coming soon"]]}/></div>
+    ${lead.length > 0 && html`<${Stage} items=${lead} label="Processes that open here" note="These pictures are our own renders, not yours."/>`}
+    <${Strip} label="Filter by status" value=${status} onPick=${setStatus} items=${[{ k: "all", b: "Any status", s: `${rows.length} methods` }, { k: "here", b: "Tested here", s: `${count((p) => p.status === "here")} tested in this studio` }, { k: "open", b: "Opens here", s: `${opens} with a real tool to open` }, { k: "soon", b: "Coming soon", s: `${rows.length - opens} with a guide to read` }]}/>
     <div class="pcontrols"><input class="psearch" type="search" placeholder="Search by name, model or what it does" aria-label="Search processes" value=${q} onInput=${(e) => setQ(e.target.value)}/>
-      <div class="pchips" role="group" aria-label="Filter by kind"><button class=${"pchip" + (kind === "all" ? " on" : "")} onClick=${() => setKind("all")}>All ${rows.length}</button>${Object.entries(kinds).map(([k, l]) => html`<button class=${"pchip" + (kind === k ? " on" : "")} onClick=${() => setKind(k)}>${l} ${count((p) => p.kind === k)}</button>`)}</div>
-      <div class="pchips" role="group" aria-label="Filter by status">${chip("all", "Any status")}${chip("here", "Tested here " + count((p) => p.status === "here"))}${chip("open", "Opens here " + opens)}${chip("soon", "Coming soon " + (rows.length - opens))}</div></div>
-    ${ready.length > 0 && html`<div class="psec"><h3>Open it now</h3><span>${ready.length}</span></div><p class="psecnote">Each one opens a real tool or family page here.</p>${cards(ready)}`}
-    ${soon.length > 0 && html`<div class="psec"><h3>Coming soon</h3><span>${soon.length}</span></div><p class="psecnote">Not in this edition yet. Read how it works in the guide.</p>${cards(soon)}`}
+      <div class="pchips" role="group" aria-label="Filter by kind"><button class=${"pchip" + (kind === "all" ? " on" : "")} aria-pressed=${kind === "all"} onClick=${() => setKind("all")}>All ${rows.length}</button>${Object.entries(kinds).map(([k, l]) => html`<button class=${"pchip" + (kind === k ? " on" : "")} aria-pressed=${kind === k} onClick=${() => setKind(k)}>${l} ${count((p) => p.kind === k)}</button>`)}</div></div>
+    ${ready.length > 0 && html`<section><div class="psec"><h3>Open it now</h3><span>${ready.length}</span></div><p class="psecnote">Each one opens a real tool or family page here.</p>${cards(ready)}</section>`}
+    ${soon.length > 0 && html`<section><div class="psec"><h3>Coming soon</h3><span>${soon.length}</span></div><p class="psecnote">Not in this edition yet. Read how it works in the guide.</p>${cards(soon)}</section>`}
     ${!shown.length && html`<p class="small">Nothing matches. Try fewer words or another kind.</p>`}</div>`;
 }
 export default Processes;

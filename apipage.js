@@ -1,4 +1,5 @@
 /* The API page: every graph the studio runs, as something you can call. Pick a graph, copy working code, inspect the real JSON. GraphPanel shows the same graph on the Apps page. */
+import { Offline, Stats, Strip, useHealth } from "./look.js";
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { useShowcase, LiveMedia } from "./showcase.js";
@@ -69,7 +70,7 @@ export function GraphPanel({ row, onClose }) {
     ${err ? html`<p class="small" style="color:var(--err)">${err}</p>` : html`<${GraphBody} detail=${detail}/>`}</div></div>`;
 }
 export function ApiPage() {
-  const [graphs, setGraphs] = useState([]), [recipes, setRecipes] = useState([]), [famg, setFamg] = useState([]), [cur, setCur] = useState(null), [detail, setDetail] = useState(null), [lang, setLang] = useState("curl"), [copied, setCopied] = useState(false), [live, setLive] = useState(null), [err, setErr] = useState(""), [q, setQ] = useState(""), [sec, setSec] = useState("all"), items = useShowcase();
+  const [graphs, setGraphs] = useState([]), [recipes, setRecipes] = useState([]), [famg, setFamg] = useState([]), [cur, setCur] = useState(null), [detail, setDetail] = useState(null), [lang, setLang] = useState("curl"), [copied, setCopied] = useState(false), [live, setLive] = useState(null), [err, setErr] = useState(""), [q, setQ] = useState(""), [sec, setSec] = useState("all"), items = useShowcase(), health = useHealth();
   useEffect(() => { api("/api/graphs").then(setGraphs).catch((e) => setErr(e.message)); api("/api/recipes").then((d) => setRecipes(d.recipes || d)).catch(() => {}); api("/api/family-graphs").then((d) => setFamg(d.graphs)).catch(() => {}); }, []);
   const rows = useMemo(() => rowsOf(graphs, recipes, famg, items), [graphs, recipes, famg, items]);
   useEffect(() => { if (cur || !rows.length || (!graphs.length && !err)) return; let pick = null; try { pick = sessionStorage.getItem("api_pick"); } catch {} const found = pick && rows.find((r) => r.key === pick); if (pick && !found && !famg.length) return; try { sessionStorage.removeItem("api_pick"); } catch {} setCur(found || rows[0]); }, [rows, err]);
@@ -77,12 +78,12 @@ export function ApiPage() {
   const shown = rows.filter((r) => (sec === "all" || r.kind === sec) && (!q.trim() || [r.label, r.sub].join(" ").toLowerCase().includes(q.trim().toLowerCase()))), snippet = cur ? code(lang, cur) : "";
   const copy = async () => { try { await navigator.clipboard.writeText(snippet); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch {} };
   const fill = async () => { setErr(""); try { const r = await post("/api/graph", { goal: cur.id, prompt: "a lighthouse at dawn" }); setLive(Object.keys(r.graph).length); } catch (e) { setErr(e.message); } };
-  const chip = (k, l) => html`<button class=${"chip" + (sec === k ? " on" : "")} onClick=${() => setSec(k)}>${l}</button>`;
-  return html`<div>
-    <section class="apihero"><div><h2>Your studio <em>is an API.</em></h2><p>Every graph here is real ComfyUI JSON. Call it from your app, an agent or a script. No account, no key, and on your own GPU no credits.</p></div>
-      <div class="apistats"><div><b>${rows.length}</b><span>graphs</span></div><div><b>0</b><span>keys needed</span></div><div><b>1</b><span>call to render</span></div></div></section>
+  return html`<div class="lk ai-page">
+    <div class="lk-lead"><p class="lk-plain">Every graph here is real ComfyUI JSON. Call it from your app, an agent or a script. No account, no key, and on your own GPU no credits.</p><${Stats} items=${[[rows.length, "graphs"], [0, "keys needed"], [1, "call to render"]]}/></div>
+    <${Offline} health=${health}>You can read every graph and copy its code. A call only renders once it is back.<//>
+    <${Strip} label="Which graphs" value=${sec} onPick=${setSec} items=${[{ k: "all", b: "All", s: `${rows.length} graphs` }, { k: "goal", b: "Apps", s: `${graphs.length} built in` }, { k: "recipe", b: "Recipes", s: `${recipes.length} chained` }, { k: "family", b: "Families", s: `${famg.length} templates` }]}/>
     <div class="apigrid">
-      <div><input class="apisearch" type="search" placeholder="Search every graph" aria-label="Search graphs" value=${q} onInput=${(e) => setQ(e.target.value)}/><div class="chips" style="margin:8px 0">${chip("all", "All")}${chip("goal", "Apps " + graphs.length)}${chip("recipe", "Recipes " + recipes.length)}${chip("family", "Families " + famg.length)}</div>
+      <div><input class="apisearch" type="search" placeholder="Search every graph" aria-label="Search graphs" value=${q} onInput=${(e) => setQ(e.target.value)}/>
         <div class="apilist" role="listbox" aria-label="graphs">${shown.map((g) => html`<button key=${g.key} role="option" aria-selected=${!!cur && cur.key === g.key} class=${"apirow" + (cur && cur.key === g.key ? " on" : "")} onClick=${() => setCur(g)}>${g.media ? html`<${LiveMedia} item=${g.media} cls="apithumb"/>` : g.art ? html`<img class="apithumb" src=${g.art} alt="" loading="lazy" onError=${(e) => e.target.remove()}/>` : html`<span class="apithumb gblank"></span>`}<span><b>${g.label}</b><small>${g.sub}</small></span></button>`)}</div></div>
       ${cur && html`<div class="apimain">
         <div class="apihead"><div><span class="small">${KIND[cur.kind]}</span><h3>${cur.label}</h3><code>${cur.kind === "goal" ? "POST /api/generate" : cur.kind === "recipe" ? `POST /api/recipes/${cur.id}/run` : `POST /api/families/${cur.slug}/templates/.../run`}</code></div><div class="row" style="margin:0">${cur.kind === "goal" && html`<button class="btn small" onClick=${fill}>Fill it in live</button>`}<button class="btn small" onClick=${() => openRow(cur)}>Open it</button></div></div>

@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Drop, LiveMedia } from "./showcase.js";
+import { Stage, Stats, Strip } from "./look.js";
 
 const KINDS = [["all", "All"], ["image", "Image"], ["video", "Video"], ["audio", "Audio"], ["3d", "3D"], ["utility", "Utility"], ["llm", "LLM"]];
 const STATES = [["all", "Any state"], ["render", "Rendered here"], ["ready", "Template ready"], ["up", "Running"], ["todo", "Not rendered yet"], ["download", "Needs download"]];
@@ -27,13 +28,16 @@ function Gallery({ onOpen }) {
   const shown = fams.filter((f) => (kind === "all" || f.kind === kind) && matchState(f, st) && (!ql || [f.family, f.kind, f.licence, f.what, f.crew && f.crew.name, f.state_label].filter(Boolean).join(" ").toLowerCase().includes(ql))).sort((a, b) => (b.media_count > 0) - (a.media_count > 0));
   const rc = d.reconcile || {}, odd = [...(rc.dir_without_family_entry || []), ...(rc.family_entry_without_dir || []), ...(rc.no_instance_file || []), ...(rc.in_registry_without_dir || []), ...(rc.model_folder_without_dir || [])];
   const cnt = { render: fams.filter((f) => f.level === "render").length, ready: fams.filter((f) => f.templates_ready > 0).length, up: fams.filter((f) => f.up).length };
-  return html`<div>
-    <div class="fstats"><div><b class="g">${rc.dirs_on_disk ?? fams.length}</b><span>instances on disk, ${rc.shown ?? fams.length} shown</span></div><div><b>${cnt.render}</b><span>rendered by the author</span></div><div><b>${cnt.ready}</b><span>with a template ready</span></div><div><b>${cnt.up}</b><span>running now</span></div>${d.free_gb != null && html`<div><b>${d.free_gb} GB</b><span>VRAM free, ${d.floor_gb} GB stays free</span></div>`}</div>
-    ${odd.length > 0 && html`<p class="fnote" style="margin:-6px 0 14px">On one side only: ${[["folder with no family entry", rc.dir_without_family_entry], ["family entry with no folder", rc.family_entry_without_dir], ["folder with no instance file", rc.no_instance_file], ["in the port registry with no folder", rc.in_registry_without_dir], ["model folder with no instance", rc.model_folder_without_dir]].filter(([, v]) => v && v.length).map(([l, v]) => `${l}: ${v.join(", ")}`).join("; ")}. They are listed below with their real state.</p>`}
+  const lead = fams.filter((f) => f.level === "render" && !f.media_library && f.media && f.media.find((m) => m.kind !== "audio" && m.poster && !/chef|cogvideox/.test(m.poster))).slice(0, 6).map((f) => { const m = f.media.find((x) => x.kind !== "audio" && x.poster && !/chef|cogvideox/.test(x.poster)); return { id: f.slug, src: m.poster, kind: "image", title: f.family, sub: KIND_LABEL[f.kind] || f.kind, kicker: "Rendered by the author" }; });
+  return html`<div class="lk fa-page">
+    <${Stats} items=${[[rc.dirs_on_disk ?? fams.length, `instances on disk, ${rc.shown ?? fams.length} shown`], [cnt.render, "rendered by the author"], [cnt.ready, "with a template ready"], [cnt.up, "running now"], ...(d.free_gb != null ? [[`${d.free_gb} GB`, `VRAM free, ${d.floor_gb} GB stays free`]] : [])]}/>
+    ${lead.length > 0 && html`<${Stage} items=${lead} label="Families rendered by the author" note="These are the author's renders, not yours."/>`}
+    ${odd.length > 0 && html`<details class="fa-odd"><summary>${odd.length} on one side only, with their real state below</summary><p class="fnote">On one side only: ${[["folder with no family entry", rc.dir_without_family_entry], ["family entry with no folder", rc.family_entry_without_dir], ["folder with no instance file", rc.no_instance_file], ["in the port registry with no folder", rc.in_registry_without_dir], ["model folder with no instance", rc.model_folder_without_dir]].filter(([, v]) => v && v.length).map(([l, v]) => `${l}: ${v.join(", ")}`).join("; ")}. They are listed below with their real state.</p></details>`}
+    <${Strip} label="Filter by state" value=${st} onPick=${setSt} items=${STATES.map(([k, l]) => ({ k, b: l, s: `${k === "all" ? fams.length : fams.filter((f) => matchState(f, k)).length} families` }))}/>
     <div class="fbar"><input type="search" placeholder="Search families" value=${q} onInput=${(e) => setQ(e.target.value)} aria-label="search families"/>
       <div class="chips" role="group" aria-label="kind">${KINDS.map(([k, l]) => html`<button class=${"chip" + (kind === k ? " on" : "")} onClick=${() => setKind(k)}>${l} ${k === "all" ? fams.length : fams.filter((f) => f.kind === k).length}</button>`)}</div>
-      <div class="chips" role="group" aria-label="state">${STATES.map(([k, l]) => html`<button class=${"chip" + (st === k ? " on" : "")} onClick=${() => setSt(k)}>${l}</button>`)}</div></div>
-    ${shown.length ? html`<div class="fgrid">${shown.map((f) => html`<${Card} key=${f.slug} f=${f} onOpen=${onOpen}/>`)}</div>` : html`<div class="empty"><h2>No family matches</h2>Try another word or clear the filters.</div>`}
+    </div>
+    ${shown.length ? html`<div class="fgrid">${shown.map((f) => html`<${Card} key=${f.slug} f=${f} onOpen=${onOpen}/>`)}</div>` : html`<div class="atl-none fa-none"><h2>No family matches</h2><p>Try another word or clear the filters.</p></div>`}
   </div>`;
 }
 

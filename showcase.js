@@ -80,7 +80,7 @@ export function RingHero({ items, onPick }) {
 /* a video that only plays while on screen */
 export function LiveMedia({ item, cls }) {
   const ref = useRef(null);
-  useEffect(() => { const v = ref.current; if (!v || item.kind !== "video") return; const io = new IntersectionObserver((es) => { es[0].isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { threshold: 0.15 }); io.observe(v); return () => io.disconnect(); }, [item && item.id]);
+  useEffect(() => { const v = ref.current; if (!v || item.kind !== "video" || matchMedia("(prefers-reduced-motion: reduce)").matches) return; const io = new IntersectionObserver((es) => { es[0].isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { threshold: 0.15 }); io.observe(v); return () => io.disconnect(); }, [item && item.id]);
   if (!item) return null;
   return item.kind === "video" ? html`<video key=${item.id} ref=${ref} class=${cls} src=${item.src} poster=${item.poster} muted loop playsinline preload="metadata"></video>` : html`<img key=${item.id} class=${cls} src=${item.poster} alt=${item.prompt} loading="lazy"/>`;
 }

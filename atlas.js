@@ -2,6 +2,7 @@
    Plain list view on purpose (semantic <ol>/<article>, buttons with aria-pressed, no canvas), so it works with a keyboard and a screen reader. Facts come from /api/atlas; unverified fields say so. */
 import { useState, useEffect, useMemo, useRef } from "preact/hooks";
 import { html, api } from "./common.js";
+import { Stage, Stats, Strip } from "./look.js";
 
 const KINDS = [["all", "All"], ["image", "Image"], ["video", "Video"], ["audio", "Audio"], ["3d", "3D"], ["llm", "LLM"]];
 const KIND_LABEL = { image: "Image", video: "Video", audio: "Audio", "3d": "3D", llm: "LLM" };
@@ -78,22 +79,21 @@ export function Atlas() {
   const jump = (id) => { const el = document.getElementById("atlas-era-" + id); if (el) { el.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "start" }); el.focus({ preventScroll: true }); } };
   if (err) return html`<p class="small" style="color:var(--err)">${err}</p>`;
   if (!data) return html`<p class="small">Loading the atlas...</p>`;
-  const s = data.stats;
-  return html`<div class="atl">
-    <section class="atl-hero" aria-labelledby="atl-title"><div><h2 id="atl-title">Every model, <em>in order.</em></h2>
-      <p>From the first GANs and VAEs in 2013 to today's open video and image models. Each card says what the model was, why it mattered, its licence, whether this studio runs it, and how well it has been tested here. Dates and licences are read from the named source; anything not checked says so.</p></div>
-      <dl class="atl-hstats"><div><dt>Models and ideas</dt><dd>${s.models}</dd></div><div><dt>Run here</dt><dd>${s.run_here}</dd></div><div><dt>Tested here</dt><dd>${s.tested}</dd></div><div><dt>Rendered here</dt><dd>${s.rendered_here}</dd></div></dl></section>
+  const s = data.stats, renders = data.models.filter((m) => m.renders && m.renders.media && m.renders.media.poster).reverse().map((m) => ({ id: m.id, src: m.renders.media.poster, kind: "image", title: m.name, sub: fmtDate(m.date, m.date_precision) + (m.org ? `, ${m.org}` : ""), kicker: "Rendered in this studio" })).filter((x) => !/chef/.test(x.src)).slice(0, 6);
+  return html`<div class="atl lk atl-page">
+    <div class="lk-lead"><p class="lk-plain">From the first GANs and VAEs in 2013 to today's open video and image models. Each card says what the model was, why it mattered, its licence, whether this studio runs it, and how well it has been tested here. Dates and licences are read from the named source; anything not checked says so.</p><${Stats} items=${[[s.models, "Models and ideas"], [s.run_here, "Run here"], [s.tested, "Tested here"], [s.rendered_here, "Rendered here"]]}/></div>
+    ${renders.length > 0 && html`<${Stage} items=${renders} label="Models rendered in this studio" note="Each picture is a real render from that model in this studio's showcase, not yours."/>`}
+    <${Strip} label="Atlas view" value=${view} onPick=${setView} items=${[{ k: "timeline", b: "Timeline", s: "Every model, oldest first" }, { k: "coverage", b: "Coverage", s: `${data.coverage.length} notable open models` }]}/>
     <div class="atl-bar" role="region" aria-label="filters">
       <div class="atl-chips" role="group" aria-label="kind">${KINDS.map(([k, l]) => html`<button class=${"chip" + (kind === k ? " on" : "")} aria-pressed=${kind === k} onClick=${() => setKind(k)}>${l}</button>`)}</div>
       <div class="atl-chips" role="group" aria-label="status"><button class=${"chip" + (tested ? " on" : "")} aria-pressed=${tested} onClick=${() => setTested(!tested)}>Tested only</button><button class=${"chip" + (runs ? " on" : "")} aria-pressed=${runs} onClick=${() => setRuns(!runs)}>Runs here</button></div>
       <input type="search" class="atl-q" placeholder="Search models, makers, licences" value=${q} onInput=${(e) => setQ(e.target.value)} aria-label="search the atlas"/>
-      <div class="atl-chips" role="group" aria-label="view"><button class=${"chip" + (view === "timeline" ? " on" : "")} aria-pressed=${view === "timeline"} onClick=${() => setView("timeline")}>Timeline</button><button class=${"chip" + (view === "coverage" ? " on" : "")} aria-pressed=${view === "coverage"} onClick=${() => setView("coverage")}>Coverage</button></div>
-      <p class="atl-count" role="status" aria-live="polite">${view === "timeline" ? `${shown.length} of ${data.models.length} shown` : `${data.coverage.length} notable models`}</p></div>
+            <p class="atl-count" role="status" aria-live="polite">${view === "timeline" ? `${shown.length} of ${data.models.length} shown` : `${data.coverage.length} notable models`}</p></div>
     ${view === "coverage" ? html`<${Coverage} data=${data} kind=${kind}/>` : html`<nav class="atl-rail" aria-label="eras">${byEra.map((e) => html`<button class=${"atl-eralink" + (era === e.id ? " on" : "")} aria-current=${era === e.id ? "true" : null} onClick=${() => jump(e.id)}><b>${e.from === e.to ? e.from : `${e.from}-${String(e.to).slice(2)}`}</b><span>${e.name}</span></button>`)}</nav>
       ${byEra.map((e) => html`<section class="atl-era" id=${"atlas-era-" + e.id} data-era=${e.id} tabindex="-1" aria-labelledby=${"atl-eh-" + e.id}>
         <header class="atl-eh"><p class="atl-years">${e.from === e.to ? e.from : `${e.from} to ${e.to}`}</p><h2 id=${"atl-eh-" + e.id}>${e.name}</h2><p>${e.blurb}</p><a class="atl-src" href=${e.source.url} target="_blank" rel="noopener noreferrer">Era source: ${e.source.title}<span class="sr-only"> (opens in a new tab)</span></a></header>
         <ol class="atl-grid">${e.items.map((m) => html`<${Card} m=${m} key=${m.id}/>`)}</ol></section>`)}
-      ${!shown.length && html`<div class="empty"><h2>Nothing matches</h2>Clear a filter or the search box to see more.</div>`}`}
+      ${!shown.length && html`<div class="atl-none"><h2>Nothing matches</h2><p>Clear a filter or the search box to see more.</p></div>`}`}
     <p class="atl-foot2">Test status: "Rendered in this studio" counts renders in the Create showcase with their measured time and VRAM. "Instance check" means the family's own ComfyUI started and loaded its nodes (${data.instance_check_as_of}). "Earlier notes" are status counts from the author's earlier work and were not re-run here. Coverage is also written up in docs/COVERAGE.md.</p>
   </div>`;
 }

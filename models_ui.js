@@ -2,6 +2,7 @@
 import { useState, useEffect } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { LiveMedia, useShowcase } from "./showcase.js";
+import { Stats } from "./look.js";
 
 const store = { ready: null, dl: { state: "idle" }, err: "", subs: new Set(), timer: 0, tries: 0 };
 const emit = () => store.subs.forEach((f) => f());
@@ -59,11 +60,12 @@ const flagOf = (row) => (!row || !row.known ? null : row.ready ? ["ok", "Ready"]
 export function GoalTiles({ goals }) {
   const { ready, err } = useModels(); const items = useShowcase();
   const list = Object.values(goals).sort((a, b) => (ready && ready.goals[b.id] && ready.goals[b.id].known ? 1 : 0) - (ready && ready.goals[a.id] && ready.goals[a.id].known ? 1 : 0) || (a.label > b.label ? 1 : -1));
-  return html`<div>${ready && html`<p class="small" style="margin:0 0 12px">Models live in <code>${ready.root}</code>${ready.free_gb != null ? ` · ${Math.round(ready.free_gb)} GB free there` : ""}${!ready.comfy ? " · ComfyUI is not reachable, so this is a plain file check" : ""}. A download is refused unless ${ready.reserve_gb} GB stay free.</p>`}
+  const known = ready ? list.filter((g) => ready.goals[g.id] && ready.goals[g.id].known) : [], nReady = known.filter((g) => ready.goals[g.id].ready).length;
+  return html`<div>${ready && html`<div class="mo-tally"><${Stats} items=${[[list.length, "ways to create"], [`${nReady} of ${known.length}`, "ready, of those with a file list"], ...(ready.free_gb != null ? [[`${Math.round(ready.free_gb)} GB`, "free where models live"]] : [])]}/></div><p class="small" style="margin:0 0 12px">Models live in <code>${ready.root}</code>${ready.free_gb != null ? ` · ${Math.round(ready.free_gb)} GB free there` : ""}${!ready.comfy ? " · ComfyUI is not reachable, so this is a plain file check" : ""}. A download is refused unless ${ready.reserve_gb} GB stay free.</p>`}
     ${err && !ready && html`<p class="small" style="color:var(--err)">${err}</p>`}
     <p class="small" style="margin:0 0 12px">MiniMax H3 goals: its <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3/raw/main/LICENSE" target="_blank" rel="noopener noreferrer">community licence</a> applies to you and your outputs, and it excludes the US, EU, UK and South Korea.</p>
     <div class="mgrid">${list.map((g) => { const row = ready && ready.goals[g.id], m = items.find((x) => x.goal === g.id && x.kind !== "audio"), fl = flagOf(row);
-      return html`<article class="gcard mcard" aria-label=${g.label}>${m ? html`<${LiveMedia} item=${m} cls="gmedia"/>` : html`<div class="gmedia gblank">${g.kind === "audio" ? "♫" : ""}</div>`}<span class="gshade"></span>
+      return html`<article class="gcard mcard" aria-label=${g.label}>${m ? html`<${LiveMedia} item=${m} cls="gmedia"/>` : html`<div class="gmedia gblank">${g.kind === "audio" ? "♫" : html`<small class="mo-norender">No render of this one here yet</small>`}</div>`}<span class="gshade"></span>
         ${fl && html`<span class=${"gflag " + fl[0]}>${fl[1]}</span>`}<span class="glic" title=${g.license}>${g.license_class === "open" ? "Apache-2.0" : "Community"}</span>
         <span class="gtext"><b>${g.label}</b><small>${g.family}${row && row.known ? ` · ${row.files} files${row.total_gb ? `, ${gbText(row.total_gb)}` : ""}` : ""}</small>
           ${row && !row.known && html`<small>File list not published yet</small>`}<${DlButton} kind="goal" id=${g.id} row=${row} small/></span></article>`; })}</div></div>`;
