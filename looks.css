@@ -270,3 +270,7 @@ body.on-pro main .g3d-flatbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:
 body.on-pro main .g3d-seg button{min-height:40px;min-width:44px}
 body.on-pro main :focus-visible{outline:2px solid var(--sb-ink,var(--a1));outline-offset:2px}
 body.on-pro main .graphbox{border-radius:6px}
+/* the Pro page's list of everything */
+.g3d-any{position:relative;display:flex;gap:5px}.g3d-anybox{position:absolute;z-index:30;top:calc(100% + 6px);right:0;width:min(420px,88vw);display:flex;flex-direction:column;gap:6px;padding:8px;background:#0b0d0b;border:1px solid var(--line2);border-radius:6px}.g3d-anybox input{width:100%}
+.g3d-anybox [role=listbox]{display:flex;flex-direction:column;max-height:52vh;overflow:auto}.g3d-anybox [role=option]{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:7px 8px;border-bottom:1px solid var(--line)}.g3d-anybox [role=option]:hover,.g3d-anybox [role=option]:focus-visible,.g3d-anybox [role=option][aria-selected=true]{background:#1a1f1b}.g3d-anybox small{color:var(--mut)}
+.apinotgraph{padding:clamp(12px,1.4vw,20px);background:var(--panel);border-left:3px solid #f5c518;border-radius:4px;max-width:900px}
