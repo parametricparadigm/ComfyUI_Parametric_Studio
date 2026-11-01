@@ -24,7 +24,7 @@ function Home({ cat, p, reset }) {
         <p class="cu-hero-sub">Real graphs you can open. Labs that run in this browser, on your CPU, with no model and no GPU. Claims we checked against ComfyUI's own code, and a label on anything we could not.</p>
         <div class="cu-cta">${nextC ? html`<a class="cu-btn primary" href=${"#university/" + nextC.code}>${started ? "Continue" : "Start here"}: ${nextC.title}</a>` : html`<span class="cu-btn primary">You finished every lesson</span>`}<a class="cu-btn" href="#university/all">Every lesson</a></div>
         <ul class="cu-stats" aria-label="What is in the university">
-          <${Stat} n=${cat.counts.lessons} label="lessons"/><${Stat} n=${cat.tracks.length} label="tracks"/><${Stat} n=${cat.counts.plays} label="labs in this browser"/><${Stat} n=${cat.counts.graphs} label="graphs you can open"/><${Stat} n=${cat.counts.graphs_ran} label="graphs we ran on a CPU"/>
+          <${Stat} n=${cat.counts.lessons} label="lessons"/><${Stat} n=${cat.counts.second_read} label="read by a second reader"/><${Stat} n=${cat.tracks.length} label="tracks"/><${Stat} n=${cat.counts.plays} label="labs in this browser"/><${Stat} n=${cat.counts.graphs} label="graphs you can open"/><${Stat} n=${cat.counts.graphs_ran} label="graphs we ran on a CPU"/>
         </ul>
         ${started && html`<p class="cu-prog-line"><b>${done}</b> of ${cat.courses.length} lessons finished on this device. <button class="cu-linkbtn" onClick=${() => { if (confirm("Forget your progress on this device?")) reset(); }}>Reset</button></p>`}
       </div>
@@ -41,7 +41,8 @@ function HowWeKnow({ cat }) {
   const c = cat.counts;
   return html`<section class="cu-know" aria-labelledby="cu-know-h"><h2 id="cu-know-h">How we know this is right</h2>
     <ul>
-      <li><b>${c.audited}</b><p>lessons checked by hand against ComfyUI's source, official docs or a run here. Each lists what was checked and what could not be.</p></li>
+      <li><b>${c.second_read}</b><p>lessons read by a second reader, who tried to prove them wrong against ComfyUI's source and real runs. That found and fixed ${c.errors_fixed} errors. It samples the riskiest claims in each lesson, so it is not a proof.</p></li>
+      <li><b>${c.second_read_pending}</b><p>lessons checked by their author, with the second read pending. Expect a few mistakes in these: second reads have been finding them.</p></li>
       ${c.draft > 0 && html`<li><b>${c.draft}</b><p>lessons still labelled Draft. A local model wrote them. Their labs ran, but nobody has checked their prose line by line.</p></li>`}
       <li><b>${c.code_refs}</b><p>named ComfyUI functions and classes, each looked up in the source by a test.</p></li>
       <li><b>${c.graphs}</b><p>graphs, every one passed through ComfyUI's own <code>validate_prompt</code>. The ${c.graphs_ran} that need no model were really executed.</p></li>
@@ -56,10 +57,11 @@ function AllLessons({ cat, p }) {
       <div class="cu-seg" role="group" aria-label="Level"><button aria-pressed=${lv === "all"} onClick=${() => setLv("all")}>All</button>${lvls.map((k) => html`<button aria-pressed=${lv === k} onClick=${() => setLv(k)}>${k}</button>`)}</div><span class="cu-n" role="status">${rows.length} lessons</span></div>
     <${LessonList} codes=${rows.map((c) => c.code)} byCode=${Object.fromEntries(cat.courses.map((c) => [c.code, c]))} p=${p}/></div>`;
 }
+const ReadMark = ({ c, short }) => c.second_read ? html`<span class="cu-pill ink">Second reader checked${!short && c.second_read.errors_fixed ? `, ${c.second_read.errors_fixed} ${c.second_read.errors_fixed > 1 ? "errors" : "error"} fixed` : ""}</span>` : html`<span class="cu-pill plain">${short ? "Second read pending" : "Author-checked, second read pending"}</span>`;
 function LessonList({ codes, byCode, p, numbered }) {
   return html`<ol class=${"cu-list" + (numbered ? " num" : "")}>${codes.map((code, i) => { const c = byCode[code]; if (!c) return null; const st = lessonParts(c, p[code]); const some = st.parts.some(([, v]) => v); return html`<li key=${code}><a class=${"cu-row" + (st.done ? " done" : "")} href=${"#university/" + code}>
     ${numbered && html`<span class="cu-row-n">${i + 1}</span>`}<span class="cu-row-main"><b>${c.title}</b><span>${c.hook}</span></span>
-    <span class="cu-row-meta"><span class="cu-pill">${c.level}</span>${c.status === "draft" && html`<span class="cu-pill warn">Draft</span>`}${(c.plays || []).length > 0 && html`<span class="cu-pill ink">Browser lab</span>`}<span class="cu-pill plain">${c.minutes} min</span>${st.done ? html`<span class="cu-tick" aria-label="finished">✓</span>` : some ? html`<span class="cu-pill plain">Started</span>` : null}</span></a></li>`; })}</ol>`;
+    <span class="cu-row-meta"><span class="cu-pill">${c.level}</span>${c.status === "draft" ? html`<span class="cu-pill warn">Draft</span>` : html`<${ReadMark} c=${c} short=${1}/>`}${(c.plays || []).length > 0 && html`<span class="cu-pill ink">Browser lab</span>`}<span class="cu-pill plain">${c.minutes} min</span>${st.done ? html`<span class="cu-tick" aria-label="finished">✓</span>` : some ? html`<span class="cu-pill plain">Started</span>` : null}</span></a></li>`; })}</ol>`;
 }
 function TrackView({ cat, slug, p }) {
   const t = cat.tracks.find((x) => x.slug === slug); const byCode = Object.fromEntries(cat.courses.map((c) => [c.code, c]));
@@ -93,8 +95,8 @@ function Lesson({ cat, code, p, update }) {
   const sources = doc.sections.find(before); const main = doc.sections.filter((s) => !before(s));
   return html`<article class="cu-view cu-lesson">
     <nav class="cu-crumb" aria-label="breadcrumb"><a href="#university">All tracks</a>${track && html`<span aria-hidden="true">/</span><a href=${"#university/track/" + track.slug}>${track.title}</a>`}${nb.at > 0 && html`<span class="cu-crumb-at">${nb.at} of ${nb.of}</span>`}</nav>
-    <header class="cu-lesson-head"><p class="cu-kick">${c.code} · ${levelWord(c.level)}${teacher ? ` · ${teacher}` : ""}</p><h2 class="cu-lesson-title">${doc.title}</h2>${doc.objective && html`<p class="cu-objective">${doc.objective.replace(/\s*Taught by [^.]*\.\s*$/, "")}</p>`}
-      <div class="cu-meta"><span class="cu-pill plain">${c.minutes} min read</span>${(c.plays || []).length > 0 && html`<span class="cu-pill ink">${c.plays.length} browser ${c.plays.length > 1 ? "labs" : "lab"}</span>`}${(c.graphs || []).length > 0 && html`<span class="cu-pill plain">${c.graphs.length} ${c.graphs.length > 1 ? "graphs" : "graph"}</span>`}<span class="cu-pill plain">CPU lab</span>${(c.prereq || []).length > 0 && html`<span class="cu-pre">Needs ${c.prereq.map((x, i) => html`${i ? ", " : ""}<a class="cu-a" href=${"#university/" + x}>${(byCode[x] || {}).title || x}</a>`)}</span>`}</div>
+    <header class="cu-lesson-head"><p class="cu-kick">${c.code} · ${levelWord(c.level)}${teacher ? ` · ${teacher}` : ""}</p><h2 class=${"cu-lesson-title" + (doc.title.length > 34 ? " long" : "")}>${doc.title}</h2>${doc.objective && html`<p class="cu-objective">${doc.objective.replace(/\s*Taught by .*$/, "")}</p>`}
+      <div class="cu-meta">${c.status !== "draft" && html`<${ReadMark} c=${c}/>`}<span class="cu-pill plain">${c.minutes} min read</span>${(c.plays || []).length > 0 && html`<span class="cu-pill ink">${c.plays.length} browser ${c.plays.length > 1 ? "labs" : "lab"}</span>`}${(c.graphs || []).length > 0 && html`<span class="cu-pill plain">${c.graphs.length} ${c.graphs.length > 1 ? "graphs" : "graph"}</span>`}<span class="cu-pill plain">CPU lab</span>${(c.prereq || []).length > 0 && html`<span class="cu-pre">Needs ${c.prereq.map((x, i) => html`${i ? ", " : ""}<a class="cu-a" href=${"#university/" + x}>${(byCode[x] || {}).title || x}</a>`)}</span>`}</div>
       ${doc.draft && html`<p class="cu-draft" role="note"><b>Draft.</b> ${doc.draft.replace(/^Draft\.\s*/, "")}</p>`}</header>
     ${doc.intro.length > 0 && html`<div class="cu-prose"><${Blocks} blocks=${doc.intro} c=${c} passPlay=${passPlay} entry=${entry}/></div>`}
     <nav class="cu-rack" aria-label="In this lesson"><ol>${rack.map(([id, t]) => html`<li key=${id}><a href=${"#university/" + code} onClick=${(e) => { e.preventDefault(); const el = document.getElementById("cu-" + id); if (el) { el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); const h = document.getElementById("cuh-" + id); if (h) h.focus({ preventScroll: true }); } }}>${t}</a></li>`)}</ol></nav>

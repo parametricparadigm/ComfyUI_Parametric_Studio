@@ -4,10 +4,18 @@ import { html } from "./common.js";
 import * as M from "./university_maths.js";
 import { validateGraph, dirtyFrom, reachable, canWire, linkInputs, WIRE } from "./university_logic.js";
 import { WIRE_LAB, BROKEN, DEFAULT_GRAPH, RISK_FILES } from "./university_play_data.js";
+import { MORE as A } from "./university_plays_a.js";
+import { MORE as B } from "./university_plays_b.js";
+import { MORE as C } from "./university_plays_c.js";
+import { MORE as D } from "./university_plays_d.js";
+import { MORE as E } from "./university_plays_e.js";
+import { MORE as F } from "./university_plays_f.js";
+import { MORE as G } from "./university_plays_g.js";
+import { MORE as H } from "./university_plays_h.js";
 
 const fmt = (x, d = 3) => x == null ? "" : Math.abs(x) >= 1000 ? x.toFixed(0) : x === 0 ? "0" : x.toFixed(d);
 const Slider = ({ label, value, min, max, step = 1, onInput, show }) => html`<label class="cu-ctl"><span>${label} <b>${show != null ? show : value}</b></span><input type="range" min=${min} max=${max} step=${step} value=${value} onInput=${(e) => onInput(+e.target.value)}/></label>`;
-const Seg = ({ label, value, opts, onPick }) => html`<div class="cu-ctl"><span id=${"seg-" + label}>${label}</span><div class="cu-seg" role="group" aria-labelledby=${"seg-" + label}>${opts.map(([k, l]) => html`<button type="button" aria-pressed=${value === k} onClick=${() => onPick(k)}>${l}</button>`)}</div></div>`;
+const Seg = ({ label, value, opts, onPick }) => html`<div class="cu-ctl"><span>${label}</span><div class="cu-seg" role="group" aria-label=${label}>${opts.map(([k, l]) => html`<button type="button" aria-pressed=${value === k} onClick=${() => onPick(k)}>${l}</button>`)}</div></div>`;
 const Read = ({ items }) => html`<dl class="cu-read">${items.map(([k, v, cls]) => html`<div class=${cls || ""}><dt>${k}</dt><dd>${v}</dd></div>`)}</dl>`;
 const COLORS = ["#f5c518", "#5a9bf0", "#e8703f", "#2bb886", "#df6d97", "#a297f0", "#ee7a7a", "#d99a12", "#3aa53a"];
 
@@ -18,7 +26,7 @@ function Sigmas({ onPass }) {
   const series = useMemo(() => on.map((k, i) => ({ k, c: COLORS[i], s: M.schedule(k, m, steps, { rho }) })), [on, m, steps, rho]);
   const W = 640, H = 300, top = m.max, lo = Math.log(Math.max(m.min, 1e-3)), hi = Math.log(top);
   const y = (s) => { const v = log ? (s <= 0 ? 1 : 1 - (Math.log(s) - lo) / (hi - lo)) : 1 - s / top; return 10 + Math.max(0, Math.min(1, v)) * (H - 20); }; const x = (i, n) => 10 + i / (n - 1) * (W - 20);
-  const kar = series.find((r) => r.k === "karras"); const low = kar ? kar.s.slice(0, -1).filter((v) => v < 1).length : 0; const ok = fam === "discrete" && kar && steps >= 10 && low >= (steps * .6) && rho !== 7;
+  const kar = series.find((r) => r.k === "karras"); const low = kar ? kar.s.slice(0, -1).filter((v) => v < 1).length : 0; const ok = fam === "discrete" && kar && steps >= 10 && low >= (steps * .5) && rho > 7;
   useEffect(() => { if (ok) onPass(); }, [ok]);
   return html`<div class="cu-play-grid"><div class="cu-ctls"><${Seg} label="Model kind" value=${fam} opts=${[["discrete", "SD 1.5 (eps)"], ["flow", "Flow"]]} onPick=${setFam}/><${Slider} label="Steps" value=${steps} min=${4} max=${50} onInput=${setSteps}/>${fam === "flow" && html`<${Slider} label="Shift" value=${shift} min=${1} max=${10} step=${.5} onInput=${setShift}/>`}<${Slider} label="Karras rho" value=${rho} min=${1} max=${15} step=${.5} onInput=${setRho}/><${Seg} label="Vertical axis" value=${log ? "log" : "lin"} opts=${[["log", "Log"], ["lin", "Linear"]]} onPick=${(k) => setLog(k === "log")}/>
       <div class="cu-ctl"><span>Schedulers</span><div class="cu-chips">${M.SCHEDULERS.map(([k]) => html`<button type="button" class="cu-chip" aria-pressed=${on.includes(k)} onClick=${() => setOn(on.includes(k) ? on.filter((z) => z !== k) : [...on, k].slice(-5))}>${k}</button>`)}</div></div></div>
@@ -46,7 +54,7 @@ function Solvers({ onPass }) {
   const res = useMemo(() => { const r = M.rng(seed + 9); return starts.map((s) => M.solve(solver, s, sig, (a, b, t) => M.denoiser(a, b, t), r)); }, [solver, sig, starts, seed]);
   const exact = useMemo(() => starts.map((s) => M.exactEndpoint(s, sig, (a, b, t) => M.denoiser(a, b, t), 60)), [starts, sig]);
   const err = solver === "euler_ancestral" ? null : Math.sqrt(res.reduce((t, o, i) => t + (o.x - exact[i][0]) ** 2 + (o.y - exact[i][1]) ** 2, 0) / res.length); const calls = res[0].calls;
-  const ok = solver === "heun" && steps <= 10 && err != null && err < .06; useEffect(() => { if (ok) onPass(); }, [ok]);
+  const ok = solver === "heun" && steps <= 10 && err != null && err < .08; useEffect(() => { if (ok) onPass(); }, [ok]);
   return html`<div class="cu-play-grid"><div class="cu-ctls"><${Seg} label="Solver" value=${solver} opts=${M.SOLVERS.map(([k, l]) => [k, l])} onPick=${setSolver}/><${Slider} label="Steps" value=${steps} min=${2} max=${30} onInput=${setSteps}/><button type="button" class="cu-ghost" onClick=${() => setSeed(seed + 1)}>New starting noise</button>
       <${Read} items=${[["Model calls", calls], ["Calls per step", (calls / steps).toFixed(2)], ["Error against a very fine solve", err == null ? "random by design" : err.toFixed(4), ok ? "good" : ""]]}/></div>
     <svg class="cu-chart world" viewBox=${`0 0 ${WORLD.w} ${WORLD.h}`} role="img" aria-label=${`Paths of 24 samples under ${solver} with ${steps} steps`}>${M.TOY.comps.map((c, i) => html`<circle key=${i} cx=${sx(c.x)} cy=${sy(c.y)} r=${M.TOY.s * WORLD.sc * 2} fill="rgba(245,197,24,.14)" stroke="rgba(245,197,24,.5)"/>`)}${res.map((o, i) => html`<g key=${i}><polyline points=${o.path.slice(1).map((p) => `${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join(" ")} fill="none" stroke="rgba(120,180,255,.5)" stroke-width="1.2"/><circle cx=${sx(o.x)} cy=${sy(o.y)} r="3.4" fill="#f5c518"/></g>`)}</svg></div>
@@ -95,12 +103,13 @@ function LowRank({ onPass }) {
 }
 
 /* ---------- ControlNet and conditioning ranges ---------- */
-function Range({ onPass }) {
+function Range({ onPass, args }) {
+  const what = args.word === "prompt" ? "prompt" : "control";
   const [start, setStart] = useState(0); const [end, setEnd] = useState(1); const [steps, setSteps] = useState(20); const [fam, setFam] = useState("discrete"); const m = useMemo(() => fam === "discrete" ? M.discreteModel() : M.flowModel(3), [fam]); const sig = useMemo(() => M.schedule("karras", m, steps), [m, steps]); const act = useMemo(() => M.stepsInRange(sig, m, start, end), [sig, m, start, end]); const n = act.filter(Boolean).length;
   const firstOn = act.indexOf(true), lastOn = act.lastIndexOf(true); const ok = start === 0 && firstOn === 0 && n > 0 && n <= Math.round(steps * .6) && lastOn === n - 1 && steps >= 10; useEffect(() => { if (ok) onPass(); }, [ok]);
   return html`<div class="cu-ctlrow"><${Slider} label="start_percent" value=${start} min=${0} max=${1} step=${.05} show=${start.toFixed(2)} onInput=${setStart}/><${Slider} label="end_percent" value=${end} min=${0} max=${1} step=${.05} show=${end.toFixed(2)} onInput=${setEnd}/><${Slider} label="Steps" value=${steps} min=${5} max=${40} onInput=${setSteps}/><${Seg} label="Model kind" value=${fam} opts=${[["discrete", "SD 1.5"], ["flow", "Flow"]]} onPick=${setFam}/></div>
     <ol class="cu-steps" aria-label="Sampling steps, active ones marked">${act.map((a, i) => html`<li key=${i} class=${a ? "on" : ""} title=${`Step ${i + 1}, σ ${fmt(sig[i])}`}><span class="cu-vh">${`Step ${i + 1} ${a ? "active" : "off"}`}</span></li>`)}</ol>
-    <${Read} items=${[["Steps with the control on", `${n} of ${steps}`, ok ? "good" : ""], ["Starts at σ", fmt(Math.min(m.percent(start), m.max))], ["Stops at σ", fmt(m.percent(end))]]}/>
+    <${Read} items=${[[`Steps with the ${what} on`, `${n} of ${steps}`, ok ? "good" : ""], ["Starts at σ", fmt(Math.min(m.percent(start), m.max))], ["Stops at σ", fmt(m.percent(end))]]}/>
     <p class="cu-play-note">Percent means percent of the model's noise scale. It is not percent of your steps: <code>percent_to_sigma</code> turns it into a σ, and each step compares its own σ. So 0.5 can cover far more or fewer than half your steps, depending on the scheduler.</p>`;
 }
 
@@ -116,7 +125,7 @@ function Attention({ onPass }) {
 }
 
 /* ---------- graph: run and cache ---------- */
-const GraphStrip = ({ g, hit, pick, picked, off }) => html`<ol class="cu-strip">${Object.keys(g).map((id) => html`<li key=${id}><button type="button" class=${"cu-chipnode" + (hit && hit.has(id) ? " hit" : "") + (off && off.has(id) ? " off" : "") + (picked && picked.has(id) ? " picked" : "")} aria-pressed=${picked ? picked.has(id) : undefined} onClick=${pick ? () => pick(id) : undefined}><b>${g[id].class_type}</b></button></li>`)}</ol>`;
+const GraphStrip = ({ g, hit, pick, picked, off }) => html`<ol class="cu-strip">${Object.keys(g).map((id) => html`<li key=${id}><button type="button" class=${"cu-chipnode" + (hit && hit.has(id) ? " hit" : "") + (off && off.has(id) ? " off" : "") + (picked && picked.has(id) ? " picked" : "")} aria-pressed=${picked ? picked.has(id) : undefined} onClick=${pick ? () => pick(id) : undefined}><b>${g[id].class_type}</b>${g[id].class_type === "CLIPTextEncode" && html`<small>${id === "6" ? "positive" : "negative"}</small>`}</button></li>`)}</ol>`;
 function CacheLab({ onPass }) {
   const QS = useMemo(() => [{ id: "3", label: "Change the seed on KSampler" }, { id: "6", label: "Change the positive prompt" }, { id: "4", label: "Pick a different checkpoint" }, { id: "8", label: "Change filename_prefix on SaveImage" }], []); const [i, setI] = useState(0); const [picked, setPicked] = useState(new Set()); const [shown, setShown] = useState(false); const [score, setScore] = useState(0); const q = QS[i % QS.length]; const truth = useMemo(() => dirtyFrom(DEFAULT_GRAPH, q.id), [q]);
   const pick = (id) => { if (shown) return; const n = new Set(picked); n.has(id) ? n.delete(id) : n.add(id); setPicked(n); };
@@ -137,7 +146,7 @@ function GraphFix({ onPass }) {
 
 /* ---------- wire a graph ---------- */
 function WireUp({ onPass }) {
-  const nodes = useMemo(() => [["1", "CheckpointLoaderSimple"], ["2", "CLIPTextEncode"], ["3", "CLIPTextEncode"], ["4", "EmptyLatentImage"], ["5", "KSampler"], ["6", "VAEDecode"], ["7", "SaveImage"]], []); const labels = { 2: "positive prompt", 3: "negative prompt" }; const [wires, setWires] = useState({}); const [sel, setSel] = useState(null); const [msg, setMsg] = useState("Pick a yellow input on the right, then the output that should feed it.");
+  const nodes = useMemo(() => [["1", "CheckpointLoaderSimple"], ["2", "CLIPTextEncode"], ["3", "CLIPTextEncode"], ["4", "EmptyLatentImage"], ["5", "KSampler"], ["6", "VAEDecode"], ["7", "SaveImage"]], []); const labels = { 2: "positive prompt", 3: "negative prompt" }; const [wires, setWires] = useState({}); const [sel, setSel] = useState(null); const [msg, setMsg] = useState("Pick a yellow input, then the output that should feed it.");
   const need = useMemo(() => nodes.flatMap(([id, cls]) => linkInputs(cls, WIRE_LAB).map(([k, t]) => ({ id, cls, input: k, type: t, key: id + "." + k }))), [nodes]); const outs = useMemo(() => nodes.flatMap(([id, cls]) => (WIRE_LAB[cls].output || []).map((t, s) => ({ id, cls, slot: s, type: t, name: (WIRE_LAB[cls].output_name || [])[s] || t }))), [nodes]);
   const connect = (o) => { if (!sel) { setMsg("First pick an input that needs a wire."); return; } if (o.id === sel.id) { setMsg("A node can't feed itself."); return; } const r = canWire(o.cls, o.slot, sel.cls, sel.input, WIRE_LAB); if (!r.ok) { setMsg("The editor refuses this. " + r.why); return; } if (sel.id === "2" || sel.id === "3" || sel.key === "5.positive" || sel.key === "5.negative") { /* both prompt wires have the same type: right order checked below */ } setWires({ ...wires, [sel.key]: o }); setSel(null); setMsg(`Wired. ${o.cls} sends ${r.type} to ${sel.cls}.${sel.input}.`); };
   const left = need.filter((n) => !wires[n.key]).length; const swapped = wires["5.positive"] && wires["5.positive"].id === "3"; const ok = left === 0 && !swapped; useEffect(() => { if (ok) onPass(); }, [ok]);
@@ -155,7 +164,7 @@ function LatentSize({ onPass }) {
 function Vram({ onPass }) {
   const [gb, setGb] = useState(12); const [params, setParams] = useState(6); const [dt, setDt] = useState(2); const [te, setTe] = useState(3); const [vaeRes, setVaeRes] = useState(1); const [mp, setMp] = useState(1); const w = params * dt; const lat = mp * .5; const total = w + te + lat + vaeRes + .4; const free = gb - total; const ok = gb <= 12 && free >= 1 && params >= 6; useEffect(() => { if (ok) onPass(); }, [ok]);
   return html`<div class="cu-ctlrow"><${Slider} label="Your card" value=${gb} min=${4} max=${48} show=${gb + " GB"} onInput=${setGb}/><${Slider} label="Model parameters" value=${params} min=${1} max=${40} show=${params + " billion"} onInput=${setParams}/><${Seg} label="Weights stored as" value=${dt} opts=${M.DTYPES.filter(([a]) => a !== "bf16").map(([a, b]) => [b, a.split(" ")[0]])} onPick=${setDt}/><${Slider} label="Text encoder kept on the card" value=${te} min=${0} max=${12} show=${te + " GB"} onInput=${setTe}/><${Slider} label="Sampling and decode overhead (your estimate)" value=${vaeRes} min=${0} max=${8} step=${.5} show=${vaeRes + " GB"} onInput=${setVaeRes}/><${Slider} label="Output megapixels" value=${mp} min=${.25} max=${8} step=${.25} onInput=${setMp}/></div>
-    <div class="cu-vram" role="img" aria-label=${`${total.toFixed(1)} GB needed on a ${gb} GB card`}><i class="w" style=${{ flexGrow: w }}><b>${w.toFixed(1)}</b></i><i class="t" style=${{ flexGrow: te }}><b>${te}</b></i><i class="l" style=${{ flexGrow: lat + vaeRes }}><b>${(lat + vaeRes).toFixed(1)}</b></i><i class="r" style=${{ flexGrow: .4 }}></i><i class="f" style=${{ flexGrow: Math.max(0, free) }}></i></div>
+    <div class="cu-vram" role="img" aria-label=${`${total.toFixed(1)} GB needed on a ${gb} GB card`}><i class="w" style=${{ flexGrow: w }}><b>${w.toFixed(1)}</b></i><i class="t" style=${{ flexGrow: te }}><b>${te}</b></i><i class="l" style=${{ flexGrow: lat + vaeRes }}><b>${(lat + vaeRes).toFixed(1)}</b></i><i class="r" style=${{ flexGrow: .4 }}></i><i class="f" style=${{ flexGrow: Math.max(0, free) }}></i></div><ul class="cu-amdahl-key"><li><i style="background:#f5c518"></i>weights</li><li><i style="background:#5a9bf0"></i>text encoder</li><li><i style="background:#e8703f"></i>sampling and decode</li><li><i style="background:#888"></i>reserved</li><li><i style="background:rgba(39,224,127,.25)"></i>free</li></ul>
     <${Read} items=${[["Weights", `${params} billion × ${dt} bytes = ${w.toFixed(1)} GB`], ["Reserved by ComfyUI", "0.4 GB on Linux (EXTRA_RESERVED_VRAM)"], ["Total", `${total.toFixed(1)} GB`], [free >= 0 ? "Left over" : "Short by", `${Math.abs(free).toFixed(1)} GB`, free >= 1 ? "good" : "bad"]]}/>
     <p class="cu-play-note">A rough budget, not a prediction. Weights are real arithmetic. The overhead slider is your own estimate. ComfyUI also moves parts of a model on and off the card, so short by a little usually means slower, not a crash.</p>`;
 }
@@ -210,18 +219,18 @@ function RiskRead({ onPass }) {
 /* ---------- API ---------- */
 function ApiCall({ onPass }) {
   const [seed, setSeed] = useState(424242); const [text, setText] = useState("a brass astrolabe"); const [id, setId] = useState("my-script"); const body = { prompt: { 3: { class_type: "KSampler", inputs: { seed, "...": "the rest of your graph" } }, 6: { class_type: "CLIPTextEncode", inputs: { text, clip: ["4", 1] } } }, client_id: id }; useEffect(() => { if (seed !== 424242 && text !== "a brass astrolabe") onPass(); }, [seed, text]);
-  return html`<div class="cu-ctlrow"><label class="cu-ctl"><span>Seed</span><input class="cu-text" type="number" value=${seed} onInput=${(e) => setSeed(+e.target.value)}/></label><label class="cu-ctl wide"><span>Prompt text</span><input class="cu-text" value=${text} onInput=${(e) => setText(e.target.value)}/></label><label class="cu-ctl"><span>client_id</span><input class="cu-text" value=${id} onInput=${(e) => setId(e.target.value)}/></label></div><pre class="cu-code" tabindex="0"><code>POST /prompt\n${JSON.stringify(body, null, 1)}</code></pre><p class="cu-play-note">Your script loads the graph, sets values on nodes by id, and posts. The reply has a <code>prompt_id</code>. Then read <code>/history/&lt;prompt_id&gt;</code> or the websocket. This lab builds the request and sends nothing.</p>`;
+  return html`<div class="cu-ctlrow"><label class="cu-ctl"><span>Seed</span><input class="cu-text" type="number" value=${seed} onInput=${(e) => setSeed(+e.target.value)}/></label><label class="cu-ctl wide"><span>Prompt text</span><input class="cu-text" value=${text} onInput=${(e) => setText(e.target.value)}/></label><label class="cu-ctl"><span>client_id</span><input class="cu-text" value=${id} onInput=${(e) => setId(e.target.value)}/></label></div><pre class="cu-code" tabindex="0"><code>${"POST /prompt\n" + JSON.stringify(body, null, 1)}</code></pre><p class="cu-play-note">Your script loads the graph, sets values on nodes by id, and posts. The reply has a <code>prompt_id</code>. Then read <code>/history/&lt;prompt_id&gt;</code> or the websocket. This lab builds the request and sends nothing.</p>`;
 }
 
 export const PLAYS = {
-  sigmas: { title: "Bend a noise schedule", task: "With SD 1.5 and karras showing, change rho so at least 60% of the steps land below σ 1.", C: Sigmas, after: "Lower rho spends more steps on fine detail at low noise." },
+  sigmas: { title: "Bend a noise schedule", task: "With SD 1.5 and karras showing, raise rho until at least half the steps land below σ 1. Then try rho 1.", C: Sigmas, after: "Higher rho bunches steps at low noise. Rho 1 spaces them evenly in σ, leaving only a couple below 1." },
   denoise: { title: "What denoise really does", task: "Set denoise near 0.5. Compare the steps run with the schedule it built.", C: Denoise },
-  solvers: { title: "Solvers on a toy dataset", task: "Using heun, reach an error under 0.06 with 10 steps or fewer. Then see how many model calls that cost.", C: Solvers, after: "Heun calls the model about twice per step, so compare by calls, not by steps." },
+  solvers: { title: "Solvers on a toy dataset", task: "Using heun, reach an error under 0.08 with 10 steps or fewer. Then see how many model calls that cost.", C: Solvers, after: "Heun calls the model about twice per step, so compare by calls, not by steps." },
   cfg: { title: "CFG, the sum itself", task: "See CFG 1. See CFG 8 or more miss the blob. Then settle where at least 50 of 60 land inside.", C: Cfg, after: "High CFG overshoots: samples shoot past the target rather than improving." },
   noise: { title: "Add noise to a real render", task: "Set the noise so signal to noise reads about 1. Try both formulas.", C: Noise },
   edges: { title: "An edge map from a real render", task: "Set the threshold so between 4% and 12% of pixels are edges, a typical density for line control.", C: Edges },
   lowrank: { title: "What rank buys", task: "Find the lowest rank with error under 0.06.", C: LowRank, after: "Most of the picture lives in few directions. That is the bet a LoRA makes about weight changes." },
-  range: { title: "When control is on", task: "Make the control run from the start and cover no more than 60% of the steps.", C: Range },
+  range: { title: "When it is switched on", task: "Make it run from the start and cover no more than 60% of the steps.", C: Range },
   weights: { title: "Prompt weights, parsed for real", task: "Write brackets so the word brass gets a weight of exactly 1.21.", C: Weights },
   attention: { title: "Who attends to whom", task: "Pick the bottom right cell. Lower the temperature until one token takes the most.", C: Attention },
   cache: { title: "Predict what runs again", task: "Get two changes right.", C: CacheLab },
@@ -237,3 +246,4 @@ export const PLAYS = {
   risk: { title: "Read a pack before you run it", task: "Find every risky line with no false alarms, in each file.", C: RiskRead },
   api: { title: "Build an API call", task: "Change the seed and the prompt, and read the request.", C: ApiCall },
 };
+Object.assign(PLAYS, A, B, C, D, E, F, G, H);
