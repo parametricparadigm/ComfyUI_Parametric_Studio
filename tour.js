@@ -11,6 +11,9 @@ export function Tour({ steps, onClose, speak }) {
 
   const step = current(tour);
   const prog = progress(tour);
+  // The parent passes a new function on every render, and it re-renders twice a second, so the voice must follow the step alone.
+  const speakRef = useRef(speak);
+  speakRef.current = speak;
 
   useEffect(() => {
     if (!step) return;
@@ -19,8 +22,8 @@ export function Tour({ steps, onClose, speak }) {
       window.location.hash = step.tab;
     }
 
-    if (typeof speak === 'function') {
-      speak(step.text);
+    if (typeof speakRef.current === 'function') {
+      speakRef.current(step.text);
     }
 
     const updateRect = () => {
@@ -51,7 +54,7 @@ export function Tour({ steps, onClose, speak }) {
       window.removeEventListener('resize', updateRect);
       window.removeEventListener('scroll', updateRect, true);
     };
-  }, [step, speak]);
+  }, [step]);
 
   useEffect(() => {
     const handleKey = (e) => {
