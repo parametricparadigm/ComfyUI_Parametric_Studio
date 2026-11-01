@@ -1,14 +1,75 @@
 {
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck_clip",
+    0
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck_vae",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "Frames Latent ReverseOrder",
+  "inputs": {
+   "frames": [
+    "src",
+    0
+   ]
+  }
+ },
+ "src": {
+  "class_type": "Wan22ImageToVideoLatent",
+  "inputs": {
+   "vae": [
+    "ck_vae",
+    0
+   ],
+   "width": 512,
+   "height": 512,
+   "length": 9,
+   "batch_size": 1
+  }
+ },
  "s": {
   "class_type": "ClownsharKSampler_Beta",
   "inputs": {
    "eta": 0.5,
    "sampler_name": "multistep/res_2m",
    "scheduler": "beta57",
-   "steps": 12,
+   "steps": 6,
    "steps_to_run": -1,
    "denoise": 0.6,
-   "cfg": 6.5,
+   "cfg": 5.0,
    "seed": 4242,
    "sampler_mode": "standard",
    "bongmath": true,
@@ -31,22 +92,10 @@
   }
  },
  "ck": {
-  "class_type": "CheckpointLoaderSimple",
+  "class_type": "UNETLoader",
   "inputs": {
-   "ckpt_name": "DreamShaper_8_pruned.safetensors"
-  }
- },
- "dec": {
-  "class_type": "VAEDecode",
-  "inputs": {
-   "samples": [
-    "s",
-    0
-   ],
-   "vae": [
-    "ck",
-    2
-   ]
+   "unet_name": "wan2.2_ti2v_5B_fp16.safetensors",
+   "weight_dtype": "default"
   }
  },
  "neg": {
@@ -54,57 +103,22 @@
   "inputs": {
    "text": "low quality, blurry",
    "clip": [
-    "ck",
-    1
-   ]
-  }
- },
- "pos": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
-   "clip": [
-    "ck",
-    1
-   ]
-  }
- },
- "src": {
-  "class_type": "VAEEncode",
-  "inputs": {
-   "pixels": [
-    "img",
-    0
-   ],
-   "vae": [
-    "ck",
-    2
-   ]
-  }
- },
- "img": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "res4lyf_source_sd15.png"
-  }
- },
- "n": {
-  "class_type": "Frames Latent ReverseOrder",
-  "inputs": {
-   "frames": [
-    "src",
+    "ck_clip",
     0
    ]
   }
  },
- "save": {
-  "class_type": "SaveImage",
+ "ck_clip": {
+  "class_type": "CLIPLoader",
   "inputs": {
-   "images": [
-    "dec",
-    0
-   ],
-   "filename_prefix": "res4lyf_node"
+   "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+   "type": "wan"
+  }
+ },
+ "ck_vae": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "wan2.2_vae.safetensors"
   }
  }
 }

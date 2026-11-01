@@ -1,0 +1,28 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ReReduxPatcher",
+  "inputs": {
+   "style_model": [
+    "style",
+    0
+   ],
+   "style_dtype": "float64",
+   "enable": true
+  }
+ },
+ "style": {
+  "class_type": "StyleModelLoader",
+  "inputs": {
+   "style_model_name": "flux/flux1-redux-dev.safetensors"
+  }
+ }
+}

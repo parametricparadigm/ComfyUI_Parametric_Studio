@@ -1,0 +1,116 @@
+{
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck_vae",
+    0
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "flux1-schnell.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck_clip",
+    0
+   ]
+  }
+ },
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck_clip",
+    0
+   ]
+  }
+ },
+ "s": {
+  "class_type": "ClownsharKSampler_Beta",
+  "inputs": {
+   "eta": 0.5,
+   "sampler_name": "multistep/res_2m",
+   "scheduler": "beta57",
+   "steps": 6,
+   "steps_to_run": -1,
+   "denoise": 1.0,
+   "cfg": 1.0,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "bongmath": true,
+   "model": [
+    "n",
+    0
+   ],
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ReFluxPatcher",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "style_dtype": "float64",
+   "enable": true
+  }
+ },
+ "empty": {
+  "class_type": "EmptySD3LatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "ck_clip": {
+  "class_type": "DualCLIPLoader",
+  "inputs": {
+   "clip_name1": "clip_l.safetensors",
+   "clip_name2": "t5xxl_fp16.safetensors",
+   "type": "flux"
+  }
+ },
+ "ck_vae": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ae.safetensors"
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "n": {
+  "class_type": "UNetSave",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "filename_prefix": "models/ComfyUI"
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ }
+}

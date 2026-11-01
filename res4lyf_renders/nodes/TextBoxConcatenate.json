@@ -1,0 +1,17 @@
+{
+ "n": {
+  "class_type": "TextBoxConcatenate",
+  "inputs": {
+   "text": ""
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ }
+}

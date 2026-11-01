@@ -92,7 +92,7 @@
   }
  },
  "pos": {
-  "class_type": "StyleModelApplyStyle",
+  "class_type": "StyleModelApply",
   "inputs": {
    "conditioning": [
     "pos_text",
@@ -106,7 +106,8 @@
     "vis",
     0
    ],
-   "strength": 1.0
+   "strength": 1.0,
+   "strength_type": "multiply"
   }
  },
  "s": {

@@ -1,97 +1,20 @@
 {
- "s": {
-  "class_type": "ClownsharKSampler_Beta",
-  "inputs": {
-   "eta": 0.5,
-   "sampler_name": "multistep/res_2m",
-   "scheduler": "beta57",
-   "steps": 12,
-   "steps_to_run": -1,
-   "denoise": 0.6,
-   "cfg": 6.5,
-   "seed": 4242,
-   "sampler_mode": "standard",
-   "bongmath": true,
-   "model": [
-    "ck",
-    0
-   ],
-   "positive": [
-    "pos",
-    0
-   ],
-   "negative": [
-    "neg",
-    0
-   ],
-   "latent_image": [
-    "n",
-    0
-   ]
-  }
- },
- "ck": {
-  "class_type": "CheckpointLoaderSimple",
-  "inputs": {
-   "ckpt_name": "DreamShaper_8_pruned.safetensors"
-  }
- },
- "dec": {
-  "class_type": "VAEDecode",
-  "inputs": {
-   "samples": [
-    "s",
-    0
-   ],
-   "vae": [
-    "ck",
-    2
-   ]
-  }
- },
  "smp": {
   "class_type": "KSamplerSelect",
   "inputs": {
    "sampler_name": "euler"
   }
  },
- "pos": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
-   "clip": [
-    "ck",
-    1
-   ]
-  }
- },
- "neg": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "low quality, blurry",
-   "clip": [
-    "ck",
-    1
-   ]
-  }
- },
- "src": {
-  "class_type": "VAEEncode",
-  "inputs": {
-   "pixels": [
-    "img",
-    0
-   ],
-   "vae": [
-    "ck",
-    2
-   ]
-  }
- },
  "img": {
   "class_type": "LoadImage",
   "inputs": {
    "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
   }
  },
  "n": {
@@ -142,6 +65,37 @@
    ]
   }
  },
+ "s": {
+  "class_type": "ClownsharKSampler_Beta",
+  "inputs": {
+   "eta": 0.5,
+   "sampler_name": "multistep/res_2m",
+   "scheduler": "beta57",
+   "steps": 12,
+   "steps_to_run": -1,
+   "denoise": 0.6,
+   "cfg": 6.5,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "bongmath": true,
+   "model": [
+    "ck",
+    0
+   ],
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "n",
+    0
+   ]
+  }
+ },
  "save": {
   "class_type": "SaveImage",
   "inputs": {
@@ -150,6 +104,52 @@
     0
    ],
    "filename_prefix": "res4lyf_node"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "src": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "img",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
   }
  }
 }

@@ -1,19 +1,4 @@
 {
- "m2i": {
-  "class_type": "MaskToImage",
-  "inputs": {
-   "mask": [
-    "n",
-    0
-   ]
-  }
- },
- "img": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "res4lyf_source_sd15.png"
-  }
- },
  "save": {
   "class_type": "SaveImage",
   "inputs": {
@@ -22,6 +7,15 @@
     0
    ],
    "filename_prefix": "res4lyf_node"
+  }
+ },
+ "m2i": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "n",
+    0
+   ]
   }
  },
  "n": {
@@ -35,6 +29,12 @@
     "img",
     0
    ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
   }
  }
 }

@@ -42,7 +42,7 @@ function HowWeKnow({ cat }) {
   return html`<section class="cu-know" aria-labelledby="cu-know-h"><h2 id="cu-know-h">How we know this is right</h2>
     <ul>
       <li><b>${c.second_read}</b><p>lessons read by a second reader, who tried to prove them wrong against ComfyUI's source and real runs. That found and fixed ${c.errors_fixed} errors. It samples the riskiest claims in each lesson, so it is not a proof.</p></li>
-      <li><b>${c.second_read_pending}</b><p>lessons checked by their author, with the second read pending. Expect a few mistakes in these: second reads have been finding them.</p></li>
+      ${c.second_read_pending > 0 && html`<li><b>${c.second_read_pending}</b><p>lessons checked by their author, with the second read pending. Expect a few mistakes in these: second reads have been finding them.</p></li>`}
       ${c.draft > 0 && html`<li><b>${c.draft}</b><p>lessons still labelled Draft. A local model wrote them. Their labs ran, but nobody has checked their prose line by line.</p></li>`}
       <li><b>${c.code_refs}</b><p>named ComfyUI functions and classes, each looked up in the source by a test.</p></li>
       <li><b>${c.graphs}</b><p>graphs, every one passed through ComfyUI's own <code>validate_prompt</code>. The ${c.graphs_ran} that need no model were really executed.</p></li>

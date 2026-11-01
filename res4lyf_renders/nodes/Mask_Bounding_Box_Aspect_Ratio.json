@@ -1,12 +1,10 @@
 {
- "save": {
-  "class_type": "SaveImage",
+ "m0": {
+  "class_type": "SolidMask",
   "inputs": {
-   "images": [
-    "n",
-    0
-   ],
-   "filename_prefix": "res4lyf_node"
+   "value": 0.0,
+   "width": 512,
+   "height": 512
   }
  },
  "img": {
@@ -25,7 +23,45 @@
    "image": [
     "img",
     0
+   ],
+   "mask": [
+    "mask",
+    0
    ]
+  }
+ },
+ "m1": {
+  "class_type": "SolidMask",
+  "inputs": {
+   "value": 1.0,
+   "width": 256,
+   "height": 512
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "mask": {
+  "class_type": "MaskComposite",
+  "inputs": {
+   "destination": [
+    "m0",
+    0
+   ],
+   "source": [
+    "m1",
+    0
+   ],
+   "x": 0,
+   "y": 0,
+   "operation": "add"
   }
  }
 }

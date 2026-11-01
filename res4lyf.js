@@ -124,7 +124,7 @@ function NodeCard({ n }) {
   return html`<article class="card r4-node">
     ${n.t ? html`<img src=${n.t} alt=${"Render from a graph using " + n.n} loading="lazy" width="256" height="256"/>` : html`<div class="r4-nothumb" aria-hidden="true">${n.s === "ran" ? "text output" : "no image"}</div>`}
     <div class="r4-nodebody"><h4><code>${n.n}</code></h4><span class=${"r4-state r4-s-" + n.s}>${STATE_LABEL[n.s] || n.s}</span>
-      <p>${n.d}</p>${n.u && html`<p class="r4-use">${n.u}</p>`}${n.e && html`<p class="r4-err"><code>${n.e}</code></p>`}
+      <p>${n.d}</p>${n.u && html`<p class="r4-use">${n.u}</p>`}${n.v && html`<p class="small">Needed ${n.v}.</p>`}${n.e && html`<p class="r4-err"><code>${n.e}</code></p>`}
       <p class="r4-nodelinks"><${Ext} href=${sourceUrl(DATA.sha, src[0], src[1])}>Source<//>${n.j && html`<a href=${n.j} download>Graph</a>`}</p></div>
   </article>`;
 }
@@ -239,8 +239,8 @@ export function Res4lyf() {
       </div>
     </section>
 
-    <section class="r4-sect r4-wide"><${Head} n="06" title="Every node" id="r4-nodes"><p class="sectsub">We read the source of all ${NODE_NOTES.length} nodes and wrote what each does. Then we put each one into a graph of its own, on Stable Diffusion 1.5 with its default settings, and rendered it. <b>${COUNTS.rendered || 0} rendered.</b></p><//>
-      <p class="small r4-gnote">A picture means the graph ran, not that those settings suit the node, and a strange image is often just a poor default for this setup. A failure here can come from our simple test as easily as from the node: many need a particular model, video latents or a partner node. The notes come from reading the code, and some mention options that look unfinished; the author does call this work experimental.</p>
+    <section class="r4-sect r4-wide"><${Head} n="06" title="Every node" id="r4-nodes"><p class="sectsub">We read the source of all ${NODE_NOTES.length} nodes and wrote what each does. Then we put each one into a graph of its own, on Stable Diffusion 1.5 with its default settings, and rendered it. A node that failed got another try on the model it asks for, on a latent from an earlier sampler, or with every optional input wired, and its card says which it needed. <b>${COUNTS.rendered || 0} rendered.</b></p>
+      <p class="small r4-gnote">A picture means the graph ran, not that those settings suit the node, and a strange image is often just a poor default for this setup. A failure here can still come from our simple test as easily as from the node: some need a partner node or settings we didn't try. Chroma, AuraFlow, HiDream, LTX Video and Stable Cascade nodes weren't run on those models. Also, the precision nodes change a setting for the whole server, and patchers stay on a loaded model, so later graphs can fail because of them until a restart. The notes come from reading the code, and some mention options that look unfinished; the author does call this work experimental.</p>
       <${NodeList}/>
     </section>
 

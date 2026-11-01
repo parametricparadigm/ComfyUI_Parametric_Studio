@@ -49,14 +49,12 @@
    ]
   }
  },
- "neg": {
-  "class_type": "CLIPTextEncode",
+ "m0": {
+  "class_type": "SolidMask",
   "inputs": {
-   "text": "low quality, blurry",
-   "clip": [
-    "ck",
-    1
-   ]
+   "value": 0.0,
+   "width": 512,
+   "height": 512
   }
  },
  "pos": {
@@ -69,12 +67,16 @@
    ]
   }
  },
- "empty": {
-  "class_type": "EmptyLatentImage",
+ "sig": {
+  "class_type": "BasicScheduler",
   "inputs": {
-   "width": 512,
-   "height": 512,
-   "batch_size": 1
+   "model": [
+    "ck",
+    0
+   ],
+   "scheduler": "normal",
+   "steps": 12,
+   "denoise": 1.0
   }
  },
  "n": {
@@ -100,7 +102,39 @@
    "conditioning_unmasked": [
     "pos",
     0
+   ],
+   "mask_A": [
+    "mask",
+    0
+   ],
+   "mask_B": [
+    "mask",
+    0
+   ],
+   "weights": [
+    "sig",
+    0
+   ],
+   "region_bleeds": [
+    "sig",
+    0
    ]
+  }
+ },
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "m1": {
+  "class_type": "SolidMask",
+  "inputs": {
+   "value": 1.0,
+   "width": 256,
+   "height": 512
   }
  },
  "save": {
@@ -111,6 +145,32 @@
     0
    ],
    "filename_prefix": "res4lyf_node"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "mask": {
+  "class_type": "MaskComposite",
+  "inputs": {
+   "destination": [
+    "m0",
+    0
+   ],
+   "source": [
+    "m1",
+    0
+   ],
+   "x": 0,
+   "y": 0,
+   "operation": "add"
   }
  }
 }

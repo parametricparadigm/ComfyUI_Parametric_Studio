@@ -1,0 +1,26 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "p1": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    1
+   ]
+  }
+ },
+ "n": {
+  "class_type": "SeedGenerator",
+  "inputs": {
+   "seed": 4242
+  }
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "n": {
+  "class_type": "TextShuffle",
+  "inputs": {
+   "text": "",
+   "separator": " ",
+   "seed": 4242
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ }
+}

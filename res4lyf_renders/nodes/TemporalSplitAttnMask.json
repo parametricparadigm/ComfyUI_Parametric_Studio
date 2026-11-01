@@ -1,0 +1,30 @@
+{
+ "n": {
+  "class_type": "TemporalSplitAttnMask",
+  "inputs": {
+   "self_attn_start": 1,
+   "self_attn_stop": 33,
+   "cross_attn_start": 1,
+   "cross_attn_stop": 33
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "m2i",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "m2i": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "n",
+    0
+   ]
+  }
+ }
+}

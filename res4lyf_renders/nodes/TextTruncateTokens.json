@@ -1,0 +1,58 @@
+{
+ "n": {
+  "class_type": "TextTruncateTokens",
+  "inputs": {
+   "text": "",
+   "truncate_words_to": 30,
+   "truncate_clip_l_to": 77,
+   "truncate_clip_g_to": 77,
+   "truncate_t5_to": 77,
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "p1": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    1
+   ]
+  }
+ },
+ "p3": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    3
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "p2": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    2
+   ]
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ }
+}

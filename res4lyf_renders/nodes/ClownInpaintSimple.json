@@ -1,4 +1,48 @@
 {
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "n": {
+  "class_type": "ClownInpaintSimple",
+  "inputs": {
+   "guide_weight": 0.1,
+   "guide_weight_scheduler": "beta57",
+   "guide_end_step": 15,
+   "model": [
+    "ck",
+    0
+   ],
+   "positive_inpaint": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "pos",
+    0
+   ],
+   "latent_image": [
+    "src",
+    0
+   ]
+  }
+ },
  "s": {
   "class_type": "ClownsharKSampler_Beta",
   "inputs": {
@@ -34,10 +78,24 @@
    ]
   }
  },
- "ck": {
-  "class_type": "CheckpointLoaderSimple",
+ "save": {
+  "class_type": "SaveImage",
   "inputs": {
-   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
   }
  },
  "dec": {
@@ -50,26 +108,6 @@
    "vae": [
     "ck",
     2
-   ]
-  }
- },
- "pos": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
-   "clip": [
-    "ck",
-    1
-   ]
-  }
- },
- "neg": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "low quality, blurry",
-   "clip": [
-    "ck",
-    1
    ]
   }
  },
@@ -86,52 +124,14 @@
    ]
   }
  },
- "img": {
-  "class_type": "LoadImage",
+ "pos": {
+  "class_type": "CLIPTextEncode",
   "inputs": {
-   "image": "res4lyf_source_sd15.png"
-  }
- },
- "empty": {
-  "class_type": "EmptyLatentImage",
-  "inputs": {
-   "width": 512,
-   "height": 512,
-   "batch_size": 1
-  }
- },
- "n": {
-  "class_type": "ClownInpaintSimple",
-  "inputs": {
-   "guide_weight": 0.1,
-   "guide_weight_scheduler": "beta57",
-   "guide_end_step": 15,
-   "model": [
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
     "ck",
-    0
-   ],
-   "positive_inpaint": [
-    "pos",
-    0
-   ],
-   "negative": [
-    "pos",
-    0
-   ],
-   "latent_image": [
-    "src",
-    0
+    1
    ]
-  }
- },
- "save": {
-  "class_type": "SaveImage",
-  "inputs": {
-   "images": [
-    "dec",
-    0
-   ],
-   "filename_prefix": "res4lyf_node"
   }
  }
 }

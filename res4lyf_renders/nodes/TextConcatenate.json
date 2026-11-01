@@ -1,0 +1,15 @@
+{
+ "n": {
+  "class_type": "TextConcatenate",
+  "inputs": {}
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ }
+}

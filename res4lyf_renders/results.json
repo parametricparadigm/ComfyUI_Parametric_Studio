@@ -496,12 +496,12 @@
   "pack_commit": "56e4475"
  },
  "flux_redux_style": {
-  "ok": false,
-  "seconds": 54.0,
-  "error": "list index out of range\n",
+  "ok": true,
+  "seconds": 18.0,
+  "prompt_id": "19b295b4-ce5f-459b-b46e-90165e047a8b",
   "family": "FLUX.1 schnell",
   "name": "redux_style",
-  "what": "The pack's ReReduxPatcher and StyleModelApplyStyle, on the same reference.",
+  "what": "The pack's ReReduxPatcher in front of the same node, on the same reference. Byte for byte the same image as the plain Redux render, so it changed nothing here.",
   "calls": 8,
   "seed": 4242,
   "steps": 8,
@@ -509,6 +509,22 @@
   "size": 1024,
   "device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
   "graph": "res4lyf_renders/graphs/flux_redux_style.json",
+  "pack_commit": "56e4475"
+ },
+ "wan_res_2m": {
+  "ok": true,
+  "seconds": 18.0,
+  "prompt_id": "9ba24f60-802a-4cc5-a299-c1fcbc07d5cf",
+  "family": "Wan 2.2 TI2V 5B (video)",
+  "name": "res_2m",
+  "what": "Video: ClownsharKSampler, res_2m on beta57, 49 frames at 704x480.",
+  "calls": 20,
+  "seed": 4242,
+  "steps": 20,
+  "cfg": 5.0,
+  "size": 704,
+  "device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+  "graph": "res4lyf_renders/graphs/wan_res_2m.json",
   "pack_commit": "56e4475"
  }
 }

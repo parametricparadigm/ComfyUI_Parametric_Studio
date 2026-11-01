@@ -1,0 +1,41 @@
+{
+ "n": {
+  "class_type": "SigmasPreview",
+  "inputs": {
+   "sigmas": [
+    "sig",
+    0
+   ],
+   "print_as_list": false,
+   "line_color": "blue"
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "sig": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "scheduler": "normal",
+   "steps": 12,
+   "denoise": 1.0
+  }
+ }
+}

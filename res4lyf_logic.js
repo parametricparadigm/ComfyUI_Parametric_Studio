@@ -22,7 +22,7 @@ export function filterNames(names, query) {
   return q ? names.filter((n) => n.toLowerCase().includes(q)) : names;
 }
 
-export const STATE_LABEL = { rendered: "Rendered", ran: "Ran, text output", error: "Failed in our test", rejected: "Rejected by ComfyUI", needs: "Needs a partner", skipped: "Not run alone", timeout: "Timed out", untested: "Not tested" };
+export const STATE_LABEL = { rendered: "Rendered", ran: "Ran, text output", error: "Failed in our test", rejected: "Rejected by ComfyUI", needs: "Needs a partner", skipped: "Not run alone", timeout: "Timed out", model: "Its model wasn't tested", untested: "Not tested" };
 export const sourceUrl = (sha, file, line) => `${REPO}/blob/${sha}/${file}${line ? "#L" + line : ""}`;
 export function filterNodes(nodes, group, state, query) {
   const q = query.trim().toLowerCase();

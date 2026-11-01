@@ -28,10 +28,10 @@ const eta = (s) => (s == null ? "" : s > 3600 ? `${Math.round(s / 3600)} h left`
 export function DlStatus({ dl, kind, id, err }) {
   const m = mine(dl, kind, id);
   if (m && (dl.state === "running" || dl.state === "cancelling")) return html`<div class="dlst"><div class="dlbar" role="progressbar" aria-valuenow=${dl.pct || 0} aria-valuemin="0" aria-valuemax="100"><i style=${{ width: `${dl.pct || 0}%` }}></i></div>
-    <small>${dl.phase === "verifying" ? "Checking the file" : dl.state === "cancelling" ? "Stopping" : `File ${dl.index} of ${dl.count}`}${dl.pct != null ? ` · ${dl.pct}%` : ""}${dl.mb_s ? ` · ${dl.mb_s} MB/s` : ""}${dl.eta_s ? ` · ${eta(dl.eta_s)}` : ""}</small></div>`;
+    <small>${dl.phase === "verifying" ? "Checking the file" : dl.state === "cancelling" ? "Stopping" : dl.note || `File ${dl.index} of ${dl.count}`}${dl.pct != null ? ` · ${dl.pct}%` : ""}${dl.mb_s ? ` · ${dl.mb_s} MB/s` : ""}${dl.eta_s ? ` · ${eta(dl.eta_s)}` : ""}</small></div>`;
   if (m && dl.state === "needs_license") return html`<small class="dlbad">${dl.error} <a href=${dl.license_url} target="_blank" rel="noopener noreferrer">Open the model page</a></small>`;
   if (m && dl.state === "error") return html`<small class="dlbad">${dl.error}</small>`;
-  if (m && dl.state === "cancelled") return html`<small>Stopped. Press Download to carry on where it left off.</small>`;
+  if (m && dl.state === "cancelled") return html`<small>Stopped. Press Resume to carry on where it left off.</small>`;
   return err ? html`<small class="dlbad">${err}</small>` : null;
 }
 
@@ -53,7 +53,7 @@ export function DlButton({ kind, id, row, small }) {
 export function NeedsModels({ goal }) {
   const { ready, dl } = useModels(); const row = ready && ready.goals && ready.goals[goal];
   if (!row || !row.known || (row.ready && !(mine(dl, "goal", goal) && dl.state === "done"))) return null;
-  return html`<div class="needs"><b>${row.ready ? "Models downloaded" : `Needs ${gbText(row.missing_gb) || "model files"} of models`}</b><small>${row.ready ? "Ready to generate." : `${row.missing} file${row.missing > 1 ? "s" : ""} missing on this machine. Only those are downloaded.`}</small><${DlButton} kind="goal" id=${goal} row=${row} small/></div>`;
+  return html`<div class="needs"><b>${row.ready ? "Models downloaded" : `Needs ${gbText(row.missing_gb) || "model files"} of models`}</b><small>${row.ready ? "Ready to generate." : `${row.missing} file${row.missing > 1 ? "s" : ""} missing on this machine. Only ${row.missing > 1 ? "those are" : "that is"} downloaded: ${(row.items || []).filter((x) => !x.present).map((x) => x.name).join(", ")}`}</small><${DlButton} kind="goal" id=${goal} row=${row} small/></div>`;
 }
 
 const flagOf = (row) => (!row || !row.known ? null : row.ready ? ["ok", "Ready"] : row.gated ? ["gate", "Gated"] : ["need", row.missing_gb ? `${gbText(row.missing_gb)} to get` : "Needs files"]);

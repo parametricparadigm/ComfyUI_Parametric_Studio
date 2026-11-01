@@ -1,4 +1,32 @@
 {
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "n": {
+  "class_type": "ClownSampler",
+  "inputs": {
+   "noise_type_sde": "gaussian",
+   "noise_mode_sde": "hard",
+   "eta": 0.5,
+   "s_noise": 1.0,
+   "d_noise": 1.0,
+   "noise_seed_sde": -1,
+   "sampler_name": "res_2m",
+   "implicit_sampler_name": "explicit_diagonal",
+   "implicit_steps": 0
+  }
+ },
  "s": {
   "class_type": "SharkSampler_Beta",
   "inputs": {
@@ -31,10 +59,24 @@
    ]
   }
  },
- "ck": {
-  "class_type": "CheckpointLoaderSimple",
+ "save": {
+  "class_type": "SaveImage",
   "inputs": {
-   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
   }
  },
  "dec": {
@@ -50,16 +92,6 @@
    ]
   }
  },
- "neg": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "low quality, blurry",
-   "clip": [
-    "ck",
-    1
-   ]
-  }
- },
  "pos": {
   "class_type": "CLIPTextEncode",
   "inputs": {
@@ -68,38 +100,6 @@
     "ck",
     1
    ]
-  }
- },
- "empty": {
-  "class_type": "EmptyLatentImage",
-  "inputs": {
-   "width": 512,
-   "height": 512,
-   "batch_size": 1
-  }
- },
- "n": {
-  "class_type": "ClownSampler",
-  "inputs": {
-   "noise_type_sde": "gaussian",
-   "noise_mode_sde": "hard",
-   "eta": 0.5,
-   "s_noise": 1.0,
-   "d_noise": 1.0,
-   "noise_seed_sde": -1,
-   "sampler_name": "res_2m",
-   "implicit_sampler_name": "explicit_diagonal",
-   "implicit_steps": 0
-  }
- },
- "save": {
-  "class_type": "SaveImage",
-  "inputs": {
-   "images": [
-    "dec",
-    0
-   ],
-   "filename_prefix": "res4lyf_node"
   }
  }
 }

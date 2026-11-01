@@ -1,0 +1,27 @@
+{
+ "n": {
+  "class_type": "TextBox2",
+  "inputs": {
+   "text1": "",
+   "text2": ""
+  }
+ },
+ "p1": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    1
+   ]
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ }
+}

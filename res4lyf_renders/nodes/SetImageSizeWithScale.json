@@ -1,0 +1,46 @@
+{
+ "p3": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    3
+   ]
+  }
+ },
+ "p1": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    1
+   ]
+  }
+ },
+ "p2": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    2
+   ]
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "SetImageSizeWithScale",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "scale_by": 1.0
+  }
+ }
+}

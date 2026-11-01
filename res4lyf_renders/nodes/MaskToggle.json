@@ -1,0 +1,63 @@
+{
+ "m2i": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "n",
+    0
+   ]
+  }
+ },
+ "mask": {
+  "class_type": "MaskComposite",
+  "inputs": {
+   "destination": [
+    "m0",
+    0
+   ],
+   "source": [
+    "m1",
+    0
+   ],
+   "x": 0,
+   "y": 0,
+   "operation": "add"
+  }
+ },
+ "m1": {
+  "class_type": "SolidMask",
+  "inputs": {
+   "value": 1.0,
+   "width": 256,
+   "height": 512
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "m2i",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "m0": {
+  "class_type": "SolidMask",
+  "inputs": {
+   "value": 0.0,
+   "width": 512,
+   "height": 512
+  }
+ },
+ "n": {
+  "class_type": "MaskToggle",
+  "inputs": {
+   "enable": true,
+   "mask": [
+    "mask",
+    0
+   ]
+  }
+ }
+}

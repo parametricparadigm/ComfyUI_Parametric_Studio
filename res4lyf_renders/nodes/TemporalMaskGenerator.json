@@ -1,0 +1,29 @@
+{
+ "n": {
+  "class_type": "TemporalMaskGenerator",
+  "inputs": {
+   "switch_frame": 33,
+   "frames": 65,
+   "invert_mask": false
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "m2i",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "m2i": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "n",
+    0
+   ]
+  }
+ }
+}

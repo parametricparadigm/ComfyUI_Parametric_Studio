@@ -1,0 +1,26 @@
+{
+ "n": {
+  "class_type": "SigmasSchedulePreview",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "noise_mode": "hard",
+   "eta": 0.25,
+   "s_noise": 1.0,
+   "denoise": 1.0,
+   "denoise_alt": 1.0,
+   "scheduler": "beta57",
+   "steps": 12,
+   "plot_max": 2.1,
+   "plot_min": 0.0
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ }
+}

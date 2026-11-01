@@ -9,12 +9,6 @@
    "filename_prefix": "res4lyf_node"
   }
  },
- "img": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "res4lyf_source_sd15.png"
-  }
- },
  "n": {
   "class_type": "Image Pair Split",
   "inputs": {
@@ -22,6 +16,12 @@
     "img",
     0
    ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
   }
  }
 }

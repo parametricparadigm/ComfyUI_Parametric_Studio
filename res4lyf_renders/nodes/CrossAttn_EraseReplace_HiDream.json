@@ -1,4 +1,35 @@
 {
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "n": {
+  "class_type": "CrossAttn_EraseReplace_HiDream",
+  "inputs": {
+   "clip": [
+    "ck",
+    1
+   ],
+   "t5xxl_erase": "",
+   "llama_erase": "",
+   "t5xxl_replace": "",
+   "llama_replace": "",
+   "t5xxl_erase_token": "",
+   "llama_erase_token": "",
+   "t5xxl_replace_token": "",
+   "llama_replace_token": ""
+  }
+ },
  "s": {
   "class_type": "ClownsharKSampler_Beta",
   "inputs": {
@@ -30,10 +61,24 @@
    ]
   }
  },
- "ck": {
-  "class_type": "CheckpointLoaderSimple",
+ "save": {
+  "class_type": "SaveImage",
   "inputs": {
-   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
   }
  },
  "dec": {
@@ -47,51 +92,6 @@
     "ck",
     2
    ]
-  }
- },
- "neg": {
-  "class_type": "CLIPTextEncode",
-  "inputs": {
-   "text": "low quality, blurry",
-   "clip": [
-    "ck",
-    1
-   ]
-  }
- },
- "empty": {
-  "class_type": "EmptyLatentImage",
-  "inputs": {
-   "width": 512,
-   "height": 512,
-   "batch_size": 1
-  }
- },
- "n": {
-  "class_type": "CrossAttn_EraseReplace_HiDream",
-  "inputs": {
-   "clip": [
-    "ck",
-    1
-   ],
-   "t5xxl_erase": "",
-   "llama_erase": "",
-   "t5xxl_replace": "",
-   "llama_replace": "",
-   "t5xxl_erase_token": "",
-   "llama_erase_token": "",
-   "t5xxl_replace_token": "",
-   "llama_replace_token": ""
-  }
- },
- "save": {
-  "class_type": "SaveImage",
-  "inputs": {
-   "images": [
-    "dec",
-    0
-   ],
-   "filename_prefix": "res4lyf_node"
   }
  }
 }
