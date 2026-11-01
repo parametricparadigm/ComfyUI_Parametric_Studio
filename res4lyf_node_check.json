@@ -1,0 +1,1166 @@
+{
+"AdvancedNoise": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/AdvancedNoise.json",
+"state": "ran",
+"wired": ""
+},
+"Base64ToConditioning": {
+"detail": "EOFError: Ran out of input\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Base64ToConditioning.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"BongSampler": {
+"detail": "NameError: name 'options' is not defined\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/BongSampler.json",
+"state": "error",
+"wired": "LATENT"
+},
+"CLIPTextEncodeFluxUnguided": {
+"detail": "KeyError: 't5xxl'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/CLIPTextEncodeFluxUnguided.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ClownGuide_AdaIN_MMDiT_Beta": {
+"detail": "KeyError: 'sort_and_scatter'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_AdaIN_MMDiT_Beta.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"ClownGuide_AttnInj_MMDiT_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_AttnInj_MMDiT_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_AttnInj_MMDiT_Beta.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_Beta.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_FrequencySeparation": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_FrequencySeparation.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_FrequencySeparation.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_Mean_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_Mean_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_Mean_Beta.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_SelfRefine": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_SelfRefine.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_SelfRefine.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_StyleNorm_Advanced_HiDream": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_StyleNorm_Advanced_HiDream.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_StyleNorm_Advanced_HiDream.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_Style_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_Style_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_Style_Beta.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_Style_EdgeWidth": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_Style_EdgeWidth.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_Style_EdgeWidth.jpg",
+"wired": "GUIDES"
+},
+"ClownGuide_Style_TileSize": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuide_Style_TileSize.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuide_Style_TileSize.jpg",
+"wired": "GUIDES"
+},
+"ClownGuidesAB_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuidesAB_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuidesAB_Beta.jpg",
+"wired": "GUIDES"
+},
+"ClownGuides_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuides_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuides_Beta.jpg",
+"wired": "GUIDES"
+},
+"ClownGuides_Sync": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuides_Sync.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuides_Sync.jpg",
+"wired": "GUIDES"
+},
+"ClownGuides_Sync_Advanced": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuides_Sync_Advanced.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuides_Sync_Advanced.jpg",
+"wired": "GUIDES"
+},
+"ClownGuides_VideoAudioMask": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownGuides_VideoAudioMask.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownGuides_VideoAudioMask.jpg",
+"wired": "MASK"
+},
+"ClownInpaint": {
+"detail": "TypeError: unsupported operand type(s) for -: 'int' and 'NoneType'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownInpaint.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"ClownInpaintSimple": {
+"detail": "TypeError: unsupported operand type(s) for -: 'int' and 'NoneType'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownInpaintSimple.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"ClownModelLoader": {
+"detail": "loads a whole model chosen by its own settings",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"state": "skipped"
+},
+"ClownOptions_Automation_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Automation_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_Automation_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_Combine": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Combine.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_Combine.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_Cycles_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Cycles_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_Cycles_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_DetailBoost_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_DetailBoost_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_DetailBoost_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_ExtraOptions_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_ExtraOptions_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_ExtraOptions_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_FlowGuide": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_FlowGuide.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_FlowGuide.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_FrameWeights": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_FrameWeights.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_FrameWeights.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_Frameweights": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Frameweights.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_Frameweights.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_ImplicitSteps_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_ImplicitSteps_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_ImplicitSteps_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_LatentNormalize": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_LatentNormalize.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_LatentNormalize.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_Momentum_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Momentum_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_Momentum_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_SDE_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_SDE_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_SDE_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_SDE_Mask_Beta": {
+"detail": "AttributeError: 'NoneType' object has no attribute 'min'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_SDE_Mask_Beta.json",
+"state": "error",
+"wired": "OPTIONS"
+},
+"ClownOptions_SDE_Noise": {
+"detail": "AttributeError: 'dict' object has no attribute 'sub_'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_SDE_Noise.json",
+"state": "error",
+"wired": "OPTIONS"
+},
+"ClownOptions_SigmaScaling_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_SigmaScaling_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_SigmaScaling_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_StepSize_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_StepSize_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_StepSize_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_SwapSampler_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_SwapSampler_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownOptions_SwapSampler_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownOptions_Tile_Advanced_Beta": {
+"detail": "RuntimeError: shape '[1, 1, 1, 4, 128, 128]' is invalid for input of size 16384\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Tile_Advanced_Beta.json",
+"state": "error",
+"wired": "OPTIONS"
+},
+"ClownOptions_Tile_Beta": {
+"detail": "RuntimeError: shape '[1, 1, 1, 4, 128, 128]' is invalid for input of size 16384\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownOptions_Tile_Beta.json",
+"state": "error",
+"wired": "OPTIONS"
+},
+"ClownRegionalConditioning": {
+"detail": "IndexError: list index out of range\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownRegionalConditioning.json",
+"state": "error",
+"wired": ""
+},
+"ClownRegionalConditioning2": {
+"detail": "TypeError: ClownRegionalConditioning2.main() missing 1 required positional argument: 'mask'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownRegionalConditioning2.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ClownRegionalConditioning3": {
+"detail": "TypeError: ClownRegionalConditioning3.main() missing 2 required positional arguments: 'mask_A' and 'mask_B'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownRegionalConditioning3.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ClownRegionalConditioning_AB": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownRegionalConditioning_AB.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownRegionalConditioning_AB.jpg",
+"wired": "CONDITIONING"
+},
+"ClownRegionalConditioning_ABC": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownRegionalConditioning_ABC.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownRegionalConditioning_ABC.jpg",
+"wired": "CONDITIONING"
+},
+"ClownRegionalConditionings": {
+"detail": "TypeError: 'NoneType' object is not iterable\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownRegionalConditionings.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ClownSampler": {
+"detail": "TypeError: sample_rk() got an unexpected keyword argument 'outer_sigmas_len'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownSampler.json",
+"state": "error",
+"wired": "SAMPLER"
+},
+"ClownSamplerAdvanced": {
+"detail": "TypeError: sample_rk() got an unexpected keyword argument 'outer_sigmas_len'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownSamplerAdvanced.json",
+"state": "error",
+"wired": "SAMPLER"
+},
+"ClownSamplerAdvanced_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownSamplerAdvanced_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownSamplerAdvanced_Beta.jpg",
+"wired": "SAMPLER"
+},
+"ClownSamplerSelector_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownSamplerSelector_Beta.json",
+"state": "ran",
+"wired": ""
+},
+"ClownSampler_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownSampler_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownSampler_Beta.jpg",
+"wired": "SAMPLER"
+},
+"ClownScheduler": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownScheduler.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownScheduler.jpg",
+"wired": "SIGMAS"
+},
+"ClownStyle_Attn_MMDiT": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_Attn_MMDiT.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_Attn_UNet": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_Attn_UNet.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_Block_MMDiT": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_Block_MMDiT.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_Block_UNet": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_Block_UNet.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_Boost": {
+"detail": "AttributeError: 'NoneType' object has no attribute 'embed'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_Boost.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"ClownStyle_MMDiT": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_MMDiT.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownStyle_MMDiT.jpg",
+"wired": "GUIDES"
+},
+"ClownStyle_ResBlock_UNet": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_ResBlock_UNet.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_SpatialBlock_UNet": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_SpatialBlock_UNet.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_TransformerBlock_UNet": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_TransformerBlock_UNet.json",
+"state": "ran",
+"wired": ""
+},
+"ClownStyle_UNet": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownStyle_UNet.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownStyle_UNet.jpg",
+"wired": "GUIDES"
+},
+"ClownpileModelWanVideo": {
+"detail": "RuntimeError: Failed to compile model. Verify that this is a WAN model!\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownpileModelWanVideo.json",
+"state": "error",
+"wired": "MODEL"
+},
+"ClownsharKSampler": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSampler.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownsharKSampler.jpg",
+"wired": "LATENT"
+},
+"ClownsharKSamplerAutomation": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSamplerAutomation.json",
+"state": "ran",
+"wired": ""
+},
+"ClownsharKSamplerAutomation_Advanced": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSamplerAutomation_Advanced.json",
+"state": "ran",
+"wired": ""
+},
+"ClownsharKSamplerGuide": {
+"detail": "AttributeError: 'tuple' object has no attribute 'get'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSamplerGuide.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"ClownsharKSamplerGuides": {
+"detail": "AttributeError: 'tuple' object has no attribute 'get'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSamplerGuides.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"ClownsharKSamplerOptions": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSamplerOptions.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownsharKSamplerOptions.jpg",
+"wired": "OPTIONS"
+},
+"ClownsharKSampler_Beta": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharKSampler_Beta.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ClownsharKSampler_Beta.jpg",
+"wired": "OPTIONS"
+},
+"ClownsharkChainsampler_Beta": {
+"detail": "KeyError: 'state_info'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ClownsharkChainsampler_Beta.json",
+"state": "error",
+"wired": "OPTIONS"
+},
+"Conditioning Recast FP64": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Conditioning_Recast_FP64.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Conditioning_Recast_FP64.jpg",
+"wired": "CONDITIONING"
+},
+"ConditioningAdd": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningAdd.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ConditioningAdd.jpg",
+"wired": "CONDITIONING"
+},
+"ConditioningAverageScheduler": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningAverageScheduler.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ConditioningAverageScheduler.jpg",
+"wired": "CONDITIONING"
+},
+"ConditioningBatch4": {
+"detail": "IndexError: list index out of range\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningBatch4.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ConditioningBatch8": {
+"detail": "IndexError: list index out of range\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningBatch8.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ConditioningDownsample (T5)": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningDownsample_T5_.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ConditioningDownsample_T5_.jpg",
+"wired": "CONDITIONING"
+},
+"ConditioningOrthoCollin": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningOrthoCollin.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ConditioningOrthoCollin.jpg",
+"wired": "CONDITIONING"
+},
+"ConditioningToBase64": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningToBase64.json",
+"state": "ran",
+"wired": ""
+},
+"ConditioningTruncate": {
+"detail": "ValueError: ConditioningTruncate only works with SD3 conditioning and is deprecated. Remove it, or use ConditioningZeroAndTruncate for negatives.\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningTruncate.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"ConditioningZeroAndTruncate": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/ConditioningZeroAndTruncate.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/ConditioningZeroAndTruncate.jpg",
+"wired": "CONDITIONING"
+},
+"Constant Scheduler": {
+"detail": "IndexError: index 1 is out of bounds for dimension 0 with size 1\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Constant_Scheduler.json",
+"state": "error",
+"wired": "SIGMAS"
+},
+"CrossAttn_EraseReplace_HiDream": {
+"detail": "KeyError: 't5xxl'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/CrossAttn_EraseReplace_HiDream.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"EmptyLatentImage64": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/EmptyLatentImage64.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/EmptyLatentImage64.jpg",
+"wired": "LATENT"
+},
+"EmptyLatentImageCustom": {
+"detail": "Value not in list: mode: 'default' not in ['sdxl', 'cascade_b', 'cascade_c', 'exact']",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/EmptyLatentImageCustom.json",
+"state": "rejected",
+"wired": "LATENT"
+},
+"Film Grain": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Film_Grain.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Film_Grain.jpg",
+"wired": "IMAGE"
+},
+"FluxGuidanceDisable": {
+"detail": "AttributeError: 'UNetModel' object has no attribute 'params'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/FluxGuidanceDisable.json",
+"state": "error",
+"wired": "MODEL"
+},
+"FluxLoader": {
+"detail": "loads a whole model chosen by its own settings",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"state": "skipped"
+},
+"FluxOrthoCFGPatcher": {
+"detail": "TypeError: FluxOrthoCFGPatcher.main.<locals>.patched_forward() missing 2 required positional arguments: 'y' and 'guidance'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/FluxOrthoCFGPatcher.json",
+"state": "error",
+"wired": "MODEL"
+},
+"Frame Select": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frame_Select.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frame_Select.jpg",
+"wired": "IMAGE"
+},
+"Frame Select Latent": {
+"detail": "IndexError: too many indices for tensor of dimension 4\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frame_Select_Latent.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Frame Select Latent Raw": {
+"detail": "IndexError: too many indices for tensor of dimension 4\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frame_Select_Latent_Raw.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Frames Concat": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Concat.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frames_Concat.jpg",
+"wired": "IMAGE"
+},
+"Frames Concat Latent": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Concat_Latent.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frames_Concat_Latent.jpg",
+"wired": "LATENT"
+},
+"Frames Concat Latent Raw": {
+"detail": "TypeError: expected Tensor as element 0 in argument 0, but got dict\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Concat_Latent_Raw.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Frames Concat Masks": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Concat_Masks.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frames_Concat_Masks.jpg",
+"wired": "MASK"
+},
+"Frames Latent ReverseOrder": {
+"detail": "IndexError: too many indices for tensor of dimension 4\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Latent_ReverseOrder.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Frames Masks Uninterpolate": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Masks_Uninterpolate.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frames_Masks_Uninterpolate.jpg",
+"wired": "MASK"
+},
+"Frames Masks ZeroOut": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Masks_ZeroOut.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frames_Masks_ZeroOut.jpg",
+"wired": "MASK"
+},
+"Frames Slice": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Slice.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frames_Slice.jpg",
+"wired": "IMAGE"
+},
+"Frames Slice Latent": {
+"detail": "IndexError: too many indices for tensor of dimension 4\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Slice_Latent.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Frames Slice Latent Raw": {
+"detail": "KeyError: 'state_info'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frames_Slice_Latent_Raw.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Frequency Separation Hard Light": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frequency_Separation_Hard_Light.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frequency_Separation_Hard_Light.jpg",
+"wired": "IMAGE"
+},
+"Frequency Separation Hard Light LAB": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frequency_Separation_Hard_Light_LAB.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frequency_Separation_Hard_Light_LAB.jpg",
+"wired": "IMAGE"
+},
+"Frequency Separation Linear Light": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Frequency_Separation_Linear_Light.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Frequency_Separation_Linear_Light.jpg",
+"wired": "IMAGE"
+},
+"Image Channels LAB": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Channels_LAB.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Channels_LAB.jpg",
+"wired": "IMAGE"
+},
+"Image Crop Location Exact": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Crop_Location_Exact.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Crop_Location_Exact.jpg",
+"wired": "IMAGE"
+},
+"Image Gaussian Blur": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Gaussian_Blur.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Gaussian_Blur.jpg",
+"wired": "IMAGE"
+},
+"Image Get Color Swatches": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Get_Color_Swatches.json",
+"state": "ran",
+"wired": ""
+},
+"Image Grain Add": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Grain_Add.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Grain_Add.jpg",
+"wired": "IMAGE"
+},
+"Image Median Blur": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Median_Blur.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Median_Blur.jpg",
+"wired": "IMAGE"
+},
+"Image Pair Split": {
+"detail": "ValueError: not enough values to unpack (expected 2, got 1)\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Pair_Split.json",
+"state": "error",
+"wired": "IMAGE"
+},
+"Image Repeat Tile To Size": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Repeat_Tile_To_Size.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Repeat_Tile_To_Size.jpg",
+"wired": "IMAGE"
+},
+"Image Sharpen FS": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Image_Sharpen_FS.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Image_Sharpen_FS.jpg",
+"wired": "IMAGE"
+},
+"Latent Batcher": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Batcher.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Batcher.jpg",
+"wired": "LATENT"
+},
+"Latent Channels From To": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Channels_From_To.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Channels_From_To.jpg",
+"wired": "LATENT"
+},
+"Latent Clear State Info": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Clear_State_Info.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Clear_State_Info.jpg",
+"wired": "LATENT"
+},
+"Latent CropGuides State Info": {
+"detail": "ValueError: not enough values to unpack (expected 5, got 4)\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_CropGuides_State_Info.json",
+"state": "error",
+"wired": "CONDITIONING"
+},
+"Latent Display State Info": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Display_State_Info.json",
+"state": "ran",
+"wired": ""
+},
+"Latent Extract State Info": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Extract_State_Info.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Extract_State_Info.jpg",
+"wired": "SIGMAS"
+},
+"Latent Get Channel Means": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Get_Channel_Means.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Get_Channel_Means.jpg",
+"wired": "SIGMAS"
+},
+"Latent Match Channelwise": {
+"detail": "TypeError: latent_channelwise_match.main() missing 3 required positional arguments: 'mask_target', 'mask_source', and 'extra_options'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Match_Channelwise.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Latent Normalize Channels": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Normalize_Channels.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Normalize_Channels.jpg",
+"wired": "LATENT"
+},
+"Latent Replace State Info": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Replace_State_Info.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Replace_State_Info.jpg",
+"wired": "LATENT"
+},
+"Latent Transfer State Info": {
+"detail": "KeyError: 'state_info'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Transfer_State_Info.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Latent TrimVideo State Info": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_TrimVideo_State_Info.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_TrimVideo_State_Info.jpg",
+"wired": "LATENT"
+},
+"Latent Upscale State Info": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_Upscale_State_Info.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_Upscale_State_Info.jpg",
+"wired": "LATENT"
+},
+"Latent to Cuda": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_to_Cuda.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_to_Cuda.jpg",
+"wired": "LATENT"
+},
+"Latent to RawX": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Latent_to_RawX.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Latent_to_RawX.jpg",
+"wired": "LATENT"
+},
+"LatentBatch_channels": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentBatch_channels.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentBatch_channels.jpg",
+"wired": "LATENT"
+},
+"LatentBatch_channels_16": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentBatch_channels_16.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentBatch_channels_16.jpg",
+"wired": "LATENT"
+},
+"LatentNoiseBatch_fractal": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentNoiseBatch_fractal.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentNoiseBatch_fractal.jpg",
+"wired": "LATENT"
+},
+"LatentNoiseBatch_gaussian": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentNoiseBatch_gaussian.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentNoiseBatch_gaussian.jpg",
+"wired": "LATENT"
+},
+"LatentNoiseBatch_gaussian_channels": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentNoiseBatch_gaussian_channels.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentNoiseBatch_gaussian_channels.jpg",
+"wired": "LATENT"
+},
+"LatentNoiseBatch_perlin": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentNoiseBatch_perlin.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentNoiseBatch_perlin.jpg",
+"wired": "LATENT"
+},
+"LatentNoiseList": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentNoiseList.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentNoiseList.jpg",
+"wired": "LATENT"
+},
+"LatentNoised": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentNoised.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentNoised.jpg",
+"wired": "LATENT"
+},
+"LatentPhaseMagnitude": {
+"detail": "TypeError: LatentPhaseMagnitude.main() missing 1 required positional argument: 'latent_1_repeat'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentPhaseMagnitude.json",
+"state": "error",
+"wired": "LATENT"
+},
+"LatentPhaseMagnitudeMultiply": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentPhaseMagnitudeMultiply.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentPhaseMagnitudeMultiply.jpg",
+"wired": "LATENT"
+},
+"LatentPhaseMagnitudeOffset": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentPhaseMagnitudeOffset.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentPhaseMagnitudeOffset.jpg",
+"wired": "LATENT"
+},
+"LatentPhaseMagnitudePower": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentPhaseMagnitudePower.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentPhaseMagnitudePower.jpg",
+"wired": "LATENT"
+},
+"LatentUpscaleWithVAE": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LatentUpscaleWithVAE.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/LatentUpscaleWithVAE.jpg",
+"wired": "LATENT"
+},
+"LayerPatcher": {
+"detail": "AttributeError: 'UNetModel' object has no attribute 'x_embedder'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/LayerPatcher.json",
+"state": "error",
+"wired": "MODEL"
+},
+"Legacy_ClownSampler": {
+"detail": "TypeError: legacy_sample_rk() got an unexpected keyword argument 'outer_sigmas_len'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Legacy_ClownSampler.json",
+"state": "error",
+"wired": "SAMPLER"
+},
+"Legacy_ClownsharKSampler": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Legacy_ClownsharKSampler.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Legacy_ClownsharKSampler.jpg",
+"wired": "LATENT"
+},
+"Legacy_ClownsharKSamplerGuides": {
+"detail": "AttributeError: 'tuple' object has no attribute 'get'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Legacy_ClownsharKSamplerGuides.json",
+"state": "error",
+"wired": "GUIDES"
+},
+"Legacy_SharkSampler": {
+"detail": "RuntimeError: Input type (double) and bias type (float) should be the same\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Legacy_SharkSampler.json",
+"state": "error",
+"wired": "LATENT"
+},
+"Linear Quadratic Advanced": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Linear_Quadratic_Advanced.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Linear_Quadratic_Advanced.jpg",
+"wired": "SIGMAS"
+},
+"Mask Bounding Box Aspect Ratio": {
+"detail": "TypeError: MaskBoundingBoxAspectRatio.execute() missing 1 required positional argument: 'mask'\n",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Mask_Bounding_Box_Aspect_Ratio.json",
+"state": "error",
+"wired": "IMAGE"
+},
+"Mask Sketch": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/Mask_Sketch.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/Mask_Sketch.jpg",
+"wired": "IMAGE"
+},
+"MaskEdge": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/MaskEdge.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/MaskEdge.jpg",
+"wired": "MASK"
+},
+"MaskFloatToBoolean": {
+"detail": "",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"graph": "res4lyf_renders/nodes/MaskFloatToBoolean.json",
+"state": "rendered",
+"thumb": "res4lyf_renders/nodes/MaskFloatToBoolean.jpg",
+"wired": "MASK"
+},
+"Masks From Color Swatches": {
+"detail": "needs COLOR_SWATCHES",
+"device": "cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync",
+"state": "needs"
+}
+}

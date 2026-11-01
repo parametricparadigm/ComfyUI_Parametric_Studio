@@ -1,0 +1,18 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "n": {
+  "class_type": "Mask Sketch",
+  "inputs": {
+   "image": "res4lyf_source_flux.png"
+  }
+ }
+}

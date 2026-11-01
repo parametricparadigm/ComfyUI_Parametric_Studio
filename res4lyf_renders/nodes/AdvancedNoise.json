@@ -1,0 +1,20 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "AdvancedNoise",
+  "inputs": {
+   "alpha": 1.0,
+   "k": 1.0,
+   "noise_seed": 4242,
+   "noise_type": "fractal"
+  }
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Frequency Separation Hard Light",
+  "inputs": {
+   "high_pass": [
+    "img",
+    0
+   ],
+   "original": [
+    "img",
+    0
+   ],
+   "low_pass": [
+    "img",
+    0
+   ]
+  }
+ }
+}

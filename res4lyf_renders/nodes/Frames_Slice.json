@@ -1,0 +1,29 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Frames Slice",
+  "inputs": {
+   "frames": [
+    "img",
+    0
+   ],
+   "start": 0,
+   "stop": 1
+  }
+ }
+}

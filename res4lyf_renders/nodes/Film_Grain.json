@@ -1,0 +1,32 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Film Grain",
+  "inputs": {
+   "image": [
+    "img",
+    0
+   ],
+   "density": 1.0,
+   "intensity": 1.0,
+   "highlights": 1.0,
+   "supersample_factor": 4,
+   "repeats": 1
+  }
+ }
+}

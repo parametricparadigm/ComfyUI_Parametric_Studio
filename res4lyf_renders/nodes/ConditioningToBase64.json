@@ -1,0 +1,36 @@
+{
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ConditioningToBase64",
+  "inputs": {
+   "conditioning": [
+    "pos",
+    0
+   ]
+  }
+ }
+}

@@ -1,0 +1,93 @@
+{
+ "s": {
+  "class_type": "ClownsharKSampler_Beta",
+  "inputs": {
+   "eta": 0.5,
+   "sampler_name": "multistep/res_2m",
+   "scheduler": "beta57",
+   "steps": 12,
+   "steps_to_run": -1,
+   "denoise": 1.0,
+   "cfg": 6.5,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "bongmath": true,
+   "model": [
+    "ck",
+    0
+   ],
+   "positive": [
+    "n",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "n": {
+  "class_type": "ClownRegionalConditionings",
+  "inputs": {
+   "weight": 1.0,
+   "region_bleed": 0.0,
+   "region_bleed_start_step": 0,
+   "weight_scheduler": "constant",
+   "start_step": 0,
+   "end_step": 6,
+   "mask_type": "boolean",
+   "invert_masks": false
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ClownSamplerSelector_Beta",
+  "inputs": {
+   "sampler_name": "multistep/res_2m"
+  }
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Frames Concat",
+  "inputs": {
+   "frames_0": [
+    "img",
+    0
+   ],
+   "frames_1": [
+    "img",
+    0
+   ]
+  }
+ }
+}

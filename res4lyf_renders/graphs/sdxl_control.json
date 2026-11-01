@@ -1,0 +1,86 @@
+{
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "sd_xl_base_1.0.safetensors"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry, jpeg artifacts",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 1024,
+   "height": 1024,
+   "batch_size": 1
+  }
+ },
+ "s": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "seed": 4242,
+   "steps": 20,
+   "cfg": 6.5,
+   "sampler_name": "euler",
+   "scheduler": "normal",
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ],
+   "denoise": 1.0
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_sdxl_control"
+  }
+ }
+}

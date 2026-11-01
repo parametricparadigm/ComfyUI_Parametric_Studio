@@ -1,0 +1,31 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Mask Bounding Box Aspect Ratio",
+  "inputs": {
+   "padding": 0,
+   "blur": 0,
+   "aspect_ratio": 1.0,
+   "transpose": false,
+   "image": [
+    "img",
+    0
+   ]
+  }
+ }
+}

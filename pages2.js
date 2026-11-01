@@ -70,7 +70,7 @@ export function CalibrateCard() {
   useEffect(() => { load(); const t = setInterval(load, 3000); return () => clearInterval(t); }, []);
   const go = async () => { setErr(""); try { await post("/api/calibrate", { confirm: ok }); load(); } catch (e) { setErr(e.message); } };
   const g = (s.profile && s.profile.goals) || {};
-  return html`<div class="card" style="margin-bottom:14px"><h3>Optimize this box</h3><p class="small" style="margin:0 0 8px">Runs a small test render for each model that fits your free VRAM, twice (cold and warm), and remembers the real speed so the studio picks the best settings for this machine.</p>
+  return html`<div class="card" style="margin-bottom:14px"><h3>Optimize this box</h3><p class="small" style="margin:0 0 8px">Runs a small test render of seven goals that fit your free VRAM, twice each (cold and warm), and shows the seconds here. It does not change any settings.</p>
     <label class="small"><input type="checkbox" checked=${ok} onChange=${(e) => setOk(e.target.checked)}/> Yes, run a few small renders on my GPU</label>
     <div class="row"><button class="btn primary" disabled=${!ok || s.running} onClick=${go}>${s.running ? "Calibrating..." : "Calibrate now"}</button>${s.running && html`<button class="btn small" onClick=${() => post("/api/calibrate/cancel", {})}>Cancel</button>`}</div>${err && html`<p class="small" style="color:var(--err)">${err}</p>`}
     ${s.log.length > 0 && html`<p class="small" style="margin:8px 0 0">${s.log.join(" | ")}</p>`}

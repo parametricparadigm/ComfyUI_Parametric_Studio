@@ -1,0 +1,34 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ClownStyle_Block_MMDiT",
+  "inputs": {
+   "mode": "scattersort",
+   "apply_to": "img+txt",
+   "block_type": "single",
+   "block_list": "all",
+   "block_weights": "1.0",
+   "attn_norm": 0.0,
+   "attn_norm_mod": 0.0,
+   "attn": 0.0,
+   "attn_gated": 0.0,
+   "attn_res": 0.0,
+   "ff_norm": 0.0,
+   "ff_norm_mod": 0.0,
+   "ff": 0.0,
+   "ff_gated": 0.0,
+   "ff_res": 0.0,
+   "tile_h": 128,
+   "tile_w": 128,
+   "invert_mask": false
+  }
+ }
+}

@@ -61,6 +61,7 @@ export function GoalTiles({ goals }) {
   const list = Object.values(goals).sort((a, b) => (ready && ready.goals[b.id] && ready.goals[b.id].known ? 1 : 0) - (ready && ready.goals[a.id] && ready.goals[a.id].known ? 1 : 0) || (a.label > b.label ? 1 : -1));
   return html`<div>${ready && html`<p class="small" style="margin:0 0 12px">Models live in <code>${ready.root}</code>${ready.free_gb != null ? ` · ${Math.round(ready.free_gb)} GB free there` : ""}${!ready.comfy ? " · ComfyUI is not reachable, so this is a plain file check" : ""}. A download is refused unless ${ready.reserve_gb} GB stay free.</p>`}
     ${err && !ready && html`<p class="small" style="color:var(--err)">${err}</p>`}
+    <p class="small" style="margin:0 0 12px">MiniMax H3 goals: its <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3/raw/main/LICENSE" target="_blank" rel="noopener noreferrer">community licence</a> applies to you and your outputs, and it excludes the US, EU, UK and South Korea.</p>
     <div class="mgrid">${list.map((g) => { const row = ready && ready.goals[g.id], m = items.find((x) => x.goal === g.id && x.kind !== "audio"), fl = flagOf(row);
       return html`<article class="gcard mcard" aria-label=${g.label}>${m ? html`<${LiveMedia} item=${m} cls="gmedia"/>` : html`<div class="gmedia gblank">${g.kind === "audio" ? "♫" : ""}</div>`}<span class="gshade"></span>
         ${fl && html`<span class=${"gflag " + fl[0]}>${fl[1]}</span>`}<span class="glic" title=${g.license}>${g.license_class === "open" ? "Apache-2.0" : "Community"}</span>
@@ -82,4 +83,21 @@ export function AttachCard() {
     ${msg && html`<p class="small" style=${res && res.ok ? "margin:8px 0 0" : "color:var(--err);margin:8px 0 0"}>${msg}</p>`}
     ${res && res.ok && html`<div class="attres"><p class="small" style="margin:8px 0 4px"><b>Found it.</b> ${res.gpu.name || "GPU"} · ${res.gpu.vram_free_gb} of ${res.gpu.vram_total_gb} GB free · ${res.nodes} nodes · ComfyUI ${res.version || "?"}. ${res.ready_goals} of ${res.goals.length} ways to create are ready there.</p>
       ${lacking.length > 0 && html`<ul class="small" style="margin:0;padding-left:18px">${lacking.slice(0, 8).map((g) => html`<li><b>${g.label}</b>: ${g.missing_nodes.length ? `needs nodes ${g.missing_nodes.slice(0, 3).join(", ")}${g.missing_nodes.length > 3 ? "..." : ""}` : ""}${g.missing_nodes.length && g.missing_models.length ? "; " : ""}${g.missing_models.length ? `${g.missing_models.length} model file${g.missing_models.length > 1 ? "s" : ""} missing${g.missing_gb ? ` (${gbText(g.missing_gb)})` : ""}` : ""}</li>`)}${lacking.length > 8 ? html`<li>and ${lacking.length - 8} more</li>` : ""}</ul>`}</div>`}</div>`;
+}
+
+/* models whose weights are in the cloud right now: their graphs stay, one press brings the file back. Absent when rotation is off, and in the read-only demo */
+export function CloudCard() {
+  const [st, setSt] = useState(null), [msg, setMsg] = useState("");
+  useEffect(() => {
+    if (window.STUDIO_DEMO) return; let timer = 0, live = true;
+    const load = async () => { try { const d = await api("/api/rotation/status"); if (!live) return; setSt(d); if (d.job && d.job.state === "running") timer = setTimeout(load, 2000); } catch {} };
+    window.__rotationReload = load; load(); return () => { live = false; clearTimeout(timer); };
+  }, []);
+  if (!st || !st.enabled || !st.cloud.length) return null;
+  const job = st.job || {}, running = job.state === "running";
+  const go = async (path) => { setMsg(""); try { await post("/api/rotation/fetch", { path }); window.__rotationReload(); } catch (e) { setMsg(e.message); } };
+  return html`<div class="card attach"><h3>In the cloud</h3><p class="small" style="margin:0 0 8px">These models keep their graphs here. Their weights come back with one press, and the checksum is checked before they count as installed.</p>
+    ${st.cloud.map((c) => html`<div class="row" style="margin:0 0 6px;align-items:center"><span style="flex:1;min-width:0;overflow-wrap:anywhere">${c.name} · ${gbText(c.gb)}</span><span class="pill">In cloud, about ${c.eta_min} min</span><button class="btn" disabled=${running} onClick=${() => go(c.path)}>${running && job.path === c.path ? "Fetching..." : "Fetch"}</button></div>`)}
+    ${job.state === "error" && html`<p class="small" style="color:var(--err);margin:8px 0 0">${job.error}</p>`}${msg && html`<p class="small" style="color:var(--err);margin:8px 0 0">${msg}</p>`}
+    ${!st.rate_measured && html`<p class="small" style="margin:8px 0 0">Times are a rough guess until the first fetch has been measured.</p>`}</div>`;
 }

@@ -69,7 +69,7 @@ export function Edit() {
   useEffect(() => {
     (async () => {
       try {
-        const hist = await api("/api/history?limit=60"); const items = [];
+        const hist = await api("/api/history?limit=60&only=main"); const items = [];
         for (const e of hist) for (const f of e.files) {
           if (f.kind === "image") continue; const src = (f.subfolder ? f.subfolder + "/" : "") + f.filename;
           try { const p = await api("/api/probe?path=" + encodeURIComponent(src)); if (p.duration > 0) items.push({ src, label: (e.prompt || f.filename).slice(0, 28), kind: f.kind === "audio" ? "audio" : "video", dur: p.duration }); } catch {}

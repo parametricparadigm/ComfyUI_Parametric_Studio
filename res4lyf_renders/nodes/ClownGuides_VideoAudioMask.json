@@ -1,0 +1,63 @@
+{
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "src": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "img",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "m2i": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "n",
+    0
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "ClownGuides_VideoAudioMask",
+  "inputs": {
+   "latent": [
+    "src",
+    0
+   ],
+   "model_type": "LTXV",
+   "start_time": 0.0,
+   "end_time": 10.0,
+   "video_fps": 24.0,
+   "mask_video": true,
+   "mask_audio": false,
+   "video_init_value": 0.0,
+   "audio_init_value": 0.0
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "m2i",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ }
+}

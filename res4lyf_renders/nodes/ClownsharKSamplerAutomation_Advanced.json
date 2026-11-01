@@ -1,0 +1,15 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ClownsharKSamplerAutomation_Advanced",
+  "inputs": {}
+ }
+}

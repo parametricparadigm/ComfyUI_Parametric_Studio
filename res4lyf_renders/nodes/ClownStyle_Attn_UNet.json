@@ -1,0 +1,28 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ClownStyle_Attn_UNet",
+  "inputs": {
+   "mode": "scattersort",
+   "apply_to": "self",
+   "block_type": "input",
+   "block_list": "all",
+   "block_weights": "1.0",
+   "q_proj": 0.0,
+   "k_proj": 0.0,
+   "v_proj": 0.0,
+   "out": 0.0,
+   "tile_h": 128,
+   "tile_w": 128,
+   "invert_mask": false
+  }
+ }
+}

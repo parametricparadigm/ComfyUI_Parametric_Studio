@@ -1,0 +1,29 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "n": {
+  "class_type": "ClownStyle_SpatialBlock_UNet",
+  "inputs": {
+   "mode": "scattersort",
+   "block_type": "input",
+   "block_list": "all",
+   "block_weights": "1.0",
+   "norm_in": 0.0,
+   "proj_in": 0.0,
+   "transformer_block": 0.0,
+   "transformer": 0.0,
+   "proj_out": 0.0,
+   "res": 0.0,
+   "tile_h": 128,
+   "tile_w": 128,
+   "invert_mask": false
+  }
+ }
+}

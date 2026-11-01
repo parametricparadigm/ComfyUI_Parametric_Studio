@@ -1,0 +1,30 @@
+{
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "n",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Image Sharpen FS",
+  "inputs": {
+   "images": [
+    "img",
+    0
+   ],
+   "method": "hard",
+   "type": "median",
+   "intensity": 6
+  }
+ }
+}

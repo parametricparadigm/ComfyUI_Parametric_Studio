@@ -1,0 +1,40 @@
+{
+ "m2i": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "n",
+    0
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "m2i",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ },
+ "n": {
+  "class_type": "Masks From Colors",
+  "inputs": {
+   "image_color_swatches": [
+    "img",
+    0
+   ],
+   "image_color_mask": [
+    "img",
+    0
+   ]
+  }
+ }
+}

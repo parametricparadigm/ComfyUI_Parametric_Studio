@@ -1,0 +1,26 @@
+{
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Image Get Color Swatches",
+  "inputs": {
+   "image_color_swatches": [
+    "img",
+    0
+   ]
+  }
+ }
+}

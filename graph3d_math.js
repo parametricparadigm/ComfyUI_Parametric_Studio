@@ -6,6 +6,14 @@ const DEC = "Uses the VAE to turn the finished latent into real frames.";
 const DECA = "Uses the audio VAE to turn the finished latent into a sound wave.";
 const EMPTY = "Creates an empty latent at the output size. Its shape sets the width, height and length of the result.";
 export const CLASS_INFO = {
+  MiniMaxH3FunUnion2LoaderEXPT8: I("load", "Loads H3's control model", "Loads MiniMax H3's Fun Union control model, the part that makes a video follow a depth or pose guide."),
+  MiniMaxH3FunUnion2ApplyEXPT8: I("plan", "Follows a depth or pose video", "Makes MiniMax H3 follow a guide video frame by frame, so the layout and the camera move hold while the picture is made new."),
+  Wan22FunControlToVideo: I("plan", "Follows a guide video (Wan)", "Sets up Wan 2.2 to follow a depth or pose video, with a reference picture for the look."),
+  TextEncodeQwenImage21: I("text", "Reads the words and the picture", "Turns your words and a reference picture into what Qwen-Image 2.1 edits from."),
+  QwenImage21Cache: I("load", "Keeps Qwen-Image ready", "Holds Qwen-Image 2.1 in a form that runs faster over its steps."),
+  EasyCache: I("value", "Skips repeated work", "Reuses earlier results when a step changes little, which saves time at a small cost in detail."),
+  SolidMask: I("media", "A plain mask", "Makes a mask of one value across the whole frame. White here means make every pixel new."),
+  ResizeImageMaskNode: I("media", "Resizes", "Resizes a picture or a video to the size the model works at."),
   UNETLoader: I("load", "Loads the diffusion model", "Loads the diffusion model: the network that learned to turn noise into a picture, step by step."),
   CheckpointLoaderSimple: I("load", "Loads a checkpoint", "Loads one file that holds the diffusion model, the text encoder and the VAE together."),
   CLIPLoader: I("load", "Loads the text encoder", "Loads the text encoder, the model that turns your words into numbers the diffusion model understands."),
@@ -34,6 +42,8 @@ export const CLASS_INFO = {
   Flux2Scheduler: I("plan", "Plans the noise steps", "Builds the list of noise levels for FLUX.2, adjusted for the image size."),
   ManualSigmas: I("plan", "Exact noise steps", "Sets the noise levels by hand, as tuned for this distilled model."),
   RandomNoise: I("plan", "Makes the starting noise", "Generates the starting noise from a seed. The same seed and settings give the same result."),
+  LoadBackgroundRemovalModel: I("load", "Loads the cut-out model", "Loads a background removal model such as BiRefNet."), RemoveBackground: I("media", "Finds the foreground", "Makes a mask of the main subject in a picture."), InvertMask: I("media", "Flips a mask", "Swaps the masked and unmasked areas."), JoinImageWithAlpha: I("media", "Adds transparency", "Puts a mask on a picture as its alpha channel, giving a cut-out."),
+  LoadMoGeModel: I("load", "Loads the depth model", "Loads MoGe, which estimates the shape of a scene from one picture."), MoGeInference: I("media", "Estimates geometry", "Runs MoGe on the picture."), MoGeGeometryToFOV: I("value", "Reads the lens", "Works out the camera's field of view from the estimated geometry."), SAM3_VideoTrack: I("media", "Finds the person", "SAM 3 finds and masks the subject named by the text."), SAM3DBody_Loader: I("load", "Loads SAM 3D Body", "Loads the model that turns a person in a picture into a 3D body."), SAM3DBody_Predict: I("media", "Builds the 3D body", "Estimates the body's shape and pose."), SAM3DBody_FaceExpression: I("media", "Adds the expression", "Estimates the face's expression for the 3D body."), SAM3DBody_Render: I("media", "Renders the body", "Draws the 3D body to a picture for checking."), BuildPoseFile: I("save", "Builds the rigged file", "Packs the body and pose into a file with a skeleton."), SaveGLB: I("save", "Saves a 3D file", "Writes a .glb file to the output folder."),
   EmptyLatentImage: I("latent", "Blank latent canvas", EMPTY), EmptySD3LatentImage: I("latent", "Blank latent canvas", EMPTY), EmptyFlux2LatentImage: I("latent", "Blank latent canvas", EMPTY), EmptyLTXVLatentVideo: I("latent", "Blank video latent", EMPTY),
   LTXVEmptyLatentAudio: I("latent", "Blank audio latent", "Creates an empty audio latent the same length as the video, so LTX generates sound with it."),
   EmptyMiniMaxMusic3LatentAudio: I("latent", "Blank song latent", "Creates an empty audio latent as long as the song."),
@@ -42,6 +52,8 @@ export const CLASS_INFO = {
   LTXVSeparateAVLatent: I("latent", "Splits video and audio", "Separates the finished latent back into its video and audio parts."),
   LTXVImgToVideoInplace: I("latent", "Places your image", "Writes the encoded start image into the first frame of the video latent."),
   LTXVCropGuides: I("latent", "Removes the guide frames", "Cuts the guide frames back out of the latent before decoding."),
+  LTXVLatentUpsampler: I("latent", "Doubles the picture's size", "Upscales the latent two times before the short second pass of LTX."),
+  LatentUpscaleModelLoader: I("loader", "Loads the upscaler", "Reads the model that doubles a latent's size."),
   SamplerCustomAdvanced: I("sample", "The sampler: makes the result", "Where the result actually forms. It starts from noise and removes a little at every step, guided by your prompt."),
   KSampler: I("sample", "The sampler: makes the result", "Where the result actually forms. It starts from noise and removes a little at every step, guided by your prompt."),
   KSamplerAdvanced: I("sample", "One stage of sampling", "Runs a chosen range of denoising steps, so one model can hand off to another partway through."),

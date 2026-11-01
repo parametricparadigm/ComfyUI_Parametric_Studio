@@ -1,0 +1,45 @@
+{
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "p0": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "n",
+    0
+   ]
+  }
+ },
+ "src": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "img",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "Latent Display State Info",
+  "inputs": {
+   "latent": [
+    "src",
+    0
+   ]
+  }
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "s": {
+  "class_type": "ClownsharKSampler_Beta",
+  "inputs": {
+   "eta": 0.5,
+   "sampler_name": "multistep/res_2m",
+   "scheduler": "beta57",
+   "steps": 12,
+   "steps_to_run": -1,
+   "denoise": 0.6,
+   "cfg": 6.5,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "bongmath": true,
+   "model": [
+    "ck",
+    0
+   ],
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "n",
+    0
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "src": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "img",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "n": {
+  "class_type": "LatentPhaseMagnitude",
+  "inputs": {
+   "latent_0_batch": [
+    "src",
+    0
+   ],
+   "latent_1_batch": [
+    "src",
+    0
+   ],
+   "phase_mix_power": 1.0,
+   "magnitude_mix_power": 1.0,
+   "phase_luminosity": 0.0,
+   "phase_cyan_red": 0.0,
+   "phase_lime_purple": 0.0,
+   "phase_pattern_structure": 0.0,
+   "magnitude_luminosity": 0.0,
+   "magnitude_cyan_red": 0.0,
+   "magnitude_lime_purple": 0.0,
+   "magnitude_pattern_structure": 0.0,
+   "latent_0_normal": true,
+   "latent_1_normal": true,
+   "latent_out_normal": true,
+   "latent_0_stdize": true,
+   "latent_1_stdize": true,
+   "latent_out_stdize": true,
+   "latent_0_meancenter": true,
+   "latent_1_meancenter": true,
+   "latent_out_meancenter": true
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ }
+}

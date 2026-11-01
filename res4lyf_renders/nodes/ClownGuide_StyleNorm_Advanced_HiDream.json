@@ -1,0 +1,178 @@
+{
+ "s": {
+  "class_type": "ClownsharKSampler_Beta",
+  "inputs": {
+   "eta": 0.5,
+   "sampler_name": "multistep/res_2m",
+   "scheduler": "beta57",
+   "steps": 12,
+   "steps_to_run": -1,
+   "denoise": 1.0,
+   "cfg": 6.5,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "bongmath": true,
+   "model": [
+    "ck",
+    0
+   ],
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ],
+   "guides": [
+    "n",
+    0
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "src": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "img",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "n": {
+  "class_type": "ClownGuide_StyleNorm_Advanced_HiDream",
+  "inputs": {
+   "weight": 1.0,
+   "weight_scheduler": "constant",
+   "double_blocks": "all",
+   "double_weights": "1.0",
+   "single_blocks": "all",
+   "single_weights": "1.0",
+   "mode": "scattersort",
+   "noise_mode": "smart",
+   "ff_1": false,
+   "ff_1_silu": false,
+   "ff_3": false,
+   "ff_13": false,
+   "ff_2": false,
+   "moe_gate": false,
+   "topk_weight": false,
+   "moe_ff_1": false,
+   "moe_ff_1_silu": false,
+   "moe_ff_3": false,
+   "moe_ff_13": false,
+   "moe_ff_2": false,
+   "moe_sum": false,
+   "moe_out": false,
+   "double_img_io": false,
+   "double_img_norm0": false,
+   "double_img_attn": false,
+   "double_img_attn_gated": false,
+   "double_img": false,
+   "double_img_norm1": false,
+   "double_img_ff_i": false,
+   "double_txt_io": false,
+   "double_txt_norm0": false,
+   "double_txt_attn": false,
+   "double_txt_attn_gated": false,
+   "double_txt": false,
+   "double_txt_norm1": false,
+   "double_txt_ff_t": false,
+   "single_img_io": false,
+   "single_img_norm0": false,
+   "single_img_attn": false,
+   "single_img_attn_gated": false,
+   "single_img": false,
+   "single_img_norm1": false,
+   "single_img_ff_i": false,
+   "attn_img_q_norm": false,
+   "attn_img_k_norm": false,
+   "attn_img_v_norm": false,
+   "attn_txt_q_norm": false,
+   "attn_txt_k_norm": false,
+   "attn_txt_v_norm": false,
+   "attn_img_double": false,
+   "attn_txt_double": false,
+   "attn_img_single": false,
+   "proj_out": false,
+   "start_step": 0,
+   "end_step": 6,
+   "invert_mask": false,
+   "guide": [
+    "src",
+    0
+   ]
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ }
+}

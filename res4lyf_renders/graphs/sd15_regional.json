@@ -1,0 +1,169 @@
+{
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry, jpeg artifacts",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "left": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "right": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a snowy pine forest, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "patched": {
+  "class_type": "ReSDPatcher",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "style_dtype": "float64",
+   "enable": true
+  }
+ },
+ "m0": {
+  "class_type": "SolidMask",
+  "inputs": {
+   "value": 0.0,
+   "width": 512,
+   "height": 512
+  }
+ },
+ "m1": {
+  "class_type": "SolidMask",
+  "inputs": {
+   "value": 1.0,
+   "width": 256,
+   "height": 512
+  }
+ },
+ "mask": {
+  "class_type": "MaskComposite",
+  "inputs": {
+   "destination": [
+    "m0",
+    0
+   ],
+   "source": [
+    "m1",
+    0
+   ],
+   "x": 0,
+   "y": 0,
+   "operation": "add"
+  }
+ },
+ "pos": {
+  "class_type": "ClownRegionalConditioning2",
+  "inputs": {
+   "weight": 1.0,
+   "region_bleed": 0.0,
+   "region_bleed_start_step": 0,
+   "weight_scheduler": "constant",
+   "start_step": 0,
+   "end_step": -1,
+   "mask_type": "boolean_masked",
+   "edge_width": 32,
+   "invert_mask": false,
+   "conditioning_masked": [
+    "left",
+    0
+   ],
+   "conditioning_unmasked": [
+    "right",
+    0
+   ],
+   "mask": [
+    "mask",
+    0
+   ]
+  }
+ },
+ "s": {
+  "class_type": "ClownsharKSampler_Beta",
+  "inputs": {
+   "eta": 0.5,
+   "sampler_name": "exponential/res_2s",
+   "scheduler": "beta57",
+   "steps": 20,
+   "steps_to_run": -1,
+   "denoise": 1.0,
+   "cfg": 6.5,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "bongmath": true,
+   "model": [
+    "patched",
+    0
+   ],
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ]
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_sd15_regional"
+  }
+ }
+}

@@ -1,0 +1,101 @@
+{
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck_clip",
+    0
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "flux1-schnell.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "ck_clip": {
+  "class_type": "DualCLIPLoader",
+  "inputs": {
+   "clip_name1": "clip_l.safetensors",
+   "clip_name2": "t5xxl_fp16.safetensors",
+   "type": "flux"
+  }
+ },
+ "ck_vae": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ae.safetensors"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry, jpeg artifacts",
+   "clip": [
+    "ck_clip",
+    0
+   ]
+  }
+ },
+ "empty": {
+  "class_type": "EmptySD3LatentImage",
+  "inputs": {
+   "width": 1024,
+   "height": 1024,
+   "batch_size": 1
+  }
+ },
+ "s": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ck",
+    0
+   ],
+   "seed": 4242,
+   "steps": 8,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "normal",
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ],
+   "denoise": 1.0
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck_vae",
+    0
+   ]
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_flux_control"
+  }
+ }
+}

@@ -1,0 +1,140 @@
+{
+ "s": {
+  "class_type": "SharkSampler_Beta",
+  "inputs": {
+   "scheduler": "beta57",
+   "steps": 12,
+   "steps_to_run": -1,
+   "denoise": 1.0,
+   "cfg": 6.5,
+   "seed": 4242,
+   "sampler_mode": "standard",
+   "model": [
+    "ck",
+    0
+   ],
+   "positive": [
+    "pos",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "latent_image": [
+    "empty",
+    0
+   ],
+   "sampler": [
+    "n",
+    0
+   ]
+  }
+ },
+ "ck": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "DreamShaper_8_pruned.safetensors"
+  }
+ },
+ "dec": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "s",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "low quality, blurry",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "pos": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "a red lighthouse on a rocky coast at dusk, waves, dramatic clouds, oil painting",
+   "clip": [
+    "ck",
+    1
+   ]
+  }
+ },
+ "src": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "img",
+    0
+   ],
+   "vae": [
+    "ck",
+    2
+   ]
+  }
+ },
+ "img": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "res4lyf_source_sd15.png"
+  }
+ },
+ "empty": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "n": {
+  "class_type": "Legacy_ClownSampler",
+  "inputs": {
+   "eta": 0.25,
+   "eta_var": 0.0,
+   "s_noise": 1.0,
+   "d_noise": 1.0,
+   "noise_mode": "hard",
+   "noise_sampler_type": "brownian",
+   "alpha": 0.0,
+   "k": 1.0,
+   "noise_seed": 4242,
+   "rk_type": "res_2m",
+   "exp_mode": false,
+   "multistep": false,
+   "implicit_steps": 0,
+   "cfgpp": 0.0,
+   "latent_guide_weight": 0.0,
+   "guide_mode": "mean",
+   "rescale_floor": true,
+   "latent_guide": [
+    "src",
+    0
+   ],
+   "latent_guide_inv": [
+    "src",
+    0
+   ]
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "dec",
+    0
+   ],
+   "filename_prefix": "res4lyf_node"
+  }
+ }
+}
