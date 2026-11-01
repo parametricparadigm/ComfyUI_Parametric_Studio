@@ -1,0 +1,7 @@
+/* Pack Lab. */
+.pl-filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:10px}.pl-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(400px,100%),1fr));gap:12px;align-items:start}
+.pl-risk{border-left:4px solid var(--fx-warn);padding:4px 0 4px 10px;font-size:14px;display:flex;flex-direction:column;gap:2px}.pl-risk b{color:var(--fx-warn);font:800 13px/1.2 var(--display)}.pl-risk p{overflow-wrap:anywhere}
+.pl-pick .btn.small{align-self:flex-start}.pl-more{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 10px;margin:0;font-size:13px}.pl-more dt{color:var(--mut)}.pl-more dd{margin:0;overflow-wrap:anywhere}.pl-nodes{overflow-wrap:anywhere}
+.pl-warn{display:flex;flex-direction:column;gap:8px}.pl-warn summary{list-style:none;cursor:pointer}.pl-warn summary::-webkit-details-marker{display:none}.pl-warn ul{margin:10px 0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:6px}.pl-scroll{overflow-x:auto;max-height:480px;overflow-y:auto}
+@media (max-width:760px){.pl-filters{grid-template-columns:minmax(0,1fr)}}
+.pl-pick>p:first-letter,.pl-risk p:first-letter{text-transform:uppercase}

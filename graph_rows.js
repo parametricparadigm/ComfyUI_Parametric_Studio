@@ -2,7 +2,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { api } from "./common.js";
 
-export const SECTIONS = [["goal", "Studio apps"], ["model3d", "3D models"], ["workflow", "World Kit and Virtual Set"], ["family", "Family graphs"], ["recipe", "Recipes"]];
+export const SECTIONS = [["goal", "Studio apps"], ["model3d", "3D models"], ["tryon", "Try-on"], ["workflow", "World Kit and Virtual Set"], ["family", "Family graphs"], ["recipe", "Recipes"]];
 export const sectionOf = (r) => r.section || r.kind;
 export const hasGraph = (r) => !!(r && r.graph_url);
 export const tagOf = (r) => (r.kind === "runner" ? "Runner" : r.kind === "tool" ? "Tool" : r.kind === "goal" ? "App" : r.kind === "recipe" ? "Recipe" : r.kind === "workflow" ? r.sub : r.section === "model3d" ? "3D graph" : r.sub);

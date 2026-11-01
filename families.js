@@ -1,4 +1,5 @@
 /* Families: every model family this studio can run, as a gallery of what each one really made here. A family page holds its samples, its crew member, its templates as forms that run on that family's own ComfyUI, and start or stop behind the VRAM gate. A family with no render shows what it needs, never a stand-in image. */
+import { FitChip } from "./fit_chip.js";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Drop, LiveMedia } from "./showcase.js";
@@ -129,7 +130,7 @@ function FamilyPage({ slug, goTab }) {
     ${tid && html`<${Form} f=${f} tid=${tid} onClose=${() => setTid(null)} onDone=${load}/>`}
     <section class="sect"><h2>Templates</h2><div class="sectsub">${f.templates_list.length ? `${ready.length} of ${f.templates_list.length} can run here now. Each one opens as a form and runs on this family's own server.` : "No official template names this family yet. Open its graph to build one by hand."}${f.goals.length > 0 && html` Also in Create: ${f.goals.map((g, i) => html`${i ? ", " : ""}<a href="#create" onClick=${(e) => { e.preventDefault(); goTab("create"); setTimeout(() => dispatchEvent(new CustomEvent("prime-action", { detail: { type: "set_goal", goal: g.id } })), 90); }}>${g.label}</a>`)}.`}</div>
       ${dl && html`<p class="fnote">${dl.status === "running" ? `Downloading ${dl.file} (${dl.done + 1} of ${dl.total})` : dl.status === "done" ? "Download finished." : dl.status === "error" ? "Download failed: " + dl.error : ""}</p>`}
-      <div class="ftpls">${f.templates_list.map((t) => html`<div class=${"ftpl" + (tid === t.name ? " on" : "")}><b>${t.title}</b>${t.desc && html`<p>${t.desc}</p>`}
+      <div class="ftpls">${f.templates_list.map((t) => html`<div class=${"ftpl" + (tid === t.name ? " on" : "")}><b>${t.title}</b><${FitChip} k=${`family:${f.slug}/${t.name}`}/>${t.desc && html`<p>${t.desc}</p>`}
         ${t.ready ? html`<small class="ok">Ready, about ${t.need_gb} GB VRAM</small>` : html`<div><small class="no">Needs ${t.missing.length} file${t.missing.length > 1 ? "s" : ""}${t.missing_gb ? `, ${t.missing_gb} GB` : t.gb ? `, template total ${t.gb} GB` : ""}</small><ul class="fmiss">${t.missing.slice(0, 4).map((m) => html`<li>${m.url ? html`<a href=${m.url} target="_blank" rel="noopener noreferrer">${m.name}</a>` : m.name}${m.gb ? ` (${m.gb} GB)` : ""}</li>`)}${t.missing.length > 4 && html`<li>and ${t.missing.length - 4} more</li>`}</ul></div>`}
         <div class="frow"><button class=${"btn small" + (t.ready ? " primary" : "")} onClick=${() => setTid(t.name)}>${t.ready ? "Open the form" : "See the form"}</button>${!t.ready && t.missing.some((m) => m.url) && html`<button class="btn small" disabled=${dl && dl.status === "running"} onClick=${() => download(t)}>Download</button>`}</div></div>`)}</div></section>
     <section class="sect"><h2>On this machine</h2><div class="fcardx" style="margin-top:10px">

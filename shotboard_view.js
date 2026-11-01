@@ -219,7 +219,7 @@ function CallSheet(p) {
     </ol>
     ${active && html`<p class="sb-keep">Keep this tab open while the queue runs. If you reload, it picks up where it left off.</p>`}
     <div class="sb-wrapacts">
-      ${finished.length > 0 && !active && html`<button class="gobtn" disabled=${!!busy} onClick=${p.doExport}>${busy === "export" ? "Exporting..." : "Export contact video"}</button>`}
+      ${jobs.length > 0 && !active && html`<a class="btn small" href="#project">Pack this board into one file</a>`}${finished.length > 0 && !active && html`<button class="gobtn" disabled=${!!busy} onClick=${p.doExport}>${busy === "export" ? "Exporting..." : "Export contact video"}</button>`}
       ${active && onCancel && html`<button class="btn" onClick=${onCancel}>Cancel the board</button>`}
       ${!active && html`<button class="btn" onClick=${p.reset}>Clear the board</button>`}
     </div>

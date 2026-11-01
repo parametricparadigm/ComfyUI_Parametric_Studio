@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="university.css">
 <link rel="stylesheet" href="res4lyf.css">
 <link rel="stylesheet" href="looks.css">
+<link rel="stylesheet" href="fx.css">
 <link rel="preload" href="vendor/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>/* read-only demo: GET /api/x comes from saved files, POST explains how to run it for real */
 (() => { window.STUDIO_DEMO = true; const real = window.fetch.bind(window), base = new URL("demo-api/", location.href).href, json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } }), saved = real(base + "_index.json").then((r) => r.json()).then((a) => new Set(a)).catch(() => null);
