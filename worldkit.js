@@ -1,10 +1,10 @@
-// World Kit page, a prop shop: make a place, a prop, a look or (when switched on) a character; the shelf with search and filters; the 3D viewer; approve for sets; archive (never a hard delete);
+// World Kit page, a prop shop: make a place, a prop, a look or a character (described in words, then checked); the shelf with search and filters; the 3D viewer; approve for sets; archive (never a hard delete);
 // retry a failed step; export approved assets as a game pack. Routes: /api/worldkit/* (studio/worldkit/api.py). Look: worldkit.css.
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Viewer3D } from "./viewer3d.js";
 import { SAMPLES } from "./wk_example.js";
-import { TYPES, TYPE_LABELS, PROP_SOURCES, fileUrl, exportUrl, statusChip, summaryOf, filterAssets, canApprove, canRetry, canMakeProp, createPayload, meshChoices, stepRows, addClip, blockers, makerBoard, stepLabel, stepDone, scaleCompare, shopCounts, firstAsset, nextStep } from "./worldkit_helpers.js";
+import { TYPES, TYPE_LABELS, PROP_SOURCES, fileUrl, exportUrl, statusChip, summaryOf, filterAssets, canApprove, canRetry, canMakeProp, createPayload, meshChoices, stepRows, addClip, blockers, makerBoard, stepLabel, stepDone, scaleCompare, shopCounts, firstAsset, nextStep, START_CLIPS, MAX_CLIPS, CHARACTER_IDEAS, clipSlug, clipProblem, sheetState, sheetUrl, CHARACTER_ROUGH } from "./worldkit_helpers.js";
 
 const errText = (e) => String((e && e.message) || e);
 const BLANK = { name: "", tags: "", characterId: "", prompt: "", image: "", mesh: "", meshModel: "", via: "mesh", size: "", brief: "", preset: "", time: "", weather: "", textures: "" };
@@ -17,16 +17,93 @@ function Needs({ problems }) {
   return html`<div class="wk-needs" role="status"><b>Not ready on this machine</b>${problems.map((p) => html`<p>${p}</p>`)}</div>`;
 }
 
+const MAX_DESCRIPTION = 400;
+const HEIGHTS = { lo: 1.5, hi: 2.0 };
+
+// The sheet's stage: an empty frame, the work in progress, the reason it did not pass, or the picture itself.
+function SheetStage({ ch, onAgain, onReword, onDelete, busy }) {
+  const state = sheetState(ch);
+  if (!ch) return html`<div class="wk-sheet film is-empty"><svg viewBox="0 0 80 190" aria-hidden="true"><circle cx="40" cy="24" r="17"/><path d="M14 58c0-9 8-14 26-14s26 5 26 14v52H52v76H28v-76H14z"/></svg><p>The full-body sheet appears here. It is the picture the 3D character is built from.</p></div>`;
+  const working = ch.running || ch.status === "building";
+  return html`<div class=${"wk-sheet film" + (ch.sheet ? "" : " is-empty")}>
+    ${ch.sheet ? html`<img src=${sheetUrl(ch.id, ch.take)} alt=${"Full-body sheet of " + ch.name} width="832" height="1216"/>` : working ? html`<div class="wk-sheetwork" role="status"><i aria-hidden="true"></i><b>Making ${ch.name}</b><p>A picture from your words, then the picture check. Usually about a minute.</p></div>`
+      : html`<div class="wk-sheetwhy"><b>${state.label === "did not pass" ? "This sheet did not pass" : state.label === "interrupted" ? "The studio restarted while this was being made" : "The sheet could not be made"}</b>${ch.error && html`<p>${ch.error}</p>`}${state.label === "did not pass" && html`<p>The picture was thrown away. Often a clearer face or plainer clothes in the words fixes it.</p>`}</div>`}
+    <div class="wk-sheetbar"><span class="wk-sheetname"><b>${ch.name}</b><${Chip} c=${state}/></span>
+      <span class="wk-sheetbtns"><button type="button" class="btn small" disabled=${working || busy} onClick=${onAgain}>${ch.sheet ? "Another take" : "Try again"}</button><button type="button" class="btn small" disabled=${working || busy} onClick=${onReword}>Reword</button><button type="button" class="btn small" disabled=${working || busy} onClick=${onDelete}>Delete</button></span></div>
+  </div>`;
+}
+
+const Rough = () => html`<section class="wk-rough" aria-label="Still rough"><b>Still rough</b><ul>${CHARACTER_ROUGH.map((t) => html`<li>${t}</li>`)}</ul></section>`;
+
+function Motions({ rows, onChange }) {
+  const put = (i, k, v) => onChange(rows.map((r, j) => (j === i ? { ...r, [k]: v } : r)));
+  return html`<fieldset class="wk-motions"><legend>What it can do</legend>
+    ${rows.map((r, i) => html`<div class="wk-motion"><label class="wk-f"><span>Motion name</span><input class="wk-in" type="text" maxlength="24" value=${r.name} onInput=${(e) => put(i, "name", clipSlug(e.target.value))}/></label>
+      <label class="wk-f"><span>What happens</span><input class="wk-in" type="text" placeholder="a person sits down on a chair" value=${r.text} onInput=${(e) => put(i, "text", e.target.value)}/></label>
+      <button type="button" class="btn small" aria-label=${"Remove the motion " + (r.name || i + 1)} onClick=${() => onChange(rows.filter((_, j) => j !== i))}>Remove</button></div>`)}
+    ${rows.length < MAX_CLIPS && html`<button type="button" class="btn small" onClick=${() => onChange([...rows, { name: "", text: "" }])}>Add a motion</button>`}</fieldset>`;
+}
+
+// The Character tab: words -> a checked sheet -> motions -> a rigged character on the shelf. No upload exists at any point.
+function CharacterBench({ caps, reloadCaps, onCreated }) {
+  const [data, setData] = useState({ characters: [], enabled: true, message: "", limits: "" }), [sel, setSel] = useState(""), [form, setForm] = useState({ name: "", description: "" }), [build, setBuild] = useState({ name: "", tags: "", height: "1.7", clips: START_CLIPS }), [err, setErr] = useState(""), [busy, setBusy] = useState(false), [loaded, setLoaded] = useState(false);
+  const alive = useRef(true);
+  const load = () => api("/api/worldkit/characters").then((d) => { if (alive.current) { setData(d); setLoaded(true); } }).catch((e) => alive.current && setErr(errText(e)));
+  useEffect(() => { alive.current = true; load(); return () => { alive.current = false; }; }, []);
+  const anyRunning = data.characters.some((c) => c.running);
+  useEffect(() => { if (!anyRunning) return undefined; const t = setInterval(load, 2500); return () => clearInterval(t); }, [anyRunning]);
+  const ch = data.characters.find((c) => c.id === sel) || (sel ? null : data.characters.find((c) => c.ok) || data.characters[0] || null);
+  const sheetBlock = blockers(caps, "character_sheet"), buildBlock = blockers(caps, "character").filter((p) => !sheetBlock.includes(p));
+  const clipBad = clipProblem(build.clips), h = parseFloat(build.height), heightBad = !(h >= HEIGHTS.lo && h <= HEIGHTS.hi) ? `Height is ${HEIGHTS.lo} to ${HEIGHTS.hi} metres.` : "";
+  const guard = async (fn) => { setBusy(true); setErr(""); try { await fn(); } catch (x) { setErr(errText(x)); reloadCaps(); } finally { setBusy(false); load(); } };
+  const makeSheet = (e) => { e.preventDefault(); guard(async () => { const r = await post("/api/worldkit/characters", { name: form.name.trim(), description: form.description.trim() }); setSel(r.id); setForm({ name: "", description: "" }); }); };
+  const again = () => guard(() => post(`/api/worldkit/characters/${encodeURIComponent(ch.id)}/again`, {}));
+  const reword = () => { setForm({ name: ch.name, description: ch.description || "" }); const n = document.getElementById("wk-chardesc"); if (n) n.focus(); };
+  const drop = () => { if (window.confirm(`Delete ${ch.name}'s words and sheet? Anything already built from them stays on the shelf.`)) guard(async () => { await api(`/api/worldkit/characters/${encodeURIComponent(ch.id)}`, { method: "DELETE" }); setSel(""); }); };
+  const makeCharacter = (e) => { e.preventDefault(); guard(async () => { const r = await post("/api/worldkit/assets", createPayload("character", { name: build.name, tags: build.tags, characterId: ch.id, height: build.height, clips: build.clips })); onCreated(r.asset.id); }); };
+  const ready = !!(ch && ch.ok);
+  if (loaded && !data.enabled) return html`<div class="wk-needs" role="status"><b>Off on this machine</b><p>${data.message}</p></div>`;
+  return html`<div class="wk-char">
+    <ol class="wk-charsteps" aria-label="From words to a character"><li class=${!ch ? "on" : "done"}><i>1</i>Describe someone</li><li class=${ch && !ready ? "on" : ready ? "done" : ""}><i>2</i>Check the sheet</li><li class=${ready ? "on" : ""}><i>3</i>Choose motions, build</li></ol>
+    <div class="wk-chargrid">
+      <div class="wk-charside">
+        <form class="wk-charform" onSubmit=${makeSheet} aria-label="Describe a character">
+          <${Needs} problems=${sheetBlock}/>
+          <label class="wk-f"><span>Name</span><input class="wk-in" type="text" maxlength="60" placeholder="An invented name" value=${form.name} onInput=${(e) => setForm({ ...form, name: e.target.value })}/></label>
+          <label class="wk-f"><span>Who are they, and what are they wearing?</span><textarea id="wk-chardesc" class="wk-in" rows="4" maxlength=${MAX_DESCRIPTION} placeholder="Age, build, hair, clothes from head to boots" value=${form.description} onInput=${(e) => setForm({ ...form, description: e.target.value })}></textarea></label>
+          <div class="wk-ideas" role="group" aria-label="Start from an idea"><small>Or start from</small>${CHARACTER_IDEAS.map(([label, text]) => html`<button type="button" onClick=${() => setForm({ name: form.name, description: text })}>${label}</button>`)}</div>
+          <p class="wk-hint">An invented adult, fully clothed. Never a real person, and there is no photo upload. ${form.description.length > MAX_DESCRIPTION - 60 ? `${MAX_DESCRIPTION - form.description.length} letters left.` : ""}</p>
+          ${err && html`<p class="wk-err" role="alert">${err}</p>`}
+          <button type="submit" class="btn primary wk-go" disabled=${busy || sheetBlock.length > 0 || !form.name.trim() || !form.description.trim()}>${busy ? "Starting" : "Make the sheet"}</button>
+        </form>
+        ${data.characters.length > 0 && html`<div class="wk-wall"><div class="wk-sechead"><h3>Saved characters</h3><span>${data.characters.length}</span></div>
+          <ul>${data.characters.map((c) => { const s = sheetState(c); return html`<li><button type="button" aria-current=${ch && c.id === ch.id ? "true" : undefined} onClick=${() => { setSel(c.id); setErr(""); }}>${c.sheet ? html`<img src=${sheetUrl(c.id, c.take)} alt="" loading="lazy" width="832" height="1216"/>` : html`<span class="wk-noimg" aria-hidden="true">${c.name[0]}</span>`}<b>${c.name}</b><small class=${"wk-sstate " + s.cls}>${s.label}</small></button></li>`; })}</ul></div>`}
+      </div>
+      <${SheetStage} ch=${ch} busy=${busy} onAgain=${again} onReword=${reword} onDelete=${drop}/>
+      ${ready ? html`<form class="wk-charbuild" onSubmit=${makeCharacter} aria-label="Build the 3D character">
+        <div class="wk-sechead"><h3>Build ${ch.name} in 3D</h3></div>
+        <${Needs} problems=${buildBlock}/>
+        <div class="wk-tri"><label class="wk-f"><span>Name on the shelf</span><input class="wk-in" type="text" placeholder=${ch.name} value=${build.name} onInput=${(e) => setBuild({ ...build, name: e.target.value })}/></label>
+          <label class="wk-f"><span>Height, metres</span><input class="wk-in" type="text" inputmode="decimal" value=${build.height} onInput=${(e) => setBuild({ ...build, height: e.target.value })}/></label>
+          <label class="wk-f"><span>Tags, comma separated</span><input class="wk-in" type="text" value=${build.tags} onInput=${(e) => setBuild({ ...build, tags: e.target.value })}/></label></div>
+        <${Motions} rows=${build.clips} onChange=${(clips) => setBuild({ ...build, clips })}/>
+        <p class="wk-hint">You get a rigged, moving 3D figure in the sheet's clothes, hair and colour. Every step runs on this machine, and you can watch them on the next screen.</p>
+        <${Rough}/>
+        ${(clipBad || heightBad) && html`<p class="wk-err">${heightBad || clipBad}</p>`}
+        <button type="submit" class="btn primary wk-go" disabled=${busy || buildBlock.length > 0 || !!clipBad || !!heightBad}>${busy ? "Starting" : "Build the character"}</button></form>` : ""}
+    </div>
+    <details class="wk-limits"><summary>What the checks can and cannot catch</summary><p>${data.limits}</p></details>
+  </div>`;
+}
+
 function NewAsset({ onCreated, caps, reloadCaps, start, onClose }) {
   const [type, setType] = useState((start && start.type) || "place");
   const [form, setForm] = useState({ ...BLANK, via: (start && start.via) || "mesh" });
-  const [chars, setChars] = useState({ characters: [], enabled: false, message: "" });
   const [looks, setLooks] = useState({ looks: [], times: [], weathers: [] });
   const [meshes, setMeshes] = useState([]);
   const [models3d, setModels3d] = useState([]);
   const [err, setErr] = useState(""), [busy, setBusy] = useState(false);
   useEffect(() => {
-    api("/api/worldkit/characters").then(setChars).catch(() => {});
     api("/api/worldkit/looks").then(setLooks).catch((e) => setErr(errText(e)));
     api("/api/worldkit/meshes").then((r) => setMeshes(r.items || [])).catch(() => {});
     api("/api/3d/models").then((r) => setModels3d(r.models || [])).catch(() => {});
@@ -44,16 +121,14 @@ function NewAsset({ onCreated, caps, reloadCaps, start, onClose }) {
     try { const r = await post("/api/worldkit/assets", createPayload(type, form)); onCreated(r.asset.id); } catch (x) { setErr(errText(x)); reloadCaps(); } finally { setBusy(false); }
   };
   const problems = blockers(caps, type, form.via);
+  const head = html`<div class="wk-newhead"><h2>${type === "character" ? "New character" : "New asset"}</h2>${onClose && html`<button type="button" class="btn small" onClick=${onClose}>Back to the shelf</button>`}</div>
+    <div class="wk-types" role="group" aria-label="What to make">${TYPES.map((t) => html`<button type="button" aria-pressed=${type === t} onClick=${() => { setType(t); setForm(BLANK); setErr(""); }}>${TYPE_LABELS[t]}</button>`)}</div>`;
+  if (type === "character") return html`<section class="wk-new" aria-label="New character">${head}<${CharacterBench} caps=${caps} reloadCaps=${reloadCaps} onCreated=${onCreated}/></section>`;
   return html`<form class="wk-new" onSubmit=${create} aria-label="New asset">
-    <div class="wk-newhead"><h2>New asset</h2>${onClose && html`<button type="button" class="btn small" onClick=${onClose}>Back to the shelf</button>`}</div>
-    <div class="wk-types" role="group" aria-label="What to make">${TYPES.map((t) => html`<button type="button" aria-pressed=${type === t} onClick=${() => { setType(t); setForm(BLANK); setErr(""); }}>${TYPE_LABELS[t]}</button>`)}</div>
+    ${head}
     <${Needs} problems=${problems}/>
     <div class="wk-fields">
       <label class="wk-f"><span>Name (optional)</span><input class="wk-in" type="text" value=${form.name} onInput=${set("name")} aria-label="Asset name"/></label>
-      ${type === "character" && html`<label class="wk-f"><span>Saved character</span><select class="wk-in" aria-label="Saved character" value=${form.characterId} onChange=${set("characterId")}>
-          <option value="">${chars.characters.length ? "Pick a saved character" : "No saved characters yet"}</option>
-          ${chars.characters.map((c) => html`<option value=${c.id} disabled=${!c.ok} title=${c.why}>${c.name}${c.ok ? "" : ": " + c.why}</option>`)}</select></label>
-        <p class="wk-hint wide">A character comes only from a saved character, never from an upload.</p>`}
       ${type === "prop" && html`<div class="wk-f wide"><span>Made from</span><div class="wk-types small" role="group" aria-label="Made from">${PROP_SOURCES.map(([k, l]) => html`<button type="button" aria-pressed=${form.via === k} onClick=${() => setForm({ ...form, via: k })}>${l}</button>`)}</div></div>
         ${form.via === "mesh" && html`<label class="wk-f wide"><span>3D result</span><select class="wk-in" aria-label="3D result" value=${form.mesh} onChange=${set("mesh")}><option value="">${meshes.length ? "Pick a 3D result" : "No .glb in the outputs folder yet"}</option>${meshes.map((m) => html`<option value=${m}>${m}</option>`)}</select></label>`}
         ${form.via === "image" && html`<label class="wk-f wide"><span>Picture</span><input class="wk-in" type="file" accept="image/png,image/jpeg,image/webp" onChange=${upload}/></label>${form.image && html`<p class="wk-hint wide">Picture: ${form.image}</p>`}`}
@@ -93,7 +168,7 @@ function Steps({ meta }) {
 }
 
 function AssetDetail({ id, onChanged, onExport }) {
-  const [meta, setMeta] = useState(null), [err, setErr] = useState(""), [clip, setClip] = useState({ name: "", text: "" }), [view, setView] = useState("");
+  const [meta, setMeta] = useState(null), [err, setErr] = useState(""), [clip, setClip] = useState({ name: "", text: "" }), [view, setView] = useState(""), [playing, setPlaying] = useState("");
   const alive = useRef(true);
   const load = () => api(`/api/worldkit/assets/${encodeURIComponent(id)}`).then((m) => { if (alive.current) setMeta(m); }).catch((e) => alive.current && setErr(errText(e)));
   useEffect(() => { alive.current = true; load(); return () => { alive.current = false; }; }, [id]);
@@ -105,11 +180,13 @@ function AssetDetail({ id, onChanged, onExport }) {
   if (!meta) return html`<div class="wk-stage film wk-loading"><p>${err || "Loading..."}</p></div>`;
   const sum = summaryOf(meta), files = meta.files || {}, glb = files["asset.glb"], turn = files["preview.mp4"];
   const shown = view && files[view === "3d" ? "asset.glb" : "preview.mp4"] ? view : glb ? "3d" : turn ? "turn" : "";
+  const clipNames = (meta.clips || []).map((c) => c.name), sheetId = meta.type === "character" && meta.source && meta.source.character_id;
   return html`<section class="wk-stage film" aria-label=${meta.name}>
     <div class="wk-screen">
-      ${glb && shown === "3d" && html`<${Viewer3D} key=${meta.id} url=${fileUrl(meta.id, "asset.glb")} height="clamp(300px,58vh,660px)" background=${0x0b0d0b} spin=${true} grid=${meta.type !== "look"} label=${"3D view of " + meta.name}/>`}
+      ${glb && shown === "3d" && html`<${Viewer3D} key=${meta.id} url=${fileUrl(meta.id, "asset.glb")} height="clamp(300px,58vh,660px)" background=${0x0b0d0b} spin=${!playing} grid=${meta.type !== "look"} clip=${playing} label=${"3D view of " + meta.name}/>`}
       ${turn && shown === "turn" && html`<video class="wk-turn" src=${fileUrl(meta.id, "preview.mp4")} controls loop muted playsinline autoplay=${!quiet()} aria-label=${"Turntable of " + meta.name}></video>`}
-      ${!shown && html`<div class="wk-noview">${meta.running ? "Being built. The turntable and the 3D file appear here when the steps finish." : "Nothing to look at yet."}</div>`}
+      ${!shown && (sheetId ? html`<div class="wk-noview has-sheet"><img src=${sheetUrl(sheetId)} alt="" width="832" height="1216" onError=${(e) => { e.target.style.display = "none"; }}/><p>${meta.running ? "Being built from this sheet. The turntable and the 3D file appear here when the steps finish." : "Nothing to look at yet."}</p></div>` : html`<div class="wk-noview">${meta.running ? "Being built. The turntable and the 3D file appear here when the steps finish." : "Nothing to look at yet."}</div>`)}
+      ${glb && shown === "3d" && clipNames.length > 0 && html`<div class="wk-clipbar" role="group" aria-label="Play a motion"><button type="button" aria-pressed=${!playing} onClick=${() => setPlaying("")}>Still</button>${clipNames.map((n) => html`<button type="button" aria-pressed=${playing === n} onClick=${() => setPlaying(n)}>${n}</button>`)}</div>`}
       <${ScaleTag} scale=${meta.scale_m}/>
       ${glb && turn && html`<div class="wk-viewswitch" role="group" aria-label="How to look at it"><button type="button" aria-pressed=${shown === "3d"} onClick=${() => setView("3d")}>3D</button><button type="button" aria-pressed=${shown === "turn"} onClick=${() => setView("turn")}>Turntable</button></div>`}
     </div>
@@ -129,10 +206,11 @@ function AssetDetail({ id, onChanged, onExport }) {
     ${err && html`<p class="wk-err" role="alert">${err}</p>`}
     ${meta.build.error && html`<p class="wk-err">${meta.build.error}</p>`}
     <${Steps} meta=${meta}/>
-    ${meta.type === "character" && html`<section class="wk-clips" aria-label="Motion clips"><div class="wk-sechead"><h3>Motion clips</h3><span>${(meta.clips || []).map((c) => c.name).join(", ") || "none yet"}</span></div>
+    ${meta.type === "character" && html`<section class="wk-clips" aria-label="Motion clips"><div class="wk-sechead"><h3>Motion clips</h3><span>${clipNames.join(", ") || "none yet"}</span></div>
       <div class="wk-tri"><label class="wk-f"><span>Clip name (lowercase)</span><input class="wk-in" type="text" value=${clip.name} onInput=${(e) => setClip({ ...clip, name: e.target.value })}/></label>
         <label class="wk-f"><span>What happens</span><input class="wk-in" type="text" placeholder="a person sits down on a chair" value=${clip.text} onInput=${(e) => setClip({ ...clip, text: e.target.value })}/></label>
         <button type="button" class="btn small" disabled=${meta.running || !clip.name || !clip.text} onClick=${() => act("clips", { clips: addClip(meta.recipe.clips, clip.name, clip.text) })}>Add clip</button></div></section>`}
+    ${meta.type === "character" && html`<${Rough}/>`}
     <p class="wk-lic"><b>Licences (for your information):</b> ${meta.licence_note}</p>
   </section>`;
 }
@@ -167,14 +245,16 @@ function EmptyShop({ caps, reloadCaps, onCreated, start }) {
       <figure class="wk-showmain">${s.clip && !quiet() ? html`<video key=${s.key} src=${s.clip} poster=${s.still} autoplay loop muted playsinline aria-label=${s.alt}></video>` : html`<img key=${s.key} src=${s.still} alt=${s.alt} width="448" height="448"/>`}
         <figcaption><small>Ours, not in your library</small><b>${s.name}</b><span>${s.kind}${s.size ? `, ${s.size}` : ""}</span></figcaption></figure>
       <ul class="wk-showlist">${SAMPLES.map((x, i) => html`<li><button type="button" aria-pressed=${i === at} onClick=${() => setAt(i)}><img src=${x.still} alt="" loading="lazy" width="96" height="96"/><span><b>${x.name}</b><small>${x.kind}${x.size ? `, ${x.size}` : ""}</small></span></button></li>`)}</ul>
-      <p class="wk-showlead"><b>Your shelf is empty.</b> These are our own test builds from the same makers, on our machine. Yours will differ. A place needs only Blender: describe one and press Make it.</p>
+      <p class="wk-showlead"><b>Your shelf is empty.</b> These are our own test builds from the same makers, on our machine. Yours will differ. A place needs only Blender: describe one and press Make it. To make someone, pick Character and describe them.</p>
     </section>
     <div ref=${formAt}><${NewAsset} caps=${caps} reloadCaps=${reloadCaps} start=${start} onCreated=${onCreated}/></div></div>`;
 }
 
 // #worldkit/<id> opens one asset, so another page can link straight to it.
+// #worldkit/character opens the Character tab, for the Cast section of Virtual Set.
 export function WorldKit({ route = "" }) {
-  const [list, setList] = useState(null), [filters, setFilters] = useState({ type: "", q: "", status: "" }), [sel, setSel] = useState(String(route).split("/")[1] || ""), [showNew, setShowNew] = useState(false), [start, setStart] = useState(null), [err, setErr] = useState(""), [caps, setCaps] = useState(null);
+  const hashPart = String(route).split("/")[1] || "", askedChar = hashPart === "character";
+  const [list, setList] = useState(null), [filters, setFilters] = useState({ type: "", q: "", status: "" }), [sel, setSel] = useState(askedChar ? "" : hashPart), [showNew, setShowNew] = useState(askedChar), [start, setStart] = useState(askedChar ? { type: "character" } : null), [err, setErr] = useState(""), [caps, setCaps] = useState(null);
   const stage = useRef(null);
   const reload = () => api("/api/worldkit/assets").then((r) => { setList(r.assets || []); setErr(""); }).catch((e) => { setErr(errText(e)); setList((l) => l || []); });
   const reloadCaps = () => api("/api/worldkit/capabilities").then(setCaps).catch(() => {});

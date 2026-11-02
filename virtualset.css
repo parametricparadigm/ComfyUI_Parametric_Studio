@@ -103,6 +103,8 @@ body.on-virtualset.virtualset-busy main>.top .sub{margin-top:2px;font-size:clamp
 .vs-setview{display:flex;flex-direction:column;gap:9px;padding:clamp(11px,1.2vw,15px);background:#090b09;border-radius:6px;box-shadow:0 0 0 1px rgba(255,255,255,.1);min-width:0}.vs-setview .v3d{border:0!important;border-radius:3px!important}.vs-setview .v3d .btn{background:rgba(10,12,11,.82);color:#fff}
 .vs-block,.vs-modes,.vs-lists{display:flex;flex-direction:column;gap:10px;padding:clamp(12px,1.3vw,16px);background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0}
 .vs-blockgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:clamp(12px,1.6vw,24px)}.vs-blockgrid>div{min-width:0}
+.vs-cast{display:flex;flex-direction:column;gap:8px;align-items:flex-start}.vs-cast>.vs-castcard{align-self:stretch}.vs-castcard{display:grid;grid-template-columns:72px minmax(0,1fr);gap:9px;padding:8px;background:var(--panel2);border-radius:4px;border-left:3px solid var(--a1);min-width:0}
+.vs-castcard>img,.vs-castblank{display:grid;place-items:center;width:72px;height:72px;object-fit:cover;border-radius:3px;background:#0c0f0d;color:#a3aca3;font:900 26px/1 var(--display)}.vs-castfields{display:flex;flex-direction:column;gap:6px;min-width:0}.vs-castfields .vs-link{align-self:flex-start}
 .vs-proprow{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,minmax(0,62px));gap:6px;margin-bottom:7px;align-items:end}
 
 /* ---- modes ---- */

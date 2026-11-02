@@ -36,7 +36,7 @@ export const canRetry = (a) => !!a && !a.running && (a.build === "failed" || a.b
 export function canMakeProp(meta) {
   if (!meta || meta.type !== "character" || meta.running) return false;
   const st = Object.fromEntries(((meta.build && meta.build.steps) || []).map((r) => [r.name, r.status]));
-  return st.rig === "failed" && (st.remesh === "done" || st.mesh === "done");
+  return st.rig === "failed" && (st.remesh === "done" || st.flat === "done" || st.mesh === "done");
 }
 
 export const parseTags = (s) => String(s || "").split(",").map((t) => t.trim().toLowerCase()).filter(Boolean).slice(0, 12);
@@ -49,7 +49,13 @@ export function meshChoices(models, via) {
 
 export function createPayload(type, form) {
   const out = { type, name: String(form.name || "").trim(), tags: parseTags(form.tags), source: {} };
-  if (type === "character") out.source = { character_id: form.characterId };
+  if (type === "character") {
+    out.source = { character_id: form.characterId };
+    const recipe = {}, h = parseFloat(form.height);
+    if (h > 0) recipe.height_m = h;
+    if (form.clips) recipe.clips = cleanClips(form.clips);
+    if (Object.keys(recipe).length) out.recipe = recipe;
+  }
   else if (type === "prop") {
     const via = form.via || "mesh";
     out.source = via === "mesh" ? { mesh: form.mesh } : via === "image" ? { image: form.image } : { prompt: String(form.prompt || "").trim() };
@@ -65,6 +71,39 @@ export function createPayload(type, form) {
   } else out.source = { preset: form.preset || "day_clear", time: form.time || null, weather: form.weather || null };
   return out;
 }
+
+// The motions a new character starts with, as the server's own default. A clip's name is short lowercase letters; people type whatever they like and this keeps it legal.
+export const MAX_CLIPS = 4;
+export const START_CLIPS = [{ name: "idle", text: "a person stands relaxed in place, breathing, shifting weight slightly" }, { name: "walk", text: "a person walks forward at a relaxed pace" }, { name: "wave", text: "a person stands and waves with the right hand" }];
+export const clipSlug = (s) => String(s || "").toLowerCase().replace(/[^a-z_]+/g, "_").replace(/^_+/, "").slice(0, 24);
+export const cleanClips = (rows) => (rows || []).map((c) => ({ name: clipSlug(c.name).replace(/_+$/, ""), text: String(c.text || "").trim() })).filter((c) => c.name || c.text).slice(0, MAX_CLIPS);
+export function clipProblem(rows) {
+  const clips = cleanClips(rows);
+  if (!clips.length) return "Give the character at least one motion.";
+  if (clips.some((c) => !c.name)) return "Each motion needs a short name.";
+  if (clips.some((c) => !c.text)) return `Say what happens in "${clips.find((c) => !c.text).name}".`;
+  if (new Set(clips.map((c) => c.name)).size !== clips.length) return "Two motions have the same name.";
+  return "";
+}
+// Invented people to start from, so a blank box is not the first thing someone has to solve. Every word still goes through the same checks.
+export const CHARACTER_IDEAS = [
+  ["Night-market cook", "a stocky night-market cook in his fifties with a greying moustache and laughing eyes, wearing a green apron over a white shirt, dark trousers and work shoes"],
+  ["Lighthouse keeper", "a tall lighthouse keeper in her forties with short silver-streaked black hair, wearing a rust-orange canvas work jacket, dark wool trousers and brown leather boots"],
+  ["Desert courier", "a lean desert courier in his thirties with a short beard and sun-worn skin, wearing a long sand-coloured coat, a scarf, cargo trousers and scuffed boots"],
+  ["Stage magician", "a graceful stage magician in her sixties with a silver bob and red lipstick, wearing a tailored midnight-blue suit, a white shirt and polished shoes"],
+];
+// What a built character still gets wrong, said on the page. Each line was seen on our own test characters.
+export const CHARACTER_ROUGH = ["The back and sides are the model's guess: only the front comes from the sheet.", "Clothes can pull when it moves: trouser legs that stay joined near the ankles, sleeves folding, hands going through a coat.", "Feet stay flat and only turn: no heel-to-toe in a walk.", "A motion may not be exactly what the words said, and if the graphics card is full one can fail: the build goes on without it, and the making steps show which.", "The age in a sheet can differ from the age you asked for.", "In a Virtual Set video the words dress the character: the face and some colours will not match the sheet."];
+export function sheetState(c) {
+  if (!c) return { cls: "dim", label: "" };
+  if (c.running || c.status === "building") return { cls: "warn", label: "making the sheet" };
+  if (c.status === "ready" && c.ok) return { cls: "ok", label: "sheet passed" };
+  if (c.status === "blocked") return { cls: "danger", label: "did not pass" };
+  if (c.status === "failed") return { cls: "danger", label: "could not be made" };
+  if (c.status === "interrupted") return { cls: "warn", label: "interrupted" };
+  return { cls: "dim", label: c.status || "words saved" };
+}
+export const sheetUrl = (id, take = 0) => `/api/worldkit/characters/${encodeURIComponent(id)}/sheet?take=${take}`;
 
 export const stepRows = (meta) => ((meta && meta.build && meta.build.steps) || []).map((r) => ({
   name: r.name, status: r.status, cls: STEP_CLS[r.status] || "dim", error: r.error || "", note: r.note || "" }));
@@ -90,7 +129,7 @@ export function makerRow(caps, [key, label, type, via]) {
   if (!r) return { ...row, cls: "dim", state: "Checking", why: "", more: [] };
   if (r.ready) return { ...row, cls: "ok", state: "Ready", why: "", more: [] };
   const problems = r.problems || [];
-  if (key === "character") return { ...row, cls: "off", state: "Off", why: problems[0] || "", more: problems.slice(1) };
+  if (key === "character" && caps.characters_on === false) return { ...row, cls: "off", state: "Off on this machine", why: problems[0] || "", more: problems.slice(1) };
   const gone = (r.needs || []).filter((n) => n.state === "missing").map((n) => n.label);
   if (gone.length) return { ...row, cls: "off", state: "Model not on this machine", why: `Still needs ${gone.join(" and ")}.`, more: problems };
   return { ...row, cls: "warn", state: "Not ready", why: problems[0] || "", more: problems.slice(1) };
@@ -98,9 +137,11 @@ export function makerRow(caps, [key, label, type, via]) {
 export const makerBoard = (caps) => MAKERS.map((m) => makerRow(caps, m));
 
 // Step names on disk, in words. An unknown step keeps its own name, with spaces.
-const STEP_WORDS = { tiles: "Lay out the set", build: "Build the 3D file", preview: "Film a turntable", ingest: "Check and shelve it", image: "Make a picture", cutout: "Cut out the object", mesh: "Picture to mesh", cleanup: "Clean up, set real scale", remesh: "Remesh", rig: "Rig", clips: "Motion clips", retarget: "Fit the motion" };
+const STEP_WORDS = { tiles: "Lay out the set", build: "Build the 3D file", preview: "Film a turntable", ingest: "Check and shelve it", image: "Make a picture", cutout: "Cut out the object", mesh: "Picture to mesh", cleanup: "Clean up, set real scale", remesh: "Remesh", rig: "Rig", clips: "Motion clips", retarget: "Fit the motion", sheet: "Check the sheet", flat: "Bake the pose", assemble: "Put it together" };
 export function stepLabel(name) {
   const n = String(name || "");
+  if (n.startsWith("motion_")) return `Make motion: ${n.slice(7).replace(/_/g, " ")}`;
+  if (n.startsWith("retarget_")) return `Fit to the rig: ${n.slice(9).replace(/_/g, " ")}`;
   if (n.startsWith("tex_")) return `${n.slice(4).replace(/\d+$/, (d) => " " + d).replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase())} texture`;
   return STEP_WORDS[n] || n.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
 }

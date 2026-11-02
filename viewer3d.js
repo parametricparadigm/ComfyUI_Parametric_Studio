@@ -7,7 +7,8 @@ export { fitDistance };
 const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // height: pixels, or any CSS length. spin: start turning (never under reduced motion). grid: a floor grid in real metres. lens: { pos, look, lens_mm, sensor_mm } looks through a shot's camera, in the shot's Blender metres.
-export function Viewer3D({ url, height = 420, spin = false, grid = false, background = 0x222222, label = "3D view", lens = null }) {
+// clip: the name of an animation in the file to play on a loop; empty shows the rest pose.
+export function Viewer3D({ url, height = 420, spin = false, grid = false, background = 0x222222, label = "3D view", lens = null, clip = "" }) {
   const containerRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,6 +17,9 @@ export function Viewer3D({ url, height = 420, spin = false, grid = false, backgr
   const controlsRef = useRef(null);
   const lensRef = useRef(null);
   lensRef.current = lens;
+  const motionRef = useRef(null);
+  useEffect(() => { if (motionRef.current) motionRef.current.play(clip); }, [clip]);
+  useEffect(() => { const next = spin && !reducedMotion(); setAutoRotate(next); if (controlsRef.current) controlsRef.current.autoRotate = next; }, [spin]);
 
   useEffect(() => {
     let renderer;
@@ -75,11 +79,18 @@ export function Viewer3D({ url, height = 420, spin = false, grid = false, backgr
             if (disposed) return;
             const model = gltf.scene;
             model.traverse((o) => { if (/-(colonly|convcolonly|col)(_\d+)?$/i.test(o.name || "")) o.visible = false; });   // a game engine's collision shapes, not something to look at
+            model.updateWorldMatrix(true, true);
             
             // Frame what the asset is: scenery out to the horizon (a place's backdrop and sea) stays in view but does not set the camera's distance.
             const solid = new THREE.Box3(); let scenery = false;
             model.traverse((o) => { if (!o.isMesh) return; const named = (s) => /^(backdrop|sea)/i.test((s && s.name) || ""); if (named(o) || named(o.parent)) scenery = true; else if (o.visible && o.parent.visible) solid.expandByObject(o); });
-            const box = scenery && !solid.isEmpty() ? solid : new THREE.Box3().setFromObject(model);
+            let box = scenery && !solid.isEmpty() ? solid : new THREE.Box3().setFromObject(model);
+            // A rigged character: a skinned mesh's own box counts a scale on its parent twice, so measure the bones, with room for the head above and the soles below.
+            const bones = []; model.traverse((o) => { if (o.isBone) bones.push(o); });
+            if (bones.length) {
+              const b = new THREE.Box3(), p = new THREE.Vector3(); bones.forEach((o) => b.expandByPoint(o.getWorldPosition(p)));
+              const tall = b.max.y - b.min.y; b.max.y += tall * 0.14; b.min.y -= tall * 0.05; b.expandByVector(new THREE.Vector3(tall * 0.06, 0, tall * 0.06)); box = b;
+            }
             const center = box.getCenter(new THREE.Vector3());
             model.position.sub(center);
             
@@ -110,9 +121,30 @@ export function Viewer3D({ url, height = 420, spin = false, grid = false, backgr
 
             setLoading(false);
 
+            const mixer = gltf.animations.length ? new THREE.AnimationMixer(model) : null, tick = new THREE.Clock();
+            let action = null, rootBone = null;
+            model.traverse((o) => { if (o.isBone && !rootBone && !(o.parent && o.parent.isBone)) rootBone = o; });
+            if (rootBone) { const fill = new THREE.DirectionalLight(0xffffff, 1.6); fill.position.set(-3, 3, 5); scene.add(fill); }   // a plain grey body has no colour of its own to read by
+            const at = new THREE.Vector3(), home = model.position.clone();
+            if (rootBone) rootBone.getWorldPosition(at);
+            const rootRest = at.clone();
+            motionRef.current = mixer && { play: (name) => {
+              if (action) { action.stop(); action = null; }
+              const found = name && THREE.AnimationClip.findByName(gltf.animations, name);
+              if (found) { action = mixer.clipAction(found); action.setLoop(THREE.LoopRepeat, Infinity).play(); }
+            } };
+            if (motionRef.current && clip) motionRef.current.play(clip);
+
             const animate = () => {
               if (disposed) return;
               animationId = requestAnimationFrame(animate);
+              if (mixer) {
+                mixer.update(tick.getDelta());
+                if (rootBone) {             // a walk stays in view: the clip's travel across the floor is taken back out, here only
+                  model.position.copy(home); model.updateWorldMatrix(true, true); rootBone.getWorldPosition(at);
+                  if (action) { model.position.x -= at.x - rootRest.x; model.position.z -= at.z - rootRest.z; }
+                }
+              }
               const shot = lensRef.current;
               controls.enabled = !shot;
               if (shot) {
@@ -159,6 +191,7 @@ export function Viewer3D({ url, height = 420, spin = false, grid = false, backgr
 
     return () => {
       disposed = true;
+      motionRef.current = null;
       if (animationId) cancelAnimationFrame(animationId);
       if (resizeObserver) resizeObserver.disconnect();
       
