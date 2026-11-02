@@ -26,6 +26,7 @@ import { SamplingLab } from "./samplinglab.js";
 import { Res4lyf } from "./res4lyf.js";
 import { VirtualSet } from "./virtualset.js";
 import { AIEdits, Schedules, CalibrateCard } from "./pages2.js";
+import { OneClick } from "./oneclick.js";
 import { GoalTiles, NeedsModels, AttachCard, CloudCard } from "./models_ui.js";
 import { Empty, Offline, Stage, Stats, Strip, useHealth } from "./look.js";
 import { Palette } from "./palette.js";
@@ -38,7 +39,7 @@ import { loadFeaturePages } from "./fx.js";
 import { FitChip } from "./fit_chip.js";
 function EditHub() {
   const [seg, setSeg] = useState("ai");
-  return html`<div class="lk"><${Strip} label="Edit" value=${seg} onPick=${setSeg} items=${[{ k: "ai", b: "AI edits", s: "One model, one simple form" }, { k: "timeline", b: "Timeline", s: "Cut your clips into one video" }]}/>${seg === "ai" ? html`<${AIEdits}/>` : html`<${Edit}/>`}</div>`;
+  return html`<div class="lk"><${Strip} label="Edit" value=${seg} onPick=${setSeg} items=${[{ k: "ai", b: "AI edits", s: "One model, one simple form" }, { k: "oneclick", b: "One click", s: "Angles, relight, effects, alpha matte" }, { k: "timeline", b: "Timeline", s: "Cut your clips into one video" }]}/>${seg === "ai" ? html`<${AIEdits}/>` : seg === "oneclick" ? html`<${OneClick}/>` : html`<${Edit}/>`}</div>`;
 }
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 

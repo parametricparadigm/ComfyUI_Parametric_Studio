@@ -1,0 +1,105 @@
+{
+ "angles": {
+  "source": "oneclick_art/angles/source.webp",
+  "items": [
+   {
+    "src": "oneclick_art/angles/angle1.webp",
+    "label": "Wide, from above"
+   },
+   {
+    "src": "oneclick_art/angles/angle2.webp",
+    "label": "Close-up"
+   },
+   {
+    "src": "oneclick_art/angles/angle3.webp",
+    "label": "Three-quarter left"
+   },
+   {
+    "src": "oneclick_art/angles/angle4.webp",
+    "label": "Low angle, right"
+   }
+  ],
+  "options": {
+   "set": "coverage",
+   "strength": "standard"
+  },
+  "seed": 4101,
+  "seconds": 42.4,
+  "peak_vram_gib": 29.2,
+  "gpu": "one RTX PRO 6000 (96 GB)",
+  "note": "The source is an invented woman made with Z-Image Turbo for this example; then the coverage set, seed 4101, run once through this tool. The three-quarter turn is gentle; the wide and the close-up moved the most."
+ },
+ "relight": {
+  "source": "oneclick_art/relight/source.webp",
+  "items": [
+   {
+    "src": "oneclick_art/relight/golden_hour.webp",
+    "label": "Golden hour"
+   }
+  ],
+  "options": {
+   "light": "golden hour"
+  },
+  "seed": 4102,
+  "seconds": 28.3,
+  "peak_vram_gib": 29.1,
+  "gpu": "one RTX PRO 6000 (96 GB)",
+  "note": "The source is an invented man made with Z-Image Turbo for this example, in flat studio light; then golden hour, seed 4102, run once through this tool. The light, the shadows and the wall changed as asked; the face changed a little too, so check a likeness before you use it."
+ },
+ "effects": {
+  "source": "oneclick_art/effects/source.webp",
+  "items": [
+   {
+    "src": "oneclick_art/effects/inflate.webp",
+    "label": "Inflate, the still"
+   },
+   {
+    "src": "oneclick_art/effects/inflate_clip.mp4",
+    "poster": "oneclick_art/effects/inflate_clip.webp",
+    "label": "Inflate, still + clip (LTX-2.5)"
+   }
+  ],
+  "options": {
+   "effect": "inflate",
+   "output": "still + clip",
+   "seconds": 4
+  },
+  "seed": 4103,
+  "seconds": 78.9,
+  "peak_vram_gib": 66.0,
+  "gpu": "one RTX PRO 6000 (96 GB)",
+  "note": "The source is an invented man made with Z-Image Turbo for this example; then inflate, seed 4103. The still took 26.8 s at 28.7 GB on its own; the numbers shown are the still + clip run, where both models stayed loaded. The clip reaches the inflated frame through a dissolve with a visible double image midway, not a true swelling. No person has listened to its sound."
+ },
+ "matte": {
+  "source": "oneclick_art/matte/source.mp4",
+  "items": [
+   {
+    "src": "oneclick_art/matte/on_new_set.mp4",
+    "poster": "oneclick_art/matte/on_new_set.webp",
+    "label": "On the new set"
+   },
+   {
+    "src": "oneclick_art/matte/alpha.webm",
+    "label": "WebM with alpha",
+    "alpha": true
+   },
+   {
+    "src": "oneclick_art/matte/matte.mp4",
+    "label": "Matte"
+   },
+   {
+    "src": "oneclick_art/matte/new_set.webp",
+    "label": "The new set (Z-Image Turbo)"
+   }
+  ],
+  "options": {
+   "seconds": 4,
+   "aspect": "auto"
+  },
+  "seed": 4104,
+  "seconds": 88.8,
+  "peak_vram_gib": 51.9,
+  "gpu": "one RTX PRO 6000 (96 GB)",
+  "note": "The source is our own LTX-2.5 render of an invented woman; the new set asked for a sunlit seaside boardwalk, seed 4104. The ProRes 4444 file (63 MB for 4 s) is made too but not kept here. The matte is soft: a little background shows between the legs, and the subject has no shadow on the new set."
+ }
+}
