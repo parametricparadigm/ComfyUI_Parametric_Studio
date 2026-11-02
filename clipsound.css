@@ -1,0 +1,35 @@
+/* Captions & Sound. The proof sits on a dark stage in both themes; the forms follow the theme through the shared tokens. */
+.cs{gap:clamp(22px,3vw,48px);max-width:1500px}
+.cs :focus-visible{outline:3px solid var(--a1);outline-offset:2px}
+.cs-hero{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr);background:#0b0d0b;color:#f4f4ee;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.cs-hero :focus-visible{outline-color:#f5c518}
+.cs-heropic{background:#050605;display:flex;align-items:center;justify-content:center;min-height:240px}
+.cs-heropic video{display:block;max-width:100%;max-height:min(72vh,680px)}
+.cs-herotext{padding:clamp(16px,2.4vw,36px);display:flex;flex-direction:column;gap:14px;justify-content:center}
+.cs-eyebrow{margin:0;font:700 clamp(14px,1.4vw,19px)/1.1 var(--display);font-stretch:75%;letter-spacing:.02em;color:#f5c518}
+.cs .cs-hero h2{margin:0;font:900 clamp(34px,5vw,76px)/.9 var(--display);font-stretch:118%;letter-spacing:-.035em;color:#fff}
+.cs-herotext p{margin:0;max-width:62ch;line-height:1.45;color:#e2e4dc}
+.cs-hero .lk-stats dd,.cs-hero .lk-stats dt{color:#f4f4ee}
+.cs-honest{border-left:4px solid #f5c518;padding-left:12px}.cs-honest b{color:#f5c518}
+.cs-form{display:flex;flex-direction:column;gap:16px}
+.cs-form fieldset{border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;margin:0;min-width:0}
+.cs-form legend{font:800 15px/1 var(--display);font-stretch:95%;padding:0 6px}
+.cs-pills{display:flex;flex-wrap:wrap;gap:6px}
+.cs-pills button{min-height:44px;padding:6px 12px;border:1px solid var(--line2);border-radius:4px;background:transparent;color:var(--text);font:700 14px/1.1 var(--display);font-stretch:90%;cursor:pointer}
+.cs-pills button:hover{background:var(--panel2)}
+.cs-pills button[aria-pressed=true]{background:var(--a1);border-color:var(--a1);color:var(--on-accent)}
+.cs-check{display:flex;gap:8px;align-items:center;min-height:44px}
+.cs-check input{width:20px;height:20px}
+.cs-lic{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0}
+.cs-result{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:16px;align-items:start}
+.cs-result video{width:100%;max-height:70vh;background:#050605;border-radius:4px}
+.cs-cues{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.cs-cues li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:6px 8px;border-bottom:1px solid var(--line)}
+.cs-at{font:700 13px/1.4 var(--display);font-stretch:85%;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted,inherit)}
+.cs-dropped{margin-top:10px}.cs-dropped summary{cursor:pointer;min-height:32px}
+.cs-proofs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.cs-proofs>li{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:16px;align-items:start}
+.cs-proofs video{width:100%;max-height:60vh;background:#050605;border-radius:4px}
+.cs-proofs h3{margin:0 0 8px}
+.cs-facts{margin:0;display:flex;flex-direction:column;gap:6px}.cs-facts div{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,3fr);gap:10px}.cs-facts dt{font-weight:700}.cs-facts dd{margin:0}
+@media (max-width:900px){.cs-hero,.cs-result,.cs-proofs>li{grid-template-columns:minmax(0,1fr)}.cs-facts div{grid-template-columns:minmax(0,1fr)}}
