@@ -1,0 +1,202 @@
+{
+"75:61": {
+"class_type": "KSamplerSelect",
+"inputs": {
+"sampler_name": "euler"
+}
+},
+"75:70": {
+"class_type": "UNETLoader",
+"inputs": {
+"unet_name": "flux-2-klein-4b.safetensors",
+"weight_dtype": "default"
+}
+},
+"75:71": {
+"class_type": "CLIPLoader",
+"inputs": {
+"clip_name": "qwen_3_4b.safetensors",
+"type": "flux2",
+"device": "default"
+}
+},
+"75:72": {
+"class_type": "VAELoader",
+"inputs": {
+"vae_name": "flux2-vae.safetensors"
+}
+},
+"75:66": {
+"class_type": "EmptyFlux2LatentImage",
+"inputs": {
+"width": 1344,
+"height": 768,
+"batch_size": 1
+}
+},
+"75:80": {
+"class_type": "ImageScaleToTotalPixels",
+"inputs": {
+"image": [
+"76",
+0
+],
+"upscale_method": "nearest-exact",
+"megapixels": 1,
+"resolution_steps": 1
+}
+},
+"75:62": {
+"class_type": "Flux2Scheduler",
+"inputs": {
+"width": 1344,
+"height": 768,
+"steps": 4
+}
+},
+"75:74": {
+"class_type": "CLIPTextEncode",
+"inputs": {
+"clip": [
+"75:71",
+0
+],
+"text": "The same woman as in the reference picture, same face, same hair, same clothing and colours. Extreme wide shot at night. A tall black-and-white lighthouse on a storm-worn rock, huge waves breaking, she is a small figure on the iron gallery at the top, one sweep of amber light across the sea. Film still, anamorphic, deep teal shadows, warm amber lamp light, 35mm grain. No text, no logos."
+}
+},
+"75:82": {
+"class_type": "ConditioningZeroOut",
+"inputs": {
+"conditioning": [
+"75:74",
+0
+]
+}
+},
+"75:121": {
+"class_type": "ReferenceLatent",
+"inputs": {
+"conditioning": [
+"75:82",
+0
+],
+"latent": [
+"75:122",
+0
+]
+}
+},
+"75:99": {
+"class_type": "GetImageSize",
+"inputs": {
+"image": [
+"75:80",
+0
+]
+}
+},
+"75:123": {
+"class_type": "ReferenceLatent",
+"inputs": {
+"conditioning": [
+"75:74",
+0
+],
+"latent": [
+"75:122",
+0
+]
+}
+},
+"75:122": {
+"class_type": "VAEEncode",
+"inputs": {
+"pixels": [
+"75:80",
+0
+],
+"vae": [
+"75:72",
+0
+]
+}
+},
+"75:64": {
+"class_type": "SamplerCustomAdvanced",
+"inputs": {
+"noise": [
+"75:73",
+0
+],
+"guider": [
+"75:63",
+0
+],
+"sampler": [
+"75:61",
+0
+],
+"sigmas": [
+"75:62",
+0
+],
+"latent_image": [
+"75:66",
+0
+]
+}
+},
+"75:65": {
+"class_type": "VAEDecode",
+"inputs": {
+"samples": [
+"75:64",
+0
+],
+"vae": [
+"75:72",
+0
+]
+}
+},
+"75:73": {
+"class_type": "RandomNoise",
+"inputs": {
+"noise_seed": 211
+}
+},
+"75:63": {
+"class_type": "CFGGuider",
+"inputs": {
+"model": [
+"75:70",
+0
+],
+"positive": [
+"75:123",
+0
+],
+"negative": [
+"75:121",
+0
+],
+"cfg": 1
+}
+},
+"9": {
+"class_type": "SaveImage",
+"inputs": {
+"images": [
+"75:65",
+0
+],
+"filename_prefix": "Flux2-Klein"
+}
+},
+"76": {
+"class_type": "LoadImage",
+"inputs": {
+"image": "studio_c33ce8341a.png"
+}
+}
+}

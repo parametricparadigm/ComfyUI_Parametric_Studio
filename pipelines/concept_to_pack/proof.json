@@ -1,0 +1,401 @@
+{
+ "id": "concept_to_pack",
+ "status": "passed",
+ "verdict": "Three drawings became three textured meshes at real size, each with a turntable, and one zip a game engine can open. The lantern, chest and anchor all keep their drawing's shape and colour from every side. The result shown is the three turntables side by side, put together when we published; the pack itself is a 140 MB zip and isn't on this page.",
+ "run": "2d3c6b23a8e5",
+ "rendered": "2026-11-02",
+ "seconds": 804.3,
+ "wall_seconds": 3118.4,
+ "peak_vram_gib": 25.0,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {},
+ "final": {
+  "src": "final_compose.mp4",
+  "kind": "video",
+  "poster": "final_compose.webp",
+  "seconds": 3.0
+ },
+ "stages": [
+  {
+   "id": "a1",
+   "label": "Art: lantern",
+   "type": "goal",
+   "does": "The drawing the 3D model is built from.",
+   "model": "Krea 2",
+   "licence": "Krea 2 Community License",
+   "licence_class": "community",
+   "seed": 601,
+   "seconds": 14.7,
+   "peak_gib": 22.5,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Stylised game prop concept art of an old brass ship's lantern with thick green glass and a ring handle, a single object, the whole object in view, centred, three-quarter view, hand-painted texture, plain light grey studio background, soft even light. No text, no logos.",
+   "media": [
+    {
+     "src": "a1.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/a1.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "m1",
+   "label": "Mesh: lantern",
+   "type": "template",
+   "does": "Cuts the object out and builds a textured mesh from the one picture.",
+   "model": "TRELLIS.2",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": 611,
+   "seconds": 97.0,
+   "peak_gib": 14.8,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "kind": "file",
+     "name": "trellis2_00001.glb",
+     "bytes": 50325168
+    }
+   ],
+   "graph": "graphs/m1.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "p1",
+   "label": "Asset: lantern",
+   "type": "worldkit",
+   "does": "Real-world size, pivot at the base, a box collider and a turntable.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 107.0,
+   "peak_gib": 1.0,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "p1.mp4",
+     "kind": "video",
+     "poster": "p1.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "p1_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "p1_asset.glb",
+     "bytes": 44540564
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "image",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cutout",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "mesh",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cleanup",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "a2",
+   "label": "Art: sea chest",
+   "type": "goal",
+   "does": "The drawing the 3D model is built from.",
+   "model": "Krea 2",
+   "licence": "Krea 2 Community License",
+   "licence_class": "community",
+   "seed": 602,
+   "seconds": 24.4,
+   "peak_gib": 22.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Stylised game prop concept art of a barnacled wooden sea chest with heavy iron bands, a single object, the whole object in view, centred, three-quarter view, hand-painted texture, plain light grey studio background, soft even light. No text, no logos.",
+   "media": [
+    {
+     "src": "a2.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/a2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "m2",
+   "label": "Mesh: sea chest",
+   "type": "template",
+   "does": "Cuts the object out and builds a textured mesh from the one picture.",
+   "model": "TRELLIS.2",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": 612,
+   "seconds": 280.2,
+   "peak_gib": 25.0,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "kind": "file",
+     "name": "trellis2_00002.glb",
+     "bytes": 57381916
+    }
+   ],
+   "graph": "graphs/m2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "p2",
+   "label": "Asset: sea chest",
+   "type": "worldkit",
+   "does": "Real-world size, pivot at the base, a box collider and a turntable.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 107.0,
+   "peak_gib": 0.9,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "p2.mp4",
+     "kind": "video",
+     "poster": "p2.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "p2_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "p2_asset.glb",
+     "bytes": 52474908
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "image",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cutout",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "mesh",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cleanup",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "a3",
+   "label": "Art: anchor",
+   "type": "goal",
+   "does": "The drawing the 3D model is built from.",
+   "model": "Krea 2",
+   "licence": "Krea 2 Community License",
+   "licence_class": "community",
+   "seed": 603,
+   "seconds": 14.7,
+   "peak_gib": 22.5,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Stylised game prop concept art of a heavy rusted iron ship's anchor with a thick ring, a single object, the whole object in view, centred, three-quarter view, hand-painted texture, plain light grey studio background, soft even light. No text, no logos.",
+   "media": [
+    {
+     "src": "a3.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/a3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "m3",
+   "label": "Mesh: anchor",
+   "type": "template",
+   "does": "Cuts the object out and builds a textured mesh from the one picture.",
+   "model": "TRELLIS.2",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": 613,
+   "seconds": 62.4,
+   "peak_gib": 12.8,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "kind": "file",
+     "name": "trellis2_00003.glb",
+     "bytes": 49132744
+    }
+   ],
+   "graph": "graphs/m3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "p3",
+   "label": "Asset: anchor",
+   "type": "worldkit",
+   "does": "Real-world size, pivot at the base, a box collider and a turntable.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 92.0,
+   "peak_gib": 1.0,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "p3.mp4",
+     "kind": "video",
+     "poster": "p3.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "p3_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "p3_asset.glb",
+     "bytes": 43491316
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "image",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cutout",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "mesh",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cleanup",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "pack",
+   "label": "Godot pack",
+   "type": "worldkit_pack",
+   "does": "The three glb files, a scene that places them, a manifest, zipped.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 4.9,
+   "peak_gib": 0.9,
+   "ran": "done",
+   "status": "ok",
+   "note": "Three glb files, a Godot scene and a manifest: 140 MB, kept on the machine that made it.",
+   "prompt": "",
+   "media": [
+    {
+     "kind": "file",
+     "name": "pack_sunken-ship-pack-20261102-023030.zip",
+     "bytes": 117444663
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": []
+}

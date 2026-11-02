@@ -1,0 +1,321 @@
+{
+ "id": "song_to_video",
+ "status": "partial",
+ "verdict": "One invented keeper through four shots, cut on the song's beats. The face, hair and rust coat hold in shots 1, 2 and 4. Two flaws: in shot 3 the coat turns khaki on top, and she carries two lanterns where we asked for one. The lens she cleans in shot 2 came out as a glass globe, not a lighthouse lens. We checked the song by measurement only: no person has listened to it for this review.",
+ "run": "93aa4d3bd3d1",
+ "rendered": "2026-11-01",
+ "seconds": 436.5,
+ "wall_seconds": 7702.3,
+ "peak_vram_gib": 41.1,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "lyrics": "[intro]\n\n[verse]\nI keep the lamp when the harbour sleeps\nSalt on my hands and the promise it keeps\nNobody's sailing, nobody's near\nI turn the light so you know I'm here\n[chorus]\nBurn on, burn on, over the black water\nBurn on, burn on, till the morning comes\nEvery wave I count is a mile I've carried you\nBurn on, burn on, I will bring you home\n[outro]",
+  "character": "a woman in her forties with short silver hair and a weathered face, a long rust-orange oilskin coat over a dark green fisherman's sweater, heavy black boots",
+  "world": "a tall black-and-white lighthouse on a storm-worn rock in a dark cold sea, the only light for miles"
+ },
+ "final": {
+  "src": "cut.mp4",
+  "kind": "video",
+  "poster": "cut.webp",
+  "seconds": 16.3
+ },
+ "stages": [
+  {
+   "id": "song",
+   "label": "The song",
+   "type": "goal",
+   "does": "Writes the performance from the lyrics: the voice, the band and the beats every later stage is timed to.",
+   "model": "MiniMax Music 3",
+   "licence": "MiniMax-Music3 Community License",
+   "licence_class": "community",
+   "seed": 201,
+   "seconds": 76.3,
+   "peak_gib": 21.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Global Metadata\nBasic Attributes: bpm is 84. key is A, and scale is minor. Cinematic folk rock.\nGlobal Emotional Progression: A lone voice and acoustic guitar open quietly, then drums and strings lift the chorus into something huge.\nApplication Scenarios & Imagery: a tall black-and-white lighthouse on a storm-worn rock in a dark cold sea, the only light for miles.\nSonics & Production Profile: Close, warm vocal, wide room, deep low end.\nVocal Details\nVocal Gender & Timbre: Singer A (Female), husky and steady.\nVocal Style: Intimate in the verse, open and strong in the chorus.\nHarmony/Backing Vocals: Soft stacked harmonies on the chorus.\nVocal FX: Light hall reverb.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: Acoustic guitar, low piano.\nSecondary: Strings and a slow-building drum kit.\nGroove & Foundation Progression: A clear 84 BPM pulse from the first bars, full drums on the chorus.\nEmbellishments, Textures & Spatial FX: Swells and rises into each new section.",
+   "media": [
+    {
+     "src": "song.mp3",
+     "kind": "audio",
+     "poster": "song_wave.webp",
+     "seconds": 60.0
+    }
+   ],
+   "graph": "graphs/song.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "character",
+   "label": "The character",
+   "type": "goal",
+   "does": "One invented person, drawn once, used as the reference for every shot.",
+   "model": "FLUX.2 Klein 4B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 202,
+   "seconds": 24.5,
+   "peak_gib": 16.8,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Full body character design: a woman in her forties with short silver hair and a weathered face, a long rust-orange oilskin coat over a dark green fisherman's sweater, heavy black boots. Standing, facing the camera, the whole figure in frame, plain light grey studio background, soft even light. No text, no logos.",
+   "media": [
+    {
+     "src": "character.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/character.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "key1",
+   "label": "Keyframe 1",
+   "type": "template",
+   "does": "Draws this shot with the character as its reference, so she stays the same person.",
+   "model": "FLUX.2 Klein 4B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 211,
+   "seconds": 17.8,
+   "peak_gib": 16.9,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "The same woman as in the reference picture, same face, same hair, same clothing and colours. Extreme wide shot at night. A tall black-and-white lighthouse on a storm-worn rock, huge waves breaking, she is a small figure on the iron gallery at the top, one sweep of amber light across the sea. Film still, anamorphic, deep teal shadows, warm amber lamp light, 35mm grain. No text, no logos.",
+   "media": [
+    {
+     "src": "key1.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/key1.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "shot1",
+   "label": "Shot 1",
+   "type": "goal",
+   "does": "Moves the keyframe.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 221,
+   "seconds": 72.0,
+   "peak_gib": 41.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. Waves break against the rock below the lighthouse and spray rises slowly while the amber beam sweeps across the sea. The camera cranes up smoothly from low to high. One continuous shot, no cuts.\n\noverall_soundscape: Heavy surf and wind.\n\nnon_diegetic_music: N/A",
+   "media": [
+    {
+     "src": "shot1.mp4",
+     "kind": "video",
+     "poster": "shot1.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/shot1.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "key2",
+   "label": "Keyframe 2",
+   "type": "template",
+   "does": "Draws this shot with the character as its reference, so she stays the same person.",
+   "model": "FLUX.2 Klein 4B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 212,
+   "seconds": 9.1,
+   "peak_gib": 16.5,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "The same woman as in the reference picture, same face, same hair, same clothing and colours. Medium close-up inside the lamp room. She tends the great glass lens with a rag, amber light moving across her face, rain on the windows behind her. Film still, anamorphic, deep teal shadows, warm amber lamp light, 35mm grain. No text, no logos.",
+   "media": [
+    {
+     "src": "key2.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/key2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "shot2",
+   "label": "Shot 2",
+   "type": "goal",
+   "does": "Moves the keyframe.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 222,
+   "seconds": 66.4,
+   "peak_gib": 41.1,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The lens is a glass globe on a ring, not a lighthouse lens. Her hands and the cloth hold up.",
+   "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. The woman slowly wipes the great glass lens with a rag and looks out through the rainy window. Amber light slides over her face. The camera dollies in slowly. One continuous shot, no cuts.\n\noverall_soundscape: Rain on glass, a low mechanical hum.\n\nnon_diegetic_music: N/A",
+   "media": [
+    {
+     "src": "shot2.mp4",
+     "kind": "video",
+     "poster": "shot2.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/shot2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "key3",
+   "label": "Keyframe 3",
+   "type": "template",
+   "does": "Draws this shot with the character as its reference, so she stays the same person.",
+   "model": "FLUX.2 Klein 4B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 213,
+   "seconds": 10.3,
+   "peak_gib": 16.9,
+   "ran": "done",
+   "status": "flawed",
+   "note": "Two lanterns, not one: the flaw starts in this keyframe.",
+   "prompt": "The same woman as in the reference picture, same face, same hair, same clothing and colours. Wide shot from behind. She climbs an iron spiral staircase inside the tower, a lantern in one hand, the stairs turning up into darkness above her. Film still, anamorphic, deep teal shadows, warm amber lamp light, 35mm grain. No text, no logos.",
+   "media": [
+    {
+     "src": "key3.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/key3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "shot3",
+   "label": "Shot 3",
+   "type": "goal",
+   "does": "Moves the keyframe.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 223,
+   "seconds": 72.3,
+   "peak_gib": 41.0,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The coat turns khaki on top and she carries two lanterns, not one.",
+   "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. The woman climbs the iron spiral staircase with a lantern, its light swinging across the curved stone wall. The camera tracks up behind her at walking speed. One continuous shot, no cuts.\n\noverall_soundscape: Boots on iron steps, wind in the tower.\n\nnon_diegetic_music: N/A",
+   "media": [
+    {
+     "src": "shot3.mp4",
+     "kind": "video",
+     "poster": "shot3.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/shot3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "key4",
+   "label": "Keyframe 4",
+   "type": "template",
+   "does": "Draws this shot with the character as its reference, so she stays the same person.",
+   "model": "FLUX.2 Klein 4B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 214,
+   "seconds": 16.9,
+   "peak_gib": 16.9,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "The same woman as in the reference picture, same face, same hair, same clothing and colours. Wide shot at dawn. She stands on the iron gallery with her back to us, coat blowing, a small wooden boat far out on a calm pink sea, first sun on the horizon. Film still, anamorphic, deep teal shadows, warm amber lamp light, 35mm grain. No text, no logos.",
+   "media": [
+    {
+     "src": "key4.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/key4.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "shot4",
+   "label": "Shot 4",
+   "type": "goal",
+   "does": "Moves the keyframe.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 224,
+   "seconds": 68.8,
+   "peak_gib": 41.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Cinematic, live-action. Her coat moves in the wind while the small boat comes slowly closer across the calm sea and the sun rises. The camera pushes in with small amplitude at slow speed. One continuous shot, no cuts.\n\noverall_soundscape: Soft wind, far gulls.\n\nnon_diegetic_music: N/A",
+   "media": [
+    {
+     "src": "shot4.mp4",
+     "kind": "video",
+     "poster": "shot4.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/shot4.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "cut",
+   "label": "Cut on the beat",
+   "type": "cpu",
+   "does": "Finds the song's downbeats and places each cut on one.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 2.1,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "cut.mp4",
+     "kind": "video",
+     "poster": "cut.webp",
+     "seconds": 16.3
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": [
+  {
+   "what": "First run",
+   "why": "The box's memory killer stopped ComfyUI partway. We ran it again from the start."
+  },
+  {
+   "what": "Second run",
+   "why": "We restarted the runner to join the shared card's new fair queue, so it began again with the same seeds."
+  }
+ ]
+}

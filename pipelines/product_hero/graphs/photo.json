@@ -1,0 +1,101 @@
+{
+"1": {
+"class_type": "UNETLoader",
+"inputs": {
+"unet_name": "flux3-image-klein-bf16.safetensors",
+"weight_dtype": "default"
+}
+},
+"2": {
+"class_type": "CLIPLoader",
+"inputs": {
+"clip_name": "qwen3vl_4b_bf16.safetensors",
+"type": "flux3",
+"device": "default"
+}
+},
+"3": {
+"class_type": "VAELoader",
+"inputs": {
+"vae_name": "flux2-vae.safetensors"
+}
+},
+"4": {
+"class_type": "CLIPTextEncode",
+"inputs": {
+"clip": [
+"2",
+0
+],
+"text": "Commercial product photograph of a faceted amber glass perfume bottle with a heavy brushed brass cap, no label, no text, centred on a plain pale grey seamless studio background, soft even light, sharp focus, the whole object in frame. No text, no logos."
+}
+},
+"5": {
+"class_type": "CLIPTextEncode",
+"inputs": {
+"clip": [
+"2",
+0
+],
+"text": ""
+}
+},
+"6": {
+"class_type": "EmptyFlux2LatentImage",
+"inputs": {
+"width": 1344,
+"height": 768,
+"batch_size": 1
+}
+},
+"7": {
+"class_type": "KSampler",
+"inputs": {
+"model": [
+"1",
+0
+],
+"seed": 401,
+"steps": 15,
+"cfg": 1.0,
+"sampler_name": "er_sde",
+"scheduler": "simple",
+"positive": [
+"4",
+0
+],
+"negative": [
+"5",
+0
+],
+"latent_image": [
+"6",
+0
+],
+"denoise": 1.0
+}
+},
+"8": {
+"class_type": "VAEDecode",
+"inputs": {
+"samples": [
+"7",
+0
+],
+"vae": [
+"3",
+0
+]
+}
+},
+"9": {
+"class_type": "SaveImage",
+"inputs": {
+"images": [
+"8",
+0
+],
+"filename_prefix": "flux3_klein_core"
+}
+}
+}

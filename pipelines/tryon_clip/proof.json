@@ -1,0 +1,180 @@
+{
+ "id": "tryon_clip",
+ "status": "passed",
+ "verdict": "An invented model and a coat on a mannequin; the coat goes onto the same person with its colour, lapels and buttons, and she walks in it. Face, jeans and shoes hold through the clip. Two things to know: we asked for four gold buttons and got a double-breasted coat with eight, and the worn coat ends at the knee where the mannequin's reached mid-calf. The try-on stage uses a LoRA that is rent-only at its source, so treat this result as non-commercial.",
+ "run": "9f4441c065cf",
+ "rendered": "2026-11-02",
+ "seconds": 122.6,
+ "wall_seconds": 1898.8,
+ "peak_vram_gib": 41.1,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "person": "an invented woman in her thirties with short dark curly hair, plain white t-shirt and blue jeans, white sneakers",
+  "garment": "a long emerald green wool coat with a wide collar and four gold buttons"
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 5.2
+ },
+ "stages": [
+  {
+   "id": "person",
+   "label": "The model",
+   "type": "template",
+   "does": "An invented person, whole figure in frame.",
+   "model": "Z-Image Turbo",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 801,
+   "seconds": 11.2,
+   "peak_gib": 21.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Full body fashion photograph of an invented woman in her thirties with short dark curly hair, plain white t-shirt and blue jeans, white sneakers, standing facing the camera, the whole figure in frame with both hands visible, in a sunlit stone courtyard, soft daylight, 50mm lens. No text, no logos.",
+   "media": [
+    {
+     "src": "person.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/person.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "garment",
+   "label": "The garment",
+   "type": "template",
+   "does": "The garment alone, ready to be worn.",
+   "model": "Z-Image Turbo",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 802,
+   "seconds": 10.3,
+   "peak_gib": 21.7,
+   "ran": "done",
+   "status": "flawed",
+   "note": "Eight buttons, double-breasted. We asked for four.",
+   "prompt": "Product photograph of a long emerald green wool coat with a wide collar and four gold buttons on an invisible mannequin, the whole garment in frame, plain light grey studio background, even soft light. No text, no logos, no labels.",
+   "media": [
+    {
+     "src": "garment.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/garment.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "worn",
+   "label": "Worn",
+   "type": "template",
+   "does": "The same person, wearing the coat, with its length and buttons kept.",
+   "model": "Qwen-Image 2.1 with the Outfit Swap LoRA",
+   "licence": "Qwen-Image 2.1's own licence; the LoRA is rent-only at its source",
+   "licence_class": "noncommercial",
+   "seed": 803,
+   "seconds": 20.3,
+   "peak_gib": 35.2,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The coat ends at the knee; on the mannequin it reached mid-calf.",
+   "prompt": "",
+   "media": [
+    {
+     "src": "worn.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/worn.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "clip",
+   "label": "The clip",
+   "type": "goal",
+   "does": "The cloth moves, the person stays the same.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 804,
+   "seconds": 67.8,
+   "peak_gib": 41.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Fashion film. The woman walks slowly toward the camera across the sunlit courtyard. The long coat swings with each step. Her arms stay relaxed at her sides. The camera tracks backward with her at walking speed. One continuous shot, no cuts.\n\noverall_soundscape: Footsteps on stone, a light breeze.\n\nnon_diegetic_music: N/A",
+   "media": [
+    {
+     "src": "clip.mp4",
+     "kind": "video",
+     "poster": "clip.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/clip.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "score",
+   "label": "The score",
+   "type": "goal",
+   "does": "An original instrumental.",
+   "model": "MiniMax Music 3",
+   "licence": "MiniMax-Music3 Community License",
+   "licence_class": "community",
+   "seed": 805,
+   "seconds": 12.7,
+   "peak_gib": 21.2,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Global Metadata\nBasic Attributes: bpm is 112. Minimal electronic, elegant.\nGlobal Emotional Progression: A single pulse opens up into a clean bright groove.\nApplication Scenarios & Imagery: A fashion film.\nSonics & Production Profile: Clean, wide, steady.\nVocal Details\nVocal Gender & Timbre: No vocals. Purely instrumental.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: Soft synth bass, brushed drums.\nSecondary: Warm chords.\nGroove & Foundation Progression: A steady 112 BPM pulse.\nEmbellishments, Textures & Spatial FX: Swells and rises into each new section.",
+   "media": [
+    {
+     "src": "score.mp3",
+     "kind": "audio",
+     "poster": "score_wave.webp",
+     "seconds": 7.4
+    }
+   ],
+   "graph": "graphs/score.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "Marry picture and score",
+   "type": "cpu",
+   "does": "Joins picture and score.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.3,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": []
+}

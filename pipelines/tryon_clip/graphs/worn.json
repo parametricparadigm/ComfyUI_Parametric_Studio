@@ -1,0 +1,137 @@
+{
+"1": {
+"class_type": "UNETLoader",
+"inputs": {
+"unet_name": "qwen_image_2.1_bf16.safetensors",
+"weight_dtype": "default"
+}
+},
+"2": {
+"class_type": "QwenImage21Cache",
+"inputs": {
+"model": [
+"11",
+0
+],
+"device": "auto",
+"dtype": "default"
+}
+},
+"3": {
+"class_type": "CLIPLoader",
+"inputs": {
+"clip_name": "qwen3vl_8b_bf16.safetensors",
+"type": "qwen_image",
+"device": "default"
+}
+},
+"4": {
+"class_type": "VAELoader",
+"inputs": {
+"vae_name": "qwen/qwen_image_2.1_vae_bf16.safetensors"
+}
+},
+"7": {
+"class_type": "LoadImage",
+"inputs": {
+"image": "studio_01bdcc1537.png"
+},
+"_meta": {
+"title": "The person"
+}
+},
+"5": {
+"class_type": "TextEncodeQwenImage21",
+"inputs": {
+"clip": [
+"3",
+0
+],
+"vae": [
+"4",
+0
+],
+"prompt": "Dress the person in image 1 in the garment shown in image 2. Keep their face, hair, hands, pose and the background exactly the same. Replace only what the garment covers, and fit it to their body with natural folds.",
+"negative_prompt": "",
+"resolution": "1024",
+"images.image_1": [
+"7",
+0
+],
+"images.image_2": [
+"17",
+0
+]
+}
+},
+"8": {
+"class_type": "KSampler",
+"inputs": {
+"model": [
+"2",
+0
+],
+"seed": 803,
+"steps": 25,
+"cfg": 1.0,
+"sampler_name": "euler",
+"scheduler": "simple",
+"positive": [
+"5",
+0
+],
+"negative": [
+"5",
+1
+],
+"latent_image": [
+"5",
+2
+],
+"denoise": 1.0
+}
+},
+"9": {
+"class_type": "VAEDecode",
+"inputs": {
+"samples": [
+"8",
+0
+],
+"vae": [
+"4",
+0
+]
+}
+},
+"10": {
+"class_type": "SaveImage",
+"inputs": {
+"images": [
+"9",
+0
+],
+"filename_prefix": "qwen21_tryon"
+}
+},
+"17": {
+"class_type": "LoadImage",
+"inputs": {
+"image": "studio_04dfc4d747.png"
+},
+"_meta": {
+"title": "The garment"
+}
+},
+"11": {
+"class_type": "LoraLoaderModelOnly",
+"inputs": {
+"model": [
+"1",
+0
+],
+"lora_name": "civitai/qwen-image-2.1-outfit-swap.safetensors",
+"strength_model": 1.0
+}
+}
+}

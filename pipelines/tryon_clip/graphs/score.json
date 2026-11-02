@@ -1,0 +1,149 @@
+{
+"37:6": {
+"class_type": "UNETLoader",
+"inputs": {
+"unet_name": "minimax_music3_dit_fp16.safetensors",
+"weight_dtype": "default"
+}
+},
+"37:13": {
+"class_type": "MiniMaxMusic3TextEncode",
+"inputs": {
+"clip": [
+"37:3",
+0
+],
+"seed": [
+"37:38",
+0
+],
+"caption": "Global Metadata\nBasic Attributes: bpm is 112. Minimal electronic, elegant.\nGlobal Emotional Progression: A single pulse opens up into a clean bright groove.\nApplication Scenarios & Imagery: A fashion film.\nSonics & Production Profile: Clean, wide, steady.\nVocal Details\nVocal Gender & Timbre: No vocals. Purely instrumental.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: Soft synth bass, brushed drums.\nSecondary: Warm chords.\nGroove & Foundation Progression: A steady 112 BPM pulse.\nEmbellishments, Textures & Spatial FX: Swells and rises into each new section.",
+"lyrics": "[inst]",
+"max_duration": 30,
+"cfg_scale": 1.7,
+"top_k": 50
+}
+},
+"37:3": {
+"class_type": "CLIPLoader",
+"inputs": {
+"clip_name": "minimax_music3_text_encoder_pruned_bf16.safetensors",
+"type": "minimax",
+"device": "default"
+}
+},
+"37:7": {
+"class_type": "VAELoader",
+"inputs": {
+"vae_name": "minimax_music3_dav.safetensors"
+}
+},
+"37:10": {
+"class_type": "ConditioningZeroOut",
+"inputs": {
+"conditioning": [
+"37:13",
+0
+]
+}
+},
+"37:15": {
+"class_type": "EmptyMiniMaxMusic3LatentAudio",
+"inputs": {
+"seconds": [
+"37:13",
+1
+],
+"batch_size": 1
+}
+},
+"37:9": {
+"class_type": "KSampler",
+"inputs": {
+"model": [
+"37:6",
+0
+],
+"positive": [
+"37:13",
+0
+],
+"negative": [
+"37:10",
+0
+],
+"latent_image": [
+"37:15",
+0
+],
+"seed": [
+"37:38",
+0
+],
+"steps": 30,
+"cfg": 1.7,
+"sampler_name": "euler",
+"scheduler": "simple",
+"denoise": 1
+}
+},
+"37:12": {
+"class_type": "VAEDecodeAudio",
+"inputs": {
+"samples": [
+"37:9",
+0
+],
+"vae": [
+"37:7",
+0
+]
+}
+},
+"37:38": {
+"class_type": "SeedNode",
+"inputs": {
+"seed": 805
+}
+},
+"37:42": {
+"class_type": "VAEDecodeAudioTiled",
+"inputs": {
+"samples": [
+"37:9",
+0
+],
+"vae": [
+"37:7",
+0
+],
+"tile_size": 1536,
+"overlap": 64
+}
+},
+"37:43": {
+"class_type": "ComfySwitchNode",
+"inputs": {
+"on_false": [
+"37:12",
+0
+],
+"on_true": [
+"37:42",
+0
+],
+"switch": false
+}
+},
+"35": {
+"class_type": "SaveAudioAdvanced",
+"inputs": {
+"audio": [
+"37:43",
+0
+],
+"filename_prefix": "audio/audio_minimax_music3",
+"format": "flac"
+}
+}
+}

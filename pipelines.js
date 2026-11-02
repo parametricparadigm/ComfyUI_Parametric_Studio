@@ -36,7 +36,7 @@ function StageOpen({ id, s }) {
       <dl class="pl-facts">
         <div><dt>Model</dt><dd>${s.model || "None"}</dd></div>
         ${s.licence && html`<div><dt>Licence</dt><dd>${s.licence}</dd></div>`}
-        <div><dt>Seed</dt><dd>${s.seed == null ? "None" : s.seed}</dd></div>
+        <div><dt>Seed</dt><dd>${s.seed == null ? (s.peak_gib == null ? "None" : "Not recorded") : s.seed}</dd></div>
         <div><dt>Time</dt><dd>${s.seconds == null ? "Not recorded" : clockOf(s.seconds)}</dd></div>
         <div><dt>Peak VRAM</dt><dd>${s.peak_gib == null ? "CPU step" : s.peak_gib + " GiB"}</dd></div>
       </dl>

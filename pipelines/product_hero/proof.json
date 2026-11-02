@@ -1,0 +1,167 @@
+{
+ "id": "product_hero",
+ "status": "passed",
+ "verdict": "The same bottle from studio photo to relit hero to camera move, then cut out on every frame and set on a new floor. The relight kept the bottle's shape and framing. The matte holds through the whole move. Two limits of a solid matte: the new set doesn't show through the glass, and there is no contact shadow, so the bottle sits a little above the floor.",
+ "run": "102dd2427d88",
+ "rendered": "2026-11-02",
+ "seconds": 232.4,
+ "wall_seconds": 3408.0,
+ "peak_vram_gib": 41.0,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "product": "a faceted amber glass perfume bottle with a heavy brushed brass cap, no label, no text"
+ },
+ "final": {
+  "src": "matte.mp4",
+  "kind": "video",
+  "poster": "matte.webp",
+  "seconds": 5.2
+ },
+ "stages": [
+  {
+   "id": "photo",
+   "label": "Studio photo",
+   "type": "goal",
+   "does": "A clean plate of the product, on a background easy to remove.",
+   "model": "FLUX.3 Klein",
+   "licence": "FLUX Kommunity licence (gated download)",
+   "licence_class": "community",
+   "seed": 401,
+   "seconds": 10.9,
+   "peak_gib": 18.0,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Commercial product photograph of a faceted amber glass perfume bottle with a heavy brushed brass cap, no label, no text, centred on a plain pale grey seamless studio background, soft even light, sharp focus, the whole object in frame. No text, no logos.",
+   "media": [
+    {
+     "src": "photo.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/photo.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "relit",
+   "label": "Relit hero",
+   "type": "template",
+   "does": "Same object, same framing, new lighting.",
+   "model": "Qwen-Image 2.1",
+   "licence": "Qwen-Image 2.1's own licence",
+   "licence_class": "community",
+   "seed": 402,
+   "seconds": 98.6,
+   "peak_gib": 32.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Keep the object, its shape and framing exactly unchanged, keep the plain background. Relight it dramatically: a warm golden key light from the upper left, a thin emerald rim light from behind on the right, deep soft shadow, glowing light passing through the glass.",
+   "media": [
+    {
+     "src": "relit.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/relit.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "orbit",
+   "label": "Camera move",
+   "type": "goal",
+   "does": "A slow move around the relit bottle.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 403,
+   "seconds": 63.0,
+   "peak_gib": 41.0,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Product advertising film. The bottle stands still while light moves slowly through the glass. The camera orbits the bottle slowly to the right with small amplitude, keeping it centred. The plain background stays plain. One continuous shot, no cuts.\n\noverall_soundscape: A low soft hum.\n\nnon_diegetic_music: N/A",
+   "media": [
+    {
+     "src": "orbit.mp4",
+     "kind": "video",
+     "poster": "orbit.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/orbit.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "backdrop",
+   "label": "New set",
+   "type": "template",
+   "does": "The place the product lands in.",
+   "model": "Z-Image Turbo",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 404,
+   "seconds": 31.5,
+   "peak_gib": 21.4,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "An empty luxury set: wet black obsidian floor reflecting a soft gold and emerald glow, fine mist, gold dust in the air, dark background, wide shot, nothing else in frame. No text, no logos.",
+   "media": [
+    {
+     "src": "backdrop.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/backdrop.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "matte",
+   "label": "Matte and composite",
+   "type": "template",
+   "does": "BiRefNet cuts the bottle on every frame and lays it over the new set. The matte itself is saved too.",
+   "model": "BiRefNet",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 28.4,
+   "peak_gib": 19.9,
+   "ran": "done",
+   "status": "flawed",
+   "note": "A solid matte: the backdrop doesn't show through the glass, and there's no contact shadow. The matte itself is the second file here.",
+   "prompt": "",
+   "media": [
+    {
+     "src": "matte.mp4",
+     "kind": "video",
+     "poster": "matte.webp",
+     "seconds": 5.2
+    },
+    {
+     "src": "matte_2.mp4",
+     "kind": "video",
+     "poster": "matte_2.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/matte.json",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": [
+  {
+   "what": "First matte",
+   "why": "The cut-out had holes in the glass. We closed them in the graph and ran it again."
+  },
+  {
+   "what": "First composite",
+   "why": "The backdrop was 16 pixels taller than the clip and ran for 121 frames, not 124. We fixed the sizes."
+  }
+ ]
+}

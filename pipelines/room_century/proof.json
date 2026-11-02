@@ -7,7 +7,7 @@
  "seconds": 339.7,
  "wall_seconds": 5282.3,
  "peak_vram_gib": 41.1,
- "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work.",
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
  "values": {
   "room": "a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor"
  },

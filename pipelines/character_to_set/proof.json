@@ -1,0 +1,321 @@
+{
+ "id": "character_to_set",
+ "status": "partial",
+ "verdict": "The longest chain we ran: words became a sheet that passed the picture check, a textured mesh, a rig with two motions, a built street, and a shot where H3 follows the exact depth of the Blender render. The man keeps his jacket and build all the way. Two flaws: the shop signs carry gibberish lettering, and from behind the mesh's head is a smooth blank shape, because the sheet only shows the front. We checked the score by measurement only.",
+ "run": "3664c74362df",
+ "rendered": "2026-11-02",
+ "seconds": 1768.5,
+ "wall_seconds": 2993.3,
+ "peak_vram_gib": 45.1,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "who": "a courier in his forties, broad shoulders, close-cropped grey hair, a rust-orange canvas work jacket, dark green trousers, heavy brown boots"
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 5.2
+ },
+ "stages": [
+  {
+   "id": "sheet",
+   "label": "Character sheet",
+   "type": "worldkit_sheet",
+   "does": "Draws the invented adult once, front on, and runs the picture check over it.",
+   "model": "Krea 2",
+   "licence": "Krea 2 Community License",
+   "licence_class": "community",
+   "seed": null,
+   "seconds": 18.0,
+   "peak_gib": 22.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "sheet.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "built",
+   "label": "Mesh, rig, motion",
+   "type": "worldkit",
+   "does": "TRELLIS.2 builds the mesh from the sheet, SkinTokens rigs it, Kimodo writes each motion from words, and Blender assembles one file.",
+   "model": "TRELLIS.2",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 227.1,
+   "peak_gib": 24.9,
+   "ran": "done",
+   "status": "flawed",
+   "note": "From behind, the head is a smooth blank shape: the sheet only shows the front.",
+   "prompt": "",
+   "media": [
+    {
+     "src": "built.mp4",
+     "kind": "video",
+     "poster": "built.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "built_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "built_asset.glb",
+     "bytes": 15904980
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "sheet",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "mesh",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "rig",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "motion_walk",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "retarget_walk",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "motion_wave",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "retarget_wave",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "assemble",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "place",
+   "label": "The set",
+   "type": "worldkit",
+   "does": "A real-scale street, built in Blender from a brief.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": 901,
+   "seconds": 152.1,
+   "peak_gib": 16.4,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "a quiet downtown street at golden hour with old brick shopfronts",
+   "media": [
+    {
+     "src": "place.mp4",
+     "kind": "video",
+     "poster": "place.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "place_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "place_asset.glb",
+     "bytes": 9494540
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "tex_ground",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tex_sidewalk",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tex_wall",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tex_wall2",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tiles",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "build",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "shot",
+   "label": "The shot",
+   "type": "vset",
+   "does": "Blender renders the blocked shot, and H3 follows its exact depth.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 902,
+   "seconds": 1352.4,
+   "peak_gib": 45.1,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The shop signs on the left carry gibberish lettering. Its time includes Blender's CPU passes and any wait for the shared card inside the shot; we didn't split those out.",
+   "prompt": "A courier in a rust-orange work jacket walks down a quiet brick street toward the camera at golden hour. The shop signs are plain painted boards with no lettering.",
+   "media": [
+    {
+     "src": "shot.mp4",
+     "kind": "video",
+     "poster": "shot.webp",
+     "seconds": 5.2
+    },
+    {
+     "src": "shot_2.mp4",
+     "kind": "video",
+     "poster": "shot_2.webp",
+     "seconds": 5.2
+    },
+    {
+     "src": "shot_3.mp4",
+     "kind": "video",
+     "poster": "shot_3.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "scene",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "video",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "qc",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "score",
+   "label": "The score",
+   "type": "goal",
+   "does": "An original instrumental.",
+   "model": "MiniMax Music 3",
+   "licence": "MiniMax-Music3 Community License",
+   "licence_class": "community",
+   "seed": 903,
+   "seconds": 18.6,
+   "peak_gib": 21.4,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Global Metadata\nBasic Attributes: bpm is 96. Warm cinematic indie.\nGlobal Emotional Progression: A steady walking pulse that opens as he comes closer.\nApplication Scenarios & Imagery: A courier on an empty street at golden hour.\nSonics & Production Profile: Warm, wide.\nVocal Details\nVocal Gender & Timbre: No vocals. Purely instrumental.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: Upright bass, brushed drums.\nSecondary: Muted trumpet.\nGroove & Foundation Progression: A walking 96 BPM.\nEmbellishments, Textures & Spatial FX: Swells and rises into each new section.",
+   "media": [
+    {
+     "src": "score.mp3",
+     "kind": "audio",
+     "poster": "score_wave.webp",
+     "seconds": 14.0
+    }
+   ],
+   "graph": "graphs/score.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "Marry picture and score",
+   "type": "cpu",
+   "does": "Joins picture and score.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.3,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": []
+}

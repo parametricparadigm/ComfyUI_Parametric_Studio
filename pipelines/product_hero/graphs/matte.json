@@ -1,0 +1,170 @@
+{
+"v": {
+"class_type": "LoadVideo",
+"inputs": {
+"file": "studio_c919314812.mp4"
+}
+},
+"parts": {
+"class_type": "GetVideoComponents",
+"inputs": {
+"video": [
+"v",
+0
+]
+}
+},
+"m": {
+"class_type": "LoadBackgroundRemovalModel",
+"inputs": {
+"bg_removal_name": "birefnet.safetensors"
+}
+},
+"rb": {
+"class_type": "RemoveBackground",
+"inputs": {
+"bg_removal_model": [
+"m",
+0
+],
+"image": [
+"parts",
+0
+]
+}
+},
+"mimg": {
+"class_type": "MaskToImage",
+"inputs": {
+"mask": [
+"close",
+0
+]
+}
+},
+"bgimg": {
+"class_type": "LoadImage",
+"inputs": {
+"image": "studio_19b210e074.png"
+}
+},
+"bg": {
+"class_type": "ImageScale",
+"inputs": {
+"image": [
+"bgimg",
+0
+],
+"upscale_method": "lanczos",
+"width": 1216,
+"height": 672,
+"crop": "center"
+}
+},
+"comp": {
+"class_type": "ImageCompositeMasked",
+"inputs": {
+"destination": [
+"bgr",
+0
+],
+"source": [
+"parts",
+0
+],
+"mask": [
+"close",
+0
+],
+"x": 0,
+"y": 0,
+"resize_source": false
+}
+},
+"cv": {
+"class_type": "CreateVideo",
+"inputs": {
+"images": [
+"comp",
+0
+],
+"fps": [
+"parts",
+2
+],
+"audio": [
+"parts",
+1
+]
+}
+},
+"save": {
+"class_type": "SaveVideo",
+"inputs": {
+"video": [
+"cv",
+0
+],
+"filename_prefix": "pipeline_matte/comp",
+"format": "auto",
+"codec": "auto"
+}
+},
+"mv": {
+"class_type": "CreateVideo",
+"inputs": {
+"images": [
+"mimg",
+0
+],
+"fps": [
+"parts",
+2
+]
+}
+},
+"msave": {
+"class_type": "SaveVideo",
+"inputs": {
+"video": [
+"mv",
+0
+],
+"filename_prefix": "pipeline_matte/matte",
+"format": "auto",
+"codec": "auto"
+}
+},
+"bgr": {
+"class_type": "RepeatImageBatch",
+"inputs": {
+"image": [
+"bg",
+0
+],
+"amount": 124
+}
+},
+"grow": {
+"class_type": "GrowMask",
+"inputs": {
+"mask": [
+"rb",
+0
+],
+"expand": 12,
+"tapered_corners": true
+}
+},
+"close": {
+"class_type": "GrowMask",
+"inputs": {
+"mask": [
+"grow",
+0
+],
+"expand": -12,
+"tapered_corners": true
+}
+}
+}

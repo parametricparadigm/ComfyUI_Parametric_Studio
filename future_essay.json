@@ -34,7 +34,7 @@
      ],
      "figure": {
       "pipeline": "song_to_video",
-      "stage": "cut"
+      "stage": "shot1"
      }
     },
     {

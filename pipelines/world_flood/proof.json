@@ -1,0 +1,286 @@
+{
+ "id": "world_flood",
+ "status": "partial",
+ "verdict": "A street built in Blender from one sentence, a camera move along it, then a flood through the same move, with an original score. The flood works: water fills the street and the move holds. The set doesn't: the boxes standing in for cars and the grey blocks at the end of the street still look like a blockout, because the keyframe edit didn't dress them. The brief asked for golden hour and the light came out flat. We checked the score by measurement only.",
+ "run": "e48f0c3886d1",
+ "rendered": "2026-11-02",
+ "seconds": 1198.1,
+ "wall_seconds": 2206.7,
+ "peak_vram_gib": 41.2,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "brief": "a narrow downtown street at golden hour with old brick shopfronts"
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 10.2
+ },
+ "stages": [
+  {
+   "id": "place",
+   "label": "The set",
+   "type": "worldkit",
+   "does": "Plans the block from the brief and builds it in Blender at real scale, with textures made for it.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": 701,
+   "seconds": 164.0,
+   "peak_gib": 16.6,
+   "ran": "done",
+   "status": "flawed",
+   "note": "Built, but plain: the far buildings are grey blocks.",
+   "prompt": "a narrow downtown street at golden hour with old brick shopfronts",
+   "media": [
+    {
+     "src": "place.mp4",
+     "kind": "video",
+     "poster": "place.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "place_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "place_asset.glb",
+     "bytes": 8758812
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "tex_ground",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tex_sidewalk",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tex_wall",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tex_wall2",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "tiles",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "build",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "shot",
+   "label": "The shot",
+   "type": "vset",
+   "does": "Blender renders the camera path, Qwen-Image 2.1 dresses the first and last frames, and H3 fills between them.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 702,
+   "seconds": 950.2,
+   "peak_gib": 41.2,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The keyframes still look like a blockout: box cars, grey blocks for buildings, flat light. Its time includes Blender's CPU passes and any wait for the shared card inside the shot; we didn't split those out.",
+   "prompt": "The camera moves slowly along the empty brick street at golden hour. Warm low light, long shadows, a little dust in the air.",
+   "media": [
+    {
+     "src": "shot.mp4",
+     "kind": "video",
+     "poster": "shot.webp",
+     "seconds": 5.2
+    },
+    {
+     "src": "shot_2.webp",
+     "kind": "image"
+    },
+    {
+     "src": "shot_3.webp",
+     "kind": "image"
+    },
+    {
+     "src": "shot_4.mp4",
+     "kind": "video",
+     "poster": "shot_4.webp",
+     "seconds": 5.2
+    },
+    {
+     "src": "shot_5.mp4",
+     "kind": "video",
+     "poster": "shot_5.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "scene",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "key_first",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "key_last",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "video",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "qc",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  },
+  {
+   "id": "flood",
+   "label": "The flood",
+   "type": "goal",
+   "does": "LTX-2.5 runs a flood through the same clip, keeping the street and the camera move.",
+   "model": "LTX-2.5",
+   "licence": "LTX-2.x community licence (gated download)",
+   "licence_class": "community",
+   "seed": 703,
+   "seconds": 53.9,
+   "peak_gib": 39.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "flood.mp4",
+     "kind": "video",
+     "poster": "flood.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/flood.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "join",
+   "label": "Dry, then flooded",
+   "type": "cpu",
+   "does": "Runs the two clips one after the other.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 1.1,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "join.mp4",
+     "kind": "video",
+     "poster": "join.webp",
+     "seconds": 10.2
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "score",
+   "label": "The score",
+   "type": "goal",
+   "does": "An original instrumental for the two clips.",
+   "model": "MiniMax Music 3",
+   "licence": "MiniMax-Music3 Community License",
+   "licence_class": "community",
+   "seed": 704,
+   "seconds": 28.6,
+   "peak_gib": 21.4,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Global Metadata\nBasic Attributes: bpm is 70. key is D, and scale is minor. Dark orchestral.\nGlobal Emotional Progression: A held low note grows into rolling drums as the water arrives.\nApplication Scenarios & Imagery: An empty street, then a wall of water.\nSonics & Production Profile: Huge low end, wide strings.\nVocal Details\nVocal Gender & Timbre: No vocals. Purely instrumental.\nArrangement\nInstrument Lifecycle Description (Primary/Secondary Layering):\nPrimary: Low strings, timpani.\nSecondary: Brass swells.\nGroove & Foundation Progression: Slow steady pulse, drums enter halfway.\nEmbellishments, Textures & Spatial FX: Swells and rises into each new section.",
+   "media": [
+    {
+     "src": "score.mp3",
+     "kind": "audio",
+     "poster": "score_wave.webp",
+     "seconds": 30.0
+    }
+   ],
+   "graph": "graphs/score.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "Marry picture and score",
+   "type": "cpu",
+   "does": "Joins picture and score.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.3,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 10.2
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": [
+  {
+   "what": "First run",
+   "why": "The box's memory killer stopped ComfyUI before this chain started. This is its first full run."
+  }
+ ]
+}

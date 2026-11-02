@@ -1,0 +1,110 @@
+{
+"57:30": {
+"class_type": "CLIPLoader",
+"inputs": {
+"clip_name": "qwen_3_4b.safetensors",
+"type": "lumina2",
+"device": "default"
+}
+},
+"57:29": {
+"class_type": "VAELoader",
+"inputs": {
+"vae_name": "ae.safetensors"
+}
+},
+"57:33": {
+"class_type": "ConditioningZeroOut",
+"inputs": {
+"conditioning": [
+"57:27",
+0
+]
+}
+},
+"57:8": {
+"class_type": "VAEDecode",
+"inputs": {
+"samples": [
+"57:3",
+0
+],
+"vae": [
+"57:29",
+0
+]
+}
+},
+"57:28": {
+"class_type": "UNETLoader",
+"inputs": {
+"unet_name": "z_image_turbo_bf16.safetensors",
+"weight_dtype": "default"
+}
+},
+"57:27": {
+"class_type": "CLIPTextEncode",
+"inputs": {
+"clip": [
+"57:30",
+0
+],
+"text": "Full body fashion photograph of an invented woman in her thirties with short dark curly hair, plain white t-shirt and blue jeans, white sneakers, standing facing the camera, the whole figure in frame with both hands visible, in a sunlit stone courtyard, soft daylight, 50mm lens. No text, no logos."
+}
+},
+"57:13": {
+"class_type": "EmptySD3LatentImage",
+"inputs": {
+"width": 832,
+"height": 1216,
+"batch_size": 1
+}
+},
+"57:11": {
+"class_type": "ModelSamplingAuraFlow",
+"inputs": {
+"model": [
+"57:28",
+0
+],
+"shift": 3
+}
+},
+"57:3": {
+"class_type": "KSampler",
+"inputs": {
+"model": [
+"57:11",
+0
+],
+"positive": [
+"57:27",
+0
+],
+"negative": [
+"57:33",
+0
+],
+"latent_image": [
+"57:13",
+0
+],
+"seed": 801,
+"steps": 8,
+"cfg": 1,
+"sampler_name": "res_multistep",
+"scheduler": "simple",
+"denoise": 1
+}
+},
+"9": {
+"class_type": "SaveImage",
+"inputs": {
+"images": [
+"57:8",
+0
+],
+"filename_prefix": "z-image-turbo"
+}
+}
+}
