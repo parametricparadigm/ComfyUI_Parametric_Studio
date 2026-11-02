@@ -73,6 +73,7 @@ function CharacterBench({ caps, reloadCaps, onCreated }) {
           <label class="wk-f"><span>Who are they, and what are they wearing?</span><textarea id="wk-chardesc" class="wk-in" rows="4" maxlength=${MAX_DESCRIPTION} placeholder="Age, build, hair, clothes from head to boots" value=${form.description} onInput=${(e) => setForm({ ...form, description: e.target.value })}></textarea></label>
           <div class="wk-ideas" role="group" aria-label="Start from an idea"><small>Or start from</small>${CHARACTER_IDEAS.map(([label, text]) => html`<button type="button" onClick=${() => setForm({ name: form.name, description: text })}>${label}</button>`)}</div>
           <p class="wk-hint">An invented adult, fully clothed. Never a real person, and there is no photo upload. ${form.description.length > MAX_DESCRIPTION - 60 ? `${MAX_DESCRIPTION - form.description.length} letters left.` : ""}</p>
+          <p class="wk-hint wk-lic"><b>Licences.</b> The sheet is drawn by Krea 2: commercial use, outputs included, only for companies under US$1,000,000 yearly revenue. The picture check reads age with InsightFace buffalo_l, whose weights are for non-commercial research only: replace it before any commercial use.</p>
           ${err && html`<p class="wk-err" role="alert">${err}</p>`}
           <button type="submit" class="btn primary wk-go" disabled=${busy || sheetBlock.length > 0 || !form.name.trim() || !form.description.trim()}>${busy ? "Starting" : "Make the sheet"}</button>
         </form>

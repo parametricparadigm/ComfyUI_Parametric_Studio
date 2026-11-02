@@ -1,7 +1,7 @@
 /* Models layer: what every goal and AI-edit tool needs, whether this machine has it, and one-press downloads with live progress. One small store is shared by the Models page, AI Edits and the Create panel, so a download started anywhere shows everywhere. */
 import { useState, useEffect } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { LiveMedia, useShowcase } from "./showcase.js";
+import { LiveMedia, useShowcase, LicBadge } from "./showcase.js";
 import { Stats } from "./look.js";
 
 const store = { ready: null, dl: { state: "idle" }, err: "", subs: new Set(), timer: 0, tries: 0 };
@@ -66,7 +66,7 @@ export function GoalTiles({ goals }) {
     <p class="small" style="margin:0 0 12px">MiniMax H3 goals: its <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3/raw/main/LICENSE" target="_blank" rel="noopener noreferrer">community licence</a> applies to you and your outputs, and it excludes the US, EU, UK and South Korea.</p>
     <div class="mgrid">${list.map((g) => { const row = ready && ready.goals[g.id], m = items.find((x) => x.goal === g.id && x.kind !== "audio"), cover = !m && items.find((x) => x.goal === g.id && x.kind === "audio" && x.poster), fl = flagOf(row);
       return html`<article class="gcard mcard" aria-label=${g.label}>${m ? html`<${LiveMedia} item=${m} cls="gmedia"/>` : cover ? html`<img class="gmedia" src=${cover.poster} alt="" loading="lazy"/>` : html`<div class="gmedia gblank"><em class="mo-glyph" aria-hidden="true">${String(g.label).split(/[\s:(]/)[0]}</em>${g.kind === "audio" ? "♫" : html`<small class="mo-norender">No render of this one here yet</small>`}</div>`}<span class="gshade"></span>
-        ${fl && html`<span class=${"gflag " + fl[0]}>${fl[1]}</span>`}<span class="glic" title=${g.license}>${g.license_class === "open" ? "Apache-2.0" : "Community"}</span>
+        ${fl && html`<span class=${"gflag " + fl[0]}>${fl[1]}</span>`}<${LicBadge} g=${g}/>
         <span class="gtext"><b>${g.label}</b><small>${g.family}${row && row.known ? ` · ${row.files} files${row.total_gb ? `, ${gbText(row.total_gb)}` : ""}` : ""}</small>
           ${row && !row.known && html`<small>File list not published yet</small>`}<${DlButton} kind="goal" id=${g.id} row=${row} small/></span></article>`; })}</div></div>`;
 }

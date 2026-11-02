@@ -6,14 +6,14 @@ const KEY = "shotboard_v1";
 import { Board } from "./shotboard_view.js";
 const CAMERAS = ["orbit_right", "orbit_left", "dolly_in", "dolly_out", "crane_up", "crane_down", "pan_left", "pan_right", "tilt_up", "tracking", "handheld"];
 const TRANSFORMS = [
-  { id: "reshoot", label: "Reshoot", goal: "reshoot", about: "A new camera move on the same scene (MiniMax H3)." },
-  { id: "orbit", label: "Orbit 360", goal: "orbit360", about: "Frozen time, full turn around one frame (MiniMax H3)." },
-  { id: "recast", label: "Recast", goal: "recast", about: "Your character takes the lead, same walk and set (MiniMax H3).", needsCharacter: true },
-  { id: "water", label: "VFX: water", goal: "vfx_ltx", options: { effect: "water" }, strength: true, words: { label: "The water", placeholder: "a fast flood of clear water up to the knees" }, about: "Adds water to the scene (LTX-2.5)." },
-  { id: "plate", label: "VFX: clean plate", goal: "vfx_ltx", options: { effect: "clean_plate" }, words: { label: "The empty place", placeholder: "parked bicycles by the doors" }, about: "Paints people out (LTX-2.5). Check the last frames: traces can remain when a subject fills the shot." },
-  { id: "night", label: "VFX: day to night", goal: "vfx_ltx", options: { effect: "day_to_night" }, strength: true, words: { label: "The night", placeholder: "cold blue moonlight, warm lamps in the windows" }, about: "Relights the clip as night (LTX-2.5)." },
-  { id: "transition", label: "Transition", goal: "ltx_transition", needsSecond: true, about: "LTX-2.5 bridges the end of your clip into the start of a second clip, joined into one take." },
-  { id: "matte", label: "VFX: matte", goal: "vfx_ltx", options: { effect: "matte" }, about: "A black and white matte for compositing (LTX-2.5). One click turns it into a cutout of your clip with real alpha (ProRes 4444)." },
+  { id: "reshoot", label: "Reshoot", goal: "reshoot", about: "A new camera move on the same scene (MiniMax H3; its licence excludes the US, EU, UK and South Korea)." },
+  { id: "orbit", label: "Orbit 360", goal: "orbit360", about: "Frozen time, full turn around one frame (MiniMax H3; its licence excludes the US, EU, UK and South Korea)." },
+  { id: "recast", label: "Recast", goal: "recast", about: "Your character takes the lead, same walk and set (MiniMax H3; its licence excludes the US, EU, UK and South Korea).", needsCharacter: true },
+  { id: "water", label: "VFX: water", goal: "vfx_ltx", options: { effect: "water" }, strength: true, words: { label: "The water", placeholder: "a fast flood of clear water up to the knees" }, about: "Adds water to the scene (LTX-2.5; free under US$10M yearly revenue)." },
+  { id: "plate", label: "VFX: clean plate", goal: "vfx_ltx", options: { effect: "clean_plate" }, words: { label: "The empty place", placeholder: "parked bicycles by the doors" }, about: "Paints people out (LTX-2.5; free under US$10M yearly revenue). Check the last frames: traces can remain when a subject fills the shot." },
+  { id: "night", label: "VFX: day to night", goal: "vfx_ltx", options: { effect: "day_to_night" }, strength: true, words: { label: "The night", placeholder: "cold blue moonlight, warm lamps in the windows" }, about: "Relights the clip as night (LTX-2.5; free under US$10M yearly revenue)." },
+  { id: "transition", label: "Transition", goal: "ltx_transition", needsSecond: true, about: "LTX-2.5 (free under US$10M yearly revenue) bridges the end of your clip into the start of a second clip, joined into one take." },
+  { id: "matte", label: "VFX: matte", goal: "vfx_ltx", options: { effect: "matte" }, about: "A black and white matte for compositing (LTX-2.5; free under US$10M yearly revenue). One click turns it into a cutout of your clip with real alpha (ProRes 4444)." },
 ];
 const inputUrl = (name) => "/api/view?" + new URLSearchParams({ filename: name, type: "input" });
 const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };

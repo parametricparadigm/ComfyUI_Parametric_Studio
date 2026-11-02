@@ -15,9 +15,9 @@ const matchState = (f, s) => s === "all" || (s === "render" ? f.level === "rende
 function Card({ f, onOpen }) {
   const m = f.media && f.media[0], visual = m && m.kind !== "audio";
   const sub = f.state === "download" ? (f.repos.length ? "Needs its files: " + f.repos[0] : "Needs its model files") : [f.est_vram_gb ? `about ${f.est_vram_gb} GB VRAM` : "", f.templates ? `${f.templates_ready} of ${f.templates} templates ready` : "no template yet"].filter(Boolean).join(", ") + (f.media_library ? ". Sample from ComfyUI's library" : "");
-  return html`<button class="gcard" onClick=${() => onOpen(f.slug)} aria-label=${`${f.family}: ${f.state_label}`}>
+  return html`<button class="gcard" onClick=${() => onOpen(f.slug)} aria-label=${`${f.family}: ${f.state_label}${f.licence_badge ? ", " + f.licence_badge : ""}`}>
     ${visual ? html`<${LiveMedia} item=${m} cls="gmedia"/>` : html`<div class=${"gmedia gblank f" + f.kind}>${GLYPH[f.kind] || ""}</div>`}
-    <span class="gshade"></span><span class=${flagCls(f.state)}>${f.state_label}</span><span class=${"glic" + (f.up ? " on" : "")}>${f.up ? "Running" : KIND_LABEL[f.kind] || f.kind}</span>
+    <span class="gshade"></span><span class=${flagCls(f.state)}>${f.state_label}</span><span class=${"glic" + (f.up ? " on" : f.licence_badge ? " lim" : "")} title=${[f.licence, ...(f.licence_limits || [])].filter(Boolean).join(". ")}>${f.up ? "Running" : f.licence_badge || KIND_LABEL[f.kind] || f.kind}</span>
     <span class="gtext"><b>${f.family}</b><small>${sub}</small></span></button>`;
 }
 
@@ -114,7 +114,8 @@ function FamilyPage({ slug, goTab }) {
   const media = f.media || [], cur = media[Math.min(pick, media.length - 1)], ready = f.templates_list.filter((t) => t.ready);
   return html`<div class="fpage">
     <button class="btn small fback" onClick=${() => goTab("families")}>All families</button>
-    <div class="sect"><h2>${f.family}</h2><div class="sectsub">${[KIND_LABEL[f.kind], f.era && "from about " + f.era, f.licence || "licence not on file here: check the model page"].filter(Boolean).join(" | ")}</div></div>
+    <div class="sect"><h2>${f.family}</h2><div class="sectsub">${[KIND_LABEL[f.kind], f.era && "from about " + f.era].filter(Boolean).join(" | ")}</div>
+      <p class=${"small glicline" + ((f.licence_limits || []).length ? " lim" : "")}>${(f.licence_limits || []).length ? html`<b>${f.licence_limits.join(". ")}.</b> ` : ""}Licence: ${f.licence || "not on file here: check the model page"}.${f.licence_url ? html` <a href=${f.licence_url} target="_blank" rel="noopener noreferrer">Read it</a>` : ""}</p></div>
     <div class="fhead"><div>
       <div class="fstage">${cur ? html`<${Media} item=${cur}/>` : html`<div class="fnone"><b>${f.state === "download" ? "Download its files first" : "No render yet"}</b>${f.state === "download" ? "This family has no model files on this machine, so there is nothing real to show. What it needs is listed below." : f.templates_ready > 0 ? "Its models are here and a template is ready. Run one below and the result lands in your Library." : "Its models are here but no template here runs it yet. Open its graph to wire it up by hand."}</div>`}</div>
       ${media.length > 1 && html`<div class="fthumbs">${media.map((m, i) => html`<button class=${i === pick ? "on" : ""} onClick=${() => setPick(i)} aria-label=${"sample " + (i + 1)}>${m.kind === "audio" ? html`<span style="display:grid;place-items:center;height:100%;color:var(--a2)">♫</span>` : html`<img src=${m.poster || m.src} alt="" loading="lazy"/>`}</button>`)}</div>`}

@@ -7,7 +7,7 @@ import { installTilt } from "./spectacle.js";
 import { PhonePanel } from "./phone.js";
 import { ApiPage } from "./apipage.js";
 import { ShareButton } from "./share.js";
-import { RingHero, GoalDeck, Masonry, LiveMedia, useShowcase, Drop, FLAGSHIPS } from "./showcase.js";
+import { RingHero, GoalDeck, Masonry, LiveMedia, useShowcase, Drop, FLAGSHIPS, LicenceLine } from "./showcase.js";
 import { Graph3D, useLive } from "./graph3d.js";
 import { graphRequest, buildModel, layoutGraph, replayPlan, replayAt } from "./graph3d_math.js";
 import { PrimeDock } from "./prime_ui.js";
@@ -171,7 +171,7 @@ function Create({ health, onDraft, goTab }) {
         ${health && !health.comfy && html`<div class="lk-warn" role="status"><b>ComfyUI is not reachable at ${health.comfy_url}</b><p>Start it, then try again.</p></div>`}
 
       </div>
-      <div class="gen">${err && html`<p class="small generr" role="alert">${err}</p>`}<${NeedsModels} goal=${goal}/><button class="gobtn" disabled=${busy || !(health && health.comfy)} onClick=${go}>${busy ? "Generating" : g && g.needs_video ? "Run " + g.label : "Generate"}</button>
+      <div class="gen">${err && html`<p class="small generr" role="alert">${err}</p>`}<${LicenceLine} g=${g}/><${NeedsModels} goal=${goal}/><button class="gobtn" disabled=${busy || !(health && health.comfy)} onClick=${go}>${busy ? "Generating" : g && g.needs_video ? "Run " + g.label : "Generate"}</button>
         <div class="gencost"><b>${health && health.backend && health.backend.spends_credits ? "Comfy credits" : "0 credits"}</b>${estS && html`<span>about ${estS}s on the author's GPU</span>`}${estV ? html`<span>${Math.round(estV)} GB VRAM</span>` : null}</div></div>
     </aside>
     <div class="stagecol">

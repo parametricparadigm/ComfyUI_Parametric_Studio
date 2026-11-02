@@ -85,12 +85,24 @@ export function LiveMedia({ item, cls }) {
   return item.kind === "video" ? html`<video key=${item.id} ref=${ref} class=${cls} src=${item.src} poster=${item.poster} muted loop playsinline preload="metadata"></video>` : html`<img key=${item.id} class=${cls} src=${item.poster} alt=${item.prompt} loading="lazy"/>`;
 }
 
+/* the licence badge on a goal tile: the licence when it is open, otherwise the first thing it limits (non-commercial, research only, a revenue cap, territory limits); the full terms are in its title and beside Generate */
+export function LicBadge({ g }) {
+  const lim = g.license_limits || [];
+  return html`<span class=${"glic" + (lim.length ? " lim" : "")} title=${[g.license_terms || g.license, ...lim].join(". ")}>${lim.length ? g.license_badge : g.license_class === "open" ? "Apache-2.0" : "Community"}</span>`;
+}
+
+/* the licence of the picked goal, beside Generate: its limits first, then the terms and a link to the licence itself */
+export function LicenceLine({ g }) {
+  if (!g || !g.license_terms) return null; const lim = g.license_limits || [];
+  return html`<p class=${"small glicline" + (lim.length ? " lim" : "")}>${lim.length ? html`<b>${lim.join(". ")}.</b> ` : ""}Licence: ${g.license_terms}.${g.license_url ? html` <a href=${g.license_url} target="_blank" rel="noopener noreferrer">Read it</a>` : ""}</p>`;
+}
+
 export function GoalDeck({ goals, goal, items, onPick }) {
   const list = Object.values(goals).filter((g) => !UNPROVEN.includes(g.id)).sort((a, b) => (FLAGSHIPS.indexOf(b.id) >= 0) - (FLAGSHIPS.indexOf(a.id) >= 0));
   const media = (id) => items.find((x) => x.goal === id && x.kind !== "audio") || (id === "product" ? items.find((x) => x.id === "s_sneaker") : null);
   return html`<div class="gdeck" role="listbox" aria-label="what to make">${list.map((g) => { const m = media(g.id), flag = FLAGSHIPS.indexOf(g.id) >= 0; return html`<button role="option" aria-selected=${goal === g.id} class=${"gcard" + (goal === g.id ? " on" : "") + (flag ? " flag" : "")} onClick=${() => onPick(g.id)}>
     ${m ? html`<${LiveMedia} item=${m} cls="gmedia"/>` : html`<div class="gmedia gblank">${g.kind === "audio" ? "♫" : ""}</div>`}
-    <span class="gshade"></span>${flag && html`<span class="gflag">Flagship</span>`}<span class="glic" title=${g.license}>${g.license_class === "open" ? "Apache-2.0" : "Community"}</span>
+    <span class="gshade"></span>${flag && html`<span class="gflag">Flagship</span>`}<${LicBadge} g=${g}/>
     <span class="gtext"><b>${g.label}</b><small>${g.tagline}</small></span></button>`; })}</div>`;
 }
 
