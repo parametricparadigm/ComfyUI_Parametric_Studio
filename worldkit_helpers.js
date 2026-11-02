@@ -21,7 +21,13 @@ export function summaryOf(meta) {
   const failed = steps.find((r) => r.status === "failed" && !String(r.note || "").includes("optional"));
   return { build: (meta.build && meta.build.state) || "pending", status: meta.status, running: !!meta.running,
            progress: [steps.filter((r) => r.status === "done" || r.status === "skipped").length, steps.length],
-           failed_step: failed ? failed.name : "" };
+           failed_step: failed ? failed.name : "", lost_motions: lostMotions(meta.build) };
+}
+
+// Clips whose optional motion or fit failed, once the build has ended (steps.lost_motions on the server).
+export function lostMotions(build) {
+  if (!build || !["done", "failed"].includes(build.state)) return [];
+  return (build.steps || []).filter((r) => /^(motion|retarget)_/.test(r.name) && r.status === "failed").map((r) => r.name.replace(/^[a-z]+_/, ""));
 }
 
 export function filterAssets(list, { type = "", q = "", status = "" } = {}) {

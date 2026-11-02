@@ -12,13 +12,13 @@ export const loadGraph = loadRow;
 export const openRow = (row) => {
   if (row.kind === "goal") { location.hash = "create"; setTimeout(() => dispatchEvent(new CustomEvent("prime-action", { detail: { type: "set_goal", goal: row.id } })), 80); }
   else if (row.kind === "recipe") { try { sessionStorage.setItem("recipe_open", JSON.stringify({ id: row.id, run: null })); } catch {} location.hash = "recipes"; }
-  else if (row.section === "model3d" || row.section === "tryon" || row.kind === "workflow") location.hash = row.open;
+  else if (row.section === "model3d" || row.section === "tryon" || row.section === "motion" || row.kind === "workflow") location.hash = row.open;
   else { try { sessionStorage.setItem("family_tpl", row.id); } catch {} location.hash = "families/" + row.slug; }
 };
 const nodesOf = (d) => (!d || !d.graph ? [] : d.format === "ui" ? (d.graph.nodes || []).map((n) => [String(n.id), n.type]) : Object.entries(d.graph).map(([id, n]) => [id, n.class_type]));
 const code = (lang, row) => {
   const b = base();
-  if (row.section === "model3d" || row.section === "tryon" || row.kind === "workflow") return lang === "Comfy SDK" ? (hasGraph(row) ? `# pip install comfy-sdk\nimport requests\nfrom comfy_sdk import Comfy\ngraph = requests.get("${b}${row.graph_url}").json()["graph"]\nclient = Comfy()\nprint(client.workflows.from_json(graph))` : `# ${row.label} is not a ComfyUI graph, so the Comfy SDK cannot run it. Use the curl, Python or JavaScript call.`) : callCode(lang, row, b);
+  if (row.section === "model3d" || row.section === "tryon" || row.section === "motion" || row.kind === "workflow") return lang === "Comfy SDK" ? (hasGraph(row) ? `# pip install comfy-sdk\nimport requests\nfrom comfy_sdk import Comfy\ngraph = requests.get("${b}${row.graph_url}").json()["graph"]\nclient = Comfy()\nprint(client.workflows.from_json(graph))` : `# ${row.label} is not a ComfyUI graph, so the Comfy SDK cannot run it. Use the curl, Python or JavaScript call.`) : callCode(lang, row, b);
   if (row.kind === "family") {
     const run = `${b}/api/families/${row.slug}/templates/${encodeURIComponent(row.id)}/run`, poll = `${b}/api/families/${row.slug}/jobs/`;
     if (lang === "curl") return `curl -s -X POST '${run}' \\\n  -H 'Content-Type: application/json' -d '{"values": {}}'\n\n# then poll the job it returns\ncurl -s ${poll}JOB_ID`;

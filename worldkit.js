@@ -207,6 +207,7 @@ function AssetDetail({ id, onChanged, onExport }) {
     ${meta.build.error && html`<p class="wk-err">${meta.build.error}</p>`}
     <${Steps} meta=${meta}/>
     ${meta.type === "character" && html`<section class="wk-clips" aria-label="Motion clips"><div class="wk-sechead"><h3>Motion clips</h3><span>${clipNames.join(", ") || "none yet"}</span></div>
+      ${(sum.lost_motions || []).map((n) => html`<p class="wk-lost" role="status"><span><b>${n}</b> did not make it into this character. The build went on without it.</span> <button type="button" class="btn small" disabled=${meta.running} onClick=${() => act("retry-motion", { name: n })}>Retry ${n}</button></p>`)}
       <div class="wk-tri"><label class="wk-f"><span>Clip name (lowercase)</span><input class="wk-in" type="text" value=${clip.name} onInput=${(e) => setClip({ ...clip, name: e.target.value })}/></label>
         <label class="wk-f"><span>What happens</span><input class="wk-in" type="text" placeholder="a person sits down on a chair" value=${clip.text} onInput=${(e) => setClip({ ...clip, text: e.target.value })}/></label>
         <button type="button" class="btn small" disabled=${meta.running || !clip.name || !clip.text} onClick=${() => act("clips", { clips: addClip(meta.recipe.clips, clip.name, clip.text) })}>Add clip</button></div></section>`}

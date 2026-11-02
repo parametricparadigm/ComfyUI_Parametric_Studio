@@ -68,6 +68,7 @@ body.on-worldkit.worldkit-busy main>.top .sub{margin-top:2px;font-size:clamp(15p
 .wk-steps .is-failed{border-top-color:var(--wk-off)}.wk-steps .is-failed i{border-color:var(--wk-off);color:var(--wk-off)}
 @keyframes wk-spin{to{transform:rotate(360deg)}}
 .wk-clips .wk-tri{align-items:end}
+.wk-lost{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin:0;padding:8px 10px;border:1px solid var(--line);border-radius:6px}
 .wk-lic{padding:10px clamp(14px,1.6vw,22px) 14px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.45;color:var(--mut);overflow-wrap:anywhere}.wk-lic b{font-weight:600;color:var(--text)}
 
 /* ---- the shelf ---- */
