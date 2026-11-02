@@ -101,20 +101,20 @@ function GraphBox({ name }) {
   return html`<div class="mu-graph"><ol class="mu-nodes">${nodes.map(([id, c]) => html`<li key=${id}><code>${c}</code></li>`)}</ol><p class="small">${nodes.length} nodes. It fills in: ${(g.fills || []).join(", ") || "nothing"}.</p><div class="fx-row"><button class="btn small" onClick=${() => saveFile(name, JSON.stringify(g.graph, null, 1))}>Save the graph</button><a class="btn small" href="#api">See it on the API page</a></div></div>`;
 }
 
-function Sheet({ m, goBack }) {
+function Sheet({ m, brief, goBack }) {
   const r = m.render; const lic = m.licence || {};
   useEffect(() => { const h = document.getElementById("mu-sheet"); if (h) h.focus({ preventScroll: true }); if (window.scrollTo) { const top = document.querySelector("main"); if (top) top.scrollTop = 0; } }, [m.id]);
   return html`<article class="mu-sheet"><a class="mu-back" href="#music" onClick=${goBack}>All music models</a>
     <header class="film mu-sheethead"><span class="mu-eyebrow">${m.maker}</span><h2 id="mu-sheet" tabindex="-1" style=${{ "--tn": longest(m.label) }}>${m.label}</h2><p class="mu-sheetjob">${m.job}</p>
       ${r && r.audio ? html`<${Player} big tall audio=${r.audio} peaks=${r.peaks} seconds=${r.seconds} label=${m.label}/>` : html`<p class="mu-noaudio">No audio from this model: nothing has been rendered with it on this page.</p>`}
       <p class="mu-stateline"><${Tag} state=${m.state}/><span>${STATE_NOTE[m.state]}</span></p></header>
-    ${m.missing && m.missing.length > 0 && html`<div class="fx-note warn"><b>Not on this machine:</b> <span>${m.missing.join(", ")}</span></div>`}
+    ${m.why_not && m.state !== "proven" && html`<div class="fx-note warn"><b>Why there's no render:</b> <span>${m.why_not}</span>${m.missing && m.missing.length > 0 && html`<span class="small">Not found on this install: ${m.missing.join(", ")}</span>`}</div>`}
     <div class="mu-sheetgrid"><section><h3>What it does</h3><p>${m.does}</p>${m.can && m.can.length > 0 && html`<ul class="mu-can">${m.can.map((c) => html`<li key=${c}>${c}</li>`)}</ul>`}<p class="mu-links">${(m.links || []).map(([t, u]) => html`<${Ext} href=${u}>${t}</${Ext}>`)}</p></section>
       <section class=${"mu-licence " + (lic.commercial || "")}><h3>Licence</h3><p class="mu-licname">${lic.name}</p><p><b>${COMMERCIAL[lic.commercial] || ""}.</b> ${lic.use}</p><p class="mu-links"><${Ext} href=${lic.url}>Read it on its source page</${Ext}></p></section></div>
     ${r && html`<section class="mu-sect"><h3>What the machine measured</h3><dl class="mu-facts">${facts(r).map(([k, v]) => html`<div key=${k}><dd>${v}</dd><dt>${k}</dt></div>`)}</dl><${Bands} b=${r.bands}/>
       <h3>What Whisper heard</h3><${Lines} lyrics=${r.lyrics}/>${r.heard && html`<blockquote class="mu-heard">${r.heard}</blockquote>`}${!r.lyrics && html`<p class="small">Whisper wasn't run on this one, because the brief had no lyrics for it to sing.</p>`}<p class="small">Seed ${r.seed}. Rendered ${r.date}.</p></section>`}
-    <div class="mu-sheetgrid"><section><h3>Settings it ran with</h3>${Object.keys(m.settings || {}).length ? html`<dl class="mu-set">${Object.entries(m.settings).map(([k, v]) => html`<div key=${k}><dt>${k}</dt><dd>${v}</dd></div>`)}</dl>` : html`<p class="small">Not run here, so the page lists no settings as fact.</p>`}</section><section><h3>The graph</h3><${GraphBox} name=${m.graph}/></section></div>
-    ${m.graph && html`<${Maker} models=${[m]} fixed/>`}
+    <div class="mu-sheetgrid"><section><h3>Settings it ran with</h3>${Object.keys(m.settings || {}).length ? html`<dl class="mu-set">${Object.entries(m.settings).map(([k, v]) => html`<div key=${k}><dt>${k}</dt><dd>${v}</dd></div>`)}</dl>` : html`<p class="small">Not run here, so the page lists no settings as fact.</p>`}</section><section><h3>The graph</h3><${GraphBox} name=${m.graph}/>${(m.goal || m.family) && html`<div class="fx-row">${m.goal && html`<a class="btn small" href="#create">Open Create</a>`}${m.family && html`<a class="btn small" href=${"#families/" + m.family}>Open its family page</a>`}</div>`}</section></div>
+    ${m.graph && html`<${Maker} models=${[m]} brief=${brief} fixed/>`}
   </article>`;
 }
 
@@ -213,7 +213,7 @@ export function Music({ route }) {
   if (!d) return html`<div class="fx"><p class="small" role="status">Loading the music models...</p></div>`;
   const models = d.models || []; const cur = sub && models.find((m) => m.id === sub); const x = d.extras || {};
   if (sub && !cur) return html`<div class="fx mu"><p>No music model called that. <a href="#music">All music models</a></p></div>`;
-  if (cur) return html`<div class="fx mu"><${Sheet} m=${cur}/></div>`;
+  if (cur) return html`<div class="fx mu"><${Sheet} m=${cur} brief=${d.brief}/></div>`;
   const unready = sortModels(models).filter((m) => m.state !== "proven");
   return html`<div class="fx mu">
     <${Hero} models=${models} brief=${d.brief}/>
