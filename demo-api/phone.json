@@ -1,0 +1,1 @@
+{"tailscale": {"installed": false, "connected": false, "https_url": null, "serving": false}, "serve_command": "tailscale serve --bg 8310", "lan_enabled": false, "lan_command": "STUDIO_HOST=0.0.0.0 python -m studio.server", "url": null}

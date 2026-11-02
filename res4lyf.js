@@ -37,7 +37,16 @@ const FEATURES = [
   { t: "Video to video", q: "Viable with any video model, demo with WAN.", d: "The README shows the same sampling ideas carried across to video editing.", ex: ["wan vid2vid"] },
 ];
 
-const CHAPTERS = [["r4-idea", "Story"], ["r4-renders", "Plates"], ["r4-how", "The math"], ["r4-samplers", "Samplers"], ["r4-can", "What it does"], ["r4-nodes", "Node map"], ["r4-more", "Credits"], ["r4-licence", "Licence"]];
+const CHAPTERS = [["r4-idea", "Story"], ["r4-renders", "Plates"], ["r4-how", "The math"], ["r4-samplers", "Samplers"], ["r4-can", "What it does"], ["r4-nodes", "Node map"], ["r4-more", "More"], ["r4-licence", "Licence"]];
+/* The author's other public work, read from the GitHub and Hugging Face APIs and each README on 2 November 2026. Descriptions come from the READMEs and model cards, never from a name. We have run none of it. */
+const KIN_ASOF = "2 November 2026";
+const KIN = [
+  { name: "UltraCascade", kind: "ComfyUI node pack", own: true, href: "https://github.com/ClownsharkBatwing/UltraCascade", does: "A native ComfyUI version of UltraPixel for Stable Cascade: an image made at the model's own size guides a much larger latent, in separate stages (C, then UP, then B) so each can be tuned. It adds UltraCascade samplers and self-attention and random-attention guidance.", facts: [["Stars", "38"], ["Last push", "10 Jul 2025"], ["Licence", "no licence file"]] },
+  { name: "ComfyUI-UltraPixel", kind: "Fork of a node pack", href: "https://github.com/ClownsharkBatwing/ComfyUI-UltraPixel", does: "A fork of 2kpr's ComfyUI-UltraPixel node, with three of the author's own commits to its nodes.py and ultrapixel.py. The README is the original's.", facts: [["Stars", "9"], ["Last push", "27 Jul 2024"], ["Licence", "AGPL-3.0"]] },
+  { name: "CSBW_Style", kind: "Model files on Hugging Face", href: "https://huggingface.co/ClownsharkBatwing/CSBW_Style", does: "Holds the amateur cell phone photo LoRA for Flux that the RES4LYF README uses, and the refined Stable Cascade stage B lite as a checkpoint, per the UltraCascade README. The model card itself has only a gallery and a download link.", facts: [["Likes", "10"], ["Updated", "26 Nov 2024"], ["Licence", "AGPL-3.0 tag"]] },
+  { name: "Cascade_Stage_B_CSBW_Refined", kind: "Model files on Hugging Face", href: "https://huggingface.co/ClownsharkBatwing/Cascade_Stage_B_CSBW_Refined", does: "The author's fine-tune of Stable Cascade stage B lite. The UltraCascade README says it gives sharper, more coherent detail and less of what it calls nasty Cascade noise.", facts: [["Updated", "17 Aug 2024"], ["Licence", "none stated"]] },
+  { name: "ultrapixel_convert", kind: "Model files on Hugging Face", href: "https://huggingface.co/ClownsharkBatwing/ultrapixel_convert", does: "UltraPixel's text-to-image weights as a real safetensors file. The UltraCascade README says the original download was a pickled PyTorch save under a .safetensors name.", facts: [["Updated", "26 Jul 2024"], ["Licence", "none stated"]] },
+];
 const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 function jump(e, id) {
   e.preventDefault();
@@ -239,15 +248,16 @@ export function Res4lyf() {
       </div>
     </section>
 
-    <section class="r4-sect r4-wide"><${Head} n="06" title="Every node" id="r4-nodes"><p class="sectsub">We read the source of all ${NODE_NOTES.length} nodes and wrote what each does. Then we put each one into a graph of its own, on Stable Diffusion 1.5 with its default settings, and rendered it. A node that failed got another try on the model it asks for, on a latent from an earlier sampler, or with every optional input wired, and its card says which it needed. <b>${COUNTS.rendered || 0} rendered.</b></p>
+    <section class="r4-sect r4-wide"><${Head} n="06" title="Every node" id="r4-nodes"><p class="sectsub">We read the source of all ${NODE_NOTES.length} nodes and wrote what each does. Then we put each one into a graph of its own, on Stable Diffusion 1.5 with its default settings, and rendered it. A node that failed got another try on the model it asks for, on a latent from an earlier sampler, or with every optional input wired, and its card says which it needed. <b>${COUNTS.rendered || 0} rendered.</b></p><//>
       <p class="small r4-gnote">A picture means the graph ran, not that those settings suit the node, and a strange image is often just a poor default for this setup. A failure here can still come from our simple test as easily as from the node: some need a partner node or settings we didn't try. Chroma, AuraFlow, HiDream, LTX Video and Stable Cascade nodes weren't run on those models. Also, the precision nodes change a setting for the whole server, and patchers stay on a loaded model, so later graphs can fail because of them until a restart. The notes come from reading the code, and some mention options that look unfinished; the author does call this work experimental.</p>
       <${NodeList}/>
     </section>
 
-    <section class="r4-sect"><${Head} n="07" title="More from the author" id="r4-more"/><ul class="r4-links">
-      <li><${Ext} href=${exampleUrl("intro to clownsampling")}>Intro to clownsampling<//>: the workflow the README recommends for learning the concepts.</li>
-      <li><${Ext} href="https://github.com/ClownsharkBatwing/UltraCascade">UltraCascade<//>: linked from the README for Stable Cascade and UltraPixel style work.</li>
-      <li><${Ext} href="https://huggingface.co/ClownsharkBatwing/CSBW_Style">CSBW_Style<//>: where the README's amateur cell phone LoRA for Flux lives.</li>
+    <section class="r4-sect"><${Head} n="07" title="More from ClownsharkBatwing" id="r4-more"><p class="sectsub">Everything else the author has published on GitHub and Hugging Face, as of ${KIN_ASOF}. Each line comes from that project's own README or model card. <b>We haven't run any of these.</b></p><//>
+      <ul class="r4-kin">${KIN.map((k) => html`<li key=${k.name} class=${k.own ? "own" : ""}><span class="r4-kind">${k.kind}</span><h3><${Ext} href=${k.href}>${k.name}<//></h3><p>${k.does}</p><dl>${k.facts.map(([a, b]) => html`<div key=${a}><dt>${a}</dt><dd>${b}</dd></div>`)}</dl></li>`)}</ul>
+      <p class="small r4-gnote">The GitHub profile also holds forks of ComfyUI-Manager, ComfyUI_LayerStyle and WAS Node Suite. They aren't separate projects: the Manager fork's one change updates RES4LYF's own listing text, the WAS fork carries three commits to one file, and the LayerStyle fork has none. Three more Hugging Face repos (lora_cat_convert, Extracted_Mode_Layers, Extracted_Model_Layers) have no model card, so we don't describe them.</p>
+      <ul class="r4-links">
+      <li><${Ext} href=${exampleUrl("intro to clownsampling")}>Intro to clownsampling<//>: the workflow the RES4LYF README recommends for learning the concepts.</li>
       <li><${Ext} href=${REPO + "/graphs/contributors"}>Everyone who contributed<//>: the author's GitHub handle is the only name the repo's README gives, and others have committed to it too.</li>
       <li>Code comments in the pack also credit work it builds on, including ComfyUI, kijai's KJNodes, cubiq's ComfyUI_essentials, pythongosssss's Custom Scripts, Nourepide's Allor, zju-pi's diff-sampler and Extraltodeus's sigmas tools.</li>
     </ul></section>

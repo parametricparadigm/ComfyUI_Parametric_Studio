@@ -307,3 +307,14 @@ body.on-res4lyf main>.top .sub{margin-top:1px;font-size:13px;color:var(--mut)}
   .mode-side .r4-wipe{aspect-ratio:auto;grid-template-columns:minmax(0,1fr)}.mode-side .r4-wipe figure{aspect-ratio:1}
   .r4-gaps li{grid-template-columns:58px minmax(0,1fr) 54px}
 }
+
+/* chapter 07: the author's other work */
+.r4-kin{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:3px;list-style:none;margin:0;padding:0}
+.r4-kin li{display:flex;flex-direction:column;gap:8px;padding:clamp(14px,1.6vw,22px);background:var(--panel);border-top:3px solid var(--line2);border-radius:3px;min-width:0}
+.r4-kin li.own{border-top-color:var(--r4-ink)}
+.r4-kind{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--r4-ink)}
+.r4-kin h3{margin:0;font:800 clamp(18px,1.8vw,22px)/1.1 var(--display);overflow-wrap:anywhere}
+.r4-kin p{margin:0;line-height:1.55}
+.r4-kin dl{display:flex;flex-wrap:wrap;gap:4px 18px;margin:auto 0 0;padding-top:6px;font-size:13px}
+.r4-kin dl div{display:flex;gap:6px}.r4-kin dt{color:var(--mut)}.r4-kin dd{margin:0;font-variant-numeric:tabular-nums}
+.r4-head h2#r4-more{font-size:clamp(20px,5.4vw,80px);overflow-wrap:anywhere}
