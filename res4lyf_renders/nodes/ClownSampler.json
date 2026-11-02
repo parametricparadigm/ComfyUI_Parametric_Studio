@@ -25,6 +25,11 @@
    "sampler_name": "res_2m",
    "implicit_sampler_name": "explicit_diagonal",
    "implicit_steps": 0
+  },
+  "_meta": {
+   "needs": [
+    "pack ClownsharkBatwing/RES4LYF: not loaded on the main ComfyUI (127.0.0.1:8200); the page that shows it renders on its own instance"
+   ]
   }
  },
  "s": {

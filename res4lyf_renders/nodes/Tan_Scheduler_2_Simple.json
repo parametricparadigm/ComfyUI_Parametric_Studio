@@ -11,6 +11,11 @@
    "middle": 0.5,
    "end": 0.0,
    "pad": false
+  },
+  "_meta": {
+   "needs": [
+    "pack ClownsharkBatwing/RES4LYF: not loaded on the main ComfyUI (127.0.0.1:8200); the page that shows it renders on its own instance"
+   ]
   }
  },
  "dec": {

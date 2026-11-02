@@ -28,6 +28,11 @@
     "n",
     0
    ]
+  },
+  "_meta": {
+   "needs": [
+    "pack ClownsharkBatwing/RES4LYF: not loaded on the main ComfyUI (127.0.0.1:8200); the page that shows it renders on its own instance"
+   ]
   }
  },
  "ck": {
@@ -76,7 +81,7 @@
    "height": 512,
    "batch_size": 1,
    "channels": "4",
-   "mode": "default",
+   "mode": "sdxl",
    "compression": 42,
    "precision": "fp32"
   }

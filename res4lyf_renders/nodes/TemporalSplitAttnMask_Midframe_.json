@@ -7,6 +7,11 @@
    "self_attn_invert": false,
    "cross_attn_invert": false,
    "frames": 65
+  },
+  "_meta": {
+   "needs": [
+    "pack ClownsharkBatwing/RES4LYF: not loaded on the main ComfyUI (127.0.0.1:8200); the page that shows it renders on its own instance"
+   ]
   }
  },
  "save": {

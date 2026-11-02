@@ -24,6 +24,11 @@
    "gates": "2xAoMR_mosr.safetensors",
    "last_layer": "2xAoMR_mosr.safetensors",
    "dtype": "float64"
+  },
+  "_meta": {
+   "needs": [
+    "pack ClownsharkBatwing/RES4LYF: not loaded on the main ComfyUI (127.0.0.1:8200); the page that shows it renders on its own instance"
+   ]
   }
  },
  "s": {

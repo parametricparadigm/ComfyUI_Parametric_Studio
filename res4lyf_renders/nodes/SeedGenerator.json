@@ -21,6 +21,11 @@
   "class_type": "SeedGenerator",
   "inputs": {
    "seed": 4242
+  },
+  "_meta": {
+   "needs": [
+    "pack ClownsharkBatwing/RES4LYF: its SeedGenerator has two outputs; on the main ComfyUI (127.0.0.1:8200) that name belongs to morino-kumasan/comfyui-toml-prompt, which has one"
+   ]
   }
  }
 }
