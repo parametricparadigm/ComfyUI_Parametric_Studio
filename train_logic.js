@@ -177,7 +177,7 @@ export function estimateLines(est) {
   if (!est.measured) return { measured: false, lines: [est.note] };
   const lines = [`Training time about ${fmtDuration(est.train_seconds)} at ${fmtSpeed(est.s_per_step)}.`];
   if (est.setup_seconds != null) lines.push(`Loading and encoding took ${fmtDuration(est.setup_seconds)} on that run.`);
-  lines.push(`Peak VRAM on the whole card during that run: ${fmtGib(est.peak_vram_gib)}.`);
+  lines.push(est.peak_own_gib != null ? `Peak VRAM of that run's own processes: ${fmtGib(est.peak_own_gib)}.` : `Peak VRAM on the whole card during that run: ${fmtGib(est.peak_vram_gib)}.`);
   if (est.from) lines.push(`From a real run of ${est.from.steps} steps${est.from.date ? ` on ${est.from.date}` : ""}. ${est.note}`);
   return { measured: true, lines };
 }
@@ -192,6 +192,7 @@ export function abPrompt(trigger, report) {
 export function abVerdict(ab) {
   if (!ab || ab.state !== "done") return null;
   const bits = [];
+  if (ab.audio) { bits.push(ab.pixel_diff == null ? { warn: true, text: "The two clips could not be compared." } : { warn: false, text: `The clips differ: average difference ${ab.pixel_diff} on a scale of 0 to 1. Whether the change is good is for your ear.` }); bits.push({ warn: false, text: "These are the trainer's own samples, its first against its last, same seed and prompt." }); return bits; }
   if (ab.pixel_diff == null) bits.push({ warn: true, text: "The two pictures could not be compared." });
   else if (ab.pixel_diff < 0.05) bits.push({ warn: true, text: `The two pictures are almost identical (difference ${ab.pixel_diff} of 255). This LoRA did nothing visible at this strength.` });
   else bits.push({ warn: false, text: `The LoRA changed the render: average pixel difference ${ab.pixel_diff} of 255. Same seed, same sampler. Whether the change is good is for your eye.` });
