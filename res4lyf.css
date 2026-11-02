@@ -1,8 +1,5 @@
 /* RES4LYF page: a magazine feature. Editorial pages follow the theme through skin.css tokens; the cover, plates, math boards and closing are lit surfaces in a dark room, so they stay dark in both themes through .film, like Shot Board and Train. */
 @property --r4pos{syntax:"<percentage>";inherits:true;initial-value:50%}
-body.on-res4lyf main>.top{gap:6px;margin-bottom:12px}
-body.on-res4lyf main>.top h1{font-size:15px;font-stretch:112%;letter-spacing:.01em;line-height:1.2}
-body.on-res4lyf main>.top .sub{margin-top:1px;font-size:13px;color:var(--mut)}
 :root[data-theme=light] body.on-res4lyf .top .pill{background:var(--panel)}
 
 .r4{--r4-ink:var(--a1);--r4-link:var(--a1);--r4-gold:#f5c518;--r4-rule:var(--line2);display:flex;flex-direction:column;gap:clamp(40px,6vw,92px);min-width:0;max-width:1500px;margin:0 auto;font-size:15px}
@@ -318,3 +315,8 @@ body.on-res4lyf main>.top .sub{margin-top:1px;font-size:13px;color:var(--mut)}
 .r4-kin dl{display:flex;flex-wrap:wrap;gap:4px 18px;margin:auto 0 0;padding-top:6px;font-size:13px}
 .r4-kin dl div{display:flex;gap:6px}.r4-kin dt{color:var(--mut)}.r4-kin dd{margin:0;font-variant-numeric:tabular-nums}
 .r4-head h2#r4-more{font-size:clamp(20px,5.4vw,80px);overflow-wrap:anywhere}
+/* Tap targets of at least 40 px: text links grow their hit area with padding that does not move the text; controls get a 40 px floor. */
+body.on-res4lyf main :is(p,dd,dt,figcaption,h3,h4,small,td,ul>li)>a:not(.btn):not([class*=chip]){padding:12px 6px;margin:-12px -6px}
+body.on-res4lyf main :is(.btn.small,input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),summary){min-height:40px;box-sizing:border-box}
+body.on-res4lyf main .r4-cards>article>a{display:inline-flex;align-items:center;min-height:40px}
+body.on-res4lyf main .r4-bongwrap>div>a{align-self:flex-start;display:inline-flex;align-items:center;min-height:40px}

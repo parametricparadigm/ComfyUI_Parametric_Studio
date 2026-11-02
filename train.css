@@ -232,3 +232,7 @@ main>.tr-lib{margin-bottom:16px}
 .tr-samples{display:flex;flex-direction:column;gap:8px;min-width:0}.tr-samples ul{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}.tr-samples li{display:flex;flex-direction:column;gap:3px;flex:none}.tr-samples img,.tr-samples video{display:block;width:clamp(150px,18vw,240px);height:auto;border:1px solid var(--line)}
 .tr-exfams{display:flex;flex-direction:column;gap:10px;padding:14px;min-width:0}.tr-exfams>ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}.tr-exfam{display:flex;flex-direction:column;gap:6px;min-width:0}.tr-exfam p{margin:0}.tr-exfam .tr-expair{display:grid;grid-template-columns:1fr 1fr;gap:4px}.tr-exfam img{display:block;width:100%;height:auto}
 .tr-listen{display:flex;flex-direction:column;gap:14px;padding:16px;min-width:0}.tr-listen figure{margin:0;display:flex;flex-direction:column;gap:6px}.tr-listen audio,.tr-photo audio{width:100%;max-width:100%}
+/* Tap targets of at least 40 px: text links grow their hit area with padding that does not move the text; controls get a 40 px floor. */
+body.on-train main :is(p,dd,dt,figcaption,h3,h4,small,td,ul>li)>a:not(.btn):not([class*=chip]){padding:12px 6px;margin:-12px -6px}
+body.on-train main :is(.btn.small,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),summary){min-height:40px;box-sizing:border-box}
+body.on-train main .tr-seg button{min-height:40px}body.on-train main details.tr-fine>summary{padding-block:8px}

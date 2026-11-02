@@ -114,6 +114,12 @@ body.on-look main .card>h3{margin:0 0 10px;font:800 clamp(15px,1.25vw,18px)/1.1 
 .lib-start b{font:800 clamp(17px,1.6vw,24px)/1 var(--display);font-stretch:112%;text-transform:uppercase;letter-spacing:-.015em;color:var(--text)}.lib-start small{font-size:13px;color:var(--mut)}
 .lib-work .lk-stagepic figcaption b{font-size:clamp(20px,2.4vw,36px);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 .lib-page .alist{margin:0}
+.lib-3d{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.lib-3d li{flex:0 0 clamp(170px,15vw,220px)}
+.lib-3d a{display:flex;flex-direction:column;gap:3px;height:100%;box-sizing:border-box;padding:0 0 10px;background:var(--panel);border-top:3px solid var(--line2);color:var(--text);text-decoration:none}
+.lib-3d a:hover{background:var(--panel2);border-top-color:#f5c518}.lib-3d a:focus-visible{outline:2px solid var(--sb-ink,var(--a1));outline-offset:-2px}
+.lib-3d i{display:grid;place-items:center;aspect-ratio:16/9;margin-bottom:5px;background:radial-gradient(110% 90% at 100% 0%,rgba(245,197,24,.15),transparent 62%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 1px,transparent 1px 10px),#060706;font:900 44px/1 var(--display);font-style:normal;font-stretch:125%;color:transparent;-webkit-text-stroke:1px rgba(245,197,24,.7)}
+.lib-3d b{padding:0 10px;font-size:13.5px;line-height:1.2;overflow-wrap:anywhere}.lib-3d small{padding:0 10px;font-size:12.5px;color:var(--mut)}
 .lib-page .tr-lib{margin:0}
 
 /* == viewer == */
@@ -310,3 +316,12 @@ body.on-pro main .graphbox{border-radius:6px}
 .g3d-any{position:relative;display:flex;gap:5px}.g3d-anybox{position:absolute;z-index:30;top:calc(100% + 6px);right:0;width:min(420px,88vw);display:flex;flex-direction:column;gap:6px;padding:8px;background:#0b0d0b;border:1px solid var(--line2);border-radius:6px}.g3d-anybox input{width:100%}
 .g3d-anybox [role=listbox]{display:flex;flex-direction:column;max-height:52vh;overflow:auto}.g3d-anybox [role=option]{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:7px 8px;border-bottom:1px solid var(--line)}.g3d-anybox [role=option]:hover,.g3d-anybox [role=option]:focus-visible,.g3d-anybox [role=option][aria-selected=true]{background:#1a1f1b}.g3d-anybox small{color:var(--mut)}
 .apinotgraph{padding:clamp(12px,1.4vw,20px);background:var(--panel);border-left:3px solid #f5c518;border-radius:4px;max-width:900px}
+/* == recipes (its own stylesheet lives in recipes.js; these only fix sizes and the cards with no render) == */
+.rx .chips .chip{min-height:40px;padding:8px 14px;font-size:13.5px}
+.rx .rxgrid .gblank.rxchain{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:4px;padding:44px 12px 0;background:radial-gradient(110% 80% at 100% 0%,rgba(245,197,24,.13),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 1px,transparent 1px 10px),#0b0d0b;font-size:12px;color:#c9cec7}
+.rxchain span{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.rxchain i{flex:none;display:grid;place-items:center;width:20px;height:20px;border:1px solid rgba(245,197,24,.6);border-radius:3px;font:800 11px/1 var(--display);font-style:normal;color:#f5c518}
+.rx .rxrun .btn.small{min-height:44px;padding-inline:20px}
+.rx .rxgrid .gcard:has(.rxchain) .gshade{background:linear-gradient(180deg,transparent 38%,rgba(0,0,0,.92) 58%)}
+@media (max-width:560px){.rx .rxgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.rx .rxgrid .gcard{aspect-ratio:3/4}.rx .rxgrid .gtext{left:9px;right:9px;bottom:9px}.rx .rxgrid .gtext b{font-size:15px}.rx .rxgrid .gtext small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px}.rx .rxgrid .gflag,.rx .rxgrid .glic{font-size:10.5px;max-width:calc(100% - 16px);white-space:normal}.rx .rxgrid .glic{top:36px;left:8px;right:auto}.rx .rxgrid .gblank.rxchain{padding:66px 8px 0;font-size:11px}.rxchain span:nth-child(n+2){display:none}}
+@media (max-width:900px){.ai-page .apigrid{grid-template-columns:minmax(0,1fr)}.ai-page .apigrid>*{min-width:0}.ai-page .apisearch{width:100%;box-sizing:border-box}}

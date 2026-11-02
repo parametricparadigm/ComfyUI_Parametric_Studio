@@ -145,3 +145,4 @@ button.sbf-media{cursor:pointer}button.sbf-media:focus-visible{outline:2px solid
   .sb-timer{font-size:clamp(46px,17vw,76px);bottom:auto;top:10px;right:10px}.sb-step{max-width:none}.sb-tag{display:none}
   .sb-liveinfo{padding-top:30px}
 }
+.sb-opt select{min-height:40px;padding:0 10px;border-radius:6px}

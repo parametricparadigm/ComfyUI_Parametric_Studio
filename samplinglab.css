@@ -284,3 +284,8 @@ body.on-sampling.sl-deep main>.top .sub{display:none}
 .sl .slmap,.sl .slsheet,.sl .sleq,.sl .slroll{background-color:#0b0e0c!important}
 .slinst-head{justify-content:flex-start;gap:8px 28px}.slswipe{display:none}
 @media (max-width:760px){.slswipe{display:block;margin-bottom:-14px}}
+/* Tap targets of at least 40 px: text links grow their hit area with padding that does not move the text; controls get a 40 px floor. */
+body.on-sampling main :is(p,dd,dt,figcaption,h3,h4,small,td,ul>li)>a:not(.btn):not([class*=chip]){padding:12px 6px;margin:-12px -6px}
+body.on-sampling main :is(.btn.small,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),summary){min-height:40px;box-sizing:border-box}
+body.on-sampling main .slchip{min-height:40px}
+body.on-sampling main a.sllink{display:inline-flex;align-items:center;min-height:40px}

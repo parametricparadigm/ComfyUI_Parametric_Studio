@@ -164,3 +164,7 @@ body.on-worldkit.worldkit-busy main>.top .sub{margin-top:2px;font-size:clamp(15p
   .wk .btn{min-height:44px}.wk .btn.small{min-height:44px}.wk-shelf .wk-sechead .btn{min-height:44px}
 }
 @media (prefers-reduced-motion:reduce){.wk-steps .is-running i svg{animation:none}.wk-flow button,.wk-item{transition:none}.wk-sheetwork i{animation:none}}
+/* Tap targets of at least 40 px: text links grow their hit area with padding that does not move the text; controls get a 40 px floor. */
+body.on-worldkit main :is(p,dd,dt,figcaption,h3,h4,small,td,ul>li)>a:not(.btn):not([class*=chip]){padding:12px 6px;margin:-12px -6px}
+body.on-worldkit main :is(.btn.small,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),summary){min-height:40px;box-sizing:border-box}
+body.on-worldkit main details>summary{padding-block:9px}

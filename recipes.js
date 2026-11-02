@@ -109,7 +109,7 @@ function Detail({ recipe, onClose, initialRun }) {
 function Card({ r, on, onPick }) {
   const t = r.tested;
   return html`<button class=${"gcard" + (on ? " on" : "")} aria-pressed=${on} onClick=${() => onPick(r.id)}>
-    ${t && t.media ? html`<video class="gmedia" src=${t.media} poster=${t.poster} muted loop playsinline preload="none" onMouseEnter=${(e) => e.target.play().catch(() => {})} onMouseLeave=${(e) => e.target.pause()}></video>` : html`<div class="gmedia gblank">${"→"}</div>`}
+    ${t && t.media ? html`<video class="gmedia" src=${t.media} poster=${t.poster} muted loop playsinline preload="none" onMouseEnter=${(e) => e.target.play().catch(() => {})} onMouseLeave=${(e) => e.target.pause()}></video>` : html`<div class="gmedia gblank rxchain" aria-hidden="true">${r.steps.slice(0, 3).map((s, i) => html`<span key=${s.id}><i>${i + 1}</i>${s.model || s.label}</span>`)}${r.steps.length > 3 ? html`<span><i>+</i>${r.steps.length - 3} more</span>` : null}</div>`}
     <span class="gshade"></span><span class=${"gflag" + (t ? "" : " rxun")}>${proofWord(r)}</span><span class="glic" title=${(r.models || []).map((m) => m.name + ": " + m.licence).join("\n")}>${licenceWord(r)}</span>
     <span class="gtext"><b>${r.title}</b><small>${r.pitch}</small><span class="rxstat">${r.steps.length} steps${t ? html`<span><b>${fmtT(t.seconds)}</b></span><span><b>${Math.round(t.peak_vram_gib)} GiB</b></span>` : r.expected.seconds ? html`<span>about ${fmtT(r.expected.seconds)}</span>` : null}</span></span></button>`;
 }

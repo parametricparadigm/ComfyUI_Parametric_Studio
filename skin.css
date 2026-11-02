@@ -226,3 +226,16 @@ body.on-pro main>.top{display:none}body.on-pro main{padding-bottom:18px}
 .mstyles-list{display:flex;flex-direction:column;gap:4px;max-height:260px;overflow-y:auto;margin-top:6px;scrollbar-width:thin}
 .mstyle{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--text);padding:7px 9px;font:inherit;cursor:pointer;flex:none}.mstyle:hover{border-color:var(--line2)}.mstyle:focus-visible{outline:2px solid var(--a1);outline-offset:1px}.mstyle.on{border-color:var(--a1)}
 .mstyle b{display:block;font-size:13px;font-weight:600}.mstyle small{display:block;font-size:12px;color:var(--mut);margin-top:2px}
+/* The title line every page shares: the huge name, the gold line under it, the plain lede, and the status pills to the right. :where() keeps it at zero weight, so a page's own title rules (and its busy, compact state) still win. Create's hero and Pro's full-screen graph are their own title. */
+:where(body:not(.on-create):not(.on-pro)) main>.top{gap:6px;margin-bottom:clamp(14px,1.6vw,22px)}
+:where(body:not(.on-create):not(.on-pro)) main>.top h1{font-size:min(clamp(46px,7.4vw,118px),calc((100vw - 130px)/(var(--tn,8)*.86)));font-stretch:125%;font-weight:900;letter-spacing:-.04em;line-height:.88}
+:where(body:not(.on-create):not(.on-pro)) main>.top .sub{margin-top:clamp(6px,.7vw,10px);font:800 clamp(19px,2.5vw,38px)/1.02 var(--display);font-stretch:112%;letter-spacing:-.02em;color:var(--sb-ink,var(--a1))}
+:root[data-theme=light] :where(body:not(.on-create):not(.on-pro)) main>.top .sub{color:#7a5f00}
+:where(body:not(.on-create):not(.on-pro)) main>.top .lede{margin:clamp(6px,.7vw,10px) 0 0;max-width:72ch;font-size:14px;line-height:1.45;color:var(--mut)}
+@media (min-width:1240px){:where(body:not(.on-create):not(.on-pro)) main>.top{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:end}:where(body:not(.on-create):not(.on-pro)) main>.top>div{grid-area:1/1/2/5}:where(body:not(.on-create):not(.on-pro)) main>.top>.grow{display:none}:where(body:not(.on-create):not(.on-pro)) main>.top>.pill{grid-row:1;white-space:nowrap}:where(body:not(.on-create):not(.on-pro)) main>.top>.pill:nth-of-type(2){grid-column:2}:where(body:not(.on-create):not(.on-pro)) main>.top>.pill:nth-of-type(3){grid-column:3}:where(body:not(.on-create):not(.on-pro)) main>.top>.pill:nth-of-type(4){grid-column:4}}
+@media (max-width:900px){:where(body:not(.on-create):not(.on-pro)) main>.top>.grow{display:none}:where(body:not(.on-create):not(.on-pro)) main>.top h1{font-size:min(46px,calc((100vw - 32px)/(var(--tn,8)*.86)))}}
+@media (min-width:1240px){:where(body:not(.on-create):not(.on-pro)) main>.top .sub{max-width:calc(100% - 440px)}}
+@media (max-width:640px){:where(body:not(.on-create):not(.on-pro)) main>.top>div{flex:1 1 100%}:where(body:not(.on-create):not(.on-pro)) main>.top>.pill{display:none}:where(body:not(.on-create):not(.on-pro)) main>.top>.grow+.pill{display:inline-flex}}
+/* Pages whose hero is a cover that already carries the name in huge type (RES4LYF here, Voices in voices.css) keep the same title line at its compact size, like Shot Board's busy state, so the name isn't shouted twice. */
+:where(body.on-res4lyf) main>.top h1{font-size:clamp(30px,3.6vw,58px);line-height:1}
+:where(body.on-res4lyf) main>.top .sub{margin-top:2px;font-size:clamp(15px,1.4vw,21px)}
