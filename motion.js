@@ -65,8 +65,21 @@ function RunForm({ r, ask, characters }) {
     <div class="fx-row"><button class="fx-go" type="submit" disabled=${!filled || (job && job.status === "running")}>${job && job.status === "running" ? "Running" : `Run ${r.label}`}</button></div>
     ${err && html`<p class="fx-err" role="alert">${err}</p>`}${note && html`<p role="status">${note}</p>`}
     ${job && job.status === "error" && html`<p class="fx-err" role="alert">${job.error}</p>`}
+    ${job && job.status === "done" && r.id === "sam3d_capture" && html`<${PutOn} file=${job.file.replace(/\.mp4$/, ".bvh")} characters=${characters}/>`}
     ${job && job.status === "done" && (/\.mp4$/.test(job.file) ? html`<video class="mo-result" src=${viewUrl(job.file)} controls playsinline></video>` : html`<p role="status"><a href=${viewUrl(job.file)} download>Download the motion file</a> (${seconds(job.seconds)}).</p>`)}
   </form>`;
+}
+
+/* A captured motion file onto a built character, through World Kit's own clip step: its rig and other clips are kept. */
+function PutOn({ file, characters }) {
+  const [c, setC] = useState(""), [msg, setMsg] = useState(""), [err, setErr] = useState("");
+  const go = async () => {
+    setErr("");
+    try { const a = await api("/api/worldkit/assets/" + c); await post(`/api/worldkit/assets/${c}/clips`, { clips: [...(a.recipe.clips || []).slice(-3), { name: "captured", bvh: file }] }); setMsg(`Adding it to ${a.name} as "captured". Follow it on the World Kit page.`); } catch (x) { setErr(x.message); }
+  };
+  return html`<div class="fx-row"><a class="btn small" href=${viewUrl(file)} download>The motion file (BVH)</a>
+    ${characters.length > 0 && html`<select class="fx-in" style="width:auto" value=${c} onChange=${(e) => setC(e.target.value)} aria-label="Character"><option value="">Put it on a character</option>${characters.map((x) => html`<option value=${x.id}>${x.name}</option>`)}</select><button type="button" class="btn small" disabled=${!c} onClick=${go}>Add</button>`}
+    ${msg && html`<p role="status">${msg}</p>`}${err && html`<p class="fx-err" role="alert">${err}</p>`}</div>`;
 }
 
 function Row({ r, ask, characters }) {
