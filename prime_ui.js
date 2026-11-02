@@ -20,7 +20,7 @@ const browserVoice = (member) => { const all = speechSynthesis.getVoices().filte
 
 /* One speaker for the whole page: plays a member's lines, reports the real start and stop of the sound and how loud it is. */
 function makeSpeaker(onSpeaking, onLevel) {
-  let run = 0, el = null, meter = null, raf = 0, wake = null;
+  let run = 0, el = null, meter = null, raf = 0, wake = null, server = true;   // server: false once /api/voice says no speech server runs, so a fresh install does not log a 503 per line
   const quiet = () => { cancelAnimationFrame(raf); raf = 0; onLevel(0); };
   const stop = () => { run++; if (el) { el.pause(); el.removeAttribute("src"); } if (wake) { wake(); wake = null; } try { if ("speechSynthesis" in window) speechSynthesis.cancel(); } catch {} quiet(); onSpeaking(null); };
   const tick = () => { if (!meter) return; const b = new Uint8Array(meter.fftSize); meter.getByteTimeDomainData(b); let e = 0; for (const v of b) e += (v - 128) * (v - 128); onLevel(Math.min(1, Math.sqrt(e / b.length) / 42)); raf = requestAnimationFrame(tick); };
@@ -42,7 +42,7 @@ function makeSpeaker(onSpeaking, onLevel) {
   });
   const fetchLine = (text, member) => fetch("/api/voice/tts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, member: member.id }) }).then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.blob(); });
   const say = async (text, member) => {
-    stop(); const mine = run, parts = chunks(text); if (!parts.length) return; let useBrowser = false, next = fetchLine(parts[0], member);
+    stop(); const mine = run, parts = chunks(text); if (!parts.length) return; let useBrowser = !server, next = server ? fetchLine(parts[0], member) : null;
     for (let i = 0; i < parts.length && mine === run; i++) {
       let blob = null; if (!useBrowser) { try { blob = await next; } catch { useBrowser = true; } }
       if (mine !== run) return;
@@ -51,7 +51,7 @@ function makeSpeaker(onSpeaking, onLevel) {
     }
     if (mine === run) { quiet(); onSpeaking(null); }
   };
-  return { say, stop };
+  return { say, stop, server: (on) => { server = !!on; } };
 }
 
 /* A face: the portrait, with its silent idle and talking loops on top when the member has them. Quiet shows idle; speech shows the talking loop, opened by the real loudness of the audio. */
@@ -105,7 +105,7 @@ export function PrimeDock({ goal }) {
   S.current = { name, voice, who: member, msgs, busy, goal };
   const push = (role, t, extra) => setMsgs((m) => [...m, { role, text: t, ...extra }]);
   const speak = (t, m) => { if (S.current.voice) speaker.current.say(t, m || S.current.who); };
-  const refresh = () => api("/api/voice").then((v) => { setInfo(v); return v; }).catch(() => { const v = { tts: null, stt: null, llm: "unknown", gone: true }; setInfo(v); return v; });
+  const refresh = () => api("/api/voice").then((v) => { setInfo(v); speaker.current.server(v.tts); return v; }).catch(() => { const v = { tts: null, stt: null, llm: "unknown", gone: true }; setInfo(v); return v; });
   const line = (t, m, extra) => { const f = withFace(m || S.current.who); push("bot", t, { who: f, ...extra }); speak(t, f); };
 
   useEffect(() => { api("/api/user").then((u) => setName(u.name || "")).catch(() => setName("")); api("/api/crew").then((d) => setCrew(Object.fromEntries(d.members.map((m) => [m.id, m])))).catch(() => {}); refresh(); window.primeSpeak = (t) => speak(t, S.current.who); return () => { delete window.primeSpeak; }; }, []);
