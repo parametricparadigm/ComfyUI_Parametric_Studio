@@ -1,0 +1,25 @@
+{
+ "about": "Proof that the LTX-2.3 style-transition LoRA (ltx2.3-transition.safetensors) runs on LTX-2.5 22B distilled int8 in workflows/ltx25_transition_api.json. Clip A is the same-clip source (day); clip B is its day-to-night take. The output is A, a 49-frame bridge from A's last frame to B's first frame, then B: 291 frames at 960x544.",
+ "verdict": "Works. The bridge is continuous at both seams, the person stays whole and keeps her clothes, and the light moves from afternoon to moonlit night. Not tested: a run without the LoRA, so how much the LoRA adds over plain first and last frame guidance is not measured.",
+ "renders": [
+  {
+   "name": "transition_day_night",
+   "prompt": "The woman in the red coat walks down the cobblestone street while the sunny afternoon turns into a moonlit night, the lamps come on one by one",
+   "seed": 4242,
+   "graph_hash": "10c0812e28ac",
+   "render_seconds": 79.1,
+   "lane_peak_vram_gib": 38.2,
+   "frames": 291
+  },
+  {
+   "name": "transition_default",
+   "prompt": "(default)",
+   "seed": 4242,
+   "graph_hash": "0265925d93f1",
+   "render_seconds": 40.6,
+   "lane_peak_vram_gib": 37.3,
+   "frames": 291
+  }
+ ],
+ "shipped": "studio/web/showcase/vfx_same_transition.mp4 (the first render)"
+}

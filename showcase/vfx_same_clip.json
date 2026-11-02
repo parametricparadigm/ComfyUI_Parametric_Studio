@@ -1,0 +1,211 @@
+{
+ "about": "Four LTX-2.5 IC-LoRA effects, each run by the Shot Board on the same source clip. The source is itself an LTX-2.5 render of an invented person; no real people, no third-party footage. Times are from one 96 GB RTX PRO 6000, with the lane's models freed before each job, so each time includes loading the models.",
+ "source": {
+  "file": "studio/web/showcase/vfx_same_src.mp4",
+  "prompt": "A sunny afternoon on a quiet cobblestone street in an old town. A woman in her thirties with short dark hair, wearing a long red wool coat, dark trousers and white sneakers, walks slowly toward the camera down the middle of the street with her hands in her coat pockets. Pale stone houses with green wooden shutters, potted plants by the doors, no signs and no lettering anywhere. Bright natural daylight, clear blue sky, soft shadows on the cobblestones. The camera is locked off at eye level, wide shot. Photorealistic, natural colours. Quiet street ambience, footsteps, no music, no speech.",
+  "seed": 20261102,
+  "goal": "video_ltx"
+ },
+ "pairs": [
+  {
+   "effect": "water",
+   "label": "VFX: water",
+   "before": "studio/web/showcase/vfx_same_src.mp4",
+   "after": "studio/web/showcase/vfx_same_water.mp4",
+   "side_by_side": "studio/web/showcase/vfx_same_ba_water.mp4",
+   "poster": "studio/web/showcase/vfx_same_ba_water.webp",
+   "gif": "docs/media/shotboard_flood.gif",
+   "settings": {
+    "aspect": "auto",
+    "seconds": 5,
+    "quality": "standard",
+    "effect": "water",
+    "intensity": "natural"
+   },
+   "scene": "a sunny cobblestone street between pale stone houses with green shutters",
+   "seed": 7301,
+   "graph_hash": "b5e27b16483d",
+   "render_seconds": 32.1,
+   "lane_peak_vram_gib": 38.5
+  },
+  {
+   "effect": "night",
+   "label": "VFX: day to night",
+   "before": "studio/web/showcase/vfx_same_src.mp4",
+   "after": "studio/web/showcase/vfx_same_night.mp4",
+   "side_by_side": "studio/web/showcase/vfx_same_ba_night.mp4",
+   "poster": "studio/web/showcase/vfx_same_ba_night.webp",
+   "gif": "docs/media/shotboard_night.gif",
+   "settings": {
+    "aspect": "auto",
+    "seconds": 5,
+    "quality": "standard",
+    "effect": "day_to_night",
+    "intensity": "strong"
+   },
+   "scene": "a sunny cobblestone street between pale stone houses with green shutters",
+   "seed": 7301,
+   "graph_hash": "b0118f56bf05",
+   "render_seconds": 33.1,
+   "lane_peak_vram_gib": 38.5
+  },
+  {
+   "effect": "plate",
+   "label": "VFX: clean plate",
+   "before": "studio/web/showcase/vfx_same_src.mp4",
+   "after": "studio/web/showcase/vfx_same_plate.mp4",
+   "side_by_side": "studio/web/showcase/vfx_same_ba_plate.mp4",
+   "poster": "studio/web/showcase/vfx_same_ba_plate.webp",
+   "gif": "docs/media/shotboard_clean_plate.gif",
+   "settings": {
+    "aspect": "auto",
+    "seconds": 5,
+    "quality": "standard",
+    "effect": "clean_plate"
+   },
+   "scene": "a sunny cobblestone street between pale stone houses with green shutters",
+   "seed": 7301,
+   "graph_hash": "fa1d8b3153f7",
+   "render_seconds": 36.0,
+   "lane_peak_vram_gib": 38.5
+  },
+  {
+   "effect": "matte",
+   "label": "VFX: matte",
+   "before": "studio/web/showcase/vfx_same_src.mp4",
+   "after": "studio/web/showcase/vfx_same_matte.mp4",
+   "side_by_side": "studio/web/showcase/vfx_same_ba_matte.mp4",
+   "poster": "studio/web/showcase/vfx_same_ba_matte.webp",
+   "gif": null,
+   "settings": {
+    "aspect": "auto",
+    "seconds": 5,
+    "quality": "standard",
+    "effect": "matte"
+   },
+   "scene": "a sunny cobblestone street between pale stone houses with green shutters",
+   "seed": 7301,
+   "graph_hash": "ef31a2d24cbd",
+   "render_seconds": 36.7,
+   "lane_peak_vram_gib": 38.5
+  },
+  {
+   "effect": "cutout",
+   "label": "VFX: matte, as a cutout",
+   "before": "studio/web/showcase/vfx_same_src.mp4",
+   "after": "studio/web/showcase/vfx_same_cutout.mp4",
+   "side_by_side": "studio/web/showcase/vfx_same_ba_cutout.mp4",
+   "poster": "studio/web/showcase/vfx_same_ba_cutout.webp",
+   "gif": "docs/media/shotboard_cutout.gif",
+   "settings": {
+    "aspect": "auto",
+    "seconds": 5,
+    "quality": "standard",
+    "effect": "matte"
+   },
+   "scene": "a sunny cobblestone street between pale stone houses with green shutters",
+   "seed": 7301,
+   "graph_hash": "ef31a2d24cbd",
+   "render_seconds": 36.7,
+   "lane_peak_vram_gib": 38.5,
+   "cutout_mov": "not shipped (ProRes 4444 is large); made by the Shot Board's Make the cutout button"
+  }
+ ],
+ "vram": {
+  "how": "Peak memory of the lane's own ComfyUI process (nvidia-smi per-process, CUDA context included), sampled every second through the GPU gate's probe. Lane models freed before each job. Clips are 5 s, 121 frames.",
+  "roomy_card": {
+   "what": "96 GB card with plenty free: ComfyUI keeps every weight resident (int8 LTX-2.5 transformer 21.5 GB plus int8 Gemma encoder 15.4 GB), so the peak is the same at every size and is not the minimum",
+   "runs": [
+    {
+     "effect": "water",
+     "quality": "draft",
+     "size": "768x448",
+     "render_seconds": 26.3,
+     "peak_gib": 38.3
+    },
+    {
+     "effect": "day_to_night",
+     "quality": "draft",
+     "size": "768x448",
+     "render_seconds": 32.8,
+     "peak_gib": 38.3
+    },
+    {
+     "effect": "clean_plate",
+     "quality": "draft",
+     "size": "768x448",
+     "render_seconds": 23.0,
+     "peak_gib": 38.3
+    },
+    {
+     "effect": "matte",
+     "quality": "draft",
+     "size": "768x448",
+     "render_seconds": 23.1,
+     "peak_gib": 37.5
+    },
+    {
+     "effect": "water",
+     "quality": "standard",
+     "size": "960x544",
+     "render_seconds": 32.1,
+     "peak_gib": 38.5
+    },
+    {
+     "effect": "day_to_night",
+     "quality": "standard",
+     "size": "960x544",
+     "render_seconds": 33.1,
+     "peak_gib": 38.5
+    },
+    {
+     "effect": "clean_plate",
+     "quality": "standard",
+     "size": "960x544",
+     "render_seconds": 36.0,
+     "peak_gib": 38.5
+    },
+    {
+     "effect": "matte",
+     "quality": "standard",
+     "size": "960x544",
+     "render_seconds": 36.7,
+     "peak_gib": 38.5
+    },
+    {
+     "effect": "water",
+     "quality": "high",
+     "size": "1280x704",
+     "render_seconds": 67.1,
+     "peak_gib": 39.5
+    }
+   ]
+  },
+  "small_budget": {
+   "what": "The lane restarted with --vram-headroom so ComfyUI keeps all but about 14 GiB of the card free and offloads the rest; emulated on the 96 GB card, not run on a real smaller card",
+   "runs": [
+    {
+     "effect": "matte",
+     "quality": "draft",
+     "budget_gib": 14,
+     "render_seconds": 73.5,
+     "peak_gib": 19.6,
+     "note": "first job: the Gemma text encoder loads"
+    },
+    {
+     "effect": "matte",
+     "quality": "standard",
+     "budget_gib": 14,
+     "render_seconds": 56.3,
+     "peak_gib": 10.4,
+     "note": "second job: the prompt encoding came from ComfyUI's cache, so Gemma did not load"
+    }
+   ]
+  },
+  "fits": {
+   "48 GB": "yes, measured: 38.5 GiB peak with everything resident (39.5 GiB at 1280x704)",
+   "24 GB": "likely, measured under an emulated budget: 19.6 GiB peak including the Gemma load; not run on a real 24 GB card",
+   "16 GB": "not shown: under a 14 GiB budget the peak reached 19.6 GiB while Gemma loaded. With the prompt encoding cached it stayed at 10.4 GiB, but every new prompt needs Gemma, so 16 GB is not claimed"
+  }
+ }
+}

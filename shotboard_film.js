@@ -42,3 +42,15 @@ export function miniGraph(graph) {
   Object.entries(cols).forEach(([x, col]) => col.forEach((id, i) => (at[id] = { id, x: +x, y: i + (height - col.length) / 2, cls: graph[id].class_type })));
   return { width, height, nodes: Object.values(at), links: ids.flatMap((id) => from(id).filter((p) => at[p]).map((p) => [at[p].x, at[p].y, at[id].x, at[id].y])) };
 }
+
+/** Measured render seconds on our 96 GB card, from the showcase renders and the same-clip VFX batch (studio/web/showcase/vfx_same_clip.json). A VFX job is keyed by its size. Nothing here is guessed: a job without a measurement is counted as unknown. */
+export const RENDER_SECONDS = { reshoot: 147, recast: 523,
+  "water:draft": 26, "water:standard": 32, "water:high": 67, "night:draft": 33, "night:standard": 33, "plate:draft": 23, "plate:standard": 36, "matte:draft": 23, "matte:standard": 37, transition: 79 };
+export function boardEstimate(chosen, vfx) {
+  let seconds = 0, unknown = 0;
+  for (const t of chosen || []) {
+    const s = RENDER_SECONDS[t.goal === "vfx_ltx" ? `${t.id}:${(vfx && vfx.quality) || "standard"}` : t.id];
+    if (s) seconds += s; else unknown++;
+  }
+  return { seconds, unknown };
+}

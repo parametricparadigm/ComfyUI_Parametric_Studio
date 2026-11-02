@@ -146,3 +146,9 @@ button.sbf-media{cursor:pointer}button.sbf-media:focus-visible{outline:2px solid
   .sb-liveinfo{padding-top:30px}
 }
 .sb-opt select{min-height:40px;padding:0 10px;border-radius:6px}
+/* VFX controls on the call sheet and the prompt on the slate (feat/shotboard-win). Scoped to these classes only. */
+.sb-vfxopt{display:grid;gap:6px}.sb-vfxopt label{display:flex;align-items:center;gap:6px}.sb-vfxopt input{padding:5px 8px;font-size:12.5px;border-radius:5px}
+.sb-scene select{display:block;margin-top:5px;width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--line2);border-radius:5px;padding:7px 9px;font:inherit}
+.sb-est{margin:6px 0 0;font-size:12.5px;color:var(--mut)}
+.sb-prompt{font-size:12.5px;color:var(--mut)}.sb-prompt summary{cursor:pointer}.sb-prompt p{margin:6px 0 0;line-height:1.45;max-width:72ch}
+.sb-exwhich{margin:8px 0 2px}

@@ -1,17 +1,24 @@
 // What Shot Board looks like: one clip as the hero, each job a take on a contact sheet. The queue itself lives in shotboard.js; this file only reads it and calls back.
 import { useState, useEffect, useRef } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { clock, elapsed, totalSeconds, isStopped, stateWord, readLive, perforations, nodeName, scrubTime, miniGraph } from "./shotboard_film.js";
+import { clock, elapsed, totalSeconds, isStopped, stateWord, readLive, perforations, nodeName, scrubTime, miniGraph, boardEstimate } from "./shotboard_film.js";
 
 const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const seekable = (url) => url + "#t=0.1";
-// Real renders that ship with the studio. Reshoot and Recast were made from this source clip; the two VFX takes were made from other clips, and the page says so.
-const EXAMPLE = { source: "v_h3_chef", takes: [
-  { id: "reshoot_orbit_take", label: "Reshoot: orbit right", note: "From this clip" },
-  { id: "recast_chef", label: "Recast", note: "From this clip" },
-  { id: "vfx_flood", label: "VFX: water", note: "From another clip" },
-  { id: "vfx_clean_plate", label: "VFX: clean plate", note: "From another clip" },
-] };
+// Real renders that ship with the studio, two example shoots. Every take in a shoot was made from that shoot's source clip.
+const EXAMPLES = [
+  { id: "vfx", tab: "LTX-2.5 VFX", source: "vfx_same_src", about: "Example source clip: a woman in a red coat walks down a sunny street", takes: [
+    { id: "vfx_same_water", label: "VFX: water", note: "From this clip" },
+    { id: "vfx_same_night", label: "VFX: day to night", note: "From this clip" },
+    { id: "vfx_same_plate", label: "VFX: clean plate", note: "From this clip" },
+    { id: "vfx_same_cutout", label: "VFX: matte, as a cutout", note: "From this clip" },
+    { id: "vfx_same_transition", label: "Transition: into the night take", note: "From this clip and its night take" },
+  ] },
+  { id: "h3", tab: "MiniMax H3", source: "v_h3_chef", about: "Example source clip: a chef flambes a pan", takes: [
+    { id: "reshoot_orbit_take", label: "Reshoot: orbit right", note: "From this clip" },
+    { id: "recast_chef", label: "Recast", note: "From this clip" },
+  ] },
+];
 
 const useTick = (on, ms = 1000) => { const [, set] = useState(0); useEffect(() => { if (!on) return; const t = setInterval(() => set((n) => n + 1), ms); return () => clearInterval(t); }, [on, ms]); };
 
@@ -90,9 +97,14 @@ function Frame({ j, n, count, video, still, picked, live, onPick, onGraph, onRet
 }
 
 // ---------- the big screen
-function MiniMap({ j, onGraph }) {
-  const [g, setG] = useState(null);
-  useEffect(() => { let off = false; setG(null); if (j.body) post("/api/graph", { ...j.body, seed: j.seed }).then((r) => { if (!off && r && r.graph) setG(miniGraph(r.graph)); }).catch(() => {}); return () => { off = true; }; }, [j.id, j.seed]);
+// The graph and values this take was sent with, asked for again from the studio (the same body and seed give the same graph).
+function useSent(j) {
+  const [sent, setSent] = useState(null);
+  useEffect(() => { let off = false; setSent(null); if (j.body) post("/api/graph", { ...j.body, seed: j.seed }).then((r) => { if (!off && r && r.graph) setSent({ map: miniGraph(r.graph), prompt: (r.values && r.values.prompt) || "" }); }).catch(() => {}); return () => { off = true; }; }, [j.id, j.seed]);
+  return sent;
+}
+
+function MiniMap({ g, onGraph }) {
   if (!g || !g.nodes.length) return null;
   const px = (x) => 6 + (g.width > 1 ? x / (g.width - 1) : 0.5) * 208, py = (y) => 5 + (g.height > 1 ? y / (g.height - 1) : 0.5) * 50, bend = 104 / Math.max(1, g.width - 1);
   return html`<button class="sb-map" onClick=${onGraph} aria-label=${`This take's graph, ${g.nodes.length} nodes. Open it.`} title="Open this take's graph">
@@ -101,7 +113,8 @@ function MiniMap({ j, onGraph }) {
   </button>`;
 }
 
-function Screen({ j, n, count, video, source, onGraph }) {
+function Screen({ j, n, count, video, source, onGraph, onCutout, onReel, busy }) {
+  const sent = useSent(j);
   const take = useRef(null), src = useRef(null), [mode, setMode] = useState("wipe"), [pos, setPos] = useState(50), [t, setT] = useState(0), [dur, setDur] = useState(0), [playing, setPlaying] = useState(false), [sound, setSound] = useState(false);
   const toSource = (time) => { const s = src.current; if (s && s.duration && Math.abs(s.currentTime - time) > 0.14) s.currentTime = Math.min(time, s.duration - 0.05); };
   useEffect(() => { setT(0); setPlaying(false); const v = take.current; if (v && !calm()) v.play().catch(() => {}); }, [video.url]);
@@ -123,8 +136,13 @@ function Screen({ j, n, count, video, source, onGraph }) {
     </div>
     <div class="sb-slate">
       <div class="sb-slate-t"><span class="sbf-n">Take ${n} of ${count}</span><h3>${j.label}</h3><${Facts} j=${j} took/></div>
-      <${MiniMap} j=${j} onGraph=${onGraph}/>
-      <div class="sbf-acts"><button class="btn small" onClick=${onGraph}>See the graph</button><a class="btn small" href=${video.url} download=${video.filename}>Download</a></div>
+      <${MiniMap} g=${sent && sent.map} onGraph=${onGraph}/>
+      ${sent && sent.prompt.trim() && html`<details class="sb-prompt"><summary>Prompt sent</summary><p>${sent.prompt}</p></details>`}
+      <div class="sbf-acts"><button class="btn small" onClick=${onGraph}>See the graph</button><a class="btn small" href=${video.url} download=${video.filename}>Download</a>
+        ${j.id === "matte" && !j.cutout && onCutout && html`<button class="btn small" disabled=${!!busy} onClick=${onCutout} title="Your clip with this matte as its alpha channel, as ProRes 4444">${busy === "cutout" ? "Making the cutout..." : "Make the cutout"}</button>`}
+        ${!j.reel && onReel && html`<button class="btn small" disabled=${!!busy} onClick=${onReel} title="Before and after as 9:16, 1:1 and 16:9 videos, each with an AI-generated label and an end card">${busy === "reel" ? "Making the reel..." : "Make a shareable reel"}</button>`}
+        ${j.reel && html`<a class="btn small" href=${j.reel["9x16"].url} download=${j.reel["9x16"].filename}>Reel 9:16</a><a class="btn small" href=${j.reel["1x1"].url} download=${j.reel["1x1"].filename}>Reel 1:1</a><a class="btn small" href=${j.reel["16x9"].url} download=${j.reel["16x9"].filename}>Reel 16:9</a>`}
+        ${j.cutout && html`<a class="btn small" href=${j.cutout.mov.url} download=${j.cutout.mov.filename}>Cutout, ProRes 4444 with alpha</a><a class="btn small" href=${j.cutout.preview.url} target="_blank" rel="noopener">Cutout over a checkerboard</a>`}</div>
     </div>
   </section>`;
 }
@@ -153,18 +171,20 @@ function LiveScreen({ j, n, count, source, still, live, graph }) {
 
 // ---------- first visit: a real example, labelled as one
 function Example() {
-  const [times, setTimes] = useState({}), hero = useRef(null);
-  useEffect(() => { let off = false; fetch("showcase/showcase.json").then((r) => r.json()).then((list) => { if (!off) setTimes(Object.fromEntries(list.map((x) => [x.id, x.seconds]))); }).catch(() => {}); if (hero.current && !calm()) hero.current.play().catch(() => {}); return () => { off = true; }; }, []);
+  const [times, setTimes] = useState({}), [which, setWhich] = useState(EXAMPLES[0].id), hero = useRef(null), ex = EXAMPLES.find((x) => x.id === which) || EXAMPLES[0];
+  useEffect(() => { let off = false; fetch("showcase/showcase.json").then((r) => r.json()).then((list) => { if (!off) setTimes(Object.fromEntries(list.map((x) => [x.id, x.seconds]))); }).catch(() => {}); return () => { off = true; }; }, []);
+  useEffect(() => { if (hero.current && !calm()) hero.current.play().catch(() => {}); }, [which]);
   const scrub = (e) => { const v = e.currentTarget.querySelector("video"); if (!v || !v.duration || e.pointerType === "touch") return; const r = e.currentTarget.getBoundingClientRect(); if (!v.seeking) v.currentTime = scrubTime(e.clientX, r.left, r.width, v.duration); };
   return html`<section class="sb-screen film sb-example" aria-label="An example shoot">
     <div class="perfs" aria-hidden="true"></div>
     <figure class="sb-exhero">
-      <video ref=${hero} src=${`showcase/${EXAMPLE.source}.mp4`} poster=${`showcase/${EXAMPLE.source}.webp`} muted loop playsinline preload="metadata" aria-label="Example source clip: a chef flambes a pan"></video>
+      <video key=${ex.source} ref=${hero} src=${`showcase/${ex.source}.mp4`} poster=${`showcase/${ex.source}.webp`} muted loop playsinline preload="metadata" aria-label=${ex.about}></video>
       <figcaption><span>Example</span><b>One source clip</b></figcaption><${Grease}/>
     </figure>
     <div class="perfs" aria-hidden="true"></div>
+    <div class="sb-seg sb-exwhich" role="group" aria-label="Which example shoot">${EXAMPLES.map((x) => html`<button aria-pressed=${x.id === which} onClick=${() => setWhich(x.id)}>${x.tab}</button>`)}</div>
     <ul class="sb-extakes">
-      ${EXAMPLE.takes.map((t) => html`<li onPointerMove=${scrub}>
+      ${ex.takes.map((t) => html`<li key=${t.id} onPointerMove=${scrub}>
         <video src=${seekable(`showcase/${t.id}.mp4`)} poster=${`showcase/${t.id}.webp`} muted playsinline preload="none" aria-label=${"Example take: " + t.label}></video>
         <div><b>${t.label}</b><small>${t.note}${times[t.id] ? `, ${clock(times[t.id])} to render` : ""}</small></div>
       </li>`)}
@@ -183,7 +203,7 @@ const Drop = ({ label, hint, accept, what, file, onFile, big, children }) => {
 };
 
 function Setup(p) {
-  const { source, character, scene, camera, picked, lib, transforms, cameras, busy, blocked, chosen, err } = p;
+  const { source, character, scene, camera, picked, lib, transforms, cameras, busy, blocked, chosen, err, vfx } = p, anyVfx = chosen.some((t) => t.goal === "vfx_ltx"), est = boardEstimate(chosen, vfx);
   return html`<div class="sb-setup">
     <${Drop} big label="Add your clip" hint="Drop a video here, or choose one" what="clip" accept="video/mp4,video/webm,video/quicktime,video/x-matroska" file=${source} onFile=${(f) => p.useFile(f, p.setSource, "clip")}/>
     ${lib.length > 0 && html`<div class="sb-lib"><span id="sb-lib-l">Or use one from your Library</span><div class="sb-libstrip" role="group" aria-labelledby="sb-lib-l">${lib.map((r) => html`<button title=${r.prompt || r.video.filename} aria-label=${"Use " + (r.prompt || r.video.filename)} onClick=${() => p.fromLibrary(r)}><video src=${seekable(r.video.url)} muted preload="metadata" tabindex="-1"></video></button>`)}</div></div>`}
@@ -192,12 +212,19 @@ function Setup(p) {
       ${transforms.map((t) => { const on = !!picked[t.id], order = on ? chosen.indexOf(t) + 1 : 0; return html`<li>
         <button class=${"sb-job" + (on ? " on" : "")} aria-pressed=${on} onClick=${() => p.setPicked({ ...picked, [t.id]: !on })}><span class="sb-tick" aria-hidden="true">${order || ""}</span><span><b>${t.label}</b><small>${t.about}</small></span></button>
         ${on && t.id === "reshoot" && html`<label class="sb-opt">Camera move <select value=${camera} onChange=${(e) => p.setCamera(e.target.value)}>${cameras.map((c) => html`<option value=${c}>${c.replace(/_/g, " ")}</option>`)}</select></label>`}
+        ${on && (t.strength || t.words) && html`<div class="sb-opt sb-vfxopt">
+          ${t.strength && html`<label>Strength <select value=${(vfx[t.id] || {}).intensity || "auto"} onChange=${(e) => p.setVfx({ ...vfx, [t.id]: { ...(vfx[t.id] || {}), intensity: e.target.value } })}>${p.strengths.map((x) => html`<option value=${x.value}>${x.label}</option>`)}</select></label>`}
+          ${t.words && html`<label>${t.words.label} <input type="text" value=${(vfx[t.id] || {}).text || ""} placeholder=${t.words.placeholder} onInput=${(e) => p.setVfx({ ...vfx, [t.id]: { ...(vfx[t.id] || {}), text: e.target.value } })}/></label>`}
+        </div>`}
+        ${on && t.needsSecond && html`<div class="sb-opt"><${Drop} label="Add the second clip" hint="The shot to transition into" what="second" accept="video/mp4,video/webm,video/quicktime,video/x-matroska" file=${p.second} onFile=${(f) => p.useFile(f, p.setSecond, "second clip")}/></div>`}
         ${on && t.needsCharacter && html`<div class="sb-opt"><${Drop} label="Add a character picture" hint="PNG, JPG or WebP" what="character" accept="image/png,image/jpeg,image/webp" file=${character} onFile=${(f) => p.useFile(f, p.setCharacter, "character")}>${character && html`<img src=${character.url} alt="Your character"/>`}<//></div>`}
       </li>`; })}
     </ul>
     <label class="sb-scene">What the clip shows, for VFX<input type="text" value=${scene} onInput=${(e) => p.setScene(e.target.value)} placeholder="a wet cobblestone street at dusk"/></label>
+    ${anyVfx && html`<label class="sb-scene">VFX size<select value=${vfx.quality} onChange=${(e) => p.setVfx({ ...vfx, quality: e.target.value })}>${p.qualities.map((x) => html`<option value=${x.value}>${x.label}</option>`)}</select></label>`}
     <button class="gobtn" disabled=${!!blocked || !!busy} onClick=${p.start}>Run ${chosen.length} job${chosen.length === 1 ? "" : "s"}</button>
-    <p class="sb-why" role="status">${busy && busy !== "export" ? `Uploading your ${busy}...` : blocked}</p>
+    ${est.seconds > 0 && html`<p class="sb-est">About ${clock(est.seconds)} on our 96 GB card${est.unknown ? `, plus ${est.unknown} job${est.unknown === 1 ? "" : "s"} we have no time for yet` : ""}.</p>`}
+    <p class="sb-why" role="status">${busy && busy !== "export" && busy !== "cutout" && busy !== "reel" ? `Uploading your ${busy}...` : blocked}</p>
     ${err && html`<p class="sb-errline" role="alert">${err}</p>`}
     <ul class="sb-notes">
       <li>Each job runs on your GPU, one at a time.</li>
@@ -257,7 +284,7 @@ export function Board(p) {
     <div class="sb-top">
       <div class="sb-left"><div class="sb-stage">
         ${!source ? html`<div class="sb-phoneadd"><${Drop} big label="Add your clip" hint="Choose a video" what="clip" accept="video/mp4,video/webm,video/quicktime,video/x-matroska" onFile=${(f) => p.useFile(f, p.setSource, "clip")}/></div><${Example}/>`
-          : showing ? html`<${Screen} key=${showing.id} j=${showing} n=${number(showing)} count=${jobs.length} video=${resultVideo(showing.files)} source=${source} onGraph=${() => graph(showing)}/>`
+          : showing ? html`<${Screen} key=${showing.id} j=${showing} n=${number(showing)} count=${jobs.length} video=${resultVideo(showing.files)} source=${source} onGraph=${() => graph(showing)} onCutout=${() => p.makeCutout(showing.id)} onReel=${() => p.makeReel(showing.id)} busy=${p.busy}/>`
           : rolling ? html`<${LiveScreen} j=${rolling} n=${number(rolling)} count=${jobs.length} source=${source} still=${still} live=${run ? live : null} graph=${liveGraph}/>`
           : html`<section class="sb-screen film sb-sourcehero" aria-label="Your source clip"><div class="perfs" aria-hidden="true"></div><figure><video key=${source.url} src=${source.url} controls muted loop playsinline preload="metadata"></video><figcaption>Source</figcaption></figure><div class="perfs" aria-hidden="true"></div><p class="sb-sourcename">${source.label}</p></section>`}
       </div>${!jobs.length && roll}</div>

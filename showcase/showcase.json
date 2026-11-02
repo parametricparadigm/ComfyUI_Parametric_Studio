@@ -515,5 +515,129 @@
 "poster": "showcase/v_wan_camera.webp",
 "w": 640,
 "h": 360
+},
+{
+"id": "vfx_same_src",
+"goal": "video_ltx",
+"kind": "video",
+"prompt": "Source clip, made for this example with LTX-2.5 text to video: a woman in a red coat walks down a sunny cobblestone street",
+"options": {
+"aspect": "16:9",
+"seconds": 5
+},
+"seconds": 26.6,
+"peak_vram_gib": 38.4,
+"src": "showcase/vfx_same_src.mp4",
+"poster": "showcase/vfx_same_src.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_same_water",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "VFX: water on the source clip",
+"options": {
+"aspect": "auto",
+"seconds": 5,
+"quality": "standard",
+"effect": "water",
+"intensity": "natural"
+},
+"seconds": 32.1,
+"peak_vram_gib": 38.5,
+"src": "showcase/vfx_same_water.mp4",
+"poster": "showcase/vfx_same_water.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_same_night",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "VFX: day to night on the source clip",
+"options": {
+"aspect": "auto",
+"seconds": 5,
+"quality": "standard",
+"effect": "day_to_night",
+"intensity": "strong"
+},
+"seconds": 33.1,
+"peak_vram_gib": 38.5,
+"src": "showcase/vfx_same_night.mp4",
+"poster": "showcase/vfx_same_night.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_same_plate",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "VFX: clean plate on the source clip",
+"options": {
+"aspect": "auto",
+"seconds": 5,
+"quality": "standard",
+"effect": "clean_plate"
+},
+"seconds": 36.0,
+"peak_vram_gib": 38.5,
+"src": "showcase/vfx_same_plate.mp4",
+"poster": "showcase/vfx_same_plate.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_same_matte",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "VFX: matte on the source clip",
+"options": {
+"aspect": "auto",
+"seconds": 5,
+"quality": "standard",
+"effect": "matte"
+},
+"seconds": 36.7,
+"peak_vram_gib": 38.5,
+"src": "showcase/vfx_same_matte.mp4",
+"poster": "showcase/vfx_same_matte.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_same_cutout",
+"goal": "vfx_ltx",
+"kind": "video",
+"prompt": "VFX: matte, as a cutout on the source clip: the clip with the Alpha-Gen matte as its alpha, shown over a checkerboard",
+"options": {
+"aspect": "auto",
+"seconds": 5,
+"quality": "standard",
+"effect": "matte"
+},
+"seconds": 36.7,
+"peak_vram_gib": 38.5,
+"src": "showcase/vfx_same_cutout.mp4",
+"poster": "showcase/vfx_same_cutout.webp",
+"w": 960,
+"h": 544
+},
+{
+"id": "vfx_same_transition",
+"goal": "ltx_transition",
+"kind": "video",
+"prompt": "Transition from the source clip into its night take: The woman in the red coat walks down the cobblestone street while the sunny afternoon turns into a moonlit night, the lamps come on one by one",
+"options": {
+"aspect": "auto",
+"seconds": 2
+},
+"seconds": 79.1,
+"peak_vram_gib": 38.2,
+"src": "showcase/vfx_same_transition.mp4",
+"poster": "showcase/vfx_same_transition.webp",
+"w": 960,
+"h": 544
 }
 ]
