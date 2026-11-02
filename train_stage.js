@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html } from "./common.js";
 import { averageLine, averageWindow, curveNote, fmtClock, fmtDuration, fmtGib, fmtLoss, fmtSpeed, isLive, lossChart, lossTrend, nearestPoint, statusLine } from "./train_logic.js";
-import { EXAMPLE } from "./train_example.js";
+import { EXAMPLE, FAMILIES } from "./train_example.js";
 
 /** Base on the left of the handle, LoRA on the right. The range input is the control, so it works with keys and touch. */
 export function Wipe({ base, lora, baseLabel = "Base only", loraLabel, baseAlt, loraAlt, sized }) {
@@ -30,7 +30,7 @@ export function LossChart({ job, tall, plain }) {
   const move = (e) => { const r = e.currentTarget.getBoundingClientRect(); setHover(nearestPoint(c, e.clientX - r.left)); };
   const unfinished = head && head.step < c.xMax;
   return html`<figure class=${"tr-chart" + (tall ? " tall" : "") + (isLive(job) ? " live" : "")} ref=${box}>
-    ${!plain && html`<figcaption><b>Training loss by step</b><span class="tr-legend"><span class="tr-k raw">Each value ComfyUI reported</span><span class="tr-k avg">Average of the last ${win} steps, worked out on this page</span></span></figcaption>`}
+    ${!plain && html`<figcaption><b>Training loss by step</b><span class="tr-legend"><span class="tr-k raw">${job.trainer && job.trainer !== "comfy" ? "Each value the trainer logged" : "Each value ComfyUI reported"}</span><span class="tr-k avg">Average of the last ${win} steps, worked out on this page</span></span></figcaption>`}
     ${c.empty ? html`<div class="tr-chart-empty" style=${{ height: `${h}px` }}><span>No loss value yet. The curve appears when the first step is logged.</span></div>` : html`<svg width=${w} height=${c.h} viewBox="0 0 ${w} ${c.h}" role="img" aria-label=${`Training loss by step. Latest ${fmtLoss(job.last_loss)} at step ${job.step} of ${job.total}.`} onPointerMove=${move} onPointerLeave=${() => setHover(null)}>
       <defs><pattern id=${"trhatch" + (tall ? "t" : "s")} width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="9" class="tr-hatch"/></pattern></defs>
       ${c.yTicks.map((t) => html`<g><line class="tr-gl" x1=${c.pad.l} x2=${w - c.pad.r} y1=${t.y} y2=${t.y}/><text class="tr-axis" x=${c.pad.l - 8} y=${t.y + 4} text-anchor="end">${t.v.toFixed(3)}</text></g>`)}
@@ -52,11 +52,18 @@ function HowToRead() {
     <p class="tr-readbig">It is meant to look messy.</p>
     <p>Each step tests the model at a random noise level. Some levels are harder than others, so the number jumps.</p>
     <p><b>A flat line does not mean it failed.</b> It does not prove it worked either. In our own ${EXAMPLE.steps}-step run the average went from ${t.first.toFixed(4)} in the first tenth to ${t.last.toFixed(4)} in the last, and the pictures still changed.</p>
-    <p>The A/B at the end is the real test. This training graph makes no sample pictures on the way, so that is your first look.</p>
+    <p>The A/B at the end is the real test. ComfyUI's training graph makes no sample pictures on the way; external trainers do, and they show below.</p>
     <p>One reading does mean trouble: the loss going to not-a-number. This page says so if it happens.</p></aside>`;
 }
 
-export function Run({ job, onCancel, cancelling, baseLabel, first }) {
+/** The pictures an external trainer wrote on the way. The first comes before any training. */
+function Samples({ job }) {
+  const rows = job.samples || [];
+  if (!rows.length) return null;
+  return html`<div class="tr-samples"><h3>The trainer's own samples</h3><ul>${rows.map((x) => html`<li>${/\.mp4$/.test(x.name) ? html`<video src=${x.url} controls muted preload="none" width="240"></video>` : html`<img src=${x.url} alt=${`Sample at step ${x.step}`} loading="lazy" width="240"/>`}<span class="small">Step ${x.step}</span></li>`)}</ul></div>`;
+}
+
+export function Run({ job, onCancel, onResume, cancelling, baseLabel, first }) {
   const live = isLive(job), bad = job.state === "error" || job.state === "lost", s = job.settings || {};
   const frac = job.total ? Math.min(1, job.step / job.total) : 0, cells = 60, lit = Math.floor(frac * cells);
   const clock = live ? fmtClock(job.eta_s) : fmtClock(job.elapsed_s);
@@ -65,7 +72,7 @@ export function Run({ job, onCancel, cancelling, baseLabel, first }) {
     <header class="tr-stagehead">
       <div class="tr-stagetitle"><p class="tr-kicker">${live ? "Training now" : first ? "This run" : "The last run"}</p><h2 id="tr-runh">${job.name}</h2>
         <p class=${"tr-status " + (bad ? "tr-err" : "")} role="status">${statusLine(job)}</p>
-        <p class="tr-specs">${job.pictures} pictures, ${baseLabel || job.base}, ${s.size} px, rank ${s.rank}, batch ${s.batch}, learning rate ${s.learning_rate}, seed ${s.seed}${job.prior_steps ? `, on top of ${job.prior_steps} earlier steps` : ""}</p></div>
+        <p class="tr-specs">${job.trainer_label ? `${job.trainer_label}. ` : ""}${job.licence ? `Licence: ${job.licence.name}. ` : ""}${job.pictures} pictures, ${baseLabel || job.base}, ${s.size} px, rank ${s.rank}, batch ${s.batch}, learning rate ${s.learning_rate}, seed ${s.seed}${job.prior_steps ? `, on top of ${job.prior_steps} earlier steps` : ""}</p></div>
       <div class="tr-bigs">
         <div class="tr-big"><b>${job.step}</b><span>of ${job.total} steps</span></div>
         <div class="tr-big time">${clock ? html`<b>${clock}</b>` : html`<b class="word">Not measured yet</b>`}<span>${live ? "left, from the measured speed" : "taken, loading included"}</span></div>
@@ -77,7 +84,9 @@ export function Run({ job, onCancel, cancelling, baseLabel, first }) {
         ${job.curve && job.curve.length > 0 && html`<details class="small tr-numbers"><summary>Show the numbers</summary><div class="tr-nums">${job.curve.map(([st, v]) => html`<span>${st}: ${v == null ? "not a number" : v.toFixed(4)}</span>`)}</div></details>`}</div>
       <${HowToRead}/></div>
     <dl class="tr-stats"><div><dt>Latest loss</dt><dd>${fmtLoss(job.last_loss)}</dd></div><div><dt>Speed</dt><dd>${fmtSpeed(job.s_per_step)}</dd></div><div><dt>${live ? "Running for" : "Time taken"}</dt><dd>${fmtDuration(job.elapsed_s)}</dd></div><div><dt>Peak VRAM, whole card</dt><dd>${fmtGib(job.peak_vram_gib)}</dd></div></dl>
-    ${live && html`<div class="tr-stagefoot"><button class="btn" disabled=${job.state === "cancelling" || cancelling} onClick=${onCancel}>Cancel training</button><p class="small">Cancel loses the steps of this run. The training node has no save point before the end. This job holds the GPU until it ends, and other ComfyUI jobs wait behind it.</p></div>`}
+    <${Samples} job=${job}/>
+    ${live && html`<div class="tr-stagefoot"><button class="btn" disabled=${job.state === "cancelling" || cancelling} onClick=${onCancel}>Cancel training</button><p class="small">${job.trainer && job.trainer !== "comfy" ? "Cancel stops the trainer's process. What it saved stays, and you can resume from its last save. This job holds the GPU until it ends." : "Cancel loses the steps of this run. The training node has no save point before the end. This job holds the GPU until it ends, and other ComfyUI jobs wait behind it."}</p></div>`}
+    ${job.can_resume && html`<div class="tr-stagefoot"><button class="btn" onClick=${onResume}>Resume from the last save</button><p class="small">${job.checkpoints.length} save${job.checkpoints.length === 1 ? "" : "s"} on disk.</p></div>`}
   </section>`;
 }
 
@@ -100,6 +109,7 @@ export function Example() {
       <div class="tr-excurve"><h3>The loss from that run</h3><${LossChart} job=${job} plain=${true}/><p>All ${e.steps} real values. Noisy and flat: the average went from ${t.first.toFixed(4)} in the first tenth to ${t.last.toFixed(4)} in the last. The pictures changed anyway, so a flat curve is not a failed run.</p></div>
       <div class="tr-exover"><h3>And it overfits</h3><div class="tr-expair"><figure><img src=${e.other.base} alt="A harbour town in the rain on the SDXL base alone" loading="lazy" width="640" height="640"/><figcaption>Base only</figcaption></figure><figure><img src=${e.other.lora} alt="The same prompt and seed with the LoRA: brass towers appear in the harbour town" loading="lazy" width="640" height="640"/><figcaption>With the LoRA</figcaption></figure></div><p>We asked for a harbour town, not a lighthouse, and brass towers turned up. ${e.pictures} pictures of one subject teach one idea. Prompt: <q>${e.other.prompt}</q> Seed ${e.other.seed}, strength ${e.other.strength}.</p></div>
     </div>
+    ${FAMILIES.length > 0 && html`<div class="tr-exfams"><h3>Other bases, one short run each</h3><ul>${FAMILIES.map((f) => html`<li class="tr-exfam"><div class="tr-expair"><figure><img src=${f.base_img} alt=${`${f.label}, base only: ${f.prompt}`} loading="lazy" width="320" height="320"/><figcaption>Base only</figcaption></figure><figure><img src=${f.lora_img} alt=${`${f.label}, with the LoRA: ${f.prompt}`} loading="lazy" width="320" height="320"/><figcaption>With the LoRA</figcaption></figure></div><b>${f.label}</b><p class="small">${f.trainer}, ${f.steps} steps at ${f.size} px, ${f.s_per_step != null ? `${f.s_per_step} s per step` : "speed not measured"}, whole card peak ${f.peak_gib != null ? `${f.peak_gib} GB` : "not measured"}. Licence: ${f.licence}.</p><p class=${"small" + (f.effect === "none" ? " tr-warn" : "")}>${f.said}</p></li>`)}</ul></div>`}
     <p class="tr-exnote">These are our renders from one run on 1 November 2026. Yours depend on your pictures, your settings and your card.</p>
   </div>`;
 }

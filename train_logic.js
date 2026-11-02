@@ -99,11 +99,20 @@ export const curveNote = (job) => {
     const t = lossTrend(job.curve);
     return `Every step, read from the training node's own loss record (${job.curve_points} values). Each step uses a random noise level, so the line jumps and need not fall in a short run.${t ? ` Average of the first tenth ${t.first.toFixed(4)}, last tenth ${t.last.toFixed(4)}.` : ""} The A/B shows what the LoRA learned better than this number does.`;
   }
+  if (job.curve_source === "trainer log") return `Read from the trainer's own log (${job.curve_points} values). Each step uses a random noise level, so the line jumps and need not fall in a short run.`;
   return `Read live from ComfyUI's training log. ${job.curve_points} of ${job.step} steps were logged; the full record replaces this when the run ends.`;
 };
 
 export function statusLine(job) {
   if (!job) return "";
+  const outside = job.trainer && job.trainer !== "comfy", who = job.trainer_label || "The trainer";
+  if (outside) switch (job.state) {
+    case "queued": return `${who} is starting: it may wait for the GPU, then loads the base. No step has run yet.`;
+    case "running": return job.step ? `Training: step ${job.step} of ${job.total}.` : "Loading the base. No step has run yet.";
+    case "cancelling": return `Stopping ${who}.`;
+    case "cancelled": return job.can_resume ? `Stopped. ${job.checkpoints.length} save${job.checkpoints.length === 1 ? "" : "s"} kept, so this run can resume from the last one.` : "Stopped before its first save, so nothing from this run was kept.";
+    default: break;
+  }
   if (job.unreachable) return "ComfyUI is not answering, so this job's state is unknown right now.";
   switch (job.state) {
     case "queued": return job.position ? `Waiting in ComfyUI's queue, position ${job.position}.` : "Waiting in ComfyUI's queue.";
@@ -120,11 +129,14 @@ export const isLive = (job) => !!job && ["preparing", "queued", "running", "canc
 
 /** What still stops Train, in the words the page shows. Empty means the button works. */
 export function trainBlockers({ report, base, form, active }) {
+  // a base with no run on record can still be tried, once the person says they know
+
   const out = [];
   if (active) out.push("A training job is already running. One at a time.");
   if (!report) out.push("Add a set of pictures.");
   else if (!report.ready) out.push(`The caption check found ${report.blocks} problem${report.blocks === 1 ? "" : "s"} to fix.`);
   if (!base) out.push("No base can be trained on this machine.");
+  else if (!base.trainable && base.can_try && !form.first_run) out.push("This base has no run on record. Tick the first-run box to try it.");
   if (!/^[A-Za-z0-9][A-Za-z0-9 _-]{0,39}$/.test((form.name || "").trim())) out.push("Name the LoRA.");
   if (!/^[A-Za-z0-9][A-Za-z0-9_-]{1,39}$/.test((form.trigger || "").trim())) out.push("Choose a one-word trigger.");
   if (!form.rights) out.push("Tick the rights and consent box.");
@@ -133,7 +145,30 @@ export function trainBlockers({ report, base, form, active }) {
 
 export function jobPayload(form, datasetId, baseId) {
   const num = (v) => (v === "" || v == null ? undefined : +v);
-  return { dataset: datasetId, base: baseId, name: form.name.trim(), trigger: form.trigger.trim(), size: num(form.size), steps: num(form.steps), rank: num(form.rank), batch: num(form.batch), learning_rate: num(form.learning_rate), seed: num(form.seed), rights_confirmed: form.rights === true, ...(form.continue_from ? { continue_from: form.continue_from } : {}) };
+  return { dataset: datasetId, base: baseId, name: form.name.trim(), trigger: form.trigger.trim(), size: num(form.size), steps: num(form.steps), rank: num(form.rank), batch: num(form.batch), learning_rate: num(form.learning_rate), seed: num(form.seed), rights_confirmed: form.rights === true, ...(form.first_run === true ? { first_run: true } : {}), ...(form.continue_from ? { continue_from: form.continue_from } : {}) };
+}
+
+/** The badge for a base: proven by a real run, ready but not run yet, or missing something. */
+export function baseBadge(b) {
+  if (!b) return null;
+  if (b.status === "proven") return { kind: "proven", text: "Proven" };
+  if (b.status === "not_run") return { kind: "notrun", text: "Not run" };
+  return { kind: "missing", text: "Missing pieces" };
+}
+
+/** Bases in the order the page lists them: proven first, then ready to try, then missing, keeping the registry's order inside each. */
+export function orderBases(bases) {
+  const rank = { proven: 0, not_run: 1, blocked: 2 };
+  return [...(bases || [])].map((b, i) => [b, i]).sort((x, y) => (rank[x[0].status] ?? 3) - (rank[y[0].status] ?? 3) || x[1] - y[1]).map((x) => x[0]);
+}
+
+/** The one line on a base's licence and peak VRAM, with where the peak figure came from. */
+export function baseFacts(b) {
+  const out = [];
+  if (b.trainer_label) out.push(b.trainer_label);
+  if (b.licence && b.licence.name) out.push(b.licence.name);
+  if (b.peak_gib != null) out.push(`${b.peak_kind === "measured" ? "peak measured" : "peak expected"} ${b.peak_gib} GB`);
+  return out.join(" · ");
 }
 
 /** The honest words for a time and VRAM figure, or the reason there is none. */
@@ -160,6 +195,7 @@ export function abVerdict(ab) {
   if (ab.pixel_diff == null) bits.push({ warn: true, text: "The two pictures could not be compared." });
   else if (ab.pixel_diff < 0.05) bits.push({ warn: true, text: `The two pictures are almost identical (difference ${ab.pixel_diff} of 255). This LoRA did nothing visible at this strength.` });
   else bits.push({ warn: false, text: `The LoRA changed the render: average pixel difference ${ab.pixel_diff} of 255. Same seed, same sampler. Whether the change is good is for your eye.` });
+  if (ab.source === "trainer samples") { bits.push({ warn: false, text: "These are the trainer's own samples: its first, before any training, against its last, same seed and prompt. ComfyUI did not render them." }); return bits; }
   if (ab.unbound_keys == null) bits.push({ warn: true, text: "ComfyUI's log could not be read, so it is not known whether every LoRA weight loaded." });
   else if (ab.unbound_keys > 0) bits.push({ warn: true, text: `ComfyUI could not place ${ab.unbound_keys} LoRA weights on this base.` });
   else bits.push({ warn: false, text: "ComfyUI reported no LoRA weight it could not place." });

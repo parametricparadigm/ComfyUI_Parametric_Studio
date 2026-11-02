@@ -221,3 +221,13 @@ main>.tr-lib{margin-bottom:16px}
   .tr-exnums dd{font-size:clamp(36px,12vw,56px)}
   .mode-side .tr-wipe,.tr-result .mode-side .tr-wipe{aspect-ratio:auto;grid-template-columns:minmax(0,1fr)}.mode-side .tr-wipe figure{aspect-ratio:1}
 }
+
+/* ---- bases: proven or not run, and who trains them ---- */
+.tr-badge{align-self:flex-start;font:700 11px/1 var(--mono,monospace);font-style:normal;letter-spacing:.04em;text-transform:uppercase;padding:3px 6px;border-radius:3px;border:1px solid var(--line2);color:var(--mut)}
+.tr-badge.proven{color:var(--panel);background:var(--a1);border-color:var(--a1)}
+.tr-badge.notrun{border-style:dashed;color:var(--text,inherit)}
+.tr-basefacts{color:var(--mut)}
+.tr-who{display:flex;flex-direction:column;gap:6px;padding:12px;border:1px solid var(--line);border-radius:5px;background:var(--panel)}.tr-who p{margin:0;overflow-wrap:anywhere}
+.tr-install{padding:8px 2px}.tr-install ol{display:flex;flex-direction:column;gap:5px;padding-left:18px}.tr-install code{overflow-wrap:anywhere}
+.tr-samples{display:flex;flex-direction:column;gap:8px;min-width:0}.tr-samples ul{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}.tr-samples li{display:flex;flex-direction:column;gap:3px;flex:none}.tr-samples img,.tr-samples video{display:block;width:clamp(150px,18vw,240px);height:auto;border:1px solid var(--line)}
+.tr-exfams{display:flex;flex-direction:column;gap:10px;padding:14px;min-width:0}.tr-exfams>ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}.tr-exfam{display:flex;flex-direction:column;gap:6px;min-width:0}.tr-exfam p{margin:0}.tr-exfam .tr-expair{display:grid;grid-template-columns:1fr 1fr;gap:4px}.tr-exfam img{display:block;width:100%;height:auto}
