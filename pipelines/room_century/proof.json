@@ -1,0 +1,296 @@
+{
+ "id": "room_century",
+ "status": "passed",
+ "verdict": "One locked shot through three eras, and the windows, table and fireplace stay put through both moves. Two flaws: the ruin has a fourth window that the depth map doesn't, and the wallpaper breaks up in hard-edged shapes for a moment in the second move. We checked the score by measurement only: no person has listened to it for this review.",
+ "run": "f95e3db4cb30",
+ "rendered": "2026-11-01",
+ "seconds": 339.7,
+ "wall_seconds": 5282.3,
+ "peak_vram_gib": 41.1,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work.",
+ "values": {
+  "room": "a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor"
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 10.3
+ },
+ "stages": [
+  {
+   "id": "room",
+   "label": "The room",
+   "type": "template",
+   "does": "The room, once, before anything happens to it.",
+   "model": "Z-Image Turbo",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 501,
+   "seconds": 19.3,
+   "peak_gib": 21.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Wide architectural photograph of a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor, empty, freshly built, bare plaster walls, soft white daylight. Same camera, same room geometry. No people, no text.",
+   "media": [
+    {
+     "src": "room.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/room.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "depth",
+   "label": "Its depth",
+   "type": "template",
+   "does": "Reads the shape of the room into a depth map.",
+   "model": "Lotus depth",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 8.2,
+   "peak_gib": 2.7,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "depth.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/depth.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "e1",
+   "label": "1925",
+   "type": "template",
+   "does": "Paints this era onto the same depth.",
+   "model": "Z-Image Fun Union ControlNet",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 511,
+   "seconds": 20.2,
+   "peak_gib": 24.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Wide architectural photograph of a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor, in 1925: dark oak panelling, a green glass lamp on the table, heavy velvet curtains, warm firelight in the fireplace, late evening. Same camera, same room geometry. No people, no text.",
+   "media": [
+    {
+     "src": "e1.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/e1.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "e2",
+   "label": "1975",
+   "type": "template",
+   "does": "Paints this era onto the same depth.",
+   "model": "Z-Image Fun Union ControlNet",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 512,
+   "seconds": 17.2,
+   "peak_gib": 24.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Wide architectural photograph of a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor, in 1975: orange and brown wallpaper, a shag carpet, a long laminate table with a rotary telephone, afternoon sun through the arched windows, warm film colour. Same camera, same room geometry. No people, no text.",
+   "media": [
+    {
+     "src": "e2.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/e2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "e3",
+   "label": "2025 ruin",
+   "type": "template",
+   "does": "Paints this era onto the same depth.",
+   "model": "Z-Image Fun Union ControlNet",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 513,
+   "seconds": 25.0,
+   "peak_gib": 25.1,
+   "ran": "done",
+   "status": "flawed",
+   "note": "A fourth window appears here. The depth map has three.",
+   "prompt": "Wide architectural photograph of a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor, abandoned for decades: plaster falling away, ivy growing through the broken arched windows, a rotting table, moss on the floor, pale green daylight. Same camera, same room geometry. No people, no text.",
+   "media": [
+    {
+     "src": "e3.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/e3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "a",
+   "label": "1925 to 1975",
+   "type": "goal",
+   "does": "H3 fills the time between two frames that already line up.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 521,
+   "seconds": 116.2,
+   "peak_gib": 41.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Time passes in one locked shot: the panelling fades into wallpaper, the curtains vanish, the light swings from firelight to afternoon sun. The clock ticks faster and faster.",
+   "media": [
+    {
+     "src": "a.mp4",
+     "kind": "video",
+     "poster": "a.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/a.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "b",
+   "label": "1975 to ruin",
+   "type": "goal",
+   "does": "And again, from the second era to the third.",
+   "model": "MiniMax H3",
+   "licence": "MiniMax H3 Community License",
+   "licence_class": "community",
+   "seed": 522,
+   "seconds": 108.8,
+   "peak_gib": 41.0,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The wallpaper breaks up in hard-edged shapes at about the 2-second mark, and the fourth window arrives during this move.",
+   "prompt": "Time passes in one locked shot: the wallpaper peels and falls, ivy pours through the breaking windows, moss spreads across the floor. Wind grows and birds arrive.",
+   "media": [
+    {
+     "src": "b.mp4",
+     "kind": "video",
+     "poster": "b.webp",
+     "seconds": 5.2
+    }
+   ],
+   "graph": "graphs/b.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "join",
+   "label": "One shot",
+   "type": "cpu",
+   "does": "Runs the two moves together.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 5.6,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "join.mp4",
+     "kind": "video",
+     "poster": "join.webp",
+     "seconds": 10.3
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "score",
+   "label": "The score",
+   "type": "template",
+   "does": "An original instrumental that fits the shot.",
+   "model": "ACE-Step 1.5",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": 523,
+   "seconds": 18.7,
+   "peak_gib": 10.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Slow ticking clock pulse under solo piano and a rising string drone, melancholy, cinematic, no vocals",
+   "media": [
+    {
+     "src": "score.mp3",
+     "kind": "audio",
+     "poster": "score_wave.webp",
+     "seconds": 12.0
+    }
+   ],
+   "graph": "graphs/score.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "Marry picture and score",
+   "type": "cpu",
+   "does": "Joins picture and score.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.5,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 10.3
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": [
+  {
+   "what": "ControlNet strength 1.0, first take",
+   "why": "The windows and the camera drifted from the depth map, so the eras didn't line up."
+  },
+  {
+   "what": "ControlNet strength 2.0",
+   "why": "The picture dissolved into noise."
+  },
+  {
+   "what": "A run stopped partway",
+   "why": "The box's memory killer stopped ComfyUI at 17:42. We ran the chain again from the start."
+  }
+ ]
+}

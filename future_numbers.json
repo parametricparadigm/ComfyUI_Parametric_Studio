@@ -1,0 +1,16 @@
+{
+ "total": 736,
+ "rendered": 114,
+ "graph": 236,
+ "reachable": 95,
+ "unreachable": 289,
+ "not_on_disk": 2,
+ "tts_total": 156,
+ "tts_rendered": 0,
+ "tts_graph": 29,
+ "tts_reachable": 0,
+ "tts_unreachable": 127,
+ "tts_not_on_disk": 0,
+ "all_rendered": false,
+ "as_of": "1 November 2026"
+}

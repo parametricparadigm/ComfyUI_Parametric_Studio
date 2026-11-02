@@ -1,0 +1,179 @@
+{
+"58": {
+"class_type": "LoadImage",
+"inputs": {
+"image": "studio_3a7e165b64.png"
+}
+},
+"56": {
+"class_type": "PreviewImage",
+"inputs": {
+"images": [
+"57",
+0
+]
+}
+},
+"57": {
+"class_type": "Canny",
+"inputs": {
+"image": [
+"58",
+0
+],
+"low_threshold": 0.1,
+"high_threshold": 0.32
+}
+},
+"70:39": {
+"class_type": "CLIPLoader",
+"inputs": {
+"clip_name": "qwen_3_4b.safetensors",
+"type": "lumina2",
+"device": "default"
+}
+},
+"70:46": {
+"class_type": "UNETLoader",
+"inputs": {
+"unet_name": "z_image_turbo_bf16.safetensors",
+"weight_dtype": "default"
+}
+},
+"70:40": {
+"class_type": "VAELoader",
+"inputs": {
+"vae_name": "ae.safetensors"
+}
+},
+"70:64": {
+"class_type": "ModelPatchLoader",
+"inputs": {
+"name": "Z-Image-Turbo-Fun-Controlnet-Union.safetensors"
+}
+},
+"70:43": {
+"class_type": "VAEDecode",
+"inputs": {
+"samples": [
+"70:44",
+0
+],
+"vae": [
+"70:40",
+0
+]
+}
+},
+"70:47": {
+"class_type": "ModelSamplingAuraFlow",
+"inputs": {
+"model": [
+"70:60",
+0
+],
+"shift": 3
+}
+},
+"70:44": {
+"class_type": "KSampler",
+"inputs": {
+"model": [
+"70:47",
+0
+],
+"positive": [
+"70:45",
+0
+],
+"negative": [
+"70:42",
+0
+],
+"latent_image": [
+"70:41",
+0
+],
+"seed": 513,
+"steps": 8,
+"cfg": 1,
+"sampler_name": "res_multistep",
+"scheduler": "simple",
+"denoise": 1
+}
+},
+"70:42": {
+"class_type": "ConditioningZeroOut",
+"inputs": {
+"conditioning": [
+"70:45",
+0
+]
+}
+},
+"70:60": {
+"class_type": "QwenImageDiffsynthControlnet",
+"inputs": {
+"model": [
+"70:46",
+0
+],
+"model_patch": [
+"70:64",
+0
+],
+"vae": [
+"70:40",
+0
+],
+"image": [
+"57",
+0
+],
+"strength": 1.5
+}
+},
+"70:41": {
+"class_type": "EmptySD3LatentImage",
+"inputs": {
+"width": [
+"70:69",
+0
+],
+"height": [
+"70:69",
+1
+],
+"batch_size": 1
+}
+},
+"70:45": {
+"class_type": "CLIPTextEncode",
+"inputs": {
+"clip": [
+"70:39",
+0
+],
+"text": "Wide architectural photograph of a curved room with three tall arched windows on the left wall, a stone fireplace on the right, one long table in the middle of the floor, abandoned for decades: plaster falling away, ivy growing through the broken arched windows, a rotting table, moss on the floor, pale green daylight. Same camera, same room geometry. No people, no text."
+}
+},
+"70:69": {
+"class_type": "GetImageSize",
+"inputs": {
+"image": [
+"57",
+0
+]
+}
+},
+"9": {
+"class_type": "SaveImage",
+"inputs": {
+"images": [
+"70:43",
+0
+],
+"filename_prefix": "z-image-turbo"
+}
+}
+}

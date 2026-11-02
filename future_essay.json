@@ -1,0 +1,225 @@
+{
+ "date": "1 November 2026",
+ "open": "We spent today running as many models as we could reach on one graphics card, then chaining them together. This is what we saw, what we think it means, and what we want to build next.",
+ "hero": {
+  "pipeline": "room_century",
+  "alt": "One locked shot of a room passing through a hundred years"
+ },
+ "sections": [
+  {
+   "id": "learned",
+   "no": "01",
+   "title": "What we learned today",
+   "blocks": [
+    {
+     "kind": "fact",
+     "big": "{rendered} of {total}",
+     "head": "Owning a model isn't using it.",
+     "text": "As of {as_of}, our map lists {total} model files. {rendered} have rendered. {graph} are in a graph that hasn't run yet. {reachable} can be loaded, but nothing uses them. {unreachable} can't be loaded by anything here yet. Of the {tts_total} text-to-speech files, {tts_rendered} have rendered and {tts_graph} are in a graph that hasn't run.",
+     "cite": [
+      "map"
+     ],
+     "when_all": {
+      "head": "Everything we hold has rendered.",
+      "text": "As of {as_of}, all {total} model files on our map have rendered at least once. That shows each one ran, not that each one is good."
+     }
+    },
+    {
+     "kind": "fact",
+     "big": "{stages} stages",
+     "head": "A model is one stage. The result takes all of them.",
+     "text": "The chains on the Pipelines page ran {stages} stages through {families} models and tools. None of those models could have made the finished thing alone. The hard part wasn't any one model. It was the joints: what one model's output has to look like so the next one can use it.",
+     "cite": [
+      "pipelines"
+     ],
+     "figure": {
+      "pipeline": "song_to_video",
+      "stage": "cut"
+     }
+    },
+    {
+     "kind": "fact",
+     "big": "Finished isn't worked",
+     "head": "A job can succeed and prove nothing.",
+     "text": "A neutral test prompt came back from one image model as a grey card saying it was blocked, and the job still reported success. Another family's output was blank. One family's test ran a different family's weights entirely, so we took its pass away. You find these by looking at the picture.",
+     "cite": [
+      "status"
+     ]
+    },
+    {
+     "kind": "fact",
+     "big": "One card, shared",
+     "head": "We measured the card when we meant the job.",
+     "text": "Early peak numbers read the whole card, so they included everything else running on it. An old test row can read tens of GiB for a model that needs far less on its own. The pages now say which number is which.",
+     "cite": [
+      "status",
+      "pipelines"
+     ]
+    },
+    {
+     "kind": "fact",
+     "big": "One result, many licences",
+     "head": "A chain carries the terms of every link.",
+     "text": "One pipeline here mixes MIT, Apache-2.0 and a model's own community terms. Another contains a non-commercial model, and that limits the whole film. So every stage on the page shows its licence, and we read it on the model's own card. Check it yourself before you sell anything.",
+     "cite": [
+      "pipelines"
+     ],
+     "figure": {
+      "pipeline": "anime_short",
+      "stage": "visual"
+     }
+    }
+   ]
+  },
+  {
+   "id": "going",
+   "no": "02",
+   "title": "Where we think it's going",
+   "lede": "Everything in this section is our opinion. Where a fact supports it, the fact has a source.",
+   "blocks": [
+    {
+     "kind": "opinion",
+     "head": "Open weights keep getting closer.",
+     "text": "We expect open weights to stay close enough to the best closed models that most working pictures, songs and shots can be made with them.",
+     "basis": "On a chat-model leaderboard, the lead of the best closed model over the best open-weight one fell from 8.04% in January 2024 to 1.70% in February 2025. That measures text, not video, so treat it as a direction only.",
+     "cite": [
+      "aiindex"
+     ]
+    },
+    {
+     "kind": "opinion",
+     "head": "Say open weights, not open source.",
+     "text": "We think the honest word matters. Most of what we run comes with weights we can use and terms we have to read, and we should say so.",
+     "basis": "The Open Source AI Definition asks for the training data information and the complete training code, not only the weights.",
+     "cite": [
+      "osi"
+     ]
+    },
+    {
+     "kind": "opinion",
+     "head": "The local GPU becomes a small studio.",
+     "text": "We think a single workstation card will be enough for most of a small team's production work, and that they'll want it there, because their unreleased work stays in the building and each extra take costs only electricity.",
+     "basis": "Everything on these pages ran on one card with 96 GB of memory, shared with other jobs. That is a large card today, and most of the single stages we ran needed far less.",
+     "cite": [
+      "nvidia",
+      "pipelines"
+     ]
+    },
+    {
+     "kind": "opinion",
+     "head": "Graphs outlast apps.",
+     "text": "We think the durable thing is the graph, not the app around it. A graph can be read, checked, changed and handed on. When a better model lands, you swap one node and keep the production.",
+     "basis": "Every stage on the Pipelines page links to the graph that really ran, not a diagram of it.",
+     "cite": [
+      "pipelines"
+     ]
+    },
+    {
+     "kind": "opinion",
+     "head": "Models become parts.",
+     "text": "We think the next leap people notice won't be one larger model. It'll be small dull agreements between models: the same depth map, the same character sheet, the same beat grid, passed along a chain.",
+     "basis": "In our room pipeline one depth map holds three eras to the same walls, but only at the right setting. At ControlNet strength 1.0 the windows drifted. At 2.0 the picture dissolved. 1.5 held.",
+     "cite": [
+      "pipelines"
+     ],
+     "figure": {
+      "pipeline": "room_century",
+      "stage": "depth"
+     }
+    },
+    {
+     "kind": "opinion",
+     "head": "Teaching becomes part of the tool.",
+     "text": "We think people should be able to open any result and see how it was made, then change it and learn by doing. A tool that hides its graph teaches nothing.",
+     "basis": "",
+     "cite": []
+    },
+    {
+     "kind": "opinion",
+     "head": "Proof becomes the product.",
+     "text": "We think showing your work will decide who gets trusted. Seed, model, time, licence, what failed, what was thrown out.",
+     "basis": "Provenance has limits: the C2PA explainer says it cannot tell you whether content is true. And the EU AI Act's Article 50 asks providers to mark synthetic output as machine-readable. It is listed as coming into force on 2 August 2026.",
+     "cite": [
+      "c2pa",
+      "euai"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "next",
+   "no": "03",
+   "title": "What we want to build next",
+   "lede": "These are plans, not promises.",
+   "blocks": [
+    {
+     "kind": "plan",
+     "head": "Swap a stage.",
+     "text": "When a new model lands, put it into a working pipeline, rerun that stage and everything after it, and compare the two results side by side."
+    },
+    {
+     "kind": "plan",
+     "head": "Proof that travels.",
+     "text": "Today a run's record sits beside the file on our page, not inside it, and ComfyUI here runs with metadata off. We want the graph, seed, models and licences to go with each file."
+    },
+    {
+     "kind": "plan",
+     "head": "A way in for what we can't reach.",
+     "text": "Work through the files with no route to a graph, and either give each one a real graph or say plainly that it has none."
+    },
+    {
+     "kind": "plan",
+     "head": "Smaller cards.",
+     "text": "Publish which pipelines fit which memory size, from measured peaks, so people know what they can run before they download anything."
+    },
+    {
+     "kind": "plan",
+     "head": "A class for each chain.",
+     "text": "Turn each pipeline into a lesson on Learn: break it at a joint, see why it broke, fix it."
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "pipelines",
+   "label": "Our Pipelines page: every stage with its output, seed, time, peak and graph",
+   "href": "#pipelines"
+  },
+  {
+   "id": "map",
+   "label": "Our model use map, {as_of}. The map itself isn't public, because it lists private paths on this machine. The page shows only totals from it, in studio/web/future_numbers.json",
+   "href": ""
+  },
+  {
+   "id": "status",
+   "label": "Our family test records: studio/family_status.json and scripts/record_family_renders.py",
+   "href": ""
+  },
+  {
+   "id": "aiindex",
+   "label": "Stanford HAI, AI Index Report 2025, Technical Performance",
+   "href": "https://hai.stanford.edu/ai-index/2025-ai-index-report/technical-performance"
+  },
+  {
+   "id": "osi",
+   "label": "Open Source Initiative, The Open Source AI Definition 1.0",
+   "href": "https://opensource.org/ai/open-source-ai-definition"
+  },
+  {
+   "id": "nvidia",
+   "label": "NVIDIA, RTX PRO 6000 Blackwell specifications",
+   "href": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"
+  },
+  {
+   "id": "c2pa",
+   "label": "C2PA, Explainer 2.2",
+   "href": "https://spec.c2pa.org/specifications/specifications/2.2/explainer/Explainer.html"
+  },
+  {
+   "id": "euai",
+   "label": "EU AI Act, Article 50, as published at artificialintelligenceact.eu. This is not legal advice",
+   "href": "https://artificialintelligenceact.eu/article/50/"
+  }
+ ]
+}
