@@ -65,3 +65,31 @@
 .fu-src h2{margin:0 0 10px;font:800 clamp(20px,2vw,28px)/1 var(--display);text-transform:uppercase;color:var(--text)}.fu-src ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.4;color:var(--mut)}.fu-src a{color:inherit;overflow-wrap:anywhere}
 .fu-end{margin:0}
 @media (max-width:900px){.fu-block.has-fig{grid-template-columns:minmax(0,1fr)}}
+/* future: findings, opinions and plans as card grids, and the run the essay starts from */
+.fu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.4vw,22px);align-items:stretch}
+.fu-grid>.fu-block{max-width:none;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--line2);border-radius:6px;padding:clamp(16px,1.8vw,28px)}
+.fu-grid.is-fact>.fu-block{border-top-color:var(--sb-ink,var(--a1))}
+.fu-grid>.fu-block.has-fig{grid-column:1/-1}
+.fu-grid.is-plan{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.fu-grid.is-plan>.fu-block{background:transparent;border:1px dashed var(--line2)}
+.fu-grid .fu-text>p.fu-big{font-size:clamp(40px,5.4vw,92px)}
+.fu-grid .fu-block h3{font-size:clamp(20px,1.9vw,30px)}
+.fu-tagrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fu-idx{font:900 clamp(22px,2vw,30px)/1 var(--display);font-stretch:62%;color:var(--mut)}
+.fu-run{margin:0;display:flex;flex-direction:column;gap:8px}
+.fu-run ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.fu-run li{position:relative;background:#050605;border-radius:4px;overflow:hidden}
+.fu-run img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.fu-run em{position:absolute;top:8px;right:8px;font:800 12px/1 var(--display);font-style:normal;text-transform:uppercase;padding:4px 6px;border-radius:3px;background:#f5c518;color:#141006}
+.fu-run span{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:8px;padding:9px 10px 10px;color:#f6f6f1}
+.fu-run i{grid-row:span 2;align-self:start;font:900 26px/.85 var(--display);font-style:normal;font-stretch:62%;color:#f5c518}
+.fu-run b{font:800 15px/1.1 var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:-.01em}
+.fu-run small{font-size:12.5px;line-height:1.3;color:#a8b0a8}
+.fu-run figcaption{font-size:13px;color:var(--mut)}.fu-run figcaption a{color:inherit}
+@media (max-width:900px){.fu-grid{grid-template-columns:minmax(0,1fr)}.fu-run ol{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.fu-run li{flex:0 0 min(64vw,240px);scroll-snap-align:start}}
+.fu-grid.is-fact>.fu-block:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:1200px){.fu-grid.is-plan{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.fu-cite a{display:inline-block;box-sizing:border-box;min-width:40px;text-align:center;padding:13px 4px;margin:-13px -9px}
+.fu-src ol{gap:0}.fu-src li{padding:10px 0}.fu-src a{display:inline-block;padding:12px 0;margin:-12px 0}
+.fu-fig figcaption a,.fu-run figcaption a{display:inline-block;padding:12px 0;margin:-12px 0}
+.fu-run ol:focus-visible{outline:2px solid var(--sb-ink,var(--a1));outline-offset:2px}

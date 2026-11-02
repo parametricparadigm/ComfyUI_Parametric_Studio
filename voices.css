@@ -1,6 +1,7 @@
 /* The Voices page. Editorial parts follow the theme through the shared tokens; .film stays near-black in both themes, like the Music page. */
 .vo{--vo-gold:#f5c518;--vo-ink:var(--fx-ink);--vo-wave:var(--line2);gap:clamp(28px,4vw,64px);max-width:1500px}
 body.on-voices main>.top h1,body.on-voices main>.top .sub{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media (min-width:901px){body.on-voices main>.top{display:flex;flex-wrap:nowrap;align-items:center;gap:8px}body.on-voices main>.top>div{flex:1 1 auto;min-width:0}body.on-voices main>.top>.grow{display:none}body.on-voices main>.top>.pill{flex:none;white-space:nowrap}}
 .vo a{color:var(--vo-ink);text-underline-offset:.16em}
 .vo .film{--vo-ink:var(--vo-gold);--vo-wave:rgba(255,255,255,.28);background:#050605;color:#f4f4ef}
 .vo .film :focus-visible{outline-color:var(--vo-gold)}
@@ -70,3 +71,4 @@ body.on-voices main>.top h1,body.on-voices main>.top .sub{position:absolute;widt
 .vo-check{display:flex;gap:8px;align-items:center;min-height:44px;font-size:14px}.vo-check input{width:20px;height:20px;flex:none}
 @media (max-width:640px){.vo-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.vo-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.vo-time{display:none}.vo-player{grid-template-columns:auto minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){.vo *{transition:none!important;animation:none!important}}
+.vo-card a:not(.btn){display:inline-block;padding:12px 0;margin:-12px 0}
