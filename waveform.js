@@ -146,7 +146,7 @@ export function Waveform({ url, height = 64, onSeek }) {
         style="width: 100%; height: 100%; display: block; cursor: pointer;"
         onClick=${handleClick}
       />
-      ${status === "loading" && html`<div class="small" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: var(--panel); color: var(--mut);">Loading waveform...</div>`}
+      ${status === "loading" && html`<div class="pp-wavewait" role="status"><span class="fx-sr">Loading the waveform.</span></div>`}
       ${status === "error" && html`<div class="small" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: var(--panel); color: var(--err);">${error}</div>`}
       <audio ref=${audioRef} src=${url} style="display: none;" />
     </div>

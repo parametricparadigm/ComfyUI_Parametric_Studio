@@ -229,7 +229,7 @@ export function Viewer3D({ url, height = 420, spin = false, grid = false, backgr
   return html`
     <div class="v3d" style="position: relative; width: 100%; height: ${typeof height === "number" ? height + "px" : height}; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden;">
       <div ref=${containerRef} style="width: 100%; height: 100%;"></div>
-      ${loading && html`<div style="position: absolute; top: 10px; left: 10px; color: var(--mut); font-size: 12px;">Loading...</div>`}
+      ${loading && html`<div class="pp-loading pp-loading-corner" role="status"><span>Loading the model</span><i aria-hidden="true"></i></div>`}
       ${error && html`<div class="small" style="position: absolute; top: 10px; left: 10px; color: var(--err);">${error}</div>`}
       ${cell > 0 && html`<div class="v3d-grid">Floor grid: ${cell < 1 ? cell * 100 + " cm" : cell + " m"} squares</div>`}
       ${!lens && html`<button type="button" class="btn small" aria-pressed=${autoRotate} style="position: absolute; bottom: 10px; right: 10px;" onClick=${toggleRotate}>

@@ -207,5 +207,80 @@
    "24 GB": "likely, measured under an emulated budget: 19.6 GiB peak including the Gemma load; not run on a real 24 GB card",
    "16 GB": "not shown: under a 14 GiB budget the peak reached 19.6 GiB while Gemma loaded. With the prompt encoding cached it stayed at 10.4 GiB, but every new prompt needs Gemma, so 16 GB is not claimed"
   }
+ },
+ "vae_comparison": {
+  "what": "The same four jobs (same seed and settings, so the sampling is identical) decoded with the convolutional video VAE we ship (ltx-2.5-video-vae-conv-bf16) and with Lightricks' diffusion decoder (ltx-2.5-video-vae-bf16, 1.47 GB, LTX-2.x Community License). Models freed before each job; one gate reservation; 960x544, 121 frames.",
+  "measures": "sharpness = mean Laplacian variance per frame; wall_flicker = mean frame-to-frame difference (0-255) on the static right-hand wall; wall_psnr_vs_source = PSNR against the source on that wall, which the effect should leave alone",
+  "jobs": {
+   "water": {
+    "conv": {
+     "render_seconds": 49.4,
+     "decode_seconds": 3.6,
+     "peak_gib": 38.5,
+     "sharpness": 987.2,
+     "wall_flicker": 9.62
+    },
+    "diffusion": {
+     "render_seconds": 75.2,
+     "decode_seconds": 10.1,
+     "peak_gib": 39.7,
+     "sharpness": 532.6,
+     "wall_flicker": 7.61
+    }
+   },
+   "night": {
+    "conv": {
+     "render_seconds": 69.4,
+     "decode_seconds": 3.0,
+     "peak_gib": 38.5,
+     "sharpness": 478.7,
+     "wall_flicker": 6.07
+    },
+    "diffusion": {
+     "render_seconds": 46.5,
+     "decode_seconds": 4.3,
+     "peak_gib": 39.7,
+     "sharpness": 292.5,
+     "wall_flicker": 5.04
+    }
+   },
+   "plate": {
+    "conv": {
+     "render_seconds": 37.0,
+     "decode_seconds": 2.1,
+     "peak_gib": 38.5,
+     "sharpness": 572.9,
+     "wall_flicker": 8.56,
+     "wall_psnr_vs_source": 26.19
+    },
+    "diffusion": {
+     "render_seconds": 42.9,
+     "decode_seconds": 4.0,
+     "peak_gib": 39.7,
+     "sharpness": 353.8,
+     "wall_flicker": 7.13,
+     "wall_psnr_vs_source": 24.36
+    }
+   },
+   "matte": {
+    "conv": {
+     "render_seconds": 28.0,
+     "decode_seconds": 1.8,
+     "peak_gib": 38.5,
+     "sharpness": 28.6,
+     "wall_flicker": 0.0,
+     "wall_psnr_vs_source": 3.63
+    },
+    "diffusion": {
+     "render_seconds": 31.4,
+     "decode_seconds": 4.1,
+     "peak_gib": 39.7,
+     "sharpness": 29.9,
+     "wall_flicker": 0.0,
+     "wall_psnr_vs_source": 3.63
+    }
+   }
+  },
+  "verdict": "Kept the conv decoder as the default and did not add a best-quality option. Side by side the frames are near-identical: the diffusion decoder is slightly smoother (less fine stone and mortar detail, a little less flicker), takes 1-6 s more to decode, and peaks about 1.2 GiB higher (39.7 vs 38.5 GiB). It is not clearly better on this clip."
  }
 }

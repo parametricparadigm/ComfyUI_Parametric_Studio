@@ -46,7 +46,7 @@ main :is(p,li,dd,figcaption,small){text-wrap:pretty}
 }
 @keyframes pp-sweep{to{transform:translateX(110%)}}
 @keyframes pp-drift{from{transform:scale(1)}to{transform:scale(1.06) translateY(-1.5%)}}
-@keyframes pp-rise{from{opacity:.001;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pp-rise{from{opacity:.001;translate:0 20px}to{opacity:1;translate:none}}
 
 /* Disabled controls read as disabled, not as broken. */
 :is(.btn,.fx-go,.gobtn):disabled{opacity:.45}
@@ -60,3 +60,79 @@ main :is(p,li,dd,figcaption,small){text-wrap:pretty}
 /* Shot Board's newer controls (example switch, VFX wording) reach 40 px like the rest. */
 .sb-seg button{display:inline-flex;align-items:center;min-height:40px;box-sizing:border-box}
 .sb-vfxopt input{min-height:40px;box-sizing:border-box}
+
+/* Every page's title line arrives once when the page opens: the big title rises a third of a line, the gold line and the lede follow 70 ms apart, the status pills fade in last. Keyed by page, so it plays again on each page change, inside the existing page crossfade. */
+@media (prefers-reduced-motion:no-preference){
+  .top>div:first-child>:is(h1,.sub,.lede){animation:pp-title var(--dur-3) var(--ease-out) both}
+  .top>div:first-child>.sub{animation-delay:70ms}
+  .top>div:first-child>.lede{animation-delay:140ms}
+  .top>.grow~*{animation:pp-fade var(--dur-3) var(--ease-out) 200ms both}
+}
+@keyframes pp-title{from{opacity:.001;transform:translateY(.35em)}to{opacity:1;transform:none}}
+@keyframes pp-fade{from{opacity:.001}to{opacity:1}}
+
+/* Shared hero light for the pages below: a fine grain over the render and one soft pass of light. The pass is a moving gradient inside the frame, so it never spills past frames that let their labels overhang. It plays once, shortly after the page opens; a pass tied to scroll could stop halfway and leave a band of light on the picture. Neither pseudo-element takes a z-index, so a page's own labels and frames stay on top. */
+.pp-lit{position:relative;isolation:isolate;overflow:hidden}
+:is(.pp-lit,.hero,.sb-exhero,.rxhero,.pl-finalpic,.au-count,.cu-hero-art,.de-stage,.sw-wipestage,.v3x,.vs-wipe,.wk-showmain,.slfind-pic,.r4-coverart,.mo-heropic,.mu-hero,.ls-herowipe)::before{content:"";position:absolute;inset:0;pointer-events:none;background:var(--grain);opacity:.07;border-radius:inherit}
+:is(.pp-lit,.hero,.sb-exhero,.rxhero,.pl-finalpic,.au-count,.cu-hero-art,.de-stage,.sw-wipestage,.v3x,.vs-wipe,.wk-showmain,.slfind-pic,.r4-coverart,.mo-heropic,.mu-hero,.ls-herowipe)::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 30%,rgba(255,244,214,.15) 48%,rgba(255,244,214,.05) 54%,transparent 70%);transform:translateX(-110%)}
+/* Frames that let their contents overhang cannot clip a moving band, so there the light moves inside a still layer instead (a paint each frame, kept to these smaller frames). */
+:is(.sb-exhero,.wk-showmain,.cu-hero-art,.slfind-pic,.mo-heropic,.r4-coverart)::after{border-radius:inherit;background:linear-gradient(100deg,transparent 40%,rgba(255,244,214,.15) 49%,rgba(255,244,214,.05) 53%,transparent 60%) no-repeat;background-size:250% 100%;background-position:100% 0;transform:none;opacity:0}
+.pl-finalpic{position:relative}
+@media (prefers-reduced-motion:no-preference){
+  :is(.pp-lit,.hero,.sb-exhero,.rxhero,.pl-finalpic,.au-count,.cu-hero-art,.de-stage,.sw-wipestage,.v3x,.vs-wipe,.wk-showmain,.slfind-pic,.r4-coverart,.mo-heropic,.mu-hero,.ls-herowipe)::after{animation:pp-sweep 1.5s var(--ease-out) .4s 1 both}
+  :is(.sb-exhero,.wk-showmain,.cu-hero-art,.slfind-pic,.mo-heropic,.r4-coverart)::after{animation:pp-pass 1.6s var(--ease-out) .4s 1 both}
+  @supports (animation-timeline:view()){
+    :is(.rxhero>video,.pl-finalpic>video){animation:pp-drift linear both;animation-timeline:view();animation-range:cover 40% exit 100%}
+    :is(.gcard,.atl-card,.pl-stage,.sb-extakes li){animation:pp-rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+  }
+}
+@keyframes pp-pass{0%{opacity:0;background-position:100% 0}12%{opacity:1}88%{opacity:1}100%{opacity:0;background-position:0 0}}
+
+/* Create, Families, Recipes and Models cards: the lift they already had gains depth and the thin gold edge the other pages use. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .gcard{transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out),outline-color var(--dur-1)}
+  .gcard:hover{box-shadow:0 20px 40px -22px rgba(0,0,0,.95),0 0 0 1px rgba(245,197,24,.4)}
+  .gcard .gmedia{transition:transform .6s var(--ease-out)}
+}
+
+/* Loading placeholders that are not page skeletons: a label with a thin gold bar running under it (3D viewers), a shimmering field row (Music styles) and a shimmering strip (waveform). The bar and the shimmer stand still under prefers-reduced-motion. */
+.pp-loading{display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}
+.pp-loading>i{display:block;position:relative;width:min(180px,40vw);height:2px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden}
+.pp-loading>i::after{content:"";position:absolute;inset:0;width:40%;border-radius:inherit;background:#f5c518;transform:translateX(75%)}
+.pp-loading-corner{position:absolute;top:10px;left:10px;align-items:flex-start;gap:6px;color:var(--mut);font-size:12px}
+.pp-loading-corner>i{width:96px}
+.pp-rowskel{display:flex;gap:8px}.pp-rowskel i{display:block;height:40px;flex:1 1 auto;border-radius:6px;border:1px solid var(--line)}.pp-rowskel i+i{flex:0 0 min(160px,38%)}
+.pp-wavewait{position:absolute;inset:0;border-radius:inherit}
+:is(.pp-rowskel i,.pp-wavewait){background:linear-gradient(90deg,var(--panel) 0%,var(--panel2) 40%,var(--panel) 80%) 0 0/300% 100%}
+@media (prefers-reduced-motion:no-preference){
+  .pp-loading>i::after{transform:translateX(-100%);animation:pp-load 1.1s var(--ease-out) infinite}
+  :is(.pp-rowskel i,.pp-wavewait){animation:fxskel 1.6s ease-in-out infinite}
+}
+@keyframes pp-load{to{transform:translateX(250%)}}
+
+/* Learn: the hero's wall of renders comes up tile by tile, 40 ms apart. Sites: the site cards lift with the gold edge like every other card that opens something. */
+@media (prefers-reduced-motion:no-preference){
+  .cu-hero-art img{animation:pp-tile var(--dur-3) var(--ease-out) both}
+  .cu-hero-art img:nth-child(2){animation-delay:40ms}.cu-hero-art img:nth-child(3){animation-delay:80ms}.cu-hero-art img:nth-child(4){animation-delay:120ms}.cu-hero-art img:nth-child(5){animation-delay:160ms}.cu-hero-art img:nth-child(6){animation-delay:200ms}.cu-hero-art img:nth-child(7){animation-delay:240ms}.cu-hero-art img:nth-child(8){animation-delay:280ms}.cu-hero-art img:nth-child(n+9){animation-delay:320ms}
+  @supports (animation-timeline:view()){:is(.cu-track,.sw-site,.autoidea,.v3x-shelf button){animation:pp-rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}}
+}
+@keyframes pp-tile{from{opacity:.001;transform:scale(1.06)}to{opacity:1;transform:none}}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .sw-site{transition:transform var(--dur-2) var(--ease-out)}
+  .sw-site:hover{transform:translateY(-3px)}
+  .sw-site:hover .sw-browser{box-shadow:0 20px 40px -22px rgba(0,0,0,.95),0 0 0 1px rgba(245,197,24,.4)}
+  .cu-track{transition:box-shadow var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
+  .cu-track:hover{transform:translateY(-3px)}
+}
+
+/* Virtual Set, World Kit, Sampling Lab, RES4LYF, Motion, Music and LoRA Showcase join the shared hero light above (Train keeps its own sweep). Music's song title rises in after the page title; the cards on these pages rise as they scroll in, and the ones that open something lift with the gold edge. */
+.mo-heropic{position:relative}
+@media (prefers-reduced-motion:no-preference){
+  #mu-title{animation:pp-title var(--dur-3) var(--ease-out) .22s both}
+  @supports (animation-timeline:view()){:is(.tr-exfam,.vs-mode,.slfind,.mu-card,.vo-card,.mo-shot){animation:pp-rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}}
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  :is(.mu-card,.slfind-pic){transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out),background-color var(--dur-1)}
+  :is(.mu-card,.slfind-pic):hover{transform:translateY(-3px);box-shadow:0 20px 40px -22px rgba(0,0,0,.95),0 0 0 1px rgba(245,197,24,.4)}
+  .vs-mode:hover{box-shadow:0 0 0 1px rgba(245,197,24,.4)}
+}

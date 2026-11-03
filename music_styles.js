@@ -22,7 +22,7 @@ export function MusicStyles({ prompt, setPrompt, appliedRef }) {
   const hits = lib ? searchStyles(lib.families, q, fam) : [];
   return html`<div class="field mstyles"><label>Style library</label>
     ${err && html`<p class="small" style="color:var(--err);margin:0 0 6px" role="alert">${err} <button class="btn small" onClick=${open || !lib ? load : () => setErr("")}>Try again</button></p>`}
-    ${!lib && !err && html`<p class="small" style="margin:0">Loading styles...</p>`}
+    ${!lib && !err && html`<div class="pp-rowskel" role="status"><span class="fx-sr">Loading styles.</span><i aria-hidden="true"></i><i aria-hidden="true"></i></div>`}
     ${lib && !open && html`<div class="mstyles-find"><input type="search" placeholder="Search: trap, bossa nova, dubstep" value=${q} onInput=${(e) => setQ(e.target.value)} aria-label="search styles"/>
       <select value=${fam} onChange=${(e) => setFam(e.target.value)} aria-label="style family"><option value="">All families</option>${lib.families.map((f) => html`<option value=${f.id}>${f.label} (${f.styles.length})</option>`)}</select></div>
       ${!q.trim() && !fam && html`<p class="small" style="margin:6px 0 0">${lib.counts.styles} styles in ${lib.counts.families} families. Search, or pick a family.</p>`}

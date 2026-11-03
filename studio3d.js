@@ -120,7 +120,7 @@ export function Studio3D() {
     <section class="v3x film" aria-label=${"Stage: " + cur.name}>
       <${Stage} key=${cur.id} item=${cur} mode=${mode} spin=${spin} onLoaded=${(d) => { setInfo(d); setLoading(false); setThumbs((t) => ({ ...t, [cur.id]: d.thumb })); }} onFail=${(m) => { setErr(m); setLoading(false); }}/>
       ${err && html`<div class="v3x-fail" role="alert">${cur.thumb && html`<img src=${cur.thumb} alt=""/>`}<p><b>This model could not be shown.</b> ${err}</p></div>`}
-      ${loading && html`<p class="v3x-load" role="status">Loading ${cur.name}...</p>`}
+      ${loading && html`<div class="v3x-load pp-loading" role="status"><span>Loading ${cur.name}</span><i aria-hidden="true"></i></div>`}
       <div class="v3x-title"><span class="lk-tag">${cur.sample ? "Our test build" : "Yours"}</span><h2>${cur.name}</h2><p>${cur.made}</p></div>
       <div class="v3x-modes" role="group" aria-label="View mode">${MODES.map(([k, l]) => html`<button key=${k} type="button" aria-pressed=${mode === k} onClick=${() => setMode(k)}>${l}</button>`)}<button type="button" class="v3x-spin" aria-pressed=${spin} onClick=${() => setSpin(!spin)}>${spin ? "Stop turning" : "Turn it"}</button></div>
     </section>
