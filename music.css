@@ -185,3 +185,6 @@
 @media (max-width:980px){.mu-strip ol{grid-template-columns:repeat(3,minmax(0,1fr))}.mu-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.mu-brief,.mu-sheetgrid,.mu-vid,.mu-film,.mu-live,.mu-sides{grid-template-columns:minmax(0,1fr)}.mu-makerow{grid-template-columns:repeat(2,minmax(0,1fr))}.mu-strip{position:static;margin:0}.mu-strip ol{grid-template-columns:repeat(2,minmax(0,1fr))}.mu-herostats{grid-template-columns:repeat(2,minmax(0,1fr))}.mu-hint{flex-basis:100%}.mu-player .mu-time{font-size:12px}.mu-player{grid-template-columns:auto minmax(0,1fr)}.mu-player .mu-time{grid-column:2}}
 @media (prefers-reduced-motion:reduce){.mu *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Licence links in the film credits: 12 px of padding above and below makes a 40 px hit area without moving the text. */
+.mu-filmcred a{padding-block:12px}

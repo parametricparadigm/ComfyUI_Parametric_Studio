@@ -35,3 +35,6 @@
 .cs-proofs h3{margin:0 0 8px}
 .cs-facts{margin:0;display:flex;flex-direction:column;gap:6px}.cs-facts div{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,3fr);gap:10px}.cs-facts dt{font-weight:700}.cs-facts dd{margin:0}
 @media (max-width:900px){.cs-hero,.cs-result,.cs-proofs>li{grid-template-columns:minmax(0,1fr)}.cs-facts div{grid-template-columns:minmax(0,1fr)}}
+
+/* The model-card link in the licence line: the same 40 px padded hit area, text unmoved. */
+.cs-lic a{padding-block:11px}

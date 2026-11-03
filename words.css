@@ -17,3 +17,6 @@
 .ww-form{display:grid;grid-template-columns:auto minmax(0,1fr) 140px;gap:10px;align-items:end}
 .ww-sheet{width:100%;height:auto;border-radius:5px;display:block}
 @media (max-width:860px){.ww-view{grid-template-columns:minmax(0,1fr)}.ww-form{grid-template-columns:minmax(0,1fr)}}
+
+/* The source link in the reading note: 12 px of padding above and below gives a 40 px hit area without moving the text. */
+.fx p a.sllink{padding-block:12px}
