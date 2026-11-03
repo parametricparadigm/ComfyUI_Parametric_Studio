@@ -1,0 +1,31 @@
+{
+ "6": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 64,
+   "height": 64,
+   "batch_size": 1
+  }
+ },
+ "40": {
+  "class_type": "OCS ApplyFilterLatent",
+  "inputs": {
+   "latent": [
+    "6",
+    0
+   ],
+   "seed": 0,
+   "yaml_config": "filter:\n  filter_type: simple\n  output: unsafe_torch('nn.functional.relu)\n"
+  }
+ },
+ "50": {
+  "class_type": "SaveLatent",
+  "inputs": {
+   "samples": [
+    "40",
+    0
+   ],
+   "filename_prefix": "blepping/unsafe-probe"
+  }
+ }
+}

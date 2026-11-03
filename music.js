@@ -183,11 +183,18 @@ function Reactive({ models, visual }) {
   </div>`;
 }
 
+/* ---- a whole song, filmed: Wren Halloway, made before the studio and labelled so ---- */
+function Film({ f }) {
+  if (!f || !f.video) return null;
+  return html`<figure class="mu-film film"><video controls preload="none" playsinline poster=${f.poster} src=${f.video} aria-label=${f.title + ", music video"}></video><figcaption><p class="mu-eyebrow">${f.label}, ${f.made}</p><p class="mu-filmtitle">${f.title}</p><p class="mu-onfilm">${f.pitch}</p><dl class="mu-filmcred">${(f.credits || []).map((c) => html`<div key=${c.part}><dt>${c.part}</dt><dd>${c.model}. <${Ext} href=${c.url}>${c.licence}</${Ext}></dd></div>`)}</dl></figcaption></figure>
+  <ul class="mu-filmnotes">${(f.honest || []).map((x) => html`<li key=${x}>${x}</li>`)}</ul>`;
+}
+
 function ExtraRow({ x }) {
   return html`<li class="mu-extra"><div class="mu-extrahead"><h4>${x.label}</h4>${x.pack && html`<span class="mu-packtag">RyanOnTheInside's pack</span>`}</div><p class="small">${x.how}</p>${x.audio ? html`<${Player} audio=${x.audio} peaks=${x.peaks} seconds=${x.seconds} label=${x.label}/>` : html`<p class="fx-warn">${x.problem || "Did not run."}</p>`}${x.audio && html`<p class="small mu-extrafacts">${x.seconds} s, ${x.lufs} LUFS, ${x.centroid_hz} Hz bright${x.lyrics ? `, ${lyricWord(x.lyrics)} heard` : ""}${x.words_in_stem != null ? `, and Whisper made out only ${x.words_in_stem} word-like ${x.words_in_stem === 1 ? "fragment" : "fragments"} in it` : ""}. Rendered in ${x.secs} s.</p>`}</li>`;
 }
 
-const STRIP = [["mu-ab", "Side by side", "One brief, two models"], ["mu-models", "Every model", "A page each"], ["mu-reactive", "Reactive", "Sound drives picture"], ["mu-make", "Make one", "Styles, forms, lyrics"], ["mu-change", "Change a song", "Cover, repaint, stems"], ["mu-ryan", "Credit", "RyanOnTheInside, install"]];
+const STRIP = [["mu-ab", "Side by side", "One brief, two models"], ["mu-models", "Every model", "A page each"], ["mu-reactive", "Reactive", "Sound drives picture"], ["mu-film", "A song, filmed", "Before the studio"], ["mu-make", "Make one", "Styles, forms, lyrics"], ["mu-change", "Change a song", "Cover, repaint, stems"], ["mu-ryan", "Credit", "RyanOnTheInside, install"]];
 function jump(e, id) { e.preventDefault(); const el = document.getElementById(id); if (!el) return; el.scrollIntoView({ behavior: calm() ? "auto" : "smooth" }); el.focus({ preventScroll: true }); }
 function Strip() {
   return html`<nav class="mu-strip" aria-label="Sections of this page"><ol>${STRIP.map(([id, t, s], i) => html`<li key=${id}><a href="#music" onClick=${(e) => jump(e, id)}><i>${i + 1}</i><span><b>${t}</b><small>${s}</small></span></a></li>`)}</ol></nav>`;
@@ -195,7 +202,7 @@ function Strip() {
 
 function Ryan({ r }) {
   if (!r || !r.pack) return null;
-  return html`<section class="mu-sect"><${Head} n="6" id="mu-ryan" title="RyanOnTheInside"/>
+  return html`<section class="mu-sect"><${Head} n="7" id="mu-ryan" title="RyanOnTheInside"/>
     <div class="mu-credit film"><p class="mu-eyebrow">Built on his work</p><p class="mu-creditname">Everything reacts to everything.</p><p class="mu-creditline">That's his idea, from his node pack. The reactive demo above, and the cover, repaint and stem takes on this page, ran on his real code on a separate ComfyUI. None of his code is copied or shipped here.</p><p class="mu-links mu-onfilm"><${Ext} href=${r.pack}>His pack on GitHub</${Ext}><${Ext} href=${r.site}>ryanontheinside.com</${Ext}><${Ext} href=${r.youtube}>YouTube</${Ext}><${Ext} href=${r.civitai}>Civitai</${Ext}></p></div>
     <div class="mu-sheetgrid"><section><h3>To run these yourself</h3><p>The reactive and pack-marked graphs on this page need his pack in your ComfyUI. The Render buttons will refuse and bring you here until it's there.</p><pre class="fx-pre">${r.install}</pre><div class="fx-row"><button class="btn small" onClick=${() => copyText(r.install)}>Copy the commands</button><a class="btn small" href="#packlab">Open Pack Lab</a></div></section>
       <section class="mu-risks"><h3>Read this first</h3><p>From reading his code. No outright fault: these are the things to know before putting it in a ComfyUI you care about, which is why we ran it on a separate one.</p><ul>${r.risks.map((x) => html`<li key=${x}>${x}</li>`)}</ul></section></div>
@@ -224,8 +231,9 @@ export function Music({ route }) {
       ${unready.length > 0 && html`<p class="small">${unready.length} have no render on this page yet, and say why on their own page.</p>`}
       ${d.not_music && d.not_music.length > 0 && html`<details class="mu-notmusic"><summary>Looks like music, isn't</summary><ul>${d.not_music.map((n) => html`<li key=${n.name}><b>${n.name}.</b> ${n.why}</li>`)}</ul></details>`}</section>
     <section class="mu-sect"><${Head} n="3" id="mu-reactive" title="Sound drives picture" sub="RyanOnTheInside's idea, on this page's real songs."/><${Reactive} models=${models} visual=${x.visual}/></section>
-    <section class="mu-sect"><${Head} n="4" id="mu-make" title="Make one" sub="Music 3's style library, song forms, your words. It runs on this machine."/><${Maker} models=${models} brief=${d.brief}/></section>
-    <section class="mu-sect"><${Head} n="5" id="mu-change" title="Change a song" sub="The source is this page's Music 3 render. Each take below is real, and none has been heard."/>
+    ${d.film && html`<section class="mu-sect"><${Head} n="4" id="mu-film" title="A whole song, filmed" sub="Wren Halloway is an invented singer. Made before this studio, and labelled so."/><${Film} f=${d.film}/></section>`}
+    <section class="mu-sect"><${Head} n="5" id="mu-make" title="Make one" sub="Music 3's style library, song forms, your words. It runs on this machine."/><${Maker} models=${models} brief=${d.brief}/></section>
+    <section class="mu-sect"><${Head} n="6" id="mu-change" title="Change a song" sub="The source is this page's Music 3 render. Each take below is real, and none has been heard."/>
       ${(x.change || []).length ? html`<ul class="mu-extras">${x.change.map((c) => html`<${ExtraRow} key=${c.id} x=${c}/>`)}</ul>` : html`<p class="mu-none">No takes are recorded yet.</p>`}</section>
     <${Ryan} r=${d.roti}/>
   </div>`;

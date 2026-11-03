@@ -1,0 +1,158 @@
+{
+ "1": {
+  "class_type": "CheckpointLoaderSimple",
+  "inputs": {
+   "ckpt_name": "v1-5-pruned-emaonly.safetensors"
+  }
+ },
+ "4": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "1",
+    1
+   ],
+   "text": "a weathered brass astrolabe on an oak table beside a stack of old sea charts, warm window light, shallow depth of field, fine engraving detail, photograph"
+  }
+ },
+ "5": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "1",
+    1
+   ],
+   "text": "blurry, low quality, watermark, text"
+  }
+ },
+ "6": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 512,
+   "height": 512,
+   "batch_size": 1
+  }
+ },
+ "7": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 424242
+  }
+ },
+ "8": {
+  "class_type": "CFGGuider",
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "positive": [
+    "4",
+    0
+   ],
+   "negative": [
+    "5",
+    0
+   ],
+   "cfg": 7.0
+  }
+ },
+ "9": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  }
+ },
+ "10": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "scheduler": "karras",
+   "steps": 20,
+   "denoise": 1.0
+  }
+ },
+ "11": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "7",
+    0
+   ],
+   "guider": [
+    "8",
+    0
+   ],
+   "sampler": [
+    "32",
+    0
+   ],
+   "sigmas": [
+    "10",
+    0
+   ],
+   "latent_image": [
+    "6",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "11",
+    0
+   ],
+   "vae": [
+    "1",
+    2
+   ]
+  }
+ },
+ "14": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "12",
+    0
+   ],
+   "filename_prefix": "blepping/ocs-sd15-extraltodeus_distance"
+  }
+ },
+ "30": {
+  "class_type": "OCS Substeps",
+  "inputs": {
+   "substeps": 1,
+   "step_method": "extraltodeus_distance (variable)",
+   "parameters": ""
+  }
+ },
+ "31": {
+  "class_type": "OCS Group",
+  "inputs": {
+   "merge_method": "default (simple)",
+   "time_mode": "step",
+   "time_start": 0,
+   "time_end": 999,
+   "substeps": [
+    "30",
+    0
+   ],
+   "parameters": ""
+  }
+ },
+ "32": {
+  "class_type": "OCS Sampler",
+  "inputs": {
+   "groups": [
+    "31",
+    0
+   ],
+   "parameters": ""
+  }
+ }
+}
