@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { said } from "./fx.js";
 import { Head, Stats } from "./look.js";
-import { clock, licenceWord, STYLE_WORDS, SIZE_WORDS, PLACE_WORDS, clipKey, clipRef, viewUrl, captionBody, canCaption, secs, heroControls } from "./clipsound_logic.js";
+import { clock, licenceWord, STYLE_WORDS, SIZE_WORDS, PLACE_WORDS, clipKey, clipRef, viewUrl, captionBody, canCaption, secs, heroControls, soundBody, canSound, lufs } from "./clipsound_logic.js";
 
 const Tag = ({ w }) => html`<span class=${"fx-tag " + w[1]}>${w[0]}</span>`;
 const Ext = ({ href, children }) => html`<a href=${href} target="_blank" rel="noopener noreferrer">${children}<//>`;
@@ -116,11 +116,89 @@ function Captions({ d, clips }) {
   </section>`;
 }
 
+/* Every licence the sound model carries, the strictest first in words, each with its link. Shown beside the model picker. */
+function Licences({ m }) {
+  return html`<div class="cs-lics" role="note" aria-label="Licences for ${m.label}">
+    <p class="cs-lic"><span class="fx-tag bad">${m.label_short}</span> <b>${m.strictest}</b></p>
+    <ul>${m.licences.map((l) => html`<li key=${l.what}><span class=${"fx-tag " + (l.commercial ? "ok" : "bad")}>${l.research_only ? "Research only" : l.commercial ? "Commercial use OK" : "Non-commercial"}</span> ${l.what}: <${Ext} href=${l.url}>${l.name}<//>${l.quote && html` <q>${l.quote}</q>`}</li>`)}</ul>
+    <p class="small"><${Ext} href=${m.card}>Model card<//> · <${Ext} href=${m.code}>Code<//></p>
+  </div>`;
+}
+
+function SoundResult({ job }) {
+  const f = job.files || {}, l = job.loudness || {};
+  return html`<div class="cs-result">
+    ${f.video && html`<video src=${f.video.url} controls playsinline preload="metadata" aria-label="The clip with the sound ControlFoley made"><//>`}
+    <div>
+      <p class="small" role="status">Loudness ${lufs(l.lufs)}, true peak ${l.true_peak_db == null ? "not measured" : l.true_peak_db + " dBTP"}${job.raw_loudness ? ` (as generated: ${lufs(job.raw_loudness.lufs)}, ${job.raw_loudness.true_peak_db} dBTP)` : ""}. The whole job took ${secs(job.seconds)}. ${job.note}</p>
+      <p class="small"><b>${job.honest}</b></p>
+      ${job.replaces_sound && html`<p class="small"><b>This clip had its own sound.</b> The new sound replaced it; the picture was copied untouched.</p>`}
+      <p class="small"><span class="fx-tag bad">${job.label}</span> ${job.terms}</p>
+      <div class="fx-row">${f.video && html`<a class="btn" href=${f.video.url} download=${f.video.filename}>Clip with sound<//>`}${f.wav && html`<a class="btn" href=${f.wav.url} download=${f.wav.filename}>Sound only (WAV, before levelling)<//>`}${f.licence && html`<a class="btn" href=${f.licence.url} download=${f.licence.filename}>Licence note<//>`}</div>
+    </div>
+  </div>`;
+}
+
+/* What ControlFoley made here, with its numbers and what is wrong, as measured. Nobody has listened. */
+function SoundProof({ p }) {
+  const rows = (p && p.sound) || []; if (!rows.length) return null;
+  return html`<div class="cs-sproof"><h3>What ran here</h3><p class="small">${p.sound_note}</p><p class="small"><b>${p.sound_honest}</b></p>
+    <ol class="cs-proofs">${rows.map((r) => html`<li key=${r.src} class="fx-card">
+      <video src=${r.src} poster=${r.poster} controls playsinline preload="none" aria-label=${r.alt}><//>
+      <div><h4>${r.title}</h4>
+        <dl class="cs-facts">
+          <div><dt>Picture</dt><dd>${r.picture}, copied untouched</dd></div>
+          <div><dt>Loudness</dt><dd>${lufs(r.lufs)}, true peak ${r.true_peak_db} dBTP after levelling; as generated ${lufs(r.raw_lufs)}, ${r.raw_true_peak_db} dBTP</dd></div>
+          <div><dt>Near each visible event</dt><dd>${r.event_peaks.map((e) => `${e.picture_s} s: ${e.offset_ms > 0 ? "+" : ""}${e.offset_ms} ms, ${e.strength_x_median}x typical`).join("; ")}</dd></div>
+          <div><dt>Whole clip vs picture motion</dt><dd>r ${r.xcorr.r}; randomly shifted sound does as well ${Math.round(r.xcorr.p_vs_shifted * 100)}% of the time</dd></div>
+          <div><dt>Time</dt><dd>${secs(r.wall_s)} on the GPU, ${r.peak_vram_gib} GB of VRAM at most</dd></div>
+        </dl>
+        <p class="small"><b>What is wrong:</b> ${r.fault}</p>
+        <p class="small"><b>Measured, not listened to.</b> ${r.measured}</p>
+      </div></li>`)}</ol></div>`;
+}
+
+function Sound({ d, clips }) {
+  const ms = d.sounders || []; const m = ms[0];
+  const [clip, setClip] = useState(""), [f, setF] = useState({ prompt: "", negative: "", seed: 42, steps: 25, cfg: 4.5, noncommercial: false }), [job, setJob] = useState(null), [err, setErr] = useState("");
+  const up = (k, v) => setF((x) => ({ ...x, [k]: v }));
+  useEffect(() => { if (!job || job.status !== "running") return undefined; const t = setInterval(() => api("/api/clipsound/jobs/" + job.job).then(setJob).catch(() => {}), 2000); return () => clearInterval(t); }, [job]);
+  const go = async (e) => { e.preventDefault(); setErr(""); setJob(null); try { setJob(await post("/api/clipsound/sound", soundBody(clip, m, f))); } catch (x) { setErr(said(x)); } };
+  const busy = job && job.status === "running";
+  if (!m) return null;
+  return html`<section aria-labelledby="cs-snd">
+    <${Head} id="cs-snd" sub="For a clip that came back silent: a VOID removal, a Wan or VACE edit, a still brought to life. ControlFoley watches the picture and makes a sound bed for it.">Add sound to a silent clip<//>
+    <p class="cs-honest cs-honest-page"><b>${m.honest}</b></p>
+    <form class="fx-card cs-form" onSubmit=${go}>
+      <${Picker} clips=${clips} value=${clip} onPick=${setClip}/>
+      <fieldset><legend>Sound model</legend>
+        <label class="fx-lab">Model<select class="fx-in" value=${m.id} disabled=${ms.length < 2}>${ms.map((x) => html`<option key=${x.id} value=${x.id} disabled=${!x.ready}>${x.label} (${x.label_short})${x.ready ? "" : " (not on this machine)"}</option>`)}</select></label>
+        <${Licences} m=${m}/>
+        ${!m.ready && html`<p class="fx-err" role="alert">This machine is missing: ${m.missing.join("; ")}</p>`}
+        <label class="cs-check"><input type="checkbox" checked=${f.noncommercial} onChange=${(e) => up("noncommercial", e.target.checked)}/> This sound is for research or other non-commercial use</label>
+      </fieldset>
+      <fieldset><legend>Steer it (optional)</legend>
+        <label class="fx-lab">What it should sound like<input class="fx-in" value=${f.prompt} maxlength="200" placeholder="footsteps on gravel, light wind" onInput=${(e) => up("prompt", e.target.value)}/></label>
+        <label class="fx-lab">What to keep out<input class="fx-in" value=${f.negative} maxlength="200" placeholder="music, speech" onInput=${(e) => up("negative", e.target.value)}/></label>
+        <div class="fx-row">
+          <label class="fx-lab">Seed<input class="fx-in" type="number" min="0" value=${f.seed} onInput=${(e) => up("seed", e.target.value)}/></label>
+          <label class="fx-lab">Steps<select class="fx-in" value=${f.steps} onChange=${(e) => up("steps", Number(e.target.value))}>${m.steps.map((s) => html`<option key=${s} value=${s}>${s}</option>`)}</select></label>
+        </div>
+        <p class="small">Up to ${m.max_seconds} s of clip. Longer clips are refused, not cut.</p>
+      </fieldset>
+      <div class="fx-row"><button class="fx-go" type="submit" disabled=${busy || !canSound(clip, m, f)}>${busy ? job.step || "Working" : "Add sound"}</button></div>
+      <div aria-live="polite">${err && html`<p class="fx-err" role="alert">${err}</p>`}${job && job.status === "error" && html`<p class="fx-err" role="alert">${job.error}</p>`}</div>
+      ${job && job.status === "done" && html`<${SoundResult} job=${job}/>`}
+    </form>
+    <${SoundProof} p=${d.proof}/>
+  </section>`;
+}
+
 export function ClipSound() {
   const [d, setD] = useState(null), [clips, setClips] = useState([]), [err, setErr] = useState("");
   const load = () => { setErr(""); api("/api/clipsound/models").then(setD).catch((e) => setErr(said(e))); api("/api/clipsound/clips").then((r) => setClips(r.clips || [])).catch(() => {}); };
   useEffect(load, []);
   if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button class="btn" onClick=${load}>Try again</button></div>`;
   if (!d) return html`<div class="fx"><p class="small" role="status">Loading...</p></div>`;
-  return html`<div class="fx cs"><${Hero} p=${d.proof}/><${Captions} d=${d} clips=${clips}/><${Proof} p=${d.proof}/></div>`;
+  return html`<div class="fx cs"><${Hero} p=${d.proof}/><${Captions} d=${d} clips=${clips}/><${Sound} d=${d} clips=${clips}/><${Proof} p=${d.proof}/></div>`;
 }

@@ -31,3 +31,13 @@ export const secs = (s) => (s == null ? "not measured" : s >= 90 ? `${Math.round
 
 /** The hero shows the browser's own controls only while pointed at or focused, so they don't sit on the burned-in captions the rest of the time. */
 export const heroControls = (hover, focus) => !!(hover || focus);
+
+/** The request body for adding sound. noncommercial is only ever true when the person ticked the box. */
+export function soundBody(clip, m, f) {
+  return { clip: clipRef(clip), model: m.id, prompt: (f.prompt || "").trim().slice(0, 200), negative: (f.negative || "").trim().slice(0, 200), seed: f.seed === "" || f.seed == null ? 42 : Number(f.seed), steps: Number(f.steps || 25), cfg: Number(f.cfg || 4.5), noncommercial: f.noncommercial === true };
+}
+/** A run needs a clip, a model whose files are here, and the person's word that the result is for non-commercial use. */
+export const canSound = (clip, m, f) => !!(clip && m && m.ready && f && f.noncommercial === true);
+
+/** Loudness as the page shows it: "-23.4 LUFS", or "not measured". */
+export const lufs = (x) => (x == null || !isFinite(x) ? "not measured" : `${Math.round(x * 10) / 10} LUFS`);
