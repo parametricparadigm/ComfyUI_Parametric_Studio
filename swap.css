@@ -1,0 +1,17 @@
+/* Swap on any model. Cards follow the theme through the shared tokens; the render frame stays dark in both themes, like the other film panels. */
+.sw{max-width:1500px}
+.sw-grid{list-style:none;margin:0;padding:0}
+.sw-card{gap:12px}
+.sw-media{margin:0;position:relative;background:#050605;border-radius:4px;overflow:hidden;aspect-ratio:4/3;display:grid;place-items:center}
+.sw-media img,.sw-media video{width:100%;height:100%;object-fit:contain;display:block}
+.sw-media figcaption{position:absolute;left:8px;bottom:8px;right:8px;font-size:12px;color:#e8e9e3;text-shadow:0 1px 2px #000}
+.sw-ai{display:inline-block;padding:2px 6px;border-radius:3px;background:rgba(0,0,0,.65);color:#f5c518;font-weight:700}
+.sw-card header{display:flex;flex-direction:column;gap:2px}
+.sw-facts{margin:0;display:grid;gap:8px}
+.sw-facts div{display:grid;grid-template-columns:minmax(92px,30%) minmax(0,1fr);gap:8px}
+.sw-facts dt{font-size:13px;color:var(--mut)}
+.sw-facts dd{margin:0;font-size:14px;line-height:1.4;color:var(--text)}
+.sw-src code{font-size:12px}
+.sw-later,.sw-rules{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:clamp(12px,1.3vw,20px);display:flex;flex-direction:column;gap:8px}
+.sw-later ul{margin:0;padding-left:20px;display:grid;gap:6px;line-height:1.45}
+@media (max-width:560px){.sw-facts div{grid-template-columns:minmax(0,1fr);gap:2px}}
