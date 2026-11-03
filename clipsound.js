@@ -1,18 +1,31 @@
 /* Captions & Sound: speech captions for any clip, set in a real font by ffmpeg. Every proof on this page was measured by a program; nobody has listened to the audio. */
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { said } from "./fx.js";
 import { Head, Stats } from "./look.js";
-import { clock, licenceWord, STYLE_WORDS, SIZE_WORDS, PLACE_WORDS, clipKey, clipRef, viewUrl, captionBody, canCaption, secs } from "./clipsound_logic.js";
+import { clock, licenceWord, STYLE_WORDS, SIZE_WORDS, PLACE_WORDS, clipKey, clipRef, viewUrl, captionBody, canCaption, secs, heroControls } from "./clipsound_logic.js";
 
 const Tag = ({ w }) => html`<span class=${"fx-tag " + w[1]}>${w[0]}</span>`;
 const Ext = ({ href, children }) => html`<a href=${href} target="_blank" rel="noopener noreferrer">${children}<//>`;
 const Pills = ({ label, words, value, onPick }) => html`<div class="cs-pills" role="group" aria-label=${label}>${Object.entries(words).map(([k, w]) => html`<button type="button" key=${k} aria-pressed=${k === value} onClick=${() => onPick(k)}>${w}<//>`)}</div>`;
 
+/* The hero exists to show the burned-in captions, and the browser's own controls sit on top of them.
+   So the native bar shows only while the pointer is over the picture or the picture has focus, and a
+   play/pause button below the frame is always there for touch and keyboard. */
+function HeroVideo({ c }) {
+  const v = useRef(null); const [hover, setHover] = useState(false), [focus, setFocus] = useState(false), [playing, setPlaying] = useState(false);
+  const toggle = () => { const el = v.current; if (!el) return; if (el.paused) el.play().catch(() => {}); else el.pause(); };
+  return html`<div class="cs-heropic" onPointerEnter=${() => setHover(true)} onPointerLeave=${() => setHover(false)}>
+    <video ref=${v} src=${c.src} poster=${c.poster} controls=${heroControls(hover, focus)} tabindex="0" playsinline preload="metadata" aria-label=${c.alt}
+      onFocus=${() => setFocus(true)} onBlur=${() => setFocus(false)} onPlay=${() => setPlaying(true)} onPause=${() => setPlaying(false)} onEnded=${() => setPlaying(false)}><//>
+    <button type="button" class="cs-play" aria-pressed=${playing} onClick=${toggle}>${playing ? "Pause" : "Play"} the captioned sample<//>
+  </div>`;
+}
+
 function Hero({ p }) {
   const c = p && p.captions;
   return html`<section class="cs-hero film" aria-labelledby="cs-title">
-    <div class="cs-heropic">${c ? html`<video src=${c.src} poster=${c.poster} controls playsinline preload="metadata" aria-label=${c.alt}><//>` : html`<p class="small">No captioned sample yet.</p>`}</div>
+    ${c ? html`<${HeroVideo} c=${c}/>` : html`<div class="cs-heropic"><p class="small">No captioned sample yet.</p></div>`}
     <div class="cs-herotext">
       <p class="cs-eyebrow">Captions & Sound</p>
       <h2 id="cs-title">Its words, on screen.</h2>

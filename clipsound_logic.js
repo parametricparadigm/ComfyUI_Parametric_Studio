@@ -28,3 +28,6 @@ export const canCaption = (clip, m) => !!(clip && m && m.ready);
 
 /** Seconds as the proof shows them. */
 export const secs = (s) => (s == null ? "not measured" : s >= 90 ? `${Math.round(s / 6) / 10} min` : `${Math.round(s * 10) / 10} s`);
+
+/** The hero shows the browser's own controls only while pointed at or focused, so they don't sit on the burned-in captions the rest of the time. */
+export const heroControls = (hover, focus) => !!(hover || focus);
