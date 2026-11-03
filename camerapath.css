@@ -1,0 +1,35 @@
+/* Camera Paths. Shares the feature-page look (fx.css); only what this page adds is here. Every control is at least 40 px tall, and nothing is wider than a 390 px phone. */
+.cp .fx-two{align-items:stretch}
+.cp-globe{position:relative;width:100%;min-height:240px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel2);touch-action:none}
+.cp-globe canvas{display:block;width:100%;height:auto}
+.cp-globe p{padding:12px}
+.cp-keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.cp-keys li{display:grid;grid-template-columns:minmax(70px,auto) minmax(0,1fr) minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.cp-keys input[type=range]{width:100%;min-height:40px;accent-color:var(--a1)}
+.cp-form{display:flex;flex-direction:column;gap:10px}
+.cp-thumb{max-width:100%;max-height:180px;object-fit:contain;border-radius:4px;align-self:flex-start}
+.cp-pad{position:relative;width:100%;aspect-ratio:960/576;border:1px dashed var(--line2);border-radius:6px;overflow:hidden;background:var(--panel2);touch-action:none;cursor:crosshair;display:flex;align-items:center;justify-content:center}
+.cp-pad img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cp-pad svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cp-path{fill:none;stroke:#f5c518;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.cp-start{fill:#2ecc71;stroke:#000;stroke-width:2}
+.cp-clips{border:1px solid var(--line);border-radius:6px;padding:8px;margin:0;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.cp-clip{display:flex;gap:10px;align-items:center;min-height:44px;padding:4px 6px;border-radius:4px;cursor:pointer}
+.cp-clip:hover{background:var(--panel2)}
+.cp-clip input{width:22px;height:22px;flex:none;accent-color:var(--a1)}
+.cp-clip span{display:flex;flex-direction:column;overflow-wrap:anywhere}
+.cp-clip small{color:var(--mut)}
+.cp-results{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cp-results li{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line)}
+.cp-results li span{flex-basis:100%;font-size:13px;color:var(--mut);overflow-wrap:anywhere}
+.cp-result{margin:0;display:flex;flex-direction:column;gap:6px}
+.cp-result video{width:100%;border-radius:6px;background:#000}
+.cp-result figcaption{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;font-size:14px}
+.cp-result figcaption small{flex-basis:100%;color:var(--mut)}
+.cp-conf td,.cp-conf th{white-space:normal}
+.cp select.fx-in{min-height:44px}
+@media (max-width:520px){.cp-keys li{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cp-keys li b{grid-column:1/-1}.cp-keys li .btn{grid-column:1/-1}}
+.cp-hero .cp-result video{max-height:62vh;object-fit:contain}
+.cp-proof h3{margin-top:6px}
+.cp-tech summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:700}
+.cp-result a.btn{color:var(--text);border:1px solid var(--line2)}
