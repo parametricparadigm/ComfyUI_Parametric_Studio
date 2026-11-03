@@ -32,6 +32,7 @@ function directive(kind, body) {
   if (kind === "graph") return { t: "graph", id: body.trim() };
   const parts = body.split("|").map((x) => x.trim());
   if (kind === "wipe") return { t: "wipe", a: parts[0], b: parts[1], la: parts[2] || "", lb: parts[3] || "", caption: parts[4] || "" };
+  if (kind === "video") return { t: kind, src: parts[0], caption: parts[1] || "", poster: parts[2] || "" };
   return { t: kind, src: parts[0], caption: parts[1] || "" };
 }
 export function lessonBlocks(body) {

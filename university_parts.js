@@ -77,7 +77,7 @@ export function Blocks({ blocks, c, passPlay, entry }) {
       case "code": return html`<pre key=${i} class=${"cu-code" + (b.lang === "text" ? " out" : "")} tabindex="0"><code>${b.code}</code></pre>`;
       case "table": return html`<div key=${i} class="cu-table" tabindex="0"><table><thead><tr>${b.head.map((h, j) => html`<th key=${j} dangerouslySetInnerHTML=${{ __html: h }}></th>`)}</tr></thead><tbody>${b.rows.map((r, k) => html`<tr key=${k}>${r.map((x, j) => html`<td key=${j} dangerouslySetInnerHTML=${{ __html: x }}></td>`)}</tr>`)}</tbody></table></div>`;
       case "img": return html`<figure key=${i} class="cu-fig"><img src=${b.src} alt=${b.caption} loading="lazy"/>${b.caption && html`<figcaption>${b.caption}</figcaption>`}</figure>`;
-      case "video": return html`<figure key=${i} class="cu-fig"><video src=${b.src} controls muted playsinline preload="none" aria-label=${b.caption}></video>${b.caption && html`<figcaption>${b.caption}</figcaption>`}</figure>`;
+      case "video": return html`<figure key=${i} class="cu-fig"><video src=${b.src} poster=${b.poster || undefined} controls muted playsinline preload=${b.poster ? "none" : "metadata"} aria-label=${b.caption}></video>${b.caption && html`<figcaption>${b.caption}</figcaption>`}</figure>`;
       case "audio": return html`<figure key=${i} class="cu-fig"><audio src=${b.src} controls preload="none" aria-label=${b.caption}></audio>${b.caption && html`<figcaption>${b.caption}</figcaption>`}</figure>`;
       case "wipe": return html`<${Wipe} key=${i} ...${b}/>`;
       case "play": return html`<div key=${i} class="cu-wide"><${PlayBlock} name=${b.name} args=${b.args} passPlay=${passPlay} entry=${entry}/></div>`;
