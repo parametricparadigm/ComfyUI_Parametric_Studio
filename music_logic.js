@@ -86,6 +86,11 @@ export function runBody(model, f) {
   const secs = model.id === "stable_open" ? Math.min(47, Number(f.seconds) || 47) : Number(f.seconds) || seconds(lyr);
   const body = { graph: model.graph, seed: Number(f.seed) || 7701, seconds: secs, bpm: Number(f.bpm) || 90, key: f.key || "C major", style: String(f.style || ""), lyrics: lyr };
   if (model.takes === "caption") body.caption = captionFrom(f.style);
+  const slider = f.slider && f.slider !== "none" ? f.slider : "";
+  if (model.id === "music3" && (slider || f.turbo)) {      // the style kit: its own graph, so the plain Music 3 graph stays exactly as proven
+    body.graph = "music_music3_kit_api.json"; body.slider = slider || "none"; body.turbo = !!f.turbo;
+    if (slider) body.slider_strength = Math.max(0, Math.min(1.5, Number(f.strength ?? 1)));
+  }
   return body;
 }
 

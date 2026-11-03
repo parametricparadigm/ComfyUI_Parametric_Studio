@@ -1,7 +1,7 @@
 /* Captions & Sound: speech captions for any clip, set in a real font by ffmpeg. Every proof on this page was measured by a program; nobody has listened to the audio. */
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { said } from "./fx.js";
+import { said, FxSkeleton } from "./fx.js";
 import { Head, Stats } from "./look.js";
 import { clock, licenceWord, STYLE_WORDS, SIZE_WORDS, PLACE_WORDS, clipKey, clipRef, viewUrl, captionBody, canCaption, secs, heroControls, soundBody, canSound, lufs } from "./clipsound_logic.js";
 
@@ -199,6 +199,6 @@ export function ClipSound() {
   const load = () => { setErr(""); api("/api/clipsound/models").then(setD).catch((e) => setErr(said(e))); api("/api/clipsound/clips").then((r) => setClips(r.clips || [])).catch(() => {}); };
   useEffect(load, []);
   if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button class="btn" onClick=${load}>Try again</button></div>`;
-  if (!d) return html`<div class="fx"><p class="small" role="status">Loading...</p></div>`;
+  if (!d) return html`<div class="fx"><${FxSkeleton} label="Reading the sound models and your clips."/></div>`;
   return html`<div class="fx cs"><${Hero} p=${d.proof}/><${Captions} d=${d} clips=${clips}/><${Sound} d=${d} clips=${clips}/><${Proof} p=${d.proof}/></div>`;
 }

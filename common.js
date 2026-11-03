@@ -7,4 +7,6 @@ export const api = async (path, opts) => {
   return r.json();
 };
 export const post = (p, body) => api(p, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+/** "auto" under prefers-reduced-motion, so a scroll the page starts itself jumps instead of gliding. */
+export const smooth = () => (typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
 export default html;

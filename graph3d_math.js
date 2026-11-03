@@ -6,6 +6,19 @@ const DEC = "Uses the VAE to turn the finished latent into real frames.";
 const DECA = "Uses the audio VAE to turn the finished latent into a sound wave.";
 const EMPTY = "Creates an empty latent at the output size. Its shape sets the width, height and length of the result.";
 export const CLASS_INFO = {
+  /* kijai's WanVideoWrapper nodes in the LongCat Avatar 1.5 talking-head template, from the pack's own descriptions and tooltips (commit 088128b) */
+  WanVideoModelLoader: I("load", "Loads the video model", "kijai's WanVideoWrapper loader. Loads the Wan-family diffusion model (here LongCat Avatar 1.5) with its precision, attention mode, any LoRA and the block-swap settings."),
+  WanVideoLoraSelect: I("load", "Picks a LoRA", "Chooses a LoRA from the loras folder and its strength, for WanVideoWrapper's model loader to apply. Here it is the distilled LoRA that lets the model run in a few steps."),
+  WanVideoBlockSwap: I("plan", "Saves VRAM", "Settings for block swapping: this many transformer blocks wait in CPU memory and move to the GPU only when needed. Slower, but the model fits on a smaller card."),
+  WanVideoVAELoader: I("load", "Loads the VAE", "Loads the Wan VAE, which turns pictures into the small latent space the model works in, and back."),
+  WanVideoTextEncodeCached: I("text", "Reads the prompt", "Turns the positive and negative prompts into text embeddings with the UMT5 encoder, then unloads the encoder completely to free memory for the video model."),
+  WanVideoEncode: I("latent", "Turns the picture into a latent", "Uses the Wan VAE to turn the starting picture into a latent the model can continue from."),
+  WhisperModelLoader: I("load", "Loads Whisper", "Loads the Whisper audio encoder. It listens to the speech so the avatar's mouth and face can follow it."),
+  LongCatAvatarWhisperEmbeds: I("text", "Reads the voice", "Runs the speech through Whisper at the video's frame rate (25 fps for LongCat Avatar 1.5), after levelling its loudness, so each frame knows which sound it goes with."),
+  WanVideoLongCatAvatarExtendEmbeds: I("latent", "Lines up picture and voice", "Puts the starting latent, the reference frame and the audio embeddings together for the next stretch of frames, so a talking clip can be made in overlapping pieces."),
+  WanVideoSchedulerv2: I("plan", "Sets the steps", "Chooses the noise schedule, the number of steps and the shift for WanVideoWrapper's sampler."),
+  WanVideoSamplerv2: I("sample", "The sampler: makes the clip", "Where the clip actually forms: starts from noise and removes a little at every step, guided by the prompt, the picture and the voice."),
+  WanVideoDecode: I("decode", "Turns the latent into frames", "Uses the Wan VAE to turn the finished latent into real video frames."),
   "EmptyAceStep1.5LatentAudio": I("latent", "Sets the song's length", "Makes the empty audio latent ACE-Step 1.5 fills, at the length you asked for."), EmptyLatentAudio: I("latent", "Sets the clip's length", "Makes the empty audio latent the sampler fills, at the length you asked for."), EmptyYuE2LatentAudio: I("latent", "Sets the song's length", "Makes the empty audio latent YuE2 fills. Its length comes from the plan YuE2 wrote."),
   "TextEncodeAceStepAudio1.5": I("text", "Reads the style and lyrics", "Turns style tags, lyrics, BPM and key into what ACE-Step 1.5 follows."), ACEStep15TaskTextEncode: I("text", "Reads the style for one task", "RyanOnTheInside's node. The same reading of words, told which task it's for: cover, repaint or extract."),
   CFGNorm: I("plan", "Keeps guidance from overshooting", "Normalises the guided prediction so a strong CFG doesn't wash out colour or detail. Used with Qwen-Image-Edit."), FluxKontextImageScale: I("media", "Resizes to a size the editor knows", "Scales the input picture to the nearest resolution these editing models were trained on, so edits stay sharp."), FluxKontextMultiReferenceLatentMethod: I("latent", "Chooses how reference pictures are joined", "Sets how the reference pictures' latents are attached to the prompt, so one edit can draw on more than one picture."),
@@ -50,6 +63,8 @@ export const CLASS_INFO = {
   BasicGuider: I("text", "Points the model at the prompt", "Pairs the model with one conditioning and no negative prompt, so each step simply follows the prompt."),
   MiniMaxH3ImageToVideo: I("text", "Sets up the H3 shot", "Encodes the prompt and any frames, and builds the empty H3 video and audio latent to fill."),
   MiniMaxH3ReferenceToVideo: I("text", "Feeds references to H3", "Encodes the prompt together with your reference pictures and clips, and builds the latent H3 will fill."),
+  MiniMaxH3AddGuide: I("text", "Pins a keyframe", "Anchors a picture or a stretch of sound at one frame of the video, so H3 starts from it."),
+  SetLatentNoiseMask: I("latent", "Marks what may change", "Tells the sampler which part of the latent to redraw. A mask of 0 keeps that part exactly as it came in."), TrimAudioDuration: I("media", "Cuts a stretch of sound", "Keeps the audio from a start time for a set number of seconds."),
   LTXAddVideoICLoRAGuide: I("text", "Feeds your clip as a guide", "Encodes the source clip and attaches it to the conditioning, so the edit follows its motion and framing."),
   WanCameraImageToVideo: I("text", "Combines frame and camera", "Combines the start frame, the prompts and the camera data into what the Wan sampler needs."),
   WanCameraEmbedding: I("plan", "Describes the camera move", "Turns a camera preset into per-frame data that tells Wan how the view should move."),
@@ -304,9 +319,9 @@ export function layoutGraph(graph, opts = {}) {
   const m = buildModel(graph); if (!m.ids.length) return { ...m, cols: [], bounds: [], arrive: {}, maxArrive: 0, period: 20, floor: -6 };
   assignColumns(m); assignRows(m, opts.gap ?? (Math.max(...m.ids.map((i) => m.nodes[i].col), 0) > 7 ? 1.05 : 0.8));
   const { ids, nodes, links } = m, plate = opts.plate === false ? null : { w: opts.plateW ?? 7.6, h: opts.plateH ?? 6.2 }, colW = m.cols.map((c) => Math.max(...c.map((i) => nodes[i].size.w), 1)), pitchGap = opts.colGap ?? 1.25, colX = []; let x = 0;
-  const deep = m.cols.length > 7, weave = deep ? 0.6 : 1; colW.forEach((w, c) => { colX[c] = x + w / 2; x += deep ? w * weave + 0.45 : w + pitchGap; }); const last = colW.length - 1, S = (deep ? x - 0.45 + colW[last] * (1 - weave) : x - pitchGap) + (plate ? plate.w + pitchGap * 1.25 : 0), R = Math.max(14, S / 1.75), shift = plate ? 0.06 : 0;
+  const deep = m.cols.length > 7, weave = 1; colW.forEach((w, c) => { colX[c] = x + w / 2; x += deep ? w * weave + 0.45 : w + pitchGap; }); const last = colW.length - 1, S = (deep ? x - 0.45 + colW[last] * (1 - weave) : x - pitchGap) + (plate ? plate.w + pitchGap * 1.25 : 0), R = Math.max(14, S / 1.75), shift = plate ? 0.06 : 0;
   const place = (s, y, st = 0) => { const th = (s - S / 2) / R + shift; return { pos: [R * Math.sin(th), y, R * (1 - Math.cos(th)) + st], yaw: -th * 0.9, th }; };
-  m.cols.forEach((c, ci) => c.forEach((id, row) => { const n = nodes[id]; if (deep) n.y += ci % 2 ? 2 : -2; const p = place(colX[ci], n.y, (c.length > 1 ? (row % 2 ? -0.55 : 0.55) : 0) + (deep ? (ci % 2 ? -1.9 : 1.9) : 0)); n.pos = p.pos; n.yaw = p.yaw; n.th = p.th; n.axisX = [Math.cos(p.yaw), 0, -Math.sin(p.yaw)]; n.out = [Math.sin(p.th), 0, -Math.cos(p.th)]; }));
+  m.cols.forEach((c, ci) => c.forEach((id, row) => { const n = nodes[id]; const p = place(colX[ci], n.y, (c.length > 1 ? (row % 2 ? -0.55 : 0.55) : 0) + 0); n.pos = p.pos; n.yaw = p.yaw; n.th = p.th; n.axisX = [Math.cos(p.yaw), 0, -Math.sin(p.yaw)]; n.out = [Math.sin(p.th), 0, -Math.cos(p.th)]; }));
   const rowY = (n, i) => n.size.h / 2 - n.size.head - PANEL.rowH * (i + 0.5);
   ids.forEach((id) => { const n = nodes[id]; n.inputs.sort((a, b) => nodes[b.from].y - nodes[a.from].y); n.inputs.forEach((l, i) => { l.y1 = rowY(n, Math.min(i, n.size.rows - 1)); }); Object.keys(n.outs).map(Number).sort((a, b) => a - b).forEach((s, i) => { n.outs[s].y = rowY(n, Math.min(i, n.size.rows - 1)); n.outs[s].row = i; }); });
   links.forEach((l, i) => {
@@ -366,3 +381,51 @@ export function graphRequest(draft, goal, ideas = {}) {
 }
 /** First stop for the walk-through: nodes in the order data reaches them, skipping small value nodes. */
 export function walkOrder(m) { return Object.values(m.nodes).filter((n) => n.info.kind !== "value").sort((a, b) => (m.arrive[a.id] ?? 0) - (m.arrive[b.id] ?? 0) || b.y - a.y).map((n) => n.id); }
+/* ---------- labels: which node names float over the scene when the panels are too small to read ---------- */
+const LABEL_RANK = { sample: 0, save: 1, load: 2, text: 3, decode: 4, latent: 5, media: 6, plan: 7, other: 8, value: 9 };
+/** Lower is more important: the sampler first, then the output, the loaders and the prompts; the small value nodes last. */
+export const labelPriority = (kind) => LABEL_RANK[kind] ?? 8;
+/** Screen pixels per world unit at a distance, for a vertical field of view in degrees and a viewport height in pixels. */
+export const pxPerUnit = (dist, fov, height) => height / (2 * Math.tan((fov * Math.PI) / 360) * Math.max(1e-3, dist));
+/** Greedy declutter. Each candidate is {id, x, y, w, h, pri, z}: a label anchored by its bottom centre at (x, y), w by h pixels. The most important labels win (lower pri, then nearer z); a label is kept only if it sits inside the view and clears every kept label by pad pixels. Returns the kept ids, best first. */
+export function declutterLabels(cands, { width, height, max = 12, pad = 4 } = {}) {
+  const order = [...cands].sort((a, b) => a.pri - b.pri || a.z - b.z || String(a.id).localeCompare(String(b.id))), kept = [], boxes = [];
+  for (const c of order) {
+    if (kept.length >= max) break;
+    const x0 = c.x - c.w / 2, x1 = c.x + c.w / 2, y0 = c.y - c.h, y1 = c.y;
+    if (!(x0 >= 0 && y0 >= 0 && x1 <= width && y1 <= height)) continue;
+    if (boxes.some((b) => x0 < b[2] + pad && x1 + pad > b[0] && y0 < b[3] + pad && y1 + pad > b[1])) continue;
+    boxes.push([x0, y0, x1, y1]); kept.push(c.id);
+  }
+  return kept;
+}
+/** Zoom limits that suit the graph: close enough to read one panel, far enough to see the whole graph with room around it. */
+export const zoomLimits = (fitDistance) => ({ min: Math.max(2, fitDistance * 0.12), max: Math.max(30, fitDistance * 2.4) });
+/** The next node for the arrow keys: steps through order (the walk order) and wraps; from nothing, forward starts at the first node and back at the last. */
+export function stepNode(order, current, dir) {
+  if (!order.length) return null; const i = order.indexOf(current);
+  if (i < 0) return dir < 0 ? order[order.length - 1] : order[0];
+  return order[(i + (dir < 0 ? -1 : 1) + order.length) % order.length];
+}
+/* ---------- the overview: what the camera shows first, and which titles a nearer panel hides from it ---------- */
+/** The opening camera for a viewport: a gentle three-quarter view on a phone (taller than wide; any steeper and the near columns cover the far ones' titles), almost straight on elsewhere, fitted to every panel and the result plate. */
+export function overviewView(m, W, H, fov = 30) {
+  const narrow = W / H < 1, pts = m.bounds && m.bounds.length ? m.bounds : [[0, 0, 0]];
+  return fitView(pts, narrow ? 0.5 : 0.16, narrow ? 0.24 : 0.1, fov * (narrow ? 1 : 0.86), (W / H) / (narrow ? 1 : 0.86), narrow ? 1.06 : 1.045);
+}
+/** Screen boxes [x0, y0, x1, y1] of each panel and of its title strip, seen from view {position, target} with a vertical fov in degrees on a W x H viewport; z is the depth of the panel's centre. */
+export function panelBoxes(m, view, fov, W, H) {
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2], unit = (a) => { const l = Math.hypot(...a) || 1; return a.map((x) => x / l); };
+  const f = unit(sub(view.target, view.position)), r = unit([-f[2], 0, f[0]]), u = [r[1] * f[2] - r[2] * f[1], r[2] * f[0] - r[0] * f[2], r[0] * f[1] - r[1] * f[0]], t = Math.tan((fov * Math.PI) / 360);
+  const proj = (p) => { const q = sub(p, view.position), z = Math.max(1e-3, dot(q, f)); return [W / 2 + (dot(q, r) / (z * t * (W / H))) * (W / 2), H / 2 - (dot(q, u) / (z * t)) * (H / 2), z]; };
+  const box = (cs) => [Math.min(...cs.map((c) => c[0])), Math.min(...cs.map((c) => c[1])), Math.max(...cs.map((c) => c[0])), Math.max(...cs.map((c) => c[1]))];
+  return m.ids.map((id) => { const n = m.nodes[id], hw = n.size.w / 2, hh = n.size.h / 2, at = (sx, sy) => proj(add(add(n.pos, n.axisX, sx * hw), [0, sy * hh, 0])), ty = 1 - (2 * n.size.head) / n.size.h;
+    return { id, all: box([at(-1, 1), at(1, 1), at(1, -1), at(-1, -1)]), title: box([at(-1, 1), at(1, 1), at(1, ty), at(-1, ty)]), z: proj(n.pos)[2] }; });
+}
+/** Ids whose title strip is more than `limit` covered by one nearer panel. */
+export function hiddenTitles(boxes, limit = 0.25) {
+  const out = [];
+  for (const a of boxes) { const T = a.title, area = Math.max(1e-6, (T[2] - T[0]) * (T[3] - T[1]));
+    if (boxes.some((b) => b !== a && b.z < a.z && (Math.max(0, Math.min(T[2], b.all[2]) - Math.max(T[0], b.all[0])) * Math.max(0, Math.min(T[3], b.all[3]) - Math.max(T[1], b.all[1]))) / area > limit)) out.push(a.id); }
+  return out;
+}

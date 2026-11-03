@@ -1,6 +1,6 @@
 // The Commercials page: a library of TV-spot genres as templates, a brief-to-script writer, and the generator. Every rendered spot shown here is a real run that a person looked at shot by shot; its flaws are labelled, and nobody has listened to the audio.
 import { useEffect, useRef, useState } from "preact/hooks";
-import { html, api, post } from "./common.js";
+import { html, api, post, smooth } from "./common.js";
 import { said } from "./fx.js";
 import { GROUPS, pick, segments, runBody, statusWord, heardWord, totals, clock, secs, classWord } from "./commercials_logic.js";
 
@@ -163,7 +163,7 @@ export function Commercials() {
   const load = () => { setErr(""); api("/api/commercials/genres").then(setD).catch((e) => setErr(said(e))); api("/api/commercials/proof").then(setProof).catch(() => {}); };
   useEffect(load, []);
   useEffect(() => { document.body.classList.add("on-commercials"); return () => document.body.classList.remove("on-commercials"); }, []);
-  const use = (id) => { setGid(id); const el = document.getElementById("cm-maker"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); };
+  const use = (id) => { setGid(id); const el = document.getElementById("cm-maker"); if (el) el.scrollIntoView({ behavior: smooth(), block: "start" }); };
   if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button type="button" class="btn" onClick=${load}>Try again</button></div>`;
   if (!d) return html`<div class="fx"><p class="small" role="status">Loading the genres...</p></div>`;
   return html`<div class="fx cm"><${Hero} genres=${d.genres} proof=${proof} cur=${cur} setCur=${setCur}/><${Spots} proof=${proof}/><${Library} genres=${d.genres} proof=${proof} onUse=${use}/><${Maker} d=${d} gid=${gid} setGid=${setGid}/><${Rules} d=${d}/></div>`;

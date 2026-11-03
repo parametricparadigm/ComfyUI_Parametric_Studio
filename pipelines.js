@@ -10,7 +10,7 @@ const src = (id, f) => `pipelines/${id}/${f}`;
 function StageMedia({ id, m, big }) {
   if (!m) return html`<div class="pl-nomedia">No output</div>`;
   if (m.kind === "audio") return big ? html`<div class="pl-audiobig">${m.poster && html`<img src=${src(id, m.poster)} alt="Waveform of this audio"/>`}<audio controls preload="none" src=${src(id, m.src)}></audio></div>` : html`<img class="pl-wave" src=${src(id, m.poster || "")} alt="Waveform of this audio" loading="lazy"/>`;
-  if (m.kind === "video") return big ? html`<video key=${m.src} controls playsinline preload="metadata" poster=${src(id, m.poster)} src=${src(id, m.src)}></video>` : html`<img src=${src(id, m.poster)} alt="" loading="lazy"/>`;
+  if (m.kind === "video") return big ? html`<video key=${m.src} controls playsinline preload="none" poster=${src(id, m.poster)} src=${src(id, m.src)}></video>` : html`<img src=${src(id, m.poster)} alt="" loading="lazy"/>`;
   if (m.kind === "image") return html`<img src=${src(id, m.src)} alt="" loading="lazy"/>`;
   return html`<div class="pl-nomedia">A ${m.name || "file"} on disk</div>`;
 }
@@ -75,7 +75,7 @@ function Pipeline({ p, n, health }) {
   return html`<article class="pl-item film" id=${"pl-" + p.id} aria-labelledby=${"plh-" + p.id}>
     <header class="pl-head"><span class="pl-no" aria-hidden="true">${String(n + 1).padStart(2, "0")}</span><div><span class="lk-kick">${p.kicker}</span><h2 id=${"plh-" + p.id}>${p.title}</h2><p>${p.pitch}</p></div></header>
     ${pr && pr.final ? html`<div class="pl-final">
-      <figure class="pl-finalpic">${pr.final.kind === "video" ? html`<video controls playsinline preload="metadata" poster=${src(p.id, pr.final.poster)} src=${src(p.id, pr.final.src)} aria-label=${"The final result of " + p.title}></video>` : html`<${StageMedia} id=${p.id} m=${pr.final} big/>`}</figure>
+      <figure class="pl-finalpic">${pr.final.kind === "video" ? html`<video controls playsinline preload="none" poster=${src(p.id, pr.final.poster)} src=${src(p.id, pr.final.src)} aria-label=${"The final result of " + p.title}></video>` : html`<${StageMedia} id=${p.id} m=${pr.final} big/>`}</figure>
       <div class="pl-side">
         <span class=${"pl-status is-" + pr.status}>${statusWord(pr.status)}</span>
         <${Stats} items=${[[minutesOf(pr.seconds), "Minutes of work"], [`${pr.peak_vram_gib}`, "GiB, highest peak"], [stages.length, "Stages"]]}/>

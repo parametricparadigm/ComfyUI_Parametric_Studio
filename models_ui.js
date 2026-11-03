@@ -52,6 +52,8 @@ export function DlButton({ kind, id, row, small }) {
 /* Create panel: when the chosen goal's models are missing, say what is needed and offer the download */
 export function NeedsModels({ goal }) {
   const { ready, dl } = useModels(); const row = ready && ready.goals && ready.goals[goal];
+  /* the read-only demo has no machine of its own: say what installing would do instead of showing the author's missing files */
+  if (typeof window !== "undefined" && window.STUDIO_DEMO) return row && row.known ? html`<div class="needs"><b>Read-only demo</b><small>Nothing generates here. Installed, this goal needs ${row.files || (row.items || []).length} model file${(row.files || (row.items || []).length) === 1 ? "" : "s"}${row.total_gb ? ` (${gbText(row.total_gb)})` : ""}; the studio fetches only the ones you are missing, then it runs on your own GPU.</small>${window.STUDIO_REPO ? html`<a class="btn small" href=${window.STUDIO_REPO}>Get Parametric Studio</a>` : null}</div>` : null;
   if (!row || !row.known || (row.ready && !(mine(dl, "goal", goal) && dl.state === "done"))) return null;
   return html`<div class="needs"><b>${row.ready ? "Models downloaded" : `Needs ${gbText(row.missing_gb) || "model files"} of models`}</b><small>${row.ready ? "Ready to generate." : `${row.missing} file${row.missing > 1 ? "s" : ""} missing on this machine. Only ${row.missing > 1 ? "those are" : "that is"} downloaded: ${(row.items || []).filter((x) => !x.present).map((x) => x.name).join(", ")}`}</small><${DlButton} kind="goal" id=${goal} row=${row} small/></div>`;
 }

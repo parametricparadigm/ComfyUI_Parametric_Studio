@@ -178,7 +178,7 @@ function AssetDetail({ id, onChanged, onExport }) {
     try { const r = await post(`/api/worldkit/assets/${encodeURIComponent(id)}/${verb}`, body || {}); setErr(""); onChanged(r.asset ? r.asset.id : ""); } catch (e) { setErr(errText(e)); }
     if (verb !== "archive") load();
   };
-  if (!meta) return html`<div class="wk-stage film wk-loading"><p>${err || "Loading..."}</p></div>`;
+  if (!meta) return html`<div class="wk-stage film wk-loading">${err ? html`<div role="alert"><p>${err}</p><button class="btn small" onClick=${load}>Try again</button></div>` : html`<div class="pp-loading" role="status"><span>Opening this asset</span><i aria-hidden="true"></i></div>`}</div>`;
   const sum = summaryOf(meta), files = meta.files || {}, glb = files["asset.glb"], turn = files["preview.mp4"];
   const shown = view && files[view === "3d" ? "asset.glb" : "preview.mp4"] ? view : glb ? "3d" : turn ? "turn" : "";
   const clipNames = (meta.clips || []).map((c) => c.name), sheetId = meta.type === "character" && meta.source && meta.source.character_id;

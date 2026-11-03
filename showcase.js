@@ -23,7 +23,9 @@ export function RingHero({ items, onPick }) {
   useEffect(() => {
     const visual = items.filter((x) => x.kind !== "audio"); if (!visual.length || !ref.current) return;
     let alive = true, cleanup = () => {};
-    (async () => {
+    /* the wall waits until it is on screen: Create stays mounted while other pages are open, and this keeps three.js and eight videos from loading behind them */
+    const wait = new IntersectionObserver((es) => { if (!es.some((e) => e.isIntersecting)) return; wait.disconnect(); start(); }); wait.observe(ref.current);
+    const start = () => (async () => {
       let THREE; try { THREE = await import("three"); } catch { setFailed(true); return; }
       if (!alive || !ref.current) return;
       const el = ref.current, reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -72,7 +74,7 @@ export function RingHero({ items, onPick }) {
       loop();
       cleanup = () => { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); el.removeEventListener("pointermove", onMove); el.removeEventListener("pointerdown", onDown); el.removeEventListener("pointerup", onUp); vids.forEach((v) => { v.pause(); v.removeAttribute("src"); v.load(); }); texCache.forEach((t) => t.dispose()); renderer.dispose(); renderer.domElement.remove(); };
     })();
-    return () => { alive = false; cleanup(); };
+    return () => { alive = false; wait.disconnect(); cleanup(); };
   }, [items]);
   return html`<div class="wall3d" ref=${ref} aria-hidden="true">${failed && html`<div class="wallfallback">${items.filter((x) => x.kind !== "audio").slice(0, 6).map((x) => html`<img src=${x.poster} alt="" loading="lazy"/>`)}</div>`}</div>`;
 }
@@ -82,7 +84,7 @@ export function LiveMedia({ item, cls }) {
   const ref = useRef(null);
   useEffect(() => { const v = ref.current; if (!v || item.kind !== "video" || matchMedia("(prefers-reduced-motion: reduce)").matches) return; const io = new IntersectionObserver((es) => { es[0].isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { threshold: 0.15 }); io.observe(v); return () => io.disconnect(); }, [item && item.id]);
   if (!item) return null;
-  return item.kind === "video" ? html`<video key=${item.id} ref=${ref} class=${cls} src=${item.src} poster=${item.poster} muted loop playsinline preload="metadata"></video>` : html`<img key=${item.id} class=${cls} src=${item.poster} alt=${item.prompt} loading="lazy"/>`;
+  return item.kind === "video" ? html`<video key=${item.id} ref=${ref} class=${cls} src=${item.src} poster=${item.poster} muted loop playsinline preload=${item.poster ? "none" : "metadata"}></video>` : html`<img key=${item.id} class=${cls} src=${item.poster} alt=${item.prompt} loading="lazy"/>`;
 }
 
 /* the licence badge on a goal tile: the licence when it is open, otherwise the first thing it limits (non-commercial, research only, a revenue cap, territory limits); the full terms are in its title and beside Generate */
@@ -120,10 +122,10 @@ export function Drop({ label, accept, file, onFile, example, hint }) {
   const ref = useRef(null); const [over, setOver] = useState(false); const [busy, setBusy] = useState(false);
   const take = async (f) => { if (!f) return; setBusy(true); try { await onFile(f); } finally { setBusy(false); } };
   const tryExample = async (e) => { e.stopPropagation(); setBusy(true); try { const r = await fetch(example.src); const b = await r.blob(); await onFile(new File([b], example.src.split("/").pop(), { type: b.type })); } finally { setBusy(false); } };
-  const isVid = file && /\.(mp4|webm|mov|mkv)$/i.test(file.name);
+  const isVid = file && /\.(mp4|webm|mov|mkv)$/i.test(file.name); const isAud = file && /\.(wav|flac|mp3|m4a|ogg|opus)$/i.test(file.name);
   return html`<div class=${"drop" + (over ? " over" : "") + (file ? " has" : "")} role="button" tabindex="0" aria-label=${label} onClick=${() => ref.current.click()} onKeyDown=${(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ref.current.click(); } }}
     onDragOver=${(e) => { e.preventDefault(); setOver(true); }} onDragLeave=${() => setOver(false)} onDrop=${(e) => { e.preventDefault(); setOver(false); take(e.dataTransfer.files[0]); }}>
     <input ref=${ref} type="file" accept=${accept} hidden onClick=${(e) => e.stopPropagation()} onChange=${(e) => take(e.target.files[0])}/>
-    ${file ? (isVid ? html`<video src=${file.url} muted loop autoplay playsinline></video>` : html`<img src=${file.url} alt=${label}/>`) : null}
+    ${file ? (isVid ? html`<video src=${file.url} muted loop autoplay playsinline></video>` : isAud ? html`<audio src=${file.url} controls onClick=${(e) => e.stopPropagation()}></audio>` : html`<img src=${file.url} alt=${label}/>`) : null}
     <div class="dropt"><b>${label}</b><small>${busy ? "Uploading" : file ? "Click to replace" : (hint || "Click or drop a file")}</small>${!file && example && !busy && html`<button class="btn small" onClick=${tryExample}>Try an example</button>`}</div></div>`;
 }

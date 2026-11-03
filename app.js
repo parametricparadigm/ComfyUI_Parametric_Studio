@@ -1,6 +1,6 @@
 import { h, render } from "preact";
 import { useState, useEffect, useRef, useMemo } from "preact/hooks";
-import { html, api, post } from "./common.js";
+import { html, api, post, smooth } from "./common.js";
 import { Crew, Site, Studio3D, Edit, Designers, Apps } from "./extras.js";
 import { SECTIONS, firstGraph, hasGraph, loadRow, matches, sectionOf, useAllGraphs } from "./graph_rows.js";
 import { installTilt } from "./spectacle.js";
@@ -9,7 +9,7 @@ import { ApiPage } from "./apipage.js";
 import { ShareButton } from "./share.js";
 import { RingHero, GoalDeck, Masonry, LiveMedia, useShowcase, Drop, FLAGSHIPS, LicenceLine } from "./showcase.js";
 import { Graph3D, useLive } from "./graph3d.js";
-import { graphRequest, buildModel, layoutGraph, replayPlan, replayAt } from "./graph3d_math.js";
+import { graphRequest, buildModel, layoutGraph, replayPlan, replayAt, explain } from "./graph3d_math.js";
 import { PrimeDock } from "./prime_ui.js";
 import { MusicStyles } from "./music_styles.js";
 import { LookPicker } from "./look_picker.js";
@@ -95,7 +95,7 @@ function GraphView({ graph }) {
   const { pos, links, W, width, height } = lay;
   return html`<div class="graphbox"><svg width=${width} height=${height} viewBox="0 0 ${width} ${height}">
     ${links.map(([a, b]) => { const A = pos[a], B = pos[b]; const x1 = A.x + W, y1 = A.y + 19, x2 = B.x, y2 = B.y + 19, dx = (x2 - x1) / 2; return html`<path class="gw" d="M${x1} ${y1} C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}"/>`; })}
-    ${Object.entries(pos).map(([id, p]) => html`<g class="gn" transform="translate(${p.x},${p.y})"><rect width=${W} height=${p.h} rx="10"/><text x="10" y="17">${graph[id].class_type}</text><text class="sub" x="10" y="31">node ${id}</text>
+    ${Object.entries(pos).map(([id, p]) => html`<g class="gn" transform="translate(${p.x},${p.y})"><title>${graph[id].class_type}: ${explain(graph[id].class_type).known ? explain(graph[id].class_type).say : "a ComfyUI node"}</title><rect width=${W} height=${p.h} rx="10"/><text x="10" y="17">${graph[id].class_type}</text><text class="sub" x="10" y="31">node ${id}</text>
       ${p.ins.map(([k, v], i) => html`<text class="sub" x="10" y=${46 + i * 15}>${k}: ${String(v).slice(0, 26)}</text>`)}</g>`)}
   </svg></div>`;
 }
@@ -118,13 +118,13 @@ function Create({ health, onDraft, goTab }) {
   useEffect(() => { Promise.allSettled([api("/api/family-graphs"), api("/api/recipes"), api("/api/apps")]).then(([f, r, a]) => setWays((f.status === "fulfilled" ? f.value.graphs.length : 0) + (r.status === "fulfilled" ? (r.value.recipes || r.value).length : 0) + (a.status === "fulfilled" ? a.value.apps.length : 0))); }, []);
   const [goals, setGoals] = useState({}); const [goal, setGoal] = useState("image");
   const [prompt, setPrompt] = useState(""); const [lyrics, setLyrics] = useState(""); const [opts, setOpts] = useState({}); const [seed, setSeed] = useState("");
-  const [img, setImg] = useState(null); const [vid, setVid] = useState(null); const [lastImg, setLastImg] = useState(null); const [extra, setExtra] = useState({}); const promptRef = useRef(); const [job, setJob] = useState(null); const [res, setRes] = useState(null); const [err, setErr] = useState(""); const [hist, setHist] = useState([]); const [busy, setBusy] = useState(false); const [tick, setTick] = useState(0);
+  const [img, setImg] = useState(null); const [vid, setVid] = useState(null); const [lastImg, setLastImg] = useState(null); const [aud, setAud] = useState(null); const [extra, setExtra] = useState({}); const promptRef = useRef(); const [job, setJob] = useState(null); const [res, setRes] = useState(null); const [err, setErr] = useState(""); const [hist, setHist] = useState([]); const [busy, setBusy] = useState(false); const [tick, setTick] = useState(0);
   const g = goals[goal]; const fileRef = useRef(); const items = useShowcase(); const styleTags = useRef([]);
   useEffect(() => { api("/api/goals").then(setGoals).catch((e) => setErr(e.message)); loadHist(); }, []);
   const keepOpts = useRef(null);
   useEffect(() => { if (g) { setOpts({ ...g.defaults, ...(keepOpts.current || {}) }); keepOpts.current = null; } }, [goal, goals]);
   const loadHist = () => api("/api/history?limit=24&only=main").then(setHist).catch(() => {});
-  useEffect(() => { if (!goals[goal]) return; onDraft && onDraft({ goal, prompt, options: opts, seed, image: img && img.name, video: vid && vid.name, last_image: lastImg && lastImg.name, lyrics, ...extra, job: job && job.job }); }, [goal, prompt, opts, seed, img, vid, lastImg, lyrics, extra, job, goals]);
+  useEffect(() => { if (!goals[goal]) return; onDraft && onDraft({ goal, prompt, options: opts, seed, image: img && img.name, video: vid && vid.name, last_image: lastImg && lastImg.name, audio: aud && aud.name, lyrics, ...extra, job: job && job.job }); }, [goal, prompt, opts, seed, img, vid, lastImg, aud, lyrics, extra, job, goals]);
   useEffect(() => {
     if (!job) return; setTick(0); const t0 = Date.now(); const timer = setInterval(() => setTick(Math.round((Date.now() - t0) / 1000)), 500);
     const poll = setInterval(async () => {
@@ -132,12 +132,12 @@ function Create({ health, onDraft, goTab }) {
     }, 1500);
     return () => { clearInterval(poll); clearInterval(timer); };
   }, [job]);
-  const missing = () => { if (!g) return ""; if (g.needs_video && !vid) return `Add ${(g.video_label || "a source video").toLowerCase()} first`; if (g.needs_image && !img) return `Add ${(g.image_label || "a start image").toLowerCase()} first`; if (g.needs_last_image && !lastImg) return "Add the last frame first"; return ""; };
+  const missing = () => { if (!g) return ""; if (g.needs_video && !vid) return `Add ${(g.video_label || "a source video").toLowerCase()} first`; if (g.needs_image && !img) return `Add ${(g.image_label || "a start image").toLowerCase()} first`; if (g.needs_last_image && !lastImg) return "Add the last frame first"; if (g.needs_audio && !aud) return `Add ${(g.audio_label || "a song").toLowerCase()} first`; return ""; };
   const go = async () => {
     const need = missing(); if (need) { setErr(need); return; }
     if (!prompt.trim() && !(g && g.prompt_optional)) { setErr(""); promptRef.current && promptRef.current.focus(); return; }
     setErr(""); setRes(null); setBusy(true);
-    try { const j = await post("/api/generate", { goal, prompt, lyrics, options: opts, seed: seed === "" ? null : +seed, image: img && img.name, video: g.needs_video ? vid && vid.name : undefined, last_image: g.needs_last_image ? lastImg && lastImg.name : undefined, ...extra }); setJob(j); setRes({ status: "queued" }); } catch (e) { setErr(e.message); setBusy(false); }
+    try { const j = await post("/api/generate", { goal, prompt, lyrics, options: opts, seed: seed === "" ? null : +seed, image: img && img.name, video: g.needs_video ? vid && vid.name : undefined, last_image: g.needs_last_image ? lastImg && lastImg.name : undefined, audio: g.needs_audio ? aud && aud.name : undefined, ...extra }); setJob(j); setRes({ status: "queued" }); } catch (e) { setErr(e.message); setBusy(false); }
   };
   const uploadTo = (set) => async (f) => { if (!f) return; const fd = new FormData(); fd.append("file", f); try { const r = await api("/api/upload", { method: "POST", body: fd }); set({ name: r.name, url: URL.createObjectURL(f) }); setErr(""); } catch (e) { setErr(e.message); } };
   useEffect(() => {
@@ -150,23 +150,24 @@ function Create({ health, onDraft, goTab }) {
   const running = res && (res.status === "queued" || res.status === "running" || res.status === "unknown");
   const sample = items.find((x) => x.goal === goal && x.kind !== "audio"), measured = items.filter((x) => x.goal === goal && x.seconds);
   const estS = measured.length ? Math.round(measured.reduce((a, x) => a + +x.seconds, 0) / measured.length) : null, estV = measured.length ? Math.max(...measured.map((x) => +x.peak_vram_gib || 0)) : null;
-  const pick = (id) => { setGoal(id); setRes(null); scrollTo({ top: 0, behavior: "smooth" }); };
-  const openItem = (x) => { keepOpts.current = x.options; setGoal(x.goal); setPrompt(x.prompt); setOpts({ ...(goals[x.goal] || {}).defaults, ...x.options }); setErr(""); setRes({ status: "done", files: [{ url: x.src, kind: x.kind }], seconds: x.seconds, peak: x.peak_vram_gib, options: x.options, seed: null, graph_hash: "", showcase: x.id }); scrollTo({ top: 0, behavior: "smooth" }); };
-  const recreate = (x) => { keepOpts.current = x.options; setGoal(x.goal); setPrompt(x.prompt); setOpts({ ...(goals[x.goal] || {}).defaults, ...x.options }); setRes(null); scrollTo({ top: 0, behavior: "smooth" }); };
+  const pick = (id) => { setGoal(id); setRes(null); scrollTo({ top: 0, behavior: smooth() }); };
+  const openItem = (x) => { keepOpts.current = x.options; setGoal(x.goal); setPrompt(x.prompt); setOpts({ ...(goals[x.goal] || {}).defaults, ...x.options }); setErr(""); setRes({ status: "done", files: [{ url: x.src, kind: x.kind }], seconds: x.seconds, peak: x.peak_vram_gib, options: x.options, seed: null, graph_hash: "", showcase: x.id }); scrollTo({ top: 0, behavior: smooth() }); };
+  const recreate = (x) => { keepOpts.current = x.options; setGoal(x.goal); setPrompt(x.prompt); setOpts({ ...(goals[x.goal] || {}).defaults, ...x.options }); setRes(null); scrollTo({ top: 0, behavior: smooth() }); };
   const graph = (x) => { recreate(x); setTimeout(() => goTab("pro"), 60); };
   const mine = hist.filter((e) => !e.family && e.files.some((y) => !/\.(glb|gltf)$/i.test(y.filename || ""))).map((e) => { const f = e.files.find((y) => y.kind !== "audio" && !/\.(glb|gltf)$/i.test(y.filename || "")) || e.files[0]; return { id: e.job, goal: e.goal, kind: f.kind, src: f.url, poster: f.kind === "video" ? undefined : f.url, prompt: e.prompt || "", options: e.options || {}, w: 16, h: 9 }; }).filter((x) => x.kind !== "audio" && x.prompt && !items.some((y) => x.prompt.includes(y.prompt)));
   return html`<div class="cwrap">
     <aside class="cpanel" aria-label="create">
       <div class="cscroll">
-        <button class="gsel" onClick=${() => document.getElementById("makewhat").scrollIntoView({ behavior: "smooth" })} aria-label="change what to make">
+        <button class="gsel" onClick=${() => document.getElementById("makewhat").scrollIntoView({ behavior: smooth() })} aria-label="change what to make">
           ${sample ? html`<${LiveMedia} item=${sample}/>` : html`<div class="gblank"></div>`}<i>Change</i><b>${g ? g.label : ""}</b><small>${g ? g.family : ""}</small></button>
         ${g && html`<${FitChip} k=${"goal:" + goal}/>`}
         ${g && g.needs_video && html`<${Drop} label=${g.video_label || "Source video"} accept="video/mp4,video/quicktime,video/webm,video/x-matroska" file=${vid} onFile=${uploadTo(setVid)} hint="MP4 or MOV, one continuous shot" example=${items.find((x) => x.id === "v_h3_chef") || items.find((x) => x.kind === "video")}/>`}
+        ${g && g.needs_audio && html`<${Drop} label=${g.audio_label || "Song"} accept="audio/wav,audio/x-wav,audio/flac,audio/mpeg,.wav,.flac,.mp3" file=${aud} onFile=${uploadTo(setAud)} hint="WAV or FLAC keeps it bit-exact; MP3 works too"/>`}
         ${g && g.needs_image && html`<${Drop} label=${g.image_label || "Start image"} accept="image/png,image/jpeg,image/webp" file=${img} onFile=${uploadTo(setImg)} example=${items.find((x) => x.id === "s_portrait") || items.find((x) => x.kind === "image")}/>`}
         ${g && g.needs_last_image && html`<${Drop} label="Last frame" accept="image/png,image/jpeg,image/webp" file=${lastImg} onFile=${uploadTo(setLastImg)} example=${items.find((x) => x.id === "s_greenhouse") || items.find((x) => x.kind === "image")}/>`}
         ${g && Object.entries(g.fields || {}).map(([k, ph]) => html`<div class="field"><label style="text-transform:capitalize">${k}</label><input class="seedin" type="text" placeholder=${ph} value=${extra[k] || ""} onInput=${(e) => setExtra({ ...extra, [k]: e.target.value })} aria-label=${k}/></div>`)}
         <div class="field"><label>${g && g.prompt_optional ? "Direction (optional)" : "Prompt"}</label><textarea ref=${promptRef} placeholder=${(g && g.prompt_hint) || PROMPT_HINT[goal] || (g && g.kind === "audio" ? "Describe the song: genre, mood, instruments, vocals" : g && g.needs_image ? "How should it move?" : "Describe what you want to make")} value=${prompt} onInput=${(e) => setPrompt(e.target.value)} onKeyDown=${(e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") go(); }} aria-label="prompt"></textarea><div class="row" style="margin:6px 0 0;flex-wrap:wrap"><button class="btn small" onClick=${surprise}>Surprise me</button><${ImprovePrompt} goal=${goal} prompt=${prompt} setPrompt=${setPrompt}/></div></div>
-        ${goal === "music" && html`<${MusicStyles} prompt=${prompt} setPrompt=${setPrompt} appliedRef=${styleTags}/>`}
+        ${goal === "music" && html`<${MusicStyles} prompt=${prompt} setPrompt=${setPrompt} appliedRef=${styleTags} setLyrics=${setLyrics}/>`}
         ${g && (g.kind === "image" || g.kind === "video") && html`<${LookPicker} prompt=${prompt} setPrompt=${setPrompt} kind=${g.kind}/>`}
         ${g && g.kind === "audio" && html`<div class="field"><label>Lyrics (optional)</label><textarea style="min-height:70px" placeholder="Leave empty for an instrumental" value=${lyrics} onInput=${(e) => setLyrics(e.target.value)} aria-label="lyrics"></textarea></div>`}
         <div class="optgrid">
@@ -199,7 +200,7 @@ const LIB_STARTS = [["image", "A picture", "showcase/s_temple.webp", "Text to im
 function Library() {
   const [hist, setHist] = useState([]); const [open, setOpen] = useState(null); const [kind, setKind] = useState("all"); const [loaded, setLoaded] = useState(false); const [goals, setGoals] = useState({}); const [view, setView] = useState("work"); const health = useHealth(), up = health && health.comfy;
   useEffect(() => { api("/api/history?limit=200").then((h) => { setHist(h); setLoaded(true); }).catch(() => setLoaded(true)); api("/api/goals").then(setGoals).catch(() => {}); }, [up]);
-  const rows = hist.flatMap((e) => e.files.map((f, i) => ({ id: e.job + i, e, f, goal: e.goal, kind: /\.(glb|gltf)$/i.test(f.filename || "") ? "3d" : f.kind, src: f.url, poster: f.kind === "image" ? f.url : undefined, prompt: e.prompt || f.filename, options: e.options || {} })));
+  const rows = hist.flatMap((e) => e.files.map((f, i) => ({ id: e.job + i, e, f, goal: e.goal, kind: /\.(glb|gltf)$/i.test(f.filename || "") ? "3d" : f.kind, src: f.url, poster: f.kind === "image" ? f.url : f.poster, prompt: e.prompt || f.filename, options: e.options || {} })));
   const counts = { all: rows.length, image: rows.filter((x) => x.kind === "image").length, video: rows.filter((x) => x.kind === "video").length, audio: rows.filter((x) => x.kind === "audio").length, "3d": rows.filter((x) => x.kind === "3d").length };
   const shown = rows.filter((x) => kind === "all" || x.kind === kind);
   const toCreate = (x, tab) => { if (x.e && x.e.family) { if (tab) dispatchEvent(new CustomEvent("studio-graph", { detail: { goal: x.e.family_name, prompt: x.e.prompt, family_job: `${x.e.family}/${x.e.job}` } })); else location.hash = "families/" + x.e.family; return; } location.hash = "create"; setTimeout(() => { dispatchEvent(new CustomEvent("prime-action", { detail: { type: "set_goal", goal: x.goal } })); dispatchEvent(new CustomEvent("prime-action", { detail: { type: "set_prompt", text: x.prompt } })); if (tab) location.hash = tab; }, 80); };
@@ -253,7 +254,7 @@ function Models() {
 function ProPicker({ rows, counts, pick, onPick }) {
   const [q, setQ] = useState(""), [open, setOpen] = useState(false); const shown = useMemo(() => (open ? rows.filter((r) => matches(r, q)).slice(0, 60) : []), [rows, q, open]);
   return html`<div class="g3d-any"><button class="btn small" aria-expanded=${open} onClick=${() => setOpen(!open)}>${pick ? "Graph: " + pick.label : `All ${counts.all || 0}`}</button>${pick && html`<button class="btn small" onClick=${() => onPick(null)}>Back to Create's</button>`}
-    ${open && html`<div class="g3d-anybox"><input type="search" placeholder="Search everything the studio runs" aria-label="Search graphs" value=${q} onInput=${(e) => setQ(e.target.value)}/><div role="listbox" aria-label="Every graph">${shown.map((r) => html`<button role="option" key=${r.key} aria-selected=${!!pick && pick.key === r.key} onClick=${() => { onPick(r); setOpen(false); }}><b>${r.label}</b><small>${SECTIONS.find(([k]) => k === sectionOf(r))[1]}${hasGraph(r) ? "" : ", not a ComfyUI graph"}</small></button>`)}</div></div>`}</div>`;
+    ${open && html`<div class="g3d-anybox" onKeyDown=${(e) => { if (e.key === "Escape") { e.stopPropagation(); setOpen(false); } }}><input type="search" placeholder="Search everything the studio runs" aria-label="Search graphs" value=${q} onInput=${(e) => setQ(e.target.value)}/><div role="listbox" aria-label="Every graph">${shown.map((r) => html`<button role="option" key=${r.key} aria-selected=${!!pick && pick.key === r.key} onClick=${() => { onPick(r); setOpen(false); }}><b>${r.label}</b><small>${(SECTIONS.find(([k]) => k === sectionOf(r)) || [0, String(sectionOf(r) || "Other").replace(/^./, (c) => c.toUpperCase())])[1]}${hasGraph(r) ? "" : ", not a ComfyUI graph"}</small></button>`)}</div></div>`}</div>`;
 }
 function Pro({ draft, health, goals }) {
   const every = useAllGraphs(), [pick, setPick] = useState(null), [picked, setPicked] = useState(null), [pickErr, setPickErr] = useState("");

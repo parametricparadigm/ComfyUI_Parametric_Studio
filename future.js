@@ -47,7 +47,7 @@ export function Future({ goTab }) {
   const proofs = {}; list.forEach((p) => { if (p.proof) proofs[p.id] = p.proof; }); const n = { ...nums, ...pageTotals(list) }, order = d.sources.map((s) => s.id), hero = proofs[d.hero.pipeline], fin = hero && hero.final;
   return html`<article class="fu lk">
     <header class="fu-hero film">
-      ${fin && fin.kind === "video" && html`<video src=${`pipelines/${d.hero.pipeline}/${fin.src}`} poster=${`pipelines/${d.hero.pipeline}/${fin.poster}`} autoplay=${!matchMedia("(prefers-reduced-motion: reduce)").matches} muted loop playsinline aria-label=${d.hero.alt}></video>`}
+      ${fin && fin.kind === "video" && html`<video src=${`pipelines/${d.hero.pipeline}/${fin.src}`} poster=${`pipelines/${d.hero.pipeline}/${fin.poster}`} autoplay=${!matchMedia("(prefers-reduced-motion: reduce)").matches} preload="metadata" muted loop playsinline aria-label=${d.hero.alt}></video>`}
       <div><span class="lk-kick">${d.date}</span><p>${d.open}</p></div>
     </header>
     ${d.sections.map((s) => html`<section key=${s.id} class="fu-sec" aria-labelledby=${"fu-" + s.id}>

@@ -1,7 +1,7 @@
 /* Dub & Voice: a clip's words in another language, a voice you may clone, and a voiceover mastered to a loudness target. Every number here was measured by a program; nobody has listened. */
 import { useEffect, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { said } from "./fx.js";
+import { said, FxSkeleton } from "./fx.js";
 import { Head, Stats } from "./look.js";
 import { clipKey, clipRef, secs } from "./clipsound_logic.js";
 import { MODE_WORDS, MODE_NOTES, CONSENT_WORDS, werWord, db, masterChecks, dubBody, dubBlocked, lengthNote } from "./dub_logic.js";
@@ -21,7 +21,7 @@ async function upload(file) { const b = new FormData(); b.append("file", file); 
 function Hero({ p }) {
   const v = p && (p.dubit || p.voice_dub), m = p && p.media || {}, src = m.dubit || m.voice_dub;
   return html`<section class="db-hero film" aria-labelledby="db-title">
-    <div class="db-heropic">${src ? html`<video src=${src} controls playsinline preload="metadata" aria-label="An invented woman, dubbed into Spanish"><//>` : html`<p class="small">No dub has been rendered here yet.</p>`}</div>
+    <div class="db-heropic">${src ? html`<video src=${src} poster=${String(src).replace(/\.mp4(\?.*)?$/, ".webp")} controls playsinline preload="none" aria-label="An invented woman, dubbed into Spanish"><//>` : html`<p class="small">No dub has been rendered here yet.</p>`}</div>
     <div class="db-herotext">
       <p class="db-eyebrow">Dub & Voice</p>
       <h2 id="db-title">Same face. Another language.</h2>
@@ -148,13 +148,13 @@ function Proof({ p }) {
   return html`<section aria-labelledby="db-proof">
     <${Head} id="db-proof" sub=${p.note}>What ran here<//>
     <ol class="db-proofs">
-      ${dt && html`<li class="fx-card"><video src=${m.dubit} controls playsinline preload="none" aria-label="DubIt on LTX-2.5: the invented woman speaks Spanish"><//><div><h3>DubIt on LTX-2.5, into Spanish</h3><dl class="db-facts">
+      ${dt && html`<li class="fx-card"><video src=${m.dubit} poster=${String(m.dubit).replace(/\.mp4(\?.*)?$/, ".webp")} controls playsinline preload="none" aria-label="DubIt on LTX-2.5: the invented woman speaks Spanish"><//><div><h3>DubIt on LTX-2.5, into Spanish</h3><dl class="db-facts">
         <div><dt>Asked</dt><dd>“${dt.translation}”</dd></div><div><dt>Whisper heard</dt><dd>“${dt.heard}”</dd></div><div><dt>Words</dt><dd>${werWord(dt.wer)}</dd></div>
         <div><dt>Voice</dt><dd>likeness to her original voice ${dt.voice_similarity_to_source}</dd></div><div><dt>Run</dt><dd>${dt.model}, seed ${dt.seed}, ${dt.frames} frames at ${dt.size.join("×")}, ${secs(dt.seconds)}, peak ${dt.peak_vram_gib} GB</dd></div></dl>${dt.fault && html`<p class="small"><b>What is wrong:</b> ${dt.fault}</p>`}</div></li>`}
-      ${rl && html`<li class="fx-card"><video src=${m.relip} controls playsinline preload="none" aria-label="The invented woman's clip with a Spanish voice and her mouth redrawn by LatentSync"><//><div><h3>New voice, then LatentSync, into Spanish</h3><dl class="db-facts">
+      ${rl && html`<li class="fx-card"><video src=${m.relip} poster=${String(m.relip).replace(/\.mp4(\?.*)?$/, ".webp")} controls playsinline preload="none" aria-label="The invented woman's clip with a Spanish voice and her mouth redrawn by LatentSync"><//><div><h3>New voice, then LatentSync, into Spanish</h3><dl class="db-facts">
         <div><dt>Asked</dt><dd>“${rl.translation}”</dd></div><div><dt>Whisper heard</dt><dd>“${rl.heard}”</dd></div><div><dt>Words</dt><dd>${werWord(rl.wer)}</dd></div>
         <div><dt>Run</dt><dd>${rl.model}, ${secs(rl.seconds)}, peak ${rl.peak_vram_gib} GB</dd></div></dl>${rl.fault && html`<p class="small"><b>What is wrong:</b> ${rl.fault}</p>`}</div></li>`}
-      ${vd && html`<li class="fx-card"><video src=${m.voice_dub} controls playsinline preload="none" aria-label="The invented woman's clip with a Spanish voice laid on it"><//><div><h3>New voice only, into Spanish</h3><dl class="db-facts">
+      ${vd && html`<li class="fx-card"><video src=${m.voice_dub} poster=${String(m.voice_dub).replace(/\.mp4(\?.*)?$/, ".webp")} controls playsinline preload="none" aria-label="The invented woman's clip with a Spanish voice laid on it"><//><div><h3>New voice only, into Spanish</h3><dl class="db-facts">
         <div><dt>Source said</dt><dd>“${vd.source_heard}”</dd></div><div><dt>Asked</dt><dd>“${vd.translation}” (${vd.translated_by})</dd></div><div><dt>Whisper heard</dt><dd>“${vd.heard}”</dd></div><div><dt>Words</dt><dd>${werWord(vd.wer)}</dd></div>
         <div><dt>Voice</dt><dd>${vd.model}; likeness to the source voice ${vd.voice_similarity_to_source}</dd></div><div><dt>Run</dt><dd>${secs(vd.seconds)}, peak ${vd.peak_vram_gib} GB, stretched ×${vd.tempo}</dd></div></dl><p class="small"><b>What is wrong:</b> the mouth still moves to the English words.</p></div></li>`}
       ${cl && html`<li class="fx-card db-aud"><div><h3>A designed voice, cloned</h3><figure><figcaption>Designed from words</figcaption><audio controls preload="none" src=${m.clone_reference}></audio></figure><figure><figcaption>The clone, a new line</figcaption><audio controls preload="none" src=${m.clone}></audio></figure></div><div><dl class="db-facts">
@@ -170,6 +170,6 @@ export function Dub() {
   const load = () => { setErr(""); api("/api/dub/models").then(setD).catch((e) => setErr(said(e))); api("/api/dub/clips").then((r) => setClips(r.clips || [])).catch(() => {}); };
   useEffect(load, []);
   if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button class="btn" onClick=${load}>Try again</button></div>`;
-  if (!d) return html`<div class="fx"><p class="small" role="status">Loading...</p></div>`;
+  if (!d) return html`<div class="fx"><${FxSkeleton} label="Reading the dubbing models and your clips."/></div>`;
   return html`<div class="fx db"><${Hero} p=${d.proof}/><${DubForm} d=${d} clips=${clips}/><${Clone} d=${d}/><${Voiceover} d=${d}/><${Proof} p=${d.proof}/></div>`;
 }

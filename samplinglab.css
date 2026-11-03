@@ -33,7 +33,7 @@ body.on-sampling.sl-deep main>.top .sub{display:none}
 
 /* ---- rack: the page's sections, Train's flow language ---- */
 .slrack{position:sticky;top:0;z-index:7;background:var(--bg);padding:6px 0;margin:-6px 0}
-.slrack ol{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.slrack ol{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px}
 .slrack a{box-sizing:border-box;display:flex;gap:10px;align-items:center;height:100%;padding:9px 12px;border-top:3px solid var(--line2);background:var(--panel);color:var(--mut);text-decoration:none;transition:background .15s,color .15s,border-color .15s}
 .slrack a:hover{background:var(--panel2);color:var(--text)}.slrack a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
 .slrack i{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:4px;border:1.5px solid var(--line2);font:800 15px/1 var(--display);font-style:normal;color:inherit}
@@ -316,3 +316,20 @@ body.on-sampling main a.sllink{display:inline-flex;align-items:center;min-height
 .slwk .btn.small{min-height:40px}.slwk .slseg button{box-sizing:border-box;min-height:40px;display:inline-flex;align-items:center}
 .slwk-wipe{max-width:720px}
 @media (max-width:900px){.slwk-head{grid-template-columns:minmax(0,1fr)}.slwk-scrub{grid-template-columns:minmax(0,1fr);grid-template-areas:"big" "range" "film"}.slwk-film{grid-template-columns:repeat(5,minmax(0,1fr))}.slwk-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.slwk-pair{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* What runs here: every sampler and scheduler name ComfyUI offers, by pack. Plain chips, no images, so hundreds of names stay cheap. */
+.sllv-top{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);padding:clamp(16px,2.2vw,32px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.sllv-top>div:first-child{display:flex;flex-wrap:wrap;gap:8px clamp(16px,3vw,40px);align-items:flex-end}.sllv-top h2{font-size:clamp(30px,3.6vw,56px);font-stretch:110%;font-weight:900;letter-spacing:-.03em;line-height:.92;color:var(--gold);max-width:16ch;margin:0}
+.sllv-top p{max-width:62ch;font-size:15px;line-height:1.45;color:#dfe3dd;margin:0}.sllv-top>div:first-child p{flex:1 1 300px}.sllv-top .slnote{color:#b9c0b8;max-width:none}.sllv-top .slfigs>div{flex:0 1 170px}
+.sllv-bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}.sllv-bar .slsr{flex:1 1 240px;max-width:420px}.sllv-bar .slseg button{min-height:28px;display:inline-flex;align-items:center;gap:6px}
+.sllv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:10px;align-items:start}
+.sllv-g{display:flex;flex-direction:column;gap:9px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;content-visibility:auto;contain-intrinsic-size:auto 140px}
+.sllv-g header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}.sllv-g header b{font:800 16px/1.2 var(--display);overflow-wrap:anywhere}.sllv-g header span:not(.slp){font-size:12.5px;color:var(--mut)}.sllv-g header small{margin-left:auto;font:700 13px var(--mono);color:var(--mut)}
+.sllv-g ul{display:flex;flex-wrap:wrap;gap:5px;list-style:none;margin:0;padding:0}
+.sllv-chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;box-sizing:border-box;padding:4px 9px;border:1px solid var(--line2);border-radius:4px;font:500 12.5px/1.2 var(--mono);color:var(--text);text-decoration:none;overflow-wrap:anywhere}
+a.sllv-chip:hover{background:var(--panel2);border-color:var(--ink)}a.sllv-chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.sllv-chip.r i{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 1px rgba(0,0,0,.35);flex:none}.sllv-chip.none{color:var(--mut);border-style:dashed}
+@media (max-width:640px){.sllv-chip{min-height:36px;padding:6px 10px}.sllv-bar .slsr{max-width:none}.sllv-top .slfigs>div{flex:1 1 40%}}
+
+/* Eight views in the rack: drop the number badges below 1620 px so the words fit. Kept last so it wins over the base rules. */
+@media (max-width:1620px) and (min-width:901px){.slrack i{display:none}.slrack a{padding:9px 10px}.slrack b{font-stretch:100%;font-size:clamp(13px,1.05vw,16px)}.slrack b,.slrack small{overflow-wrap:normal;word-break:keep-all}}
+@media (max-width:640px){.slrack b{font-size:12.5px;font-stretch:80%;letter-spacing:0;overflow-wrap:normal;word-break:keep-all;hyphens:none}.slrack a{padding:8px 7px}}

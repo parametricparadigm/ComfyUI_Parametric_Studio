@@ -83,7 +83,7 @@ export function canRun(e) { const r = e.core_ref || {}; return !!(e.in_core && (
 
 /* ---------- the look: everything below is pure so tests can run it with no browser ---------- */
 const WORDS_LOWER = (s) => String(s || "").toLowerCase();
-export const VIEW_KEYS = ["methods", "curves", "bench", "renders", "walk", "finds", "credits"];
+export const VIEW_KEYS = ["methods", "live", "curves", "bench", "renders", "walk", "finds", "credits"];
 /* #sampling, #sampling/curves, #sampling/renders/guidance/a/b, #sampling/<method id> */
 export function parseRoute(route) {
   const p = String(route || "sampling").split("/").slice(1).filter(Boolean);
@@ -201,9 +201,10 @@ export function proofFacets(e, { curve = false, bench = false } = {}) {
     { key: "inference", on: e.label === "inference" || n("inference") > 0, main: e.label === "inference", note: e.label === "inference" ? "the main description" : n("inference") ? plural(n("inference"), "reasoned note") : "" },
   ];
 }
-/* Plain statement of whether a method runs here. Only core renders exist; Pack Lab's control render failed, so nothing outside core is proven. */
+/* Plain statement of whether a method runs here, and whether a render on this machine proves it. */
 export function runsHere(e) {
   if (e.in_core) return e.rendered ? { tone: "proven", word: "Runs here, and rendered", text: "In ComfyUI core. Fixed-seed renders of it are on this page." } : { tone: "core", word: "Runs here", text: "In ComfyUI core, but not part of the proof renders, so this page describes it from the code." };
+  if (e.live && e.rendered) return { tone: "proven", word: "Installed, and rendered", text: "A pack installed on this machine carries it. Fixed-seed renders of it, made on this machine's own ComfyUI, are on this page." };
   if (e.live) return { tone: "live", word: "Installed, unproven", text: "A pack on this box carries it, but no render proves it." };
   return { tone: "pack", word: "Not installed, unproven", text: "It needs a pack that isn't installed. We describe it from its source and have not run it." };
 }
@@ -253,7 +254,7 @@ export function creditWall(credits) {
 }
 /* The notes had pasted code removed, which left empty backticks behind. Tidying them changes no claim. */
 export function tidyText(s) { return String(s || "").replace(/[,:]?\s*``(?=\s*[.,;:)])/g, "").replace(/``\s*/g, "").replace(/\s+\./g, ".").replace(/\.\.(?=\s|$)/g, ".").replace(/\s{2,}/g, " ").replace(/^\.\s*/, "").trim(); }
-export const FIND_GROUPS = { renders: "Rendered here", core_samplers: "Core samplers", pack_samplers: "Pack samplers", schedulers: "Schedulers", guidance: "Guidance", noise: "Noise", latent_math: "Latent and maths", patches: "Patches", second_patches_noise: "Second pass: patches and noise", second_samplers_guidance: "Second pass: samplers and guidance" };
+export const FIND_GROUPS = { renders: "Rendered here", pool51: "Packs installed in November", core_samplers: "Core samplers", pack_samplers: "Pack samplers", schedulers: "Schedulers", guidance: "Guidance", noise: "Noise", latent_math: "Latent and maths", patches: "Patches", second_patches_noise: "Second pass: patches and noise", second_samplers_guidance: "Second pass: samplers and guidance" };
 export function whereFirst(w) { const p = String(w || "").split(/\s+/).filter(Boolean); return { first: p[0] || "", more: Math.max(0, p.length - 1) }; }
 /* Neighbours in an encyclopedia: the rows either side in the order the reader was browsing, and the others in the same subfamily. */
 export function neighbours(rows, list, e) {
@@ -274,4 +275,19 @@ export function hilite(name, q) {
   for (const x of w) { let i = low.indexOf(x); while (i >= 0) { hit.fill(true, i, i + x.length); i = low.indexOf(x, i + x.length); } }
   const out = []; let at = 0; for (let i = 1; i <= s.length; i++) if (i === s.length || hit[i] !== hit[at]) { out.push([s.slice(at, i), hit[at]]); at = i; }
   return out.length ? out : [[s, false]];
+}
+
+/* The Live view: every sampler or scheduler name ComfyUI offers here, grouped by the pack that adds it, core first, then packs by size. */
+export function liveGroups(rows, q = "") {
+  const k = String(q || "").trim().toLowerCase(); const by = new Map();
+  for (const r of rows || []) {
+    if (k && !(`${r.name} ${r.pack} ${r.author}`.toLowerCase().includes(k))) continue;
+    const g = by.get(r.pack || "") || { pack: r.pack || "", author: r.author || "", licence: r.licence || "", rows: [] }; g.rows.push(r); by.set(g.pack, g);
+  }
+  return [...by.values()].sort((a, b) => (a.pack === "core" ? -1 : b.pack === "core" ? 1 : 0) || b.rows.length - a.rows.length || a.pack.localeCompare(b.pack));
+}
+export function liveCounts(rows) {
+  const c = { all: 0, core: 0, packs: 0, explained: 0, rendered: 0 };
+  for (const r of rows || []) { c.all++; r.pack === "core" ? c.core++ : c.packs++; if (r.entry) c.explained++; if (r.rendered) c.rendered++; }
+  return c;
 }

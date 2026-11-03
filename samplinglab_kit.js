@@ -5,7 +5,7 @@ import { LABELS, whereWord, whereOf, mathParts, mathTokens, diffPixels, curvePoi
 
 export const proofPill = (l) => html`<span class=${"slp" + (l === "measured here" ? " proof" : l === "inference" ? " infer" : l === "from pack README claim" ? " claim" : "")}>${LABELS[l] || l}</span>`;
 export const place = (e) => html`<span class=${"slp " + whereOf(e)}>${whereWord(e)}</span>`;
-export const unproven = (e) => e.in_core ? null : html`<span class="slp warn">Unproven here</span>`;
+export const unproven = (e) => e.in_core || e.rendered ? null : html`<span class="slp warn">Unproven here</span>`;
 
 export function useWidth(fallback = 720) {
   const ref = useRef(null); const [w, setW] = useState(fallback);

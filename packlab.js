@@ -34,7 +34,7 @@ function Pick({ p, can, warnings, refresh }) {
 function P51Pack({ p, names, checked }) {
   return html`<li class="fx-card p51-pack"><div class="fx-row"><a class="p51-repo" href=${p.url} rel="noreferrer noopener" target="_blank">${p.repo}</a>${checked && html`<span class=${"fx-tag " + (p.installed ? "measured" : "warn")}>${p.installed ? "In your ComfyUI" : "Not in your ComfyUI"}</span>`}</div>
     <p>${p.adds || "No summary."}</p>
-    <dl class="pl-more"><dt>Licence</dt><dd>${p.licence}</dd><dt>Commit</dt><dd><a href=${p.url + "/tree/" + p.commit} rel="noreferrer noopener" target="_blank"><code>${p.commit.slice(0, 10)}</code></a></dd>
+    <dl class="pl-more"><dt>Licence</dt><dd>${p.licence}</dd>${p.weights_licence && html`<dt>Weights</dt><dd><b>${p.weights_licence}</b></dd>`}<dt>Commit</dt><dd><a href=${p.url + "/tree/" + p.commit} rel="noreferrer noopener" target="_blank"><code>${p.commit.slice(0, 10)}</code></a></dd>
       ${p.folder !== p.pack && html`<dt>Folder</dt><dd><code>${p.folder}</code></dd>`}${p.pip.length > 0 && html`<dt>pip</dt><dd><code>${p.pip.join(" ")}</code>${p.pip_no_deps ? " (without their dependencies)" : ""}</dd>`}
       ${p.patch && html`<dt>Patch</dt><dd><code>studio/pool51_patches/${p.patch}</code></dd>`}${p.sections.length > 1 && html`<dt>Also in</dt><dd>${p.sections.slice(1).map((x) => x + " " + (names[x] || "")).join("; ")}</dd>`}</dl>
     ${p.notes.length > 0 && html`<ul class="p51-notes">${p.notes.map((n) => html`<li key=${n}>${n}</li>`)}</ul>`}
@@ -57,7 +57,8 @@ function Pool51() {
     <div class="p51-secs">${d.sections.map((s) => { const ps = s.packs.map((k) => byName[k]).filter((p) => p && hit(p)); if (w && !ps.length) return null;
       return html`<details class="fx-card p51-sec" key=${s.id} open=${!!w}><summary><span class="p51-id">${s.id}</span><span class="p51-name">${s.name}</span><span class="p51-count">${s.packs.length ? s.packs.length + (s.packs.length === 1 ? " pack" : " packs") + ", " + s.nodes + (s.nodes === 1 ? " node" : " nodes") : "no packs"}</span></summary>
         ${s.packs.length ? html`<ul class="pl-list">${ps.map((p) => html`<${P51Pack} key=${p.pack} p=${p} names=${names} checked=${d.checked_here}/>`)}</ul>` : html`<p class="small">${s.empty_why || "Nothing in this section passed review yet."}</p>`}
-        ${s.also.length > 0 && !w && html`<p class="small">Also useful here: ${s.also.map((k) => (byName[k] || {}).repo || k).join(", ")}.</p>`}</details>`; })}</div></section>`;
+        ${s.also.length > 0 && !w && html`<p class="small">Also useful here: ${s.also.map((k) => (byName[k] || {}).repo || k).join(", ")}.</p>`}</details>`; })}</div>
+    ${(d.optional || []).length > 0 && html`<div class="fx-note warn"><b>Optional, not part of the open edition</b><p>${d.optional_about}</p><ul class="p51-notes">${d.optional.map((o) => html`<li key=${o.pack}><a href=${o.url} rel="noreferrer noopener" target="_blank">${o.repo}</a>: ${o.why}.</li>`)}</ul></div>`}</section>`;
 }
 
 export function PackLab() {

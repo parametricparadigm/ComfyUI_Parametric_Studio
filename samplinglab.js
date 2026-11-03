@@ -1,7 +1,7 @@
 /* The Sampling Lab: every sampler, scheduler, guidance trick, noise and latent operation we could read the source of, what the code really does, whether it runs here, and the proof. An instrument and an encyclopedia. */
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api } from "./common.js";
-import { FAMILIES, WHERE, PROOFS, LABELS, LABEL_MEANS, filterEntries, familyCounts, parseRoute, windowRange, dotKind, dotCounts, dotsOf, mapLayout, evidenceCards, licenceCounts, creditWall, tidyText, FIND_GROUPS, whereFirst, hilite, packName, licenceWord } from "./samplinglab_logic.js";
+import { FAMILIES, WHERE, PROOFS, LABELS, LABEL_MEANS, filterEntries, familyCounts, parseRoute, windowRange, dotKind, dotCounts, dotsOf, mapLayout, evidenceCards, licenceCounts, creditWall, tidyText, FIND_GROUPS, whereFirst, hilite, packName, licenceWord, liveGroups, liveCounts } from "./samplinglab_logic.js";
 import { proofPill, place, unproven, useWidth, Wipe, Split, SigmaChart, ABTable } from "./samplinglab_kit.js";
 import { Curves, Bench, Renders } from "./samplinglab_bench.js";
 import { Method } from "./samplinglab_method.js";
@@ -22,7 +22,7 @@ function AtlasMap({ data, renders, onFamily }) {
   return html`<section class="slmap film" aria-labelledby="sl-map-h">
     <header class="slmap-top"><div class="slmap-big"><b id="sl-map-h">${data.entries.length}</b><span>methods read from source.<br/>One square each.</span></div>
       <ul class="slmap-key">
-        <li><i class="d rendered"></i><b>${c.rendered}</b> rendered here, all in ComfyUI core</li><li><i class="d core"></i><b>${c.core}</b> in core, not rendered</li><li><i class="d live"></i><b>${c.live}</b> in a live pack, unproven</li><li><i class="d pack"></i><b>${c.pack}</b> need a pack, unproven</li>
+        <li><i class="d rendered"></i><b>${c.rendered}</b> rendered here</li><li><i class="d core"></i><b>${c.core}</b> in core, not rendered</li><li><i class="d live"></i><b>${c.live}</b> in a live pack, unproven</li><li><i class="d pack"></i><b>${c.pack}</b> need a pack, unproven</li>
       </ul></header>
     <div class="slmap-field" ref=${ref}><div class="slmap-tiles" ref=${box} style=${{ height: lay.H + "px" }} onPointerOver=${over} onPointerLeave=${() => setTip(null)}>
       ${lay.tiles.map((t) => { const core = t.dots.filter((e) => e.in_core).length, live = t.dots.filter((e) => e.live && !e.in_core).length; return html`<button class=${"slt" + (t.narrow ? " narrow" : "")} key=${t.k} style=${{ left: t.x + "px", top: t.y + "px", width: t.w + "px", height: t.h + "px" }} aria-label=${`${t.l}: ${t.n} methods, ${core} in core, ${live} in a live pack. Show them.`} onClick=${(ev) => dotClick(ev, t.k)}>
@@ -37,7 +37,7 @@ function ProofStrip({ data, renders }) {
   const cov = data.coverage || {}; const sr = cov.second_reader || {}; const lab = renders.pack_lab; const done = (renders.renders || []).filter((r) => r.status === "rendered").length; const non = data.entries.filter((e) => !e.in_core).length;
   return html`<div class="slstrip">
     <div><b class="gold">${done}</b><span>core renders on this machine, one seed and one prompt per set</span></div>
-    ${lab ? html`<div class="warn"><b>${lab.rendered}</b><span>of the ${non} methods outside core are proven by a render. Pack Lab tried ${lab.attempted}, and its control render failed too: <code>VAEDecode</code> hit maximum recursion depth.</span></div>` : null}
+    ${renders.packs ? html`<div><b class="gold">${renders.packs.entries}</b><span>of the ${non} methods outside core are proven by a render, made on this machine's own ComfyUI with their packs installed. <a class="sllink" href="#sampling/live">What runs here</a></span></div>` : lab ? html`<div class="warn"><b>${lab.rendered}</b><span>of the ${non} methods outside core are proven by a render. Pack Lab tried ${lab.attempted}, and its control render failed too: <code>VAEDecode</code> hit maximum recursion depth.</span></div>` : null}
     ${cov.second_reader_total ? html`<div><b>${cov.second_reader_total}</b><span>entries checked by a second reader: ${sr.correct || 0} right, ${sr.minor || 0} imprecise, ${sr.wrong || 0} wrong, ${cov.second_reader_fixed || 0} corrected</span></div>` : null}
   </div>`;
 }
@@ -141,6 +141,29 @@ function Finds({ data, renders, measures }) {
   </div>`;
 }
 
+
+/* ---------- what runs here ---------- */
+const LIVE_TABS = [["samplers", "Samplers"], ["schedulers", "Schedulers"], ["guidance", "Guidance"]];
+function LiveGroup({ g }) {
+  return html`<article class="sllv-g"><header><b>${g.pack === "core" ? "ComfyUI core" : g.pack ? packName(g.pack) : "Pack not identified"}</b>${g.pack ? html`<span>${g.pack === "core" ? "Comfy Org and contributors" : g.author || "author not recorded"}</span><span class=${"slp" + (!g.licence || g.licence === "none-found" ? " warn" : "")}>${licenceWord(g.licence)}</span>` : html`<span>Offered here; we couldn't tell which pack adds it</span>`}<small>${g.rows.length}</small></header>
+    <ul>${g.rows.map((r) => html`<li key=${r.name}>${r.entry ? html`<a class=${"sllv-chip" + (r.rendered ? " r" : "")} href=${"#sampling/" + r.entry} title=${r.rendered ? "Rendered on this machine" : "Read from its source"}>${r.name}${r.rendered ? html`<i aria-label=", rendered here"></i>` : null}</a>` : html`<span class="sllv-chip none" title="Offered here, not described in the atlas yet">${r.name}</span>`}</li>`)}</ul></article>`;
+}
+function LiveView({ live, renders }) {
+  const [tab, setTab] = useState("samplers"); const [q, setQ] = useState("");
+  if (!live || !(live.samplers || []).length) return html`<p class="slnote">No list of what runs here has been built on this machine yet.</p>`;
+  const guid = (live.guidance || []).map((g) => ({ ...g, name: g.name }));
+  const rows = tab === "guidance" ? guid : live[tab] || []; const groups = liveGroups(rows, q); const cs = liveCounts(live.samplers), cc = liveCounts(live.schedulers), cg = liveCounts(guid);
+  const shown = groups.reduce((n, g) => n + g.rows.length, 0); const pk = renders.packs;
+  return html`<div class="slview">
+    <section class="sllv-top film" aria-labelledby="sl-lv-h"><div><h2 id="sl-lv-h">What runs on this machine</h2><p>Every sampler and scheduler name this ComfyUI offers, and every guidance method it can run, with the pack that adds it, its licence, what the atlas says about it and whether we rendered it.</p></div>
+      <div class="slfigs"><div><b class="gold">${cs.all}</b><span>sampler names, ${cs.packs} from packs</span></div><div><b>${cc.all}</b><span>scheduler names, ${cc.packs} from packs</span></div><div><b>${cg.all}</b><span>guidance methods, ${cg.packs} from packs</span></div>${pk ? html`<div><b>${pk.rendered}</b><span>pack methods rendered here</span></div>` : null}</div>
+      <p class="slnote">As this machine's ComfyUI listed them on ${live.built} (${live.classes} node types from ${live.packs} packs). Another install lists its own. ${cs.explained + cc.explained === cs.all + cc.all ? `Every one of the ${cs.all + cc.all} names links to its atlas entry.` : `${cs.explained + cc.explained} of the ${cs.all + cc.all} names link to an atlas entry; the rest are shown without one.`} A gold mark means a fixed-seed render of it is on this page. ${pk ? html`<a class="sllink" href="#sampling/renders/pack-sampler">See the pack renders</a>` : null}</p></section>
+    <div class="sllv-bar"><div class="slseg" role="group" aria-label="What to list">${LIVE_TABS.map(([k, l]) => html`<button aria-pressed=${tab === k} onClick=${() => setTab(k)}>${l} <small>${(k === "guidance" ? guid : live[k] || []).length}</small></button>`)}</div>
+      <label class="slsr small"><span class="vh">Filter by name or pack</span><input type="search" placeholder="Filter by name or pack" value=${q} onInput=${(ev) => setQ(ev.target.value)}/></label><span class="slnote" aria-live="polite">${shown} shown</span></div>
+    ${groups.length ? html`<div class="sllv-grid">${groups.map((g) => html`<${LiveGroup} key=${g.pack} g=${g}/>`)}</div>` : html`<div class="slnone"><b>Nothing matches.</b></div>`}
+  </div>`;
+}
+
 /* ---------- credits ---------- */
 function Credits({ data }) {
   const [q, setQ] = useState(""); const list = data.credits || []; const rows = useMemo(() => list.filter((c) => !q || (c.pack + " " + c.author).toLowerCase().includes(q.toLowerCase())), [data, q]); const wall = useMemo(() => creditWall(list), [data]); const lic = useMemo(() => licenceCounts(list), [data]); const top = lic.length ? lic[0][1] : 1;
@@ -159,11 +182,11 @@ function Credits({ data }) {
 }
 
 /* ---------- the page ---------- */
-const VIEWS = (d, m, r) => [["methods", "Atlas", `${d.entries.length} methods`, ""], ["curves", "Curves", `${m.schedules ? Object.keys(m.schedules).length : 0} model types`, "/curves"], ["bench", "Bench", `${m.solvers ? Object.keys(m.solvers).length : 0} solvers`, "/bench"], ["renders", "Renders", `${(r.renders || []).filter((x) => x.status === "rendered").length} real, wipe them`, "/renders"], ["walk", "Walk", "seeds, prompts, steps", "/walk"], ["finds", "Surprises", `${(d.surprises || []).length} found`, "/finds"], ["credits", "Credits", `${(d.credits || []).length} packs`, "/credits"]];
+const VIEWS = (d, m, r, l) => [["methods", "Atlas", `${d.entries.length} methods`, ""], ["live", "Live here", l && l.samplers ? `${l.samplers.length} samplers, ${l.schedulers.length} schedulers` : "what runs here", "/live"], ["curves", "Curves", `${m.schedules ? Object.keys(m.schedules).length : 0} model types`, "/curves"], ["bench", "Bench", `${m.solvers ? Object.keys(m.solvers).length : 0} solvers`, "/bench"], ["renders", "Renders", `${(r.renders || []).filter((x) => x.status === "rendered").length} real, wipe them`, "/renders"], ["walk", "Walk", "seeds, prompts, steps", "/walk"], ["finds", "Surprises", `${(d.surprises || []).length} found`, "/finds"], ["credits", "Credits", `${(d.credits || []).length} packs`, "/credits"]];
 export function SamplingLab({ route }) {
   const { view, id, rest } = parseRoute(route);
-  const [data, setData] = useState(null); const [measures, setM] = useState({}); const [renders, setR] = useState({ renders: [], models: {} }); const [err, setErr] = useState(""); const [f, setF] = useState(CLEAR); const place0 = useRef(0); const saved = useRef(0); const idRef = useRef(id);
-  useEffect(() => { api("/api/sampling/atlas").then(setData).catch(() => setErr("The atlas didn't load. Is the studio server running?")); api("/api/sampling/measures").then(setM).catch(() => {}); api("/api/sampling/renders").then(setR).catch(() => {}); }, []);
+  const [data, setData] = useState(null); const [measures, setM] = useState({}); const [renders, setR] = useState({ renders: [], models: {} }); const [live, setLive] = useState(null); const [err, setErr] = useState(""); const [f, setF] = useState(CLEAR); const place0 = useRef(0); const saved = useRef(0); const idRef = useRef(id);
+  useEffect(() => { api("/api/sampling/atlas").then(setData).catch(() => setErr("The atlas didn't load. Is the studio server running?")); api("/api/sampling/measures").then(setM).catch(() => {}); api("/api/sampling/renders").then(setR).catch(() => {}); api("/api/sampling/live").then(setLive).catch(() => {}); }, []);
   useEffect(() => { document.body.classList.add("on-sampling"); return () => document.body.classList.remove("on-sampling", "sl-deep"); }, []);
   useEffect(() => { document.body.classList.toggle("sl-deep", !!id || view !== "methods"); }, [id, view]);
   /* Back from a method lands where the reader was in the list. */
@@ -178,8 +201,8 @@ export function SamplingLab({ route }) {
   if (!data) return html`<div class="sl"><div class="slloading"><b>Loading the atlas</b></div></div>`;
   const at = id ? "" : view;
   return html`<div class="sl">
-    <nav class="slrack" aria-label="Sampling Lab"><ol>${VIEWS(data, measures, renders).map(([k, l, sub, h], i) => html`<li key=${k}><a class=${at === k ? "on" : ""} aria-current=${at === k ? "page" : null} href=${"#sampling" + h}><i>${i + 1}</i><span><b>${l}</b><small>${sub}</small></span></a></li>`)}</ol></nav>
+    <nav class="slrack" aria-label="Sampling Lab"><ol>${VIEWS(data, measures, renders, live).map(([k, l, sub, h], i) => html`<li key=${k}><a class=${at === k ? "on" : ""} aria-current=${at === k ? "page" : null} href=${"#sampling" + h}><i>${i + 1}</i><span><b>${l}</b><small>${sub}</small></span></a></li>`)}</ol></nav>
     ${id ? html`<${Method} key=${id} id=${id} measures=${measures} renders=${renders} data=${data} rows=${rows}/>` : html`
-      ${view === "methods" && html`<${AtlasView} data=${data} measures=${measures} renders=${renders} f=${f} set=${setF} rows=${rows}/>`}${view === "curves" && html`<${Curves} measures=${measures}/>`}${view === "bench" && html`<${Bench} measures=${measures}/>`}${view === "renders" && html`<${Renders} renders=${renders} rest=${rest}/>`}${view === "walk" && html`<${Walk}/>`}${view === "finds" && html`<${Finds} data=${data} renders=${renders} measures=${measures}/>`}${view === "credits" && html`<${Credits} data=${data}/>`}`}
+      ${view === "methods" && html`<${AtlasView} data=${data} measures=${measures} renders=${renders} f=${f} set=${setF} rows=${rows}/>`}${view === "live" && html`<${LiveView} live=${live} renders=${renders}/>`}${view === "curves" && html`<${Curves} measures=${measures}/>`}${view === "bench" && html`<${Bench} measures=${measures}/>`}${view === "renders" && html`<${Renders} renders=${renders} rest=${rest}/>`}${view === "walk" && html`<${Walk}/>`}${view === "finds" && html`<${Finds} data=${data} renders=${renders} measures=${measures}/>`}${view === "credits" && html`<${Credits} data=${data}/>`}`}
   </div>`;
 }

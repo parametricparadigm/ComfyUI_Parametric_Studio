@@ -1,7 +1,7 @@
 /* Families: every model family this studio can run, as a gallery of what each one really made here. A family page holds its samples, its crew member, its templates as forms that run on that family's own ComfyUI, and start or stop behind the VRAM gate. A family with no render shows what it needs, never a stand-in image. */
 import { FitChip } from "./fit_chip.js";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { html, api, post } from "./common.js";
+import { html, api, post, smooth } from "./common.js";
 import { Drop, LiveMedia } from "./showcase.js";
 import { Stage, Stats, Strip } from "./look.js";
 
@@ -63,7 +63,7 @@ function Gate({ refusal, onFreed }) {
 
 function Form({ f, tid, onClose, onDone }) {
   const [form, setForm] = useState(null), [vals, setVals] = useState({}), [err, setErr] = useState(""), [job, setJob] = useState(null), [st, setSt] = useState(null), [files, setFiles] = useState({}), [permission, setPermission] = useState(false); const ref = useRef(null);
-  useEffect(() => { setPermission(false); setForm(null); setErr(""); setJob(null); setSt(null); setVals({}); setFiles({}); api(`/api/families/${f.slug}/templates/${encodeURIComponent(tid)}`).then((d) => { setForm(d); const v = {}; d.inputs.forEach((i) => { if (i.default !== undefined && i.default !== null && i.type !== "image" && i.type !== "video" && i.type !== "unsupported") v[i.key] = i.default; }); setVals(v); if (ref.current) ref.current.scrollIntoView({ behavior: "smooth", block: "nearest" }); }).catch((e) => setErr(e.message)); }, [tid]);
+  useEffect(() => { setPermission(false); setForm(null); setErr(""); setJob(null); setSt(null); setVals({}); setFiles({}); api(`/api/families/${f.slug}/templates/${encodeURIComponent(tid)}`).then((d) => { setForm(d); const v = {}; d.inputs.forEach((i) => { if (i.default !== undefined && i.default !== null && i.type !== "image" && i.type !== "video" && i.type !== "unsupported") v[i.key] = i.default; }); setVals(v); if (ref.current) ref.current.scrollIntoView({ behavior: smooth(), block: "nearest" }); }).catch((e) => setErr(e.message)); }, [tid]);
   useEffect(() => { if (!job) return; let on = true; const t = setInterval(async () => { try { const s = await api(`/api/families/${f.slug}/jobs/${job}`); if (!on) return; setSt(s); if (["done", "error", "refused"].includes(s.status)) { clearInterval(t); if (s.status === "done") onDone && onDone(); } } catch (e) { setErr(e.message); clearInterval(t); } }, 1500); return () => { on = false; clearInterval(t); }; }, [job]);
   const upload = (key) => async (file) => { const fd = new FormData(); fd.append("file", file); try { const r = await api(`/api/families/${f.slug}/upload`, { method: "POST", body: fd }); setVals((v) => ({ ...v, [key]: r.name })); setFiles((x) => ({ ...x, [key]: { name: r.name, url: URL.createObjectURL(file) } })); } catch (e) { setErr(e.message); } };
   const run = async () => { setErr(""); setSt({ status: "queued", step: "Sending" }); try { const r = await post(`/api/families/${f.slug}/templates/${encodeURIComponent(tid)}/run`, form && form.likeness ? { values: vals, permission } : { values: vals }); setJob(r.job); } catch (e) { setErr(e.message); setSt(null); } };
@@ -94,7 +94,7 @@ function Form({ f, tid, onClose, onDone }) {
 }
 
 function Media({ item }) {
-  if (item.kind === "video") return html`<video key=${item.src} src=${item.src} poster=${item.poster} controls muted loop playsinline autoplay></video>`;
+  if (item.kind === "video") return html`<video key=${item.src} src=${item.src} poster=${item.poster} controls muted loop playsinline autoplay=${!matchMedia("(prefers-reduced-motion: reduce)").matches}></video>`;
   if (item.kind === "audio") return html`<audio key=${item.src} src=${item.src} controls></audio>`;
   return html`<img key=${item.src} src=${item.src || item.poster} alt=${item.prompt || ""}/>`;
 }

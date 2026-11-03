@@ -21,3 +21,4 @@
 .p51-sec[open]>summary{margin-bottom:10px}.p51-id{font:900 18px/1 var(--display);color:#f5c518;min-width:2ch}.p51-name{font-weight:700;flex:1 1 14ch;min-width:0;overflow-wrap:anywhere}.p51-count{color:var(--mut);font-size:13px}
 .p51-pack .fx-row{flex-wrap:wrap;gap:6px 10px}.p51-repo{font-weight:800;overflow-wrap:anywhere;display:inline-block;padding:10px 0;margin:-10px 0}.p51-pack>p{margin:0}.p51-pack code{overflow-wrap:anywhere;font-size:12px}
 .p51-notes{margin:0;padding-left:18px;font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:3px}
+.p51-pack>details>summary,.pl-pick details>summary{display:list-item;min-height:40px;padding:10px 0;box-sizing:border-box;cursor:pointer}

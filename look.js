@@ -16,7 +16,7 @@ export function Media({ src, poster, kind, alt = "", cls = "", eager, still }) {
   /* still: the chosen frame stays up, and the clip only plays while a pointer is on it */
   if (still) return html`<video key=${src} class=${cls} src=${src} poster=${poster} muted loop playsinline preload="none" aria-label=${alt || undefined} onMouseEnter=${(e) => { const p = e.currentTarget.play(); if (p && p.catch) p.catch(() => {}); }} onMouseLeave=${(e) => e.currentTarget.load()}></video>`;
   if (calm()) return html`<video class=${cls} src=${src} muted playsinline preload="metadata" aria-label=${alt || undefined}></video>`;
-  return html`<video key=${src} ref=${v} class=${cls} src=${src} poster=${poster} muted loop playsinline preload="metadata" aria-label=${alt || undefined}></video>`;
+  return html`<video key=${src} ref=${v} class=${cls} src=${src} poster=${poster} muted loop playsinline preload=${poster ? "none" : "metadata"} aria-label=${alt || undefined}></video>`;
 }
 
 /* The numbered tab strip. items: { k, b, s }. */

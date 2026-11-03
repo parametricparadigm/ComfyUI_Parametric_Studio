@@ -206,7 +206,7 @@ function Setup(p) {
   const { source, character, scene, camera, picked, lib, transforms, cameras, busy, blocked, chosen, err, vfx } = p, anyVfx = chosen.some((t) => t.goal === "vfx_ltx"), est = boardEstimate(chosen, vfx);
   return html`<div class="sb-setup">
     <${Drop} big label="Add your clip" hint="Drop a video here, or choose one" what="clip" accept="video/mp4,video/webm,video/quicktime,video/x-matroska" file=${source} onFile=${(f) => p.useFile(f, p.setSource, "clip")}/>
-    ${lib.length > 0 && html`<div class="sb-lib"><span id="sb-lib-l">Or use one from your Library</span><div class="sb-libstrip" role="group" aria-labelledby="sb-lib-l">${lib.map((r) => html`<button title=${r.prompt || r.video.filename} aria-label=${"Use " + (r.prompt || r.video.filename)} onClick=${() => p.fromLibrary(r)}><video src=${seekable(r.video.url)} muted preload="metadata" tabindex="-1"></video></button>`)}</div></div>`}
+    ${lib.length > 0 && html`<div class="sb-lib"><span id="sb-lib-l">Or use one from your Library</span><div class="sb-libstrip" role="group" aria-labelledby="sb-lib-l">${lib.map((r) => html`<button title=${r.prompt || r.video.filename} aria-label=${"Use " + (r.prompt || r.video.filename)} onClick=${() => p.fromLibrary(r)}>${r.video.poster ? html`<img src=${r.video.poster} alt="" loading="lazy"/>` : html`<video src=${seekable(r.video.url)} muted preload="metadata" tabindex="-1"></video>`}</button>`)}</div></div>`}
     <h3 class="sb-sub">Today's takes</h3>
     <ul class="sb-jobs">
       ${transforms.map((t) => { const on = !!picked[t.id], order = on ? chosen.indexOf(t) + 1 : 0; return html`<li>

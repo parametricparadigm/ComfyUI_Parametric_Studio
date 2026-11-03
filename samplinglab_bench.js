@@ -110,7 +110,7 @@ export function Bench({ measures }) {
 }
 
 /* ---------- renders ---------- */
-const SETS = { sampler: "Samplers", scheduler: "Schedulers", guidance: "Guidance", flow: "Flow model" };
+const SETS = { sampler: "Samplers", scheduler: "Schedulers", guidance: "Guidance", flow: "Flow model", "pack-sampler": "Pack samplers", "pack-scheduler": "Pack schedulers", "pack-guidance": "Pack guidance" };
 export function Renders({ renders, rest }) {
   const groups = useMemo(() => groupRenders(renders.renders), [renders]); const sets = Object.keys(SETS).filter((k) => groups[k]);
   const [set, setSet] = useState(rest[0] && SETS[rest[0]] ? rest[0] : null); const [aId, setA] = useState(rest[1] || null); const [bId, setB] = useState(rest[2] || null); const [turn, setTurn] = useState("b"); const [mean, setMean] = useState(null);

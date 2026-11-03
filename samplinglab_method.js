@@ -68,7 +68,7 @@ export function Method({ id, measures, renders, data, rows }) {
   useEffect(() => { if (e && head.current) head.current.focus({ preventScroll: true }); }, [e && e.id]);
   const back = html`<a class="slback" href="#sampling" onClick=${toList}>‹ All ${(data.entries || []).length} methods</a>`;
   if (err) return html`<div class="slm">${back}<p class="slerr" role="alert">${err}</p></div>`;
-  if (!e) return html`<div class="slm">${back}<div class="slm-skel" aria-busy="true"><p class="slnote">Loading…</p></div></div>`;
+  if (!e) return html`<div class="slm">${back}<div class="slm-skel pp-loading" aria-busy="true" role="status"><span class="slnote">Opening this method</span><i aria-hidden="true"></i></div></div>`;
   const sampler = e.core_ref && e.core_ref.sampler_name, scheduler = e.core_ref && e.core_ref.scheduler; const bench = sampler && measures.solvers && measures.solvers[sampler]; const benchOk = bench && bench.eps && !bench.eps.error;
   const hasCurve = !!(scheduler && measures.schedules && Object.values(measures.schedules).some((s) => s.by_steps["20"] && s.by_steps["20"][scheduler]));
   const shots = (renders.renders || []).filter((r) => (e.rendered_ids || []).includes(r.id)); const facets = proofFacets(e, { curve: hasCurve, bench: benchOk }); const run = runsHere(e); const n = neighbours(rows, data.entries, e); const lab = renders.pack_lab;
@@ -77,7 +77,7 @@ export function Method({ id, measures, renders, data, rows }) {
     <header class="slm-head">
       <div class="slm-title"><span class="slkick ink">${famWord[e.family] || e.family}${e.subfamily ? " · " + e.subfamily : ""}</span><h2 tabindex="-1" ref=${head}>${e.name}</h2><p class="sllead">${e.plain}</p></div>
       <aside class=${"slm-runs " + run.tone}><span class="slkick">What runs here</span><b>${run.word}</b><p>${run.text}</p>
-        ${!e.in_core && lab ? html`<p class="why">${lab.why}</p>` : null}
+        ${!e.in_core && renders.packs ? (e.rendered ? null : html`<p class="why">${e.live ? `Its pack is installed here. We rendered ${renders.packs.rendered} pack methods on this machine, chosen to show visible differences; this isn't one of them yet.` : "Its pack isn't installed on this machine, so nothing here has run it."}</p>`) : !e.in_core && lab ? html`<p class="why">${lab.why}</p>` : null}
         <div class="slpills">${place(e)}${e.audit && (e.audit.verdict === "correct" || e.audit.fixed) ? html`<span class="slp proof">Second reader checked</span>` : null}${e.flagged_providers ? html`<span class="slp warn">Script scan flags on ${e.flagged_providers} of ${e.providers_n} packs</span>` : null}</div>
       </aside>
     </header>

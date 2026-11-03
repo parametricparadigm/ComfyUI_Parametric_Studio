@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Media, Strip, Stats, Head } from "./look.js";
+import { FxSkeleton } from "./fx.js";
 
 const COMMERCIAL = { true: ["ok", "Commercial use allowed"], false: ["bad", "Research only"], conditional: ["warn", "Commercial use has conditions"] };
 const HOW = { tool: "A tool in its own process, not a ComfyUI graph", runner: "A small program in its own process, not a ComfyUI graph", family: "A ComfyUI graph on its family's own server" };
@@ -108,9 +109,10 @@ function Hero({ hero, rows }) {
 
 export function Motion() {
   const [d, setD] = useState(null), [err, setErr] = useState(""), [at, setAt] = useState("words"), [characters, setCharacters] = useState([]);
-  useEffect(() => { api("/api/motion").then(setD).catch((e) => setErr(e.message)); api("/api/worldkit/assets?type=character").then((x) => setCharacters((x.assets || []).filter((a) => a.build === "done"))).catch(() => {}); }, []);
-  if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p></div>`;
-  if (!d) return html`<div class="fx"><p>Loading</p></div>`;
+  const load = () => { setErr(""); api("/api/motion").then(setD).catch((e) => setErr(e.message || "The motion list did not load.")); api("/api/worldkit/assets?type=character").then((x) => setCharacters((x.assets || []).filter((a) => a.build === "done"))).catch(() => {}); };
+  useEffect(load, []);
+  if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button class="btn" onClick=${load}>Try again</button></div>`;
+  if (!d) return html`<div class="fx"><${FxSkeleton} label="Reading the motion models and examples."/></div>`;
   const g = d.groups.find((x) => x.id === at), rows = d.routes.filter((r) => r.group === at);
   return html`<div class="fx mo">
     <${Hero} hero=${d.hero} rows=${d.routes}/>

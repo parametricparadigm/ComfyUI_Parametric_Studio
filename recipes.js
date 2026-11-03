@@ -1,7 +1,7 @@
 /* Recipes: multi-model chains that really run. Media cards like Create's goal deck; each recipe shows its steps as a chain, its models and licences, measured time and VRAM, tested or untested, a Run button with live progress, and each finished step's exact graph one click away. Only recipes rendered on this box say Tested. */
 import { FitChip } from "./fit_chip.js";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { html, api, post } from "./common.js";
+import { html, api, post, smooth } from "./common.js";
 import { FxSkeleton } from "./fx.js";
 
 const CSS = `
@@ -81,7 +81,7 @@ function Detail({ recipe, onClose, initialRun }) {
   const blocked = recipe.reference || (ready && ready.ready === false);
   const pickFile = async (sid, file) => { if (!file) return; setErr(""); try { const fd = new FormData(); fd.append("file", file); const j = await api("/api/upload", { method: "POST", body: fd }); setUploads({ ...uploads, [sid]: j.name }); } catch (e) { setErr(e.message); } };
   const ref = useRef(null); const film = recipe.tags && recipe.tags.includes("hero");
-  useEffect(() => { ref.current && ref.current.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, [recipe.id]);
+  useEffect(() => { ref.current && ref.current.scrollIntoView({ behavior: smooth(), block: "nearest" }); }, [recipe.id]);
   useEffect(() => { if (!rid) return; let stop = false; const tick = async () => { try { const r = await api(`/api/recipes/${recipe.id}/runs/${rid}`); if (stop) return; setRun(r); if (["queued", "running"].includes(r.status)) setTimeout(tick, 1500); } catch (e) { if (!stop) setErr(e.message); } }; tick(); return () => { stop = true; }; }, [rid]);
   const going = run && ["queued", "running"].includes(run.status);
   const go = async () => { setErr(""); setStarting(true); setRun(null); try { const r = await post(`/api/recipes/${recipe.id}/run`, { values: vals, plan: plan || undefined, uploads }); setRid(r.run); } catch (e) { setErr(e.message); } setStarting(false); };
@@ -138,7 +138,7 @@ export function Recipes({ route }) {
   useEffect(() => { if (sel && d && !rows.find((r) => r.id === sel)) api(`/api/recipes/${sel}`).then(setLibCur).catch(() => setLibCur(null)); }, [sel, !!d]);
   if (!d) return (err ? html`<p class="small">${err}</p>` : html`<${FxSkeleton} label="Loading the recipes." rows=${4}/>`);
   return html`<div class="rx"><style>${CSS}</style>
-    ${heroes.map((hero) => html`<section class="rxhero" aria-label=${hero.title}>${hero.tested && hero.tested.media ? html`<video src=${hero.tested.media} poster=${hero.tested.poster} muted autoplay loop playsinline controls></video>` : html`<div class="gmedia gblank" style="position:static;min-height:260px;height:100%"></div>`}<div class="rxherot"><h2>${hero.title}</h2><p>${hero.pitch}</p><div class="rxcost"><b>0 credits</b>${hero.tested ? html`<span>${fmtT(hero.tested.seconds)} on the author's GPU</span><span>${Math.round(hero.tested.peak_vram_gib)} GiB peak</span><span>tested by the author</span>` : html`<span>not rendered by the author yet</span>`}</div><div class="rxrun"><button class="rxgo" onClick=${() => { setSel(hero.id); setInitialRun(null); }}>${hero.id === "music_video" ? "Make a music video" : "Try it"}</button></div></div></section>`)}
+    ${heroes.map((hero) => html`<section class="rxhero" aria-label=${hero.title}>${hero.tested && hero.tested.media ? html`<video src=${hero.tested.media} poster=${hero.tested.poster} muted autoplay=${!matchMedia("(prefers-reduced-motion: reduce)").matches} preload="metadata" loop playsinline controls></video>` : html`<div class="gmedia gblank" style="position:static;min-height:260px;height:100%"></div>`}<div class="rxherot"><h2>${hero.title}</h2><p>${hero.pitch}</p><div class="rxcost"><b>0 credits</b>${hero.tested ? html`<span>${fmtT(hero.tested.seconds)} on the author's GPU</span><span>${Math.round(hero.tested.peak_vram_gib)} GiB peak</span><span>tested by the author</span>` : html`<span>not rendered by the author yet</span>`}</div><div class="rxrun"><button class="rxgo" onClick=${() => { setSel(hero.id); setInitialRun(null); }}>${hero.id === "music_video" ? "Make a music video" : "Try it"}</button></div></div></section>`)}
     <p class="small" style="margin:0;max-width:760px">Each recipe runs the same goals you can run by hand, one step at a time, passing each output to the next step. ${d.tested} of ${rows.length} rendered on the author's machine so far; the others say so.</p>
     <div class="chips" role="group" aria-label="filter recipes">${tags.map((t) => html`<button class=${"chip" + (filter === t ? " on" : "")} onClick=${() => setFilter(t)}>${t}</button>`)}</div>
     ${cur && html`<${Detail} key=${cur.id} recipe=${cur} initialRun=${initialRun} onClose=${() => { setSel(null); setInitialRun(null); }}/>`}

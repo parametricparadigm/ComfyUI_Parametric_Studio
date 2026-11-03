@@ -2,6 +2,7 @@
    The 3D view is three.js (vendored); every key can also be set with plain sliders, so the page works with a keyboard and without WebGL. */
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
+import { FxSkeleton } from "./fx.js";
 import { addKey, confusion, globePath, globePos, LINE_PRESETS, lineLength, MAX_KEYS, moveWord, presetKeys, removeKey, RADIUS, SUBJECT, thin, tidyKey, toThree, VERDICT_CLASS, verdictWord } from "./camerapath_logic.js";
 
 const said = (e) => (e && e.message) || String(e || "");
@@ -62,9 +63,9 @@ function Globe({ keys, setKeys, positions, playing }) {
       renderer.domElement.addEventListener("pointerdown", down); renderer.domElement.addEventListener("pointermove", move); renderer.domElement.addEventListener("pointerup", up); renderer.domElement.addEventListener("pointercancel", up);
       const size = () => { const w = el.clientWidth, h = Math.max(240, Math.round(w * 0.62)); renderer.setSize(w, h); cam.aspect = w / h; cam.updateProjectionMatrix(); };
       const ro = new ResizeObserver(size); ro.observe(el); size();
-      let t0 = performance.now();
+      let t0 = performance.now(), seen = true; const io = new IntersectionObserver((es) => { seen = es[0].isIntersecting; }); io.observe(el);
       const tick = (now) => {
-        if (!alive) return; raf = requestAnimationFrame(tick); ctl.update();
+        if (!alive) return; raf = requestAnimationFrame(tick); if (!seen) return; ctl.update();
         const s = st.current, pos = s.positions || [];
         if (pos.length) {
           const f = s.playing ? ((now - t0) / 4000) % 1 : 0, i = Math.min(pos.length - 1, Math.floor(f * (pos.length - 1))), p = toThree(pos[i]);
@@ -73,7 +74,7 @@ function Globe({ keys, setKeys, positions, playing }) {
         renderer.render(scene, cam);
       };
       raf = requestAnimationFrame(tick);
-      st.current = { ...st.current, THREE, line, dots, cleanup: () => { ro.disconnect(); ctl.dispose(); renderer.dispose(); renderer.domElement.remove(); } };
+      st.current = { ...st.current, THREE, line, dots, cleanup: () => { ro.disconnect(); io.disconnect(); ctl.dispose(); renderer.dispose(); renderer.domElement.remove(); } };
       st.current.redraw && st.current.redraw();
     })();
     return () => { alive = false; cancelAnimationFrame(raf); st.current.cleanup && st.current.cleanup(); };
@@ -101,7 +102,7 @@ function KeySliders({ keys, setKeys }) {
 }
 
 function DrawMove({ info }) {
-  const [keys, setKeys] = useState([{ round: 0, up: 0 }, { round: 20, up: 0 }, { round: 40, up: 0 }]), [plan, setPlan] = useState(null), [err, setErr] = useState(""), [playing, setPlaying] = useState(true);
+  const [keys, setKeys] = useState([{ round: 0, up: 0 }, { round: 20, up: 0 }, { round: 40, up: 0 }]), [plan, setPlan] = useState(null), [err, setErr] = useState(""), [playing, setPlaying] = useState(() => !matchMedia("(prefers-reduced-motion: reduce)").matches);
   const [image, setImage] = useState(""), [preview, setPreview] = useState(""), [prompt, setPrompt] = useState(""), [seed, setSeed] = useState(""), [job, setJob] = useState(null), [busy, setBusy] = useState(false);
   usePoll(job, setJob);
   useEffect(() => { const t = setTimeout(() => post("/api/campath/plan", { path: globePath(keys) }).then((p) => { setPlan(p); setErr(""); }).catch((e) => setErr(said(e))), 200); return () => clearTimeout(t); }, [keys]);
@@ -221,9 +222,10 @@ function Proof({ p }) {
 
 export function CameraPaths() {
   const [info, setInfo] = useState(null), [err, setErr] = useState("");
-  useEffect(() => { api("/api/campath").then(setInfo).catch((e) => setErr(said(e))); }, []);
-  if (err) return html`<div class="fx"><div class="fx-note bad" role="alert"><p>${err}</p></div></div>`;
-  if (!info) return html`<div class="fx"><p class="small" role="status">Loading</p></div>`;
+  const load = () => { setErr(""); api("/api/campath").then(setInfo).catch((e) => setErr(said(e))); };
+  useEffect(load, []);
+  if (err) return html`<div class="fx"><div class="fx-note bad" role="alert"><p>${err}</p></div><button class="btn" onClick=${load}>Try again</button></div>`;
+  if (!info) return html`<div class="fx"><${FxSkeleton} label="Reading the camera paths."/></div>`;
   return html`<div class="fx cp">
     <${Proof} p=${info.proof}/>
     <div class="fx-two"><${DrawMove} info=${info}/><${DrawLine} info=${info}/></div>

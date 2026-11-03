@@ -123,13 +123,29 @@ function StylePick({ onPick }) {
   const [lib, setLib] = useState(null), [q, setQ] = useState(""), [err, setErr] = useState("");
   useEffect(() => { api("/api/music-styles").then(setLib).catch((e) => setErr(said(e))); }, []);
   const hits = lib ? searchStyles(lib.families, q).slice(0, 8) : [];
-  const take = (id) => api("/api/music-styles/" + encodeURIComponent(id)).then((s) => { const c = s.cards[0]; onPick({ style: cardTags(s, c).join(", "), bpm: c.bpm, key: /^[A-G][#b]? (major|minor)$/.test(c.key || "") ? c.key : "", label: s.label }); setQ(""); }).catch((e) => setErr(said(e)));
-  return html`<div class="fx-lab mu-stylepick"><label for="mu-styleq">Style library${lib ? `: ${lib.counts.styles} styles from Music 3's library` : ""}</label><input id="mu-styleq" class="fx-in" type="search" placeholder="Search: ballad, bossa nova, dubstep" value=${q} onInput=${(e) => setQ(e.target.value)}/>${err && html`<span class="fx-err" role="alert">${err}</span>`}${hits.length > 0 && html`<ul>${hits.map(({ style }) => html`<li key=${style.id}><button class="btn small" onClick=${() => take(style.id)}>${style.label}</button></li>`)}</ul>`}</div>`;
+  const take = (id) => api("/api/music-styles/" + encodeURIComponent(id)).then((s) => { const c = s.cards[0]; onPick({ style: cardTags(s, c).join(", "), bpm: c.bpm, key: /^[A-G][#b]? (major|minor)$/.test(c.key || "") ? c.key : "", label: s.label, lyrics: s.lyrics_set ? s.lyrics_set.lyrics : "" }); setQ(""); }).catch((e) => setErr(said(e)));
+  return html`<div class="fx-lab mu-stylepick"><label for="mu-styleq">Style library${lib ? `: ${lib.counts.styles} styles from Music 3's library` : ""}</label><input id="mu-styleq" class="fx-in" type="search" placeholder="Search: ballad, bossa nova, dubstep" value=${q} onInput=${(e) => setQ(e.target.value)}/>${err && html`<span class="fx-err" role="alert">${err}</span>`}${hits.length > 0 && html`<ul>${hits.map(({ style }) => html`<li key=${style.id}><button class="btn small" onClick=${() => take(style.id)}>${style.label}${style.lyrics ? " · with lyrics" : ""}</button></li>`)}</ul>`}</div>`;
+}
+
+function Kit({ f, setF }) {
+  const [kit, setKit] = useState(null), [open, setOpen] = useState(false);
+  useEffect(() => { api("/api/music/kit").then(setKit).catch(() => setKit(false)); }, []);
+  if (!kit) return null;
+  const groups = [["genre", "Genre"], ["voice", "Voice"]]; const sl = kit.sliders.find((x) => x.id === f.slider); const proof = (kit.proof || {}).renders || {};
+  const done = (id) => proof[id] && proof[id].status === "success";
+  return html`<fieldset class="mu-kit"><legend>Style kit</legend>
+    <label class="fx-lab">Style nudge<select class="fx-in" value=${f.slider || "none"} onChange=${(e) => setF({ ...f, slider: e.target.value })}><option value="none">None</option>${groups.map(([g, label]) => html`<optgroup key=${g} label=${label}>${kit.sliders.filter((x) => x.group === g).map((x) => html`<option key=${x.id} value=${x.id}>${x.label}${done(x.id) ? "" : " (not rendered here yet)"}</option>`)}</optgroup>`)}</select></label>
+    ${sl && html`<label class="fx-lab">Nudge strength: ${Number(f.strength ?? 1).toFixed(2)}<input type="range" min=${kit.strength.min} max=${kit.strength.max} step="0.05" value=${f.strength ?? 1} onInput=${(e) => setF({ ...f, strength: Number(e.target.value) })} aria-label="nudge strength"/></label>`}
+    <label class="fx-lab mu-kitturbo"><input type="checkbox" checked=${!!f.turbo} onChange=${(e) => setF({ ...f, turbo: e.target.checked })}/> Turbo: 8 sampling steps instead of 30${done("turbo") ? "" : " (not rendered here yet)"}</label>
+    <p class="small">${sl ? `${sl.label}: an ntc-ai slider LoRA on the text encoder (MIT). It nudges; write the style in the caption too.` : "No nudge: the plain Music 3 graph."} ${f.turbo ? "Turbo is guillaume127's DiT LoRA (Apache-2.0); only the sampling gets faster." : ""}</p>
+    <button class="btn small" aria-expanded=${open} onClick=${() => setOpen(!open)}>${open ? "Hide" : "What the kit can and can't do"}</button>
+    ${open && html`<ul class="small">${kit.honest.map((h) => html`<li key=${h}>${h}</li>`)}<li>Sources: <${Ext} href=${kit.sources.sliders.url}>ntc-ai sliders, ${kit.sources.sliders.licence}</${Ext}>; <${Ext} href=${kit.sources.turbo.url}>guillaume127 turbo, ${kit.sources.turbo.licence}</${Ext}>. ${kit.sources.base}</li>${kit.left_out.map((x) => html`<li key=${x.file}>Left out: ${x.file.split("/").pop()}, ${x.why}.</li>`)}</ul>`}
+  </fieldset>`;
 }
 
 function Maker({ models, brief, fixed }) {
   const ready = models.filter((m) => m.graph && (m.state === "proven" || m.state === "unproven")); const [mid, setMid] = useState((ready[0] || {}).id);
-  const [f, setF] = useState({ style: "", lyrics: "", seconds: 60, seed: 7701, bpm: 90, key: "C major" }), [job, setJob] = useState(null), [err, setErr] = useState(""), [copied, setCopied] = useState(false);
+  const [f, setF] = useState({ style: "", lyrics: "", seconds: 60, seed: 7701, bpm: 90, key: "C major", slider: "none", strength: 1, turbo: false }), [job, setJob] = useState(null), [err, setErr] = useState(""), [copied, setCopied] = useState(false);
   const m = ready.find((x) => x.id === mid) || ready[0]; const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
   const useBrief = () => setF({ ...f, style: m && !m.lyrics ? brief.instrumental : brief.style, lyrics: brief.lyrics, seconds: brief.seconds, bpm: brief.bpm, key: brief.key });
   useEffect(() => { if (!job || !job.id || ["done", "error"].includes(job.status)) return undefined; const t = setInterval(() => api("/api/jobs/" + job.id).then((d) => setJob({ ...d, id: job.id })).catch(() => {}), 2500); return () => clearInterval(t); }, [job && job.id, job && job.status]);
@@ -138,9 +154,10 @@ function Maker({ models, brief, fixed }) {
   const go = async () => { setErr(""); setJob(null); try { const r = await post("/api/music/run", body); setJob({ id: r.job, status: "queued" }); } catch (e) { setErr(said(e)); } };
   return html`<div class="mu-make">
     ${fixed ? html`<h3>Render it yourself</h3>` : html`<label class="fx-lab">Model<select class="fx-in" value=${m.id} onChange=${(e) => setMid(e.target.value)}>${ready.map((x) => html`<option key=${x.id} value=${x.id}>${x.label}</option>`)}</select></label>`}
-    <${StylePick} onPick=${(s) => setF({ ...f, style: s.style, bpm: s.bpm || f.bpm, key: s.key || f.key })}/>
+    <${StylePick} onPick=${(s) => setF({ ...f, style: s.style, bpm: s.bpm || f.bpm, key: s.key || f.key, lyrics: s.lyrics && !f.lyrics.trim() ? s.lyrics : f.lyrics })}/>
     <label class="fx-lab">${m.takes === "caption" ? "Style, or a full three-part caption" : "Style"}<textarea class="fx-in" rows="3" value=${f.style} onInput=${set("style")}></textarea></label>
     ${m.lyrics ? html`<div class="fx-lab"><label for=${"mu-ly-" + m.id}>Lyrics</label><div class="fx-row" role="group" aria-label="Song forms">${FORMS.map((x) => html`<button key=${x.id} class="btn small" onClick=${() => setF({ ...f, lyrics: x.text })}>${x.label}</button>`)}</div><textarea id=${"mu-ly-" + m.id} class="fx-in" rows="8" value=${f.lyrics} onInput=${set("lyrics")}></textarea><span class="small">${sungLines(f.lyrics)} sung lines. About ${suggest(f.lyrics)} s fits them.</span>${tagged.length > 0 && html`<span class="fx-warn">Put each section name on its own line: words after a tag on the same line aren't sung.</span>`}</div>` : html`<p class="small">This model takes no lyrics.</p>`}
+    ${m.id === "music3" && html`<${Kit} f=${f} setF=${setF}/>`}
     <div class="mu-makerow"><label class="fx-lab">Seconds<input class="fx-in" type="number" min="8" max="300" value=${f.seconds} onInput=${set("seconds")}/></label><label class="fx-lab">BPM<input class="fx-in" type="number" min="30" max="300" value=${f.bpm} onInput=${set("bpm")}/></label><label class="fx-lab">Key<input class="fx-in" value=${f.key} onInput=${set("key")}/></label><label class="fx-lab">Seed<input class="fx-in" type="number" value=${f.seed} onInput=${set("seed")}/></label></div>
     <div class="fx-row"><button class="fx-go" disabled=${!f.style.trim() || (job && !["done", "error"].includes(job.status))} onClick=${go}>Render on this machine</button>${brief && html`<button class="btn" onClick=${useBrief}>Use this page's brief</button>`}<button class="btn" onClick=${async () => { setCopied(await copyText(curlFor(body, location.origin))); }}>${copied ? "Copied" : "Copy as curl"}</button></div>
     ${err && html`<p class="fx-err" role="alert">${err}</p>`}
