@@ -1,0 +1,289 @@
+{
+ "id": "voiced_animatic",
+ "status": "partial",
+ "verdict": "Three storyboard panels in one loose ink-and-wash style, each held exactly as long as Kokoro takes to read its line, cut into a 15-second animatic. The timing works. The character doesn't hold: the robot is a different design in each panel, because each panel is drawn from words alone with no reference. Panel 1 also came out as three frames in one. No person has listened to the narration for this review.",
+ "run": "77ed7dcf0cc1",
+ "rendered": "2026-11-02",
+ "seconds": 162.7,
+ "wall_seconds": 1858.8,
+ "peak_vram_gib": 7.8,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "n1": "On the roof of the tallest building, a small robot gardener wakes up with the sun.",
+  "n2": "It waters every pot in a long row, one careful drop at a time.",
+  "n3": "When the last flower opens, it sits down and watches the city wake."
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 15.2
+ },
+ "stages": [
+  {
+   "id": "p1",
+   "label": "Panel 1",
+   "type": "goal",
+   "does": "The first panel.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 1001,
+   "seconds": 32.1,
+   "peak_gib": 6.6,
+   "ran": "done",
+   "status": "flawed",
+   "note": "Drawn as three frames in one, and the robot is tiny.",
+   "prompt": "storyboard panel, loose ink lines with soft grey wash, cinematic framing, a small round robot gardener on a rooftop garden at sunrise, wide shot, city skyline behind",
+   "media": [
+    {
+     "src": "p1.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/p1.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "p2",
+   "label": "Panel 2",
+   "type": "goal",
+   "does": "The second panel, same style.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 1002,
+   "seconds": 17.6,
+   "peak_gib": 6.5,
+   "ran": "done",
+   "status": "flawed",
+   "note": "A different robot: round and yellow.",
+   "prompt": "storyboard panel, loose ink lines with soft grey wash, cinematic framing, a small round robot gardener watering a long row of flower pots with a tiny watering can, medium shot",
+   "media": [
+    {
+     "src": "p2.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/p2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "p3",
+   "label": "Panel 3",
+   "type": "goal",
+   "does": "The third panel, same style.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 1003,
+   "seconds": 15.9,
+   "peak_gib": 7.8,
+   "ran": "done",
+   "status": "flawed",
+   "note": "A different robot again, white, standing rather than sitting.",
+   "prompt": "storyboard panel, loose ink lines with soft grey wash, cinematic framing, a small round robot gardener sitting at the roof edge beside open flowers, seen from behind, the city at sunrise",
+   "media": [
+    {
+     "src": "p3.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/p3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "v1",
+   "label": "Line 1",
+   "type": "voice",
+   "does": "Reads the line.",
+   "model": "Kokoro 82M",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 1011,
+   "seconds": 29.0,
+   "peak_gib": 2.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "v1.mp3",
+     "kind": "audio",
+     "poster": "v1_wave.webp",
+     "seconds": 5.1
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "v2",
+   "label": "Line 2",
+   "type": "voice",
+   "does": "Reads the line.",
+   "model": "Kokoro 82M",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 1012,
+   "seconds": 25.8,
+   "peak_gib": 2.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "v2.mp3",
+     "kind": "audio",
+     "poster": "v2_wave.webp",
+     "seconds": 4.5
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "v3",
+   "label": "Line 3",
+   "type": "voice",
+   "does": "Reads the line.",
+   "model": "Kokoro 82M",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 1013,
+   "seconds": 24.8,
+   "peak_gib": 2.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "v3.mp3",
+     "kind": "audio",
+     "poster": "v3_wave.webp",
+     "seconds": 4.5
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "s1",
+   "label": "Shot 1",
+   "type": "edit",
+   "does": "The panel held for its line, with a slow push in.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 5.4,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "s1.mp4",
+     "kind": "video",
+     "poster": "s1.webp",
+     "seconds": 5.7
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "s2",
+   "label": "Shot 2",
+   "type": "edit",
+   "does": "Held for its line.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 2.5,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "s2.mp4",
+     "kind": "video",
+     "poster": "s2.webp",
+     "seconds": 5.1
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "s3",
+   "label": "Shot 3",
+   "type": "edit",
+   "does": "Held for its line.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 2.3,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "s3.mp4",
+     "kind": "video",
+     "poster": "s3.webp",
+     "seconds": 5.1
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "The animatic",
+   "type": "edit",
+   "does": "The three shots, cut together.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 7.3,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 15.2
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": []
+}

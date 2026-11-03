@@ -1,0 +1,134 @@
+{
+ "id": "drawing_to_figure",
+ "status": "partial",
+ "verdict": "Anima drew a round robot postman, TRELLIS.2 built a textured mesh from that one picture, and Blender set it at 18 cm with its pivot at the base and turned it. From the front the mesh matches the drawing: cap, belt line, satchel, arms and boots. Two flaws: the back, which the drawing never showed, is covered in grey smudges, and the turntable frames the figure small in a 512-pixel square. Anima is non-commercial, so this figure is too.",
+ "run": "9f4d13bbc2dd",
+ "rendered": "2026-11-02",
+ "seconds": 538.0,
+ "wall_seconds": 1746.3,
+ "peak_vram_gib": 22.0,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {},
+ "final": null,
+ "stages": [
+  {
+   "id": "art",
+   "label": "The design",
+   "type": "goal",
+   "does": "One clean front view.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 1201,
+   "seconds": 13.1,
+   "peak_gib": 6.5,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "full body character design of a small round robot postman with a canvas satchel and a peaked cap, standing, front view, whole figure in frame, plain white background",
+   "media": [
+    {
+     "src": "art.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/art.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "mesh",
+   "label": "Textured mesh",
+   "type": "template",
+   "does": "Cuts the object out and builds a textured mesh from one picture.",
+   "model": "TRELLIS.2",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": 1202,
+   "seconds": 330.6,
+   "peak_gib": 22.0,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The back, which the drawing never showed, is covered in grey smudges.",
+   "prompt": "",
+   "media": [
+    {
+     "kind": "file",
+     "name": "trellis2_00004.glb",
+     "bytes": 57463584
+    }
+   ],
+   "graph": "graphs/mesh.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "figure",
+   "label": "Desk figure",
+   "type": "worldkit",
+   "does": "Real size, pivot at the base, a collider and a turntable, in Blender.",
+   "model": "Blender",
+   "licence": "GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 194.3,
+   "peak_gib": 7.9,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The turntable frames the figure small, about a fifth of the 512-pixel square.",
+   "prompt": "",
+   "media": [
+    {
+     "src": "figure.mp4",
+     "kind": "video",
+     "poster": "figure.webp",
+     "seconds": 3.0
+    },
+    {
+     "src": "figure_2.webp",
+     "kind": "image"
+    },
+    {
+     "kind": "file",
+     "name": "figure_asset.glb",
+     "bytes": 51604724
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": [
+    {
+     "name": "image",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cutout",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "mesh",
+     "status": "skipped",
+     "seconds": null
+    },
+    {
+     "name": "cleanup",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "preview",
+     "status": "done",
+     "seconds": null
+    },
+    {
+     "name": "ingest",
+     "status": "done",
+     "seconds": null
+    }
+   ]
+  }
+ ],
+ "rejected": []
+}

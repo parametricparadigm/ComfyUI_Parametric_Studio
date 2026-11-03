@@ -1,0 +1,238 @@
+{
+ "id": "talk_captions",
+ "status": "passed",
+ "verdict": "Two Kokoro voices read the three lines, Whisper heard every word and timed three captions, and they sit on the speech. Whisper wrote the show's name as 'small rooms', in lower case, and the caption shows what it heard. One flaw: the waveform came out faint and sits behind the captions; we've since moved it up for later runs. No person has listened to the voices for this review.",
+ "run": "aef1eda3b4a2",
+ "rendered": "2026-11-02",
+ "seconds": 79.6,
+ "wall_seconds": 908.2,
+ "peak_vram_gib": 21.7,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "a": "Welcome back to Small Rooms. Today we are talking about why an old wooden chair creaks.",
+  "b": "It is the joints. Wood shrinks a little every winter, the glue lets go, and every time you sit down, two pieces rub.",
+  "c": "So the fix is new glue, not more nails. Thanks for listening."
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 19.8
+ },
+ "stages": [
+  {
+   "id": "a",
+   "label": "Host",
+   "type": "voice",
+   "does": "Reads the line.",
+   "model": "Kokoro 82M",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 901,
+   "seconds": 17.0,
+   "peak_gib": 2.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "a.mp3",
+     "kind": "audio",
+     "poster": "a_wave.webp",
+     "seconds": 6.3
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "b",
+   "label": "Guest",
+   "type": "voice",
+   "does": "Reads the line.",
+   "model": "Kokoro 82M",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 902,
+   "seconds": 15.9,
+   "peak_gib": 2.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "b.mp3",
+     "kind": "audio",
+     "poster": "b_wave.webp",
+     "seconds": 7.5
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "c",
+   "label": "Host again",
+   "type": "voice",
+   "does": "Reads the line.",
+   "model": "Kokoro 82M",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 903,
+   "seconds": 14.8,
+   "peak_gib": 2.3,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "c.mp3",
+     "kind": "audio",
+     "poster": "c_wave.webp",
+     "seconds": 4.7
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "talk",
+   "label": "The conversation",
+   "type": "edit",
+   "does": "The three lines one after another, with a short pause.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.0,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "talk.mp3",
+     "kind": "audio",
+     "poster": "talk_wave.webp",
+     "seconds": 19.8
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "set",
+   "label": "The set",
+   "type": "template",
+   "does": "An empty set, no people.",
+   "model": "Z-Image Turbo",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 904,
+   "seconds": 24.3,
+   "peak_gib": 21.7,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "An empty small podcast studio corner, two microphones on boom arms over a wooden table, warm lamps, wood panelled wall, soft evening light, no people, nothing written anywhere.",
+   "media": [
+    {
+     "src": "set.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/set.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "clip",
+   "label": "Picture and waveform",
+   "type": "edit",
+   "does": "The set with a waveform drawn from the real audio.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 1.7,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The waveform is faint and sits behind the captions.",
+   "prompt": "",
+   "media": [
+    {
+     "src": "clip.mp4",
+     "kind": "video",
+     "poster": "clip.webp",
+     "seconds": 19.8
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "caps",
+   "label": "Captions",
+   "type": "captions",
+   "does": "Whisper writes timed captions from what it hears.",
+   "model": "Whisper distil large-v3",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 5.1,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "Three captions, every word heard; the show's name came out in lower case.",
+   "prompt": "",
+   "media": [
+    {
+     "kind": "file",
+     "name": "caps.srt",
+     "bytes": 366
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "Captions on",
+   "type": "edit",
+   "does": "Burns the captions into the clip.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.8,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 19.8
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": []
+}

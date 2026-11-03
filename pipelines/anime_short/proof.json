@@ -1,0 +1,350 @@
+{
+ "id": "anime_short",
+ "status": "passed",
+ "verdict": "Three drawn shots in one style: a slow push-in on the machine, its eye lighting up, and water pouring from its giant foot, with an original score. The drawing holds in every shot. Two small things: a few green specks of light appear on the machine's leg in shot 1, and in shot 3 the water pours but the foot never visibly lifts. Anima is non-commercial, so this short is too. We checked the score by measurement only.",
+ "run": "897051d7f3e4",
+ "rendered": "2026-11-02",
+ "seconds": 431.6,
+ "wall_seconds": 1260.2,
+ "peak_vram_gib": 23.2,
+ "peak_note": "Peak is this run's own ComfyUI and tools, read from nvidia-smi every 2 seconds. The card was shared with other work. Time adds up each stage's own work, not the wait for the shared card.",
+ "values": {
+  "scene": "a colossal rusted walking machine covered in moss and wildflowers, standing knee deep in a flooded green valley, waterfalls behind it, pale morning mist"
+ },
+ "final": {
+  "src": "final.mp4",
+  "kind": "video",
+  "poster": "final.webp",
+  "seconds": 14.3
+ },
+ "stages": [
+  {
+   "id": "visual",
+   "label": "Key visual 1",
+   "type": "goal",
+   "does": "The look of the whole short comes from these pictures.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 301,
+   "seconds": 19.2,
+   "peak_gib": 6.5,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "a colossal rusted walking machine covered in moss and wildflowers, standing knee deep in a flooded green valley, waterfalls behind it, pale morning mist, very wide shot, a tiny engineer in an orange coat on its shoulder, hand-painted background, soft morning light",
+   "media": [
+    {
+     "src": "visual.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/visual.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "move",
+   "label": "Motion 1",
+   "type": "goal",
+   "does": "Animates the drawing without redrawing it.",
+   "model": "Wan 2.2 TI2V-5B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 312,
+   "seconds": 81.5,
+   "peak_gib": 23.1,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "The huge machine stands completely still. Soft mist drifts slowly across the valley and clouds move across the sky. The camera slowly pushes in. Anime style, smooth hand-drawn motion.",
+   "media": [
+    {
+     "src": "move.mp4",
+     "kind": "video",
+     "poster": "move.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/move.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "smooth",
+   "label": "Smooth 1",
+   "type": "template",
+   "does": "Adds a new frame between each pair, so the motion runs at twice the frame rate.",
+   "model": "FILM frame interpolation",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 70.8,
+   "peak_gib": 2.7,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "smooth.mp4",
+     "kind": "video",
+     "poster": "smooth.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/smooth.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "visual2",
+   "label": "Key visual 2",
+   "type": "goal",
+   "does": "A second drawing in the same style.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 304,
+   "seconds": 15.7,
+   "peak_gib": 6.5,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "close-up of the moss-covered iron head of a colossal rusted walking machine, one round lens eye glowing soft amber, wildflowers growing from its brow, water dripping, hand-painted background, soft morning light",
+   "media": [
+    {
+     "src": "visual2.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/visual2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "move2",
+   "label": "Motion 2",
+   "type": "goal",
+   "does": "Animates the second drawing.",
+   "model": "Wan 2.2 TI2V-5B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 315,
+   "seconds": 74.9,
+   "peak_gib": 23.2,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "The round amber eye slowly glows brighter. Long grass on the iron brow sways gently in the wind. The camera stays still. Anime style, smooth hand-drawn motion.",
+   "media": [
+    {
+     "src": "move2.mp4",
+     "kind": "video",
+     "poster": "move2.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/move2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "smooth2",
+   "label": "Smooth 2",
+   "type": "template",
+   "does": "Doubles the frame rate.",
+   "model": "FILM frame interpolation",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 26.8,
+   "peak_gib": 2.7,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "smooth2.mp4",
+     "kind": "video",
+     "poster": "smooth2.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/smooth2.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "visual3",
+   "label": "Key visual 3",
+   "type": "goal",
+   "does": "A third drawing in the same style.",
+   "model": "Anima",
+   "licence": "Anima's own licence, non-commercial",
+   "licence_class": "noncommercial",
+   "seed": 306,
+   "seconds": 17.9,
+   "peak_gib": 6.6,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "low angle from the water, the giant iron foot of a colossal rusted walking machine lifting out of a flooded green valley, water pouring off it in sheets, hand-painted background, soft morning light",
+   "media": [
+    {
+     "src": "visual3.webp",
+     "kind": "image"
+    }
+   ],
+   "graph": "graphs/visual3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "move3",
+   "label": "Motion 3",
+   "type": "goal",
+   "does": "Animates the third drawing.",
+   "model": "Wan 2.2 TI2V-5B",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": 307,
+   "seconds": 79.6,
+   "peak_gib": 23.2,
+   "ran": "done",
+   "status": "flawed",
+   "note": "The water pours, but the foot never visibly lifts.",
+   "prompt": "The giant iron foot rises slowly out of the water, sheets of water pour from it and ripples spread toward the camera. Anime style, smooth hand-drawn motion.",
+   "media": [
+    {
+     "src": "move3.mp4",
+     "kind": "video",
+     "poster": "move3.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/move3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "smooth3",
+   "label": "Smooth 3",
+   "type": "template",
+   "does": "Doubles the frame rate.",
+   "model": "FILM frame interpolation",
+   "licence": "Apache-2.0",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 26.4,
+   "peak_gib": 2.7,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "smooth3.mp4",
+     "kind": "video",
+     "poster": "smooth3.webp",
+     "seconds": 5.0
+    }
+   ],
+   "graph": "graphs/smooth3.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "score",
+   "label": "The score",
+   "type": "template",
+   "does": "An original instrumental, long enough for the three shots.",
+   "model": "ACE-Step 1.5",
+   "licence": "MIT",
+   "licence_class": "open",
+   "seed": 303,
+   "seconds": 16.4,
+   "peak_gib": 10.2,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "Orchestral anime film score: solo oboe over warm strings and soft taiko, slow, hopeful and vast, no vocals",
+   "media": [
+    {
+     "src": "score.mp3",
+     "kind": "audio",
+     "poster": "score_wave.webp",
+     "seconds": 20.0
+    }
+   ],
+   "graph": "graphs/score.json",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "join",
+   "label": "Three shots",
+   "type": "cpu",
+   "does": "Runs the three shots together with soft dissolves.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 1.9,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "join.mp4",
+     "kind": "video",
+     "poster": "join.webp",
+     "seconds": 14.3
+    }
+   ],
+   "graph": "",
+   "final": false,
+   "build": null
+  },
+  {
+   "id": "final",
+   "label": "Marry picture and score",
+   "type": "cpu",
+   "does": "Joins picture and score at broadcast loudness.",
+   "model": "ffmpeg",
+   "licence": "LGPL/GPL, runs as a separate tool",
+   "licence_class": "open",
+   "seed": null,
+   "seconds": 0.5,
+   "peak_gib": null,
+   "ran": "done",
+   "status": "ok",
+   "note": "",
+   "prompt": "",
+   "media": [
+    {
+     "src": "final.mp4",
+     "kind": "video",
+     "poster": "final.webp",
+     "seconds": 14.3
+    }
+   ],
+   "graph": "",
+   "final": true,
+   "build": null
+  }
+ ],
+ "rejected": [
+  {
+   "what": "First take",
+   "why": "A waterfall poured out of the machine's chest in shot 1, and red smears and pink butterflies appeared on its face in shot 2. We rewrote both motion prompts and changed their seeds."
+  },
+  {
+   "what": "A run stopped partway",
+   "why": "The box's memory killer stopped ComfyUI. We ran it again."
+  }
+ ]
+}
