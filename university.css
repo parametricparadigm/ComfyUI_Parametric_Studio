@@ -137,3 +137,7 @@ pre.cu-play-note code{display:block;padding:8px 10px}
 .cu-seeds-again{align-self:flex-start}
 .cu-checklist-row{display:grid;grid-template-columns:minmax(0,220px) auto auto;justify-content:start;align-items:center;gap:6px 18px;font-size:14px;color:#e4e7e0}.cu-checklist-row>span:not(:first-child){display:inline-flex;align-items:center;gap:6px}
 @media (max-width:560px){.cu-checklist-row{grid-template-columns:auto auto}.cu-checklist-row>span:first-child{grid-column:1/-1}}
+/* Train a tiny network (university_plays_nn.js): 40 px targets, one column on a phone. */
+.cu-nn{display:flex;flex-direction:column;gap:12px;min-width:0}.cu-nn .cu-seg button{min-height:40px;min-width:40px}.cu-nn .cu-ctl input[type=range]{height:40px}.cu-nn .cu-lab-acts{display:flex;flex-wrap:wrap;gap:8px}
+.cu-nn-grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:clamp(12px,1.6vw,22px);align-items:start}.cu-nn-grid canvas{max-width:360px;aspect-ratio:1}
+@media (max-width:760px){.cu-nn-grid{grid-template-columns:minmax(0,1fr)}}

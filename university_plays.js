@@ -12,6 +12,7 @@ import { MORE as E } from "./university_plays_e.js";
 import { MORE as F } from "./university_plays_f.js";
 import { MORE as G } from "./university_plays_g.js";
 import { MORE as H } from "./university_plays_h.js";
+import { MORE as NN } from "./university_plays_nn.js";
 
 const fmt = (x, d = 3) => x == null ? "" : Math.abs(x) >= 1000 ? x.toFixed(0) : x === 0 ? "0" : x.toFixed(d);
 const Slider = ({ label, value, min, max, step = 1, onInput, show }) => html`<label class="cu-ctl"><span>${label} <b>${show != null ? show : value}</b></span><input type="range" min=${min} max=${max} step=${step} value=${value} onInput=${(e) => onInput(+e.target.value)}/></label>`;
@@ -247,3 +248,4 @@ export const PLAYS = {
   api: { title: "Build an API call", task: "Change the seed and the prompt, and read the request.", C: ApiCall },
 };
 Object.assign(PLAYS, A, B, C, D, E, F, G, H);
+Object.assign(PLAYS, NN);

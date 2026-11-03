@@ -1,0 +1,19 @@
+/* Which word painted what. Built on the shared fx look; every target is at least 40 px, and nothing is wider than a 390 px screen. */
+.ww-view{display:grid;grid-template-columns:minmax(0,512px) minmax(0,1fr);gap:clamp(12px,1.4vw,20px);align-items:start}
+.ww-pic{margin:0;display:flex;flex-direction:column;gap:6px}
+.ww-pic canvas{width:100%;max-width:512px;height:auto;aspect-ratio:1;border-radius:5px;background:var(--panel2);touch-action:none;cursor:crosshair;display:block}
+.ww-side{display:flex;flex-direction:column;gap:12px}
+.ww-seg{display:flex;flex-wrap:wrap;gap:6px}.ww-seg .btn{min-height:40px}.ww-seg .btn[aria-pressed=true]{border-color:var(--a1);color:var(--fx-ink);background:var(--panel2)}
+.ww-seg.wide .btn{max-width:100%;white-space:normal;text-align:left}
+.ww-words{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.ww-word{all:unset;box-sizing:border-box;cursor:pointer;min-height:40px;min-width:40px;max-width:100%;display:inline-grid;grid-template-columns:auto 44px auto;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2);color:var(--text);font-size:14px}
+.ww-word span{overflow-wrap:anywhere}.ww-word b{font:700 12px/1 var(--display);color:var(--mut)}
+.ww-word i{display:block;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--a1) calc(var(--w)*100%),var(--line) 0)}
+.ww-word.on{border-color:var(--a1);box-shadow:inset 0 0 0 1px var(--a1)}.ww-word[aria-pressed=true]{background:var(--panel)}
+.ww-word:focus-visible{outline:2px solid var(--a1);outline-offset:2px}
+.ww-here ol{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}.ww-here li{display:flex;justify-content:space-between;gap:10px;font-size:14px;border-bottom:1px solid var(--line);padding:3px 0}
+.ww-checks ul{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}.ww-checks li{font-size:14px;line-height:1.45}
+.ww-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));gap:8px 16px;margin:0}.ww-facts div{display:flex;flex-direction:column;gap:2px}.ww-facts dt{font:700 12px/1.2 var(--display);color:var(--mut)}.ww-facts dd{margin:0;font-size:14px}
+.ww-form{display:grid;grid-template-columns:auto minmax(0,1fr) 140px;gap:10px;align-items:end}
+.ww-sheet{width:100%;height:auto;border-radius:5px;display:block}
+@media (max-width:860px){.ww-view{grid-template-columns:minmax(0,1fr)}.ww-form{grid-template-columns:minmax(0,1fr)}}
