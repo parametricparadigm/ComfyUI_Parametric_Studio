@@ -12,6 +12,8 @@ import { Graph3D, useLive } from "./graph3d.js";
 import { graphRequest, buildModel, layoutGraph, replayPlan, replayAt } from "./graph3d_math.js";
 import { PrimeDock } from "./prime_ui.js";
 import { MusicStyles } from "./music_styles.js";
+import { LookPicker } from "./look_picker.js";
+import { ImprovePrompt } from "./prompt_kit.js";
 import { Families, FamilyDeck } from "./families.js";
 import { Processes } from "./processes.js";
 import { Atlas } from "./atlas.js";
@@ -163,8 +165,9 @@ function Create({ health, onDraft, goTab }) {
         ${g && g.needs_image && html`<${Drop} label=${g.image_label || "Start image"} accept="image/png,image/jpeg,image/webp" file=${img} onFile=${uploadTo(setImg)} example=${items.find((x) => x.id === "s_portrait") || items.find((x) => x.kind === "image")}/>`}
         ${g && g.needs_last_image && html`<${Drop} label="Last frame" accept="image/png,image/jpeg,image/webp" file=${lastImg} onFile=${uploadTo(setLastImg)} example=${items.find((x) => x.id === "s_greenhouse") || items.find((x) => x.kind === "image")}/>`}
         ${g && Object.entries(g.fields || {}).map(([k, ph]) => html`<div class="field"><label style="text-transform:capitalize">${k}</label><input class="seedin" type="text" placeholder=${ph} value=${extra[k] || ""} onInput=${(e) => setExtra({ ...extra, [k]: e.target.value })} aria-label=${k}/></div>`)}
-        <div class="field"><label>${g && g.prompt_optional ? "Direction (optional)" : "Prompt"}</label><textarea ref=${promptRef} placeholder=${(g && g.prompt_hint) || PROMPT_HINT[goal] || (g && g.kind === "audio" ? "Describe the song: genre, mood, instruments, vocals" : g && g.needs_image ? "How should it move?" : "Describe what you want to make")} value=${prompt} onInput=${(e) => setPrompt(e.target.value)} onKeyDown=${(e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") go(); }} aria-label="prompt"></textarea><div class="row" style="margin:6px 0 0"><button class="btn small" onClick=${surprise}>Surprise me</button></div></div>
+        <div class="field"><label>${g && g.prompt_optional ? "Direction (optional)" : "Prompt"}</label><textarea ref=${promptRef} placeholder=${(g && g.prompt_hint) || PROMPT_HINT[goal] || (g && g.kind === "audio" ? "Describe the song: genre, mood, instruments, vocals" : g && g.needs_image ? "How should it move?" : "Describe what you want to make")} value=${prompt} onInput=${(e) => setPrompt(e.target.value)} onKeyDown=${(e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") go(); }} aria-label="prompt"></textarea><div class="row" style="margin:6px 0 0;flex-wrap:wrap"><button class="btn small" onClick=${surprise}>Surprise me</button><${ImprovePrompt} goal=${goal} prompt=${prompt} setPrompt=${setPrompt}/></div></div>
         ${goal === "music" && html`<${MusicStyles} prompt=${prompt} setPrompt=${setPrompt} appliedRef=${styleTags}/>`}
+        ${g && (g.kind === "image" || g.kind === "video") && html`<${LookPicker} prompt=${prompt} setPrompt=${setPrompt} kind=${g.kind}/>`}
         ${g && g.kind === "audio" && html`<div class="field"><label>Lyrics (optional)</label><textarea style="min-height:70px" placeholder="Leave empty for an instrumental" value=${lyrics} onInput=${(e) => setLyrics(e.target.value)} aria-label="lyrics"></textarea></div>`}
         <div class="optgrid">
           ${g && Object.entries(g.options).map(([k, vals]) => html`<div class=${"field" + (vals.length > 3 ? " wide" : "")}><label style="text-transform:capitalize">${k}</label><div class="chips">${vals.map((v) => html`<button class=${"chip" + (opts[k] === v ? " on" : "")} onClick=${() => setOpts({ ...opts, [k]: v })}>${k === "seconds" ? v + " s" : v}</button>`)}</div></div>`)}

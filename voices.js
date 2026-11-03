@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { said, FxSkeleton } from "./fx.js";
 import { KINDS, READS_A_LINE, clock, licenceWord, proofWord, SORTS, FILTERS, speakers, board, counts, bars, runBody, canRun, byLanguage } from "./voices_logic.js";
+import { PersonaPick } from "./voice_personas.js";
 
 let playing = null;      // one voice at a time, anywhere on the page
 const LANG = { en: "English", es: "Spanish", fr: "French", hi: "Hindi", it: "Italian", ja: "Japanese", pt: "Portuguese", zh: "Chinese" };
@@ -114,6 +115,7 @@ function Try({ models }) {
     <div class="fx-card vo-form">
       <label class="fx-lab">Model<select class="fx-in" value=${m.id} onChange=${(e) => setId(e.target.value)}>${usable.map((x) => html`<option value=${x.id}>${x.label} (${KINDS[x.kind]})</option>`)}</select></label>
       <label class="fx-lab">Line to read<textarea class="fx-in vo-text" rows="3" maxlength="800" value=${f.text} onInput=${(e) => up("text", e.target.value)} placeholder="Write something for it to read."></textarea></label>
+      ${m.kind === "design" && html`<${PersonaPick} onPick=${(t) => up("voice", t)}/>`}
       ${m.kind === "design" && html`<label class="fx-lab">Describe the voice<input class="fx-in" value=${f.voice} onInput=${(e) => up("voice", e.target.value)} placeholder=${m.voice_default || ""}/></label>`}
       ${m.kind === "speech" && m.voices && html`<label class="fx-lab">Built-in voice<select class="fx-in" value=${f.voice} onChange=${(e) => up("voice", e.target.value)}><option value="">Default</option>${m.voices.map((v) => html`<option value=${v}>${v}</option>`)}</select></label>`}
       ${m.reference !== "none" && html`<fieldset class="vo-consent"><legend>Reference clip${m.reference === "required" ? "" : " (optional)"}</legend>
