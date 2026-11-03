@@ -1,0 +1,136 @@
+{
+ "meta": {
+  "pack": "rabanti-github/ComfyMath (ComfyMath-NG), version 0.1.6 by its pyproject",
+  "licence": "Apache-2.0",
+  "status": "Pack Lab only. Not part of the studio's install: it loads only where you install the pack yourself.",
+  "title": "ComfyMath-NG drives a sampler",
+  "about": "CM_AspectRatioResolution sets the latent size, CM_FloatBinaryOperation the CFG (3.5 x 2) and CM_IntBinaryOperation the steps (4 x 5) of an SD 1.5 render.",
+  "proved": "Pack Lab, 2026-11-02, seed 424242: the render is pixel for pixel the same as a control graph with 640, 448, 7.0 and 20 typed in (mean difference 0). 2.5 s, 3.2 GiB peak on the lane.",
+  "needs": [
+   "pack rabanti-github__ComfyMath",
+   "v1-5-pruned-emaonly.safetensors in models/checkpoints"
+  ]
+ },
+ "graph": {
+  "1": {
+   "class_type": "CheckpointLoaderSimple",
+   "inputs": {
+    "ckpt_name": "v1-5-pruned-emaonly.safetensors"
+   }
+  },
+  "4": {
+   "class_type": "CLIPTextEncode",
+   "inputs": {
+    "clip": [
+     "1",
+     1
+    ],
+    "text": "a weathered brass astrolabe on an oak table beside a stack of old sea charts, warm window light, shallow depth of field, fine engraving detail, photograph"
+   }
+  },
+  "5": {
+   "class_type": "CLIPTextEncode",
+   "inputs": {
+    "clip": [
+     "1",
+     1
+    ],
+    "text": "blurry, low quality, watermark, text"
+   }
+  },
+  "6": {
+   "class_type": "EmptyLatentImage",
+   "inputs": {
+    "width": [
+     "20",
+     0
+    ],
+    "height": [
+     "20",
+     1
+    ],
+    "batch_size": 1
+   }
+  },
+  "7": {
+   "class_type": "KSampler",
+   "inputs": {
+    "model": [
+     "1",
+     0
+    ],
+    "seed": 424242,
+    "steps": [
+     "22",
+     0
+    ],
+    "cfg": [
+     "21",
+     0
+    ],
+    "sampler_name": "euler",
+    "scheduler": "karras",
+    "positive": [
+     "4",
+     0
+    ],
+    "negative": [
+     "5",
+     0
+    ],
+    "latent_image": [
+     "6",
+     0
+    ],
+    "denoise": 1.0
+   }
+  },
+  "8": {
+   "class_type": "VAEDecode",
+   "inputs": {
+    "samples": [
+     "7",
+     0
+    ],
+    "vae": [
+     "1",
+     2
+    ]
+   }
+  },
+  "9": {
+   "class_type": "SaveImage",
+   "inputs": {
+    "images": [
+     "8",
+     0
+    ],
+    "filename_prefix": "geomath/math_driven"
+   }
+  },
+  "20": {
+   "class_type": "CM_AspectRatioResolution",
+   "inputs": {
+    "aspect_ratio": "3:2",
+    "megapixels": 0.25,
+    "multiple": 64
+   }
+  },
+  "21": {
+   "class_type": "CM_FloatBinaryOperation",
+   "inputs": {
+    "op": "Mul",
+    "a": 3.5,
+    "b": 2.0
+   }
+  },
+  "22": {
+   "class_type": "CM_IntBinaryOperation",
+   "inputs": {
+    "op": "Mul",
+    "a": 4,
+    "b": 5
+   }
+  }
+ }
+}

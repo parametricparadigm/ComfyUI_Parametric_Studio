@@ -1,6 +1,7 @@
 /* Pack Lab: read each pick's risks, then try one in a sandbox. No wording here may vouch for a pack, and it never goes near the live ComfyUI. */
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
+import { FxHero, FxSkeleton } from "./fx.js";
 
 const ACTION = { "install-candidate": "Can try in the sandbox", "borrow-the-idea": "Idea only, no install", "docs-only": "Docs only, no install" };
 const STATE = { fetching: "Getting its files", starting: "Starting the sandbox", loading: "Loading in the sandbox", loaded: "Loaded in the sandbox", failed: "Did not load" };
@@ -36,8 +37,12 @@ export function PackLab() {
   useEffect(() => { load(); }, []); useEffect(() => setN(PAGE), [q, show]);
   const shown = useMemo(() => { if (!d) return []; const w = q.trim().toLowerCase(); return d.picks.filter((p) => (!show || p.action === show) && (!w || (p.repo + " " + (p.adds || "") + " " + (p.sections || []).join(" ")).toLowerCase().includes(w))); }, [d, q, show]);
   if (err) return html`<div class="fx"><div class="fx-note bad" role="alert"><p>${err}</p></div></div>`;
-  if (!d) return html`<div class="fx"><p class="small" role="status">Reading the picks.</p></div>`;
+  if (!d) return html`<div class="fx"><${FxSkeleton} label="Reading the picks." rows=${4}/></div>`;
+  const by = (a) => d.picks.filter((p) => p.action === a).length, secs = Object.entries(d.picks.reduce((m, p) => { (p.sections || []).forEach((x) => { m[x] = (m[x] || 0) + 1; }); return m; }, {})).sort((a, b) => b[1] - a[1]).slice(0, 6), top = secs.length ? secs[0][1] : 1;
   return html`<div class="fx">
+    <${FxHero} kicker=${"Reviewed " + d.made} line="Read the risks before you install." lede="Every pick below was read by hand before it was listed: what it adds, its licence as stated and its risk notes. Reviewed does not mean safe."
+      stats=${[[d.picks.length, "picks reviewed"], [by("install-candidate"), "can try in the sandbox"], [by("borrow-the-idea"), "ideas to borrow, no install"], [by("docs-only"), "docs only"]]}
+      art=${secs.length > 0 && html`<figure class="pl-secs"><figcaption class="fx-kick">Most picks, by section</figcaption><ol>${secs.map(([k, v]) => html`<li key=${k}><span>${k}</span><b>${v}</b><i style=${{ "--w": (v / top) * 100 + "%" }} aria-hidden="true"></i></li>`)}</ol></figure>`}/>
     <div class=${"fx-note " + (d.can.ok ? "warn" : "bad")} role=${d.can.ok ? undefined : "alert"}><b>${d.can.ok ? "Reviewed does not mean safe" : "Pack Lab will not install anything on this machine"}</b><p>${d.can.ok ? d.about : d.can.why}</p></div>
     <div class="pl-filters"><label class="fx-lab">Find a pack<input class="fx-in" type="search" value=${q} onInput=${(e) => setQ(e.target.value)} placeholder="upscale, sigma, storyboard"/></label><label class="fx-lab">Show<select class="fx-in" value=${show} onChange=${(e) => setShow(e.target.value)}><option value="install-candidate">Can try in the sandbox</option><option value="borrow-the-idea">Ideas to borrow</option><option value="docs-only">Docs</option><option value="">All</option></select></label></div>
     <p class="small" role="status">${shown.length} of ${d.picks.length} picks, reviewed ${d.made}.</p>

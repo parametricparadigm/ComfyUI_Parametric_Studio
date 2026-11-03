@@ -1,6 +1,7 @@
 /* Hardware Fit: your card and memory against every goal, family template and recipe. Every figure says measured or estimate. */
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { html, api } from "./common.js";
+import { FxSkeleton } from "./fx.js";
 
 const KEY = "hardware_fit_v1"; const PAGE_SIZE = 40;
 const SECTIONS = [["goal", "Goals"], ["family", "Family templates"], ["recipe", "Recipes"]];
@@ -26,13 +27,18 @@ export function HardwareFit({ route }) {
   const useDetected = () => { if (found) { setVram(found.vram_gib != null ? String(found.vram_gib) : ""); setRam(found.ram_gib != null ? String(found.ram_gib) : ""); } };
   const t = d && d.tally[sec];
   return html`<div class="fx">
-    <section class="fx-card" aria-label="Your machine"><span class="fx-kick">Your machine</span>
-      <p>${found && found.vram_gib != null ? html`Detected <b>${found.gpu || "a GPU"}</b> with <b>${found.vram_gib} GiB</b>${found.ram_gib != null ? html` and <b>${found.ram_gib} GiB</b> of memory` : ""}, from ${found.from}.` : found ? "Nothing answered about a GPU here, so tell us yours." : "Looking for your GPU."}</p>
+    <section class="fxh film ft-hero" aria-label="Your machine">
+      <div class="fxh-text"><span class="fx-kick">Your machine</span>
+        <p class="fxh-line">${found && found.vram_gib != null ? found.gpu || "A GPU" : found ? "No GPU answered" : "Looking for your GPU"}</p>
+        <p class="fxh-lede">${found && found.vram_gib != null ? `Detected ${found.vram_gib} GiB of video memory${found.ram_gib != null ? ` and ${found.ram_gib} GiB of system memory` : ""}, from ${found.from}. Change the figures to see another card.` : found ? "Nothing answered about a GPU here, so tell us yours." : "Asking this machine."}</p>
+        ${d && html`<dl class="fxh-stats"><div><dd>${vram === "" ? "?" : vram}<small> GiB</small></dd><dt>video memory checked against</dt></div><div><dd>${ram === "" ? "?" : ram}<small> GiB</small></dd><dt>system memory</dt></div></dl>`}</div>
+      <div class="ft-set">
       <div class="ft-form"><label class="fx-lab">Video memory, GiB<input class="fx-in" type="number" inputmode="numeric" min="0" max="4096" value=${vram} onInput=${(e) => setVram(e.target.value)}/></label><label class="fx-lab">System memory, GiB<input class="fx-in" type="number" inputmode="numeric" min="0" max="4096" value=${ram} onInput=${(e) => setRam(e.target.value)}/></label></div>
       <div class="fx-row" role="group" aria-label="Common card sizes">${(d ? d.presets : []).map((p) => html`<button key=${p} class=${"btn small" + (String(p) === vram ? " on" : "")} aria-pressed=${String(p) === vram} type="button" onClick=${() => setVram(String(p))}>${p === 0 ? "No GPU" : p + " GB"}</button>`)}${found && found.vram_gib != null && html`<button class="btn small" type="button" onClick=${useDetected}>Use what was detected</button>`}</div>
+      </div>
     </section>
     ${err && html`<div class="fx-note bad" role="alert"><p>${err}</p></div>`}
-    ${!d && !err && html`<p class="small" role="status">Reading every goal, family and recipe.</p>`}
+    ${!d && !err && html`<${FxSkeleton} label="Reading every goal, family and recipe." rows=${4}/>`}
     ${d && html`<div class="ft-sum">${SECTIONS.map(([k, l]) => html`<button key=${k} type="button" class=${"ft-tile" + (sec === k ? " on" : "")} aria-pressed=${sec === k} onClick=${() => setSec(k)}><b>${d.tally[k].runs}</b><span>of ${d.tally[k].all} ${l.toLowerCase()} run in full</span><small>${d.tally[k].offload} may run slower. ${d.tally[k].no} won't. ${d.tally[k].measured} measured, the rest estimated or unknown.</small></button>`)}</div>
     <div class="fx-note"><b>How to read these</b><p>${d.caveat} An estimate is the size of its files times ${d.ratio}, the median of our own measured runs.</p></div>
     <div class="ft-filters"><label class="fx-lab">Find<input class="fx-in" type="search" value=${q} onInput=${(e) => setQ(e.target.value)}/></label><label class="fx-lab">Show<select class="fx-in" value=${want} onChange=${(e) => setWant(e.target.value)}>${VERDICTS.map(([k, l]) => html`<option value=${k}>${l}</option>`)}</select></label><label class="fx-lab">Figures<select class="fx-in" value=${basis} onChange=${(e) => setBasis(e.target.value)}><option value="">All</option><option value="measured">Measured only</option><option value="estimate">Estimates only</option></select></label></div>

@@ -194,7 +194,7 @@
 .r4-lab p{color:var(--mut);line-height:1.5}
 .r4-field{display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--mut)}
 .r4-field select{width:100%;min-height:44px;padding:0 10px;color:var(--text);background:var(--panel2);border:1px solid var(--line2);border-radius:6px}
-.r4-field input[type=range]{width:100%;min-height:24px;accent-color:var(--r4-gold)}
+.r4-field input[type=range]{width:100%;min-height:40px;accent-color:var(--r4-gold)}
 .r4-sum{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px}
 .r4-sum b{font:900 clamp(38px,4.6vw,68px)/.9 var(--display);font-stretch:112%;letter-spacing:-.03em;color:var(--r4-ink)}.r4-sum span{color:var(--mut);font-size:13.5px}
 .r4-curve{width:100%;height:190px;background:var(--panel2);border-radius:3px;display:block}

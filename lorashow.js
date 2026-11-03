@@ -1,7 +1,8 @@
 /* LoRA Showcase: the proof, the card and a bundle, all from Train's run record. Nothing on this page uploads. */
 import { useEffect, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { copyText } from "./fx.js";
+import { copyText, FxHero, FxSkeleton } from "./fx.js";
+import { EXAMPLE } from "./train_example.js";
 
 const val = (v, u = "") => (v == null ? "not measured" : v + u);
 const mb = (b) => (b == null ? "not measured" : (b / 2 ** 20).toFixed(1) + " MB");
@@ -30,7 +31,7 @@ function Show({ job }) {
   useEffect(() => { api("/api/lorashow/card/" + job).then((x) => { setC(x); setDesc(x.description); setUse(x.use); }).catch((e) => setErr(e.message)); }, [job]);
   const save = async (b) => { setErr(""); try { setC(await post("/api/lorashow/card/" + job, b)); setSaved("Saved."); setTimeout(() => setSaved(""), 2000); } catch (e) { setErr(e.message); } };
   if (err && !c) return html`<div class="fx"><div class="fx-note bad" role="alert"><p>${err}</p></div><a class="btn" href="#lorashow">All LoRAs</a></div>`;
-  if (!c) return html`<div class="fx"><p class="small" role="status">Reading the run.</p></div>`;
+  if (!c) return html`<div class="fx"><${FxSkeleton} label="Reading the run."/></div>`;
   const f = c.facts;
   return html`<div class="fx">
     <header class="ls-head"><span class="fx-kick">LoRA</span><h2>${c.name}</h2><div class="fx-row">${c.trigger ? html`<button class="ls-trigger" type="button" title="Copy the trigger word" onClick=${async () => setCopied((await copyText(c.trigger)) ? "Copied." : "The browser would not copy it.")}>${c.trigger}</button>` : html`<span class="small">No trigger word</span>`}<span class="small" role="status">${copied}</span></div></header>
@@ -50,12 +51,22 @@ function Show({ job }) {
   </div>`;
 }
 
+/* No LoRA of yours yet: say so plainly, and show what a showcase holds using the Train page's own example run, labelled as ours. */
+function Empty() {
+  const x = EXAMPLE, [pos, setPos] = useState(50);
+  return html`<${FxHero} cls="ls-empty" kicker="Nothing to show yet" line="Your first LoRA lands here." lede="A LoRA appears here once a Train run finishes and its file is still on this machine. This is what its page holds, shown with the Train page's example run: the A/B proof, the run's own figures and a bundle to share."
+    stats=${[[x.steps, "steps"], [x.pictures, "pictures"], [x.s_per_step + " s", "per step on our card"]]}
+    art=${html`<figure class="ls-wipe ls-herowipe"><img src=${x.same.base} alt="Without the LoRA, our example"/><img class="ls-top" src=${x.same.lora} alt="With the LoRA, our example" style=${{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}/><i style=${{ left: pos + "%" }} aria-hidden="true"></i><span class="l">With</span><span class="r">Without</span></figure>
+      <label class="fx-lab ls-herorange">Wipe between with and without<input type="range" min="0" max="100" value=${pos} onInput=${(e) => setPos(+e.target.value)}/></label>`}
+    note=${`Our example, not yours: ${x.name}, ${x.base}, seed ${x.same.seed}.`}><a class="fx-go" href="#train">Train one</a><//>`;
+}
+
 function All() {
   const [rows, setRows] = useState(null), [err, setErr] = useState("");
   useEffect(() => { api("/api/lorashow/loras").then((d) => setRows(d.loras)).catch((e) => setErr(e.message)); }, []);
   if (err) return html`<div class="fx"><div class="fx-note bad" role="alert"><p>${err}</p></div></div>`;
-  if (!rows) return html`<div class="fx"><p class="small" role="status">Reading your runs.</p></div>`;
-  if (!rows.length) return html`<div class="fx"><div class="fx-card"><h2>Nothing to show yet</h2><p>A LoRA appears here once a Train run finishes and its file is still on this machine.</p><a class="fx-go" href="#train">Train one</a></div></div>`;
+  if (!rows) return html`<div class="fx"><${FxSkeleton} label="Reading your runs."/></div>`;
+  if (!rows.length) return html`<div class="fx"><${Empty}/></div>`;
   return html`<div class="fx"><ul class="ls-list">${rows.map((r) => html`<li key=${r.job}><a href=${"#lorashow/" + r.job}>${r.ab === "done" && r.with_lora ? html`<img src=${`/api/lorashow/card/${r.job}/image/with`} alt="" loading="lazy"/>` : html`<span class="ls-noart">No A/B yet</span>`}<b>${r.name}</b><small>${r.base_label}, ${r.total_steps} steps</small><small>${r.ab === "done" ? `A/B difference ${val(r.pixel_diff)}, measured` : "No proof yet"}. ${r.licence || "No licence chosen"}.</small></a></li>`)}</ul></div>`;
 }
 

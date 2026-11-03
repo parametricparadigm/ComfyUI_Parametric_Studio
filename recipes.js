@@ -2,6 +2,7 @@
 import { FitChip } from "./fit_chip.js";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
+import { FxSkeleton } from "./fx.js";
 
 const CSS = `
 .rx{display:flex;flex-direction:column;gap:22px}.rxhero{position:relative;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:0;border-radius:18px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}.rxhero video,.rxhero img{width:100%;height:100%;min-height:260px;max-height:430px;object-fit:cover;display:block;background:#050605}.rxherot{padding:clamp(16px,2vw,28px);display:flex;flex-direction:column;gap:12px;justify-content:center}.rxherot h2{margin:0;font-size:clamp(24px,2.6vw,40px);color:var(--a1)}.rxherot p{margin:0;color:var(--mut);line-height:1.45}
@@ -135,7 +136,7 @@ export function Recipes({ route }) {
   useEffect(() => { api("/api/recipes").then(setD).catch((e) => setErr(e.message)); try { const o = JSON.parse(sessionStorage.getItem(OPEN) || "null"); if (o) { sessionStorage.removeItem(OPEN); setSel(o.id); setInitialRun(o.run); } } catch {} }, []);
   const rows = (d && d.recipes) || []; const heroes = rows.filter((r) => r.tags && r.tags.includes("hero")).sort((a, b) => (b.id === "music_video") - (a.id === "music_video")); const tags = useMemo(() => ["all", "tested", ...new Set(rows.flatMap((r) => r.tags || []).filter((x) => x !== "hero"))], [rows]); const shown = rows.filter((r) => !heroes.includes(r) && (filter === "all" || (filter === "tested" ? r.status === "tested" : (r.tags || []).includes(filter)))); const [libCur, setLibCur] = useState(null); const cur = rows.find((r) => r.id === sel) || (libCur && libCur.id === sel ? libCur : null);
   useEffect(() => { if (sel && d && !rows.find((r) => r.id === sel)) api(`/api/recipes/${sel}`).then(setLibCur).catch(() => setLibCur(null)); }, [sel, !!d]);
-  if (!d) return html`<p class="small">${err || "Loading the recipes..."}</p>`;
+  if (!d) return (err ? html`<p class="small">${err}</p>` : html`<${FxSkeleton} label="Loading the recipes." rows=${4}/>`);
   return html`<div class="rx"><style>${CSS}</style>
     ${heroes.map((hero) => html`<section class="rxhero" aria-label=${hero.title}>${hero.tested && hero.tested.media ? html`<video src=${hero.tested.media} poster=${hero.tested.poster} muted autoplay loop playsinline controls></video>` : html`<div class="gmedia gblank" style="position:static;min-height:260px;height:100%"></div>`}<div class="rxherot"><h2>${hero.title}</h2><p>${hero.pitch}</p><div class="rxcost"><b>0 credits</b>${hero.tested ? html`<span>${fmtT(hero.tested.seconds)} on the author's GPU</span><span>${Math.round(hero.tested.peak_vram_gib)} GiB peak</span><span>tested by the author</span>` : html`<span>not rendered by the author yet</span>`}</div><div class="rxrun"><button class="rxgo" onClick=${() => { setSel(hero.id); setInitialRun(null); }}>${hero.id === "music_video" ? "Make a music video" : "Try it"}</button></div></div></section>`)}
     <p class="small" style="margin:0;max-width:760px">Each recipe runs the same goals you can run by hand, one step at a time, passing each output to the next step. ${d.tested} of ${rows.length} rendered on the author's machine so far; the others say so.</p>

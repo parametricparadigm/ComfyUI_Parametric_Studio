@@ -1,7 +1,7 @@
 // The Voices page: every speech model side by side on one original line. The audio and every number are real and were recorded by scripts/build_voices_page.py. Nobody has listened to any of it.
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { said } from "./fx.js";
+import { said, FxSkeleton } from "./fx.js";
 import { KINDS, READS_A_LINE, clock, licenceWord, proofWord, SORTS, FILTERS, speakers, board, counts, bars, runBody, canRun, byLanguage } from "./voices_logic.js";
 
 let playing = null;      // one voice at a time, anywhere on the page
@@ -134,6 +134,6 @@ export function Voices() {
   useEffect(load, []);
   useEffect(() => { document.body.classList.add("on-voices"); return () => document.body.classList.remove("on-voices"); }, []);
   if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button class="btn" onClick=${load}>Try again</button></div>`;
-  if (!d) return html`<div class="fx"><p class="small" role="status">Loading the voices...</p></div>`;
+  if (!d) return html`<div class="fx"><${FxSkeleton} label="Loading the voices."/></div>`;
   return html`<div class="fx vo"><${Hero} models=${d.models} line=${d.line}/><${Board} models=${d.models}/><${Kokoro} kokoro=${d.kokoro}/><${Tools} models=${d.models}/><${Try} models=${d.models}/><${Blocked} models=${d.models}/></div>`;
 }

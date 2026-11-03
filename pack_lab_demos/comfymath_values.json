@@ -1,0 +1,194 @@
+{
+ "meta": {
+  "pack": "rabanti-github/ComfyMath (ComfyMath-NG), version 0.1.6 by its pyproject",
+  "licence": "Apache-2.0",
+  "status": "Pack Lab only. Not part of the studio's install: it loads only where you install the pack yourself.",
+  "title": "ComfyMath-NG: values",
+  "about": "Eight CM_ nodes work out numbers and show them with PreviewAny: a size at a megapixel budget, a multiply, a comparison, a choice, a 3D distance, degrees, an SDXL preset.",
+  "proved": "Pack Lab, 2026-11-02, CPU only, 1.5 s: 640 and 448 (3:2 at 0.25 MP, a megapixel being 2^20 pixels, rounded to 64), 7.0, 20, True, 1.0, 13.0, 180.0, 832 and 1216. All as expected.",
+  "needs": [
+   "pack rabanti-github__ComfyMath"
+  ]
+ },
+ "graph": {
+  "20": {
+   "class_type": "CM_AspectRatioResolution",
+   "inputs": {
+    "aspect_ratio": "3:2",
+    "megapixels": 0.25,
+    "multiple": 64
+   }
+  },
+  "21": {
+   "class_type": "CM_FloatBinaryOperation",
+   "inputs": {
+    "op": "Mul",
+    "a": 3.5,
+    "b": 2.0
+   }
+  },
+  "22": {
+   "class_type": "CM_IntBinaryOperation",
+   "inputs": {
+    "op": "Mul",
+    "a": 4,
+    "b": 5
+   }
+  },
+  "23": {
+   "class_type": "CM_FloatBinaryCondition",
+   "inputs": {
+    "op": "Gt",
+    "a": [
+     "21",
+     0
+    ],
+    "b": 6.0
+   }
+  },
+  "24": {
+   "class_type": "CM_ChooseFloat",
+   "inputs": {
+    "condition": [
+     "23",
+     0
+    ],
+    "a": 1.0,
+    "b": 0.5
+   }
+  },
+  "25": {
+   "class_type": "CM_ComposeVec3",
+   "inputs": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  "26": {
+   "class_type": "CM_ComposeVec3",
+   "inputs": {
+    "x": 3.0,
+    "y": 4.0,
+    "z": 12.0
+   }
+  },
+  "27": {
+   "class_type": "CM_Vec3ToScalarBinaryOperation",
+   "inputs": {
+    "op": "Distance",
+    "a": [
+     "25",
+     0
+    ],
+    "b": [
+     "26",
+     0
+    ]
+   }
+  },
+  "28": {
+   "class_type": "CM_FloatUnaryOperation",
+   "inputs": {
+    "op": "Degrees",
+    "a": 3.141592653589793
+   }
+  },
+  "29": {
+   "class_type": "CM_SDXLResolution",
+   "inputs": {
+    "resolution": "832x1216"
+   }
+  },
+  "40": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "20",
+     0
+    ]
+   }
+  },
+  "41": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "20",
+     1
+    ]
+   }
+  },
+  "42": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "21",
+     0
+    ]
+   }
+  },
+  "43": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "22",
+     0
+    ]
+   }
+  },
+  "44": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "23",
+     0
+    ]
+   }
+  },
+  "45": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "24",
+     0
+    ]
+   }
+  },
+  "46": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "27",
+     0
+    ]
+   }
+  },
+  "47": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "28",
+     0
+    ]
+   }
+  },
+  "48": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "29",
+     0
+    ]
+   }
+  },
+  "49": {
+   "class_type": "PreviewAny",
+   "inputs": {
+    "source": [
+     "29",
+     1
+    ]
+   }
+  }
+ }
+}

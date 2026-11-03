@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Media, Stats } from "./look.js";
 import { clockOf, minutesOf, statusWord, classWord, stageMeta, pageTotals } from "./pipelines_logic.js";
+import { FxSkeleton } from "./fx.js";
 
 const src = (id, f) => `pipelines/${id}/${f}`;
 
@@ -97,7 +98,7 @@ export function Pipelines({ route, health }) {
   useEffect(() => { api("/api/pipelines").then((d) => setList([...d.pipelines.filter((p) => p.proof), ...d.pipelines.filter((p) => !p.proof)])).catch((e) => setErr(String((e && e.message) || e))); }, []);
   useEffect(() => { const id = (route || "").split("/")[1]; if (list && id) { const el = document.getElementById("pl-" + id); if (el) el.scrollIntoView(); } }, [list, route]);
   if (err) return html`<p class="lk-plain" role="alert">The list didn't load: ${err}</p>`;
-  if (!list) return html`<p class="lk-plain">Reading the pipelines.</p>`;
+  if (!list) return html`<${FxSkeleton} label="Reading the pipelines."/>`;
   const t = pageTotals(list);
   return html`<div class="lk pl">
     <div class="pl-sum"><${Stats} items=${[[t.ran, "Pipelines run for real"], [t.stages, "Stages rendered"], [t.families, "Models and tools"], [t.minutes, "Minutes of work"]]}/>${t.notRun > 0 && html`<p class="small">${t.notRun} more ${t.notRun === 1 ? "is" : "are"} written and not run yet.</p>`}<p class="small">${list[0] && list[0].proof ? list[0].proof.peak_note : ""}</p></div>

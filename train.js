@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { abPrompt, abVerdict, baseBadge, baseFacts, estimateLines, flowSteps, fmtClock, fmtDuration, fmtGib, fmtLoss, isLive, jobPayload, orderBases, pictureFlag, trainBlockers } from "./train_logic.js";
 import { Example, Run, Wipe } from "./train_stage.js";
+import { FxSkeleton } from "./fx.js";
 
 const errText = (e) => String((e && e.message) || e);
 const BLANK = { name: "", trigger: "", size: "", steps: 300, rank: 8, batch: 1, learning_rate: 0.0005, seed: 0, rights: false, first_run: false, continue_from: "" };
@@ -163,7 +164,7 @@ export function Train({ route }) {
   };
   const cancel = async () => { setCancelling(true); try { setJob(await post(`/api/train/jobs/${job.id}/cancel`, {})); } catch (e) { setErr(errText(e)); setCancelling(false); } };
   const resume = async () => { setErr(""); try { setJob(await post(`/api/train/jobs/${job.id}/resume`, {})); } catch (e) { setErr(errText(e)); } };
-  if (!info) return html`<p class="small">${err || "Loading..."}</p>`;
+  if (!info) return (err ? html`<p class="small">${err}</p>` : html`<${FxSkeleton} label="Loading the Train page." rows=${4}/>`);
   const finished = job && job.state === "done" && job.lora;
   const baseLabel = job && (job.base_label || (bases.find((b) => b.id === job.base) || {}).label);
   const stageFirst = job && (live || !report || job.dataset === report.id);    // what is happening now, or what this set just made, goes on top; a different set being laid out goes on top of an older run

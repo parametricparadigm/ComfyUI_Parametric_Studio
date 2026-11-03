@@ -1,0 +1,62 @@
+/* The finishing layer, loaded after every other sheet. It keeps the studio's own look (the dark film, the gold, the big condensed titles, real renders as heroes) and only adds rhythm, feedback and light. Everything that moves uses transform or opacity, runs once or follows the scroll, and stops under prefers-reduced-motion. */
+:root{
+  --ease-out:cubic-bezier(.2,.8,.2,1);--ease-in:cubic-bezier(.4,0,1,1);
+  --dur-1:150ms;--dur-2:240ms;--dur-3:380ms;
+  --focus:#f5c518;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme=light]{--focus:#7a5f00}
+
+/* Type rhythm: headings break into even lines, paragraphs avoid a lone last word, and figures keep their width as they change. */
+:is(h1,h2,h3,.fxh-line,.lk-stagepic figcaption b,.fu-sec h2,.mu-head h2,.psec h3){text-wrap:balance}
+main :is(p,li,dd,figcaption,small){text-wrap:pretty}
+:is(.lk-stats dd,.fxh-stats dd,.herostat b,.pv-figs dd,.dx-sum b,.pj-sum dd,.ft-tile b,.mu-herostats dd,.vo-stats dd,.au-clock,.fu-big){font-variant-numeric:tabular-nums}
+
+/* One focus ring everywhere a keyboard can land, including the controls that reset their own styles. */
+:is(a,button,summary,input,select,textarea,label,[role=button],[tabindex]):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.film :is(a,button,summary,input,select,textarea,label,[role=button],[tabindex]):focus-visible{outline-color:#f5c518}
+
+/* Buttons: the gold one lifts a little toward you, and every button answers a press. */
+.fx-go,.btn{transition:transform var(--dur-1) var(--ease-out),background-color var(--dur-1),border-color var(--dur-1),box-shadow var(--dur-2) var(--ease-out),color var(--dur-1)}
+.fx-go:hover:not(:disabled){background:#ffd53a;box-shadow:0 12px 28px -14px rgba(245,197,24,.7)}
+:is(.fx-go,.btn,.gobtn,.ap-more,.lk-strip button):active:not(:disabled){transform:translateY(1px)}
+:is(.btn,.fx-go,button):disabled{cursor:not-allowed}
+
+/* Cards that open something: on a pointer, they rise and take a thin gold edge; their picture eases in a touch. Touch screens get the press instead. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  :is(.lk-tile,.appg,.pv-pick a,.ls-list a,.mtile,.autoidea){transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out)}
+  :is(.lk-tile,.appg,.pv-pick a,.ls-list a,.mtile):hover{transform:translateY(-3px);box-shadow:0 18px 36px -20px rgba(0,0,0,.9),0 0 0 1px rgba(245,197,24,.4)}
+  :is(.lk-tilepic,.appgart,.pv-pick a,.v3x-thumb) img{transition:transform .6s var(--ease-out)}
+  :is(.lk-tile,.appg,.pv-pick a,.v3x-shelf button):hover img{transform:scale(1.04)}
+}
+@media (hover:none){:is(.lk-tile,.appg,.pv-pick a,.ls-list a,.mtile,.lib-3d a):active{transform:scale(.985);transition:transform 80ms}}
+
+/* Heroes: a fine film grain over real renders, one slow pass of light when the page opens, and a slight drift as you scroll past. */
+.lk-stagepic,.fu-hero,.fxh-mosaic li.lead{isolation:isolate}
+.lk-stagepic figcaption,.lk-stagepic .lk-play,.fu-hero>div{z-index:2}
+:is(.lk-stagepic,.fu-hero,.fxh)::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--grain);opacity:.07}
+.fxh>*{position:relative;z-index:2}
+.fxh-mosaic li.lead::after,.lk-stagepic::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,transparent 30%,rgba(255,244,214,.16) 48%,rgba(255,244,214,.05) 54%,transparent 70%);transform:translateX(-110%)}
+@media (prefers-reduced-motion:no-preference){
+  .fxh-mosaic li.lead::after,.lk-stagepic::after{animation:pp-sweep 1.5s var(--ease-out) .45s 1 both}
+  @supports (animation-timeline:view()){
+    :is(.lk-stagepic>img,.lk-stagepic>video,.fu-hero>video,.fxh-mosaic li.lead img){animation:pp-drift linear both;animation-timeline:view();animation-range:cover 40% exit 100%}
+    :is(.fx-card,.fxh,.lk-tile,.appg,.fu-block,.pl-pick,.pv-pick li,.mo-row,.ccard,.ls-list li,.ft-tile){animation:pp-rise linear both;animation-timeline:view();animation-range:entry 0% entry 65%}
+  }
+}
+@keyframes pp-sweep{to{transform:translateX(110%)}}
+@keyframes pp-drift{from{transform:scale(1)}to{transform:scale(1.06) translateY(-1.5%)}}
+@keyframes pp-rise{from{opacity:.001;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* Disabled controls read as disabled, not as broken. */
+:is(.btn,.fx-go,.gobtn):disabled{opacity:.45}
+
+/* Print and saved pages show everything at rest. */
+@media print{*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Phone tab bar: every page keeps its own icon, and two-word names wrap onto two short lines instead of running into their neighbours. */
+@media (max-width:900px){.rail{gap:2px}.rail .nav{min-width:64px;max-width:84px;padding-inline:6px;line-height:1.2;text-wrap:balance}}
+
+/* Shot Board's newer controls (example switch, VFX wording) reach 40 px like the rest. */
+.sb-seg button{display:inline-flex;align-items:center;min-height:40px;box-sizing:border-box}
+.sb-vfxopt input{min-height:40px;box-sizing:border-box}

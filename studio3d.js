@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { fitDistance } from "./fit_distance.js";
+import { FxSkeleton } from "./fx.js";
 
 const calm = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 const MODES = [["textured", "Textured"], ["clay", "Clay"], ["wire", "Wireframe"], ["normals", "Normals"]];
@@ -89,6 +90,20 @@ function Make3D({ meshes, onMade }) {
     ${job && job.status === "error" && html`<p class="small" style="color:var(--err)" role="alert">${job.error}</p>`}${err && html`<p class="small" style="color:var(--err)" role="alert">${err}</p>`}</section>`;
 }
 
+/* Mesh tools: the geometry nodes a graph can use today (core ComfyUI's own), one recorded clean-up with its pictures and numbers, and the packs we looked at, with what was and was not done. Data: mesh_tools.json. */
+function MeshTools() {
+  const [d, setD] = useState(null);
+  useEffect(() => { fetch("mesh_tools.json").then((r) => (r.ok ? r.json() : null)).then(setD).catch(() => {}); }, []);
+  if (!d) return null;
+  const p = d.proof;
+  return html`<section class="v3m v3t" aria-label="Mesh tools"><h3>Mesh tools</h3><p class="lk-plain">${d.about}</p>
+    <ul class="v3t-nodes">${d.core.map((n) => html`<li key=${n.node}><code>${n.node}</code><span>${n.does}</span></li>`)}</ul>
+    ${p && html`<figure class="v3t-proof"><div class="v3t-pics">${p.pictures.map((x) => html`<img key=${x.src} src=${x.src} alt=${x.alt} width="240" height="240" loading="lazy"/>`)}</div>
+      <figcaption>${p.caption} <a href=${p.graph} download>Download the graph</a>.</figcaption></figure>`}
+    ${d.packs.map((k) => html`<div class="v3t-pack" key=${k.pack}><b>${k.name}</b> <span class="lk-tag">${k.status}</span><p>${k.why}</p></div>`)}
+  </section>`;
+}
+
 export function Studio3D() {
   const [samples, setSamples] = useState([]), [mine, setMine] = useState([]), [cur, setCur] = useState(null), [mode, setMode] = useState("textured"), [spin, setSpin] = useState(!calm()), [info, setInfo] = useState(null), [loading, setLoading] = useState(true), [err, setErr] = useState(""), [listErr, setListErr] = useState(""), [thumbs, setThumbs] = useState({});
   const loadMine = () => api("/api/models3d").then((d) => { const rows = [...(d.items || []).map((m) => ({ id: m.url, url: m.url, bytes: m.bytes, name: m.path.split("/").pop(), made: "In your output folder" })), ...(d.family_items || []).map((m) => ({ id: m.url, url: m.url, bytes: m.bytes, name: m.path.split("/").pop(), made: `From ${m.family}'s own ComfyUI` }))]; setMine(rows); return rows; }).catch((e) => setListErr(e.message));
@@ -99,7 +114,7 @@ export function Studio3D() {
   }, []);
   const pick = (x) => { if (cur && x.id === cur.id) return; setCur(x); setInfo(null); setErr(""); setLoading(true); };
   const shelf = [...mine, ...samples];
-  if (!cur) return html`<div class="lk v3-page"><p class="small">${listErr || "Reading the shelf..."}</p></div>`;
+  if (!cur) return html`<div class="lk v3-page">${listErr ? html`<p class="small">${listErr}</p>` : html`<${FxSkeleton} label="Reading the shelf."/>`}</div>`;
   const s = info && info.size;
   return html`<div class="lk v3-page">
     <section class="v3x film" aria-label=${"Stage: " + cur.name}>
@@ -121,6 +136,7 @@ export function Studio3D() {
     ${!cur.scale_m && html`<p class="lk-plain v3x-scale">glTF files count in metres, but a model made from a single picture does not know its real size, so read these as the file's own units.</p>`}
     ${info && !info.hasColour && mode === "textured" && html`<p class="lk-plain v3x-scale">This file has no texture or colour of its own, so Textured looks plain.</p>`}
     <${Make3D} meshes=${mine.filter((x) => x.url.startsWith("/api/file3d")).map((x) => new URLSearchParams(x.url.split("?")[1]).get("path"))} onMade=${madeOne}/>
+    <${MeshTools}/>
     <section aria-label="Shelf"><div class="v3x-shelfhead"><h3>The shelf</h3><p>${mine.length ? `${mine.length} made on this machine, ${samples.length} of our test builds.` : `No generated .glb files yet, so these are our own ${samples.length} test builds, not your work.`}</p></div>
       <ul class="v3x-shelf">${shelf.map((x) => html`<li key=${x.id}><button type="button" aria-pressed=${x.id === cur.id} onClick=${() => pick(x)}><span class="v3x-thumb">${thumbs[x.id] || x.thumb ? html`<img src=${thumbs[x.id] || x.thumb} alt="" loading="lazy"/>` : html`<i aria-hidden="true">3D</i>`}</span><b>${x.name}</b><small>${x.sample ? "Our test build" : x.made}${x.bytes ? `, ${mb(x.bytes)}` : ""}</small></button></li>`)}</ul>
       ${listErr && html`<p class="small" style="color:var(--err)" role="alert">Your own models could not be listed: ${listErr}</p>`}</section>

@@ -24,7 +24,7 @@ export function Crew() {
         <div class="row" style="margin:0"><input type="text" placeholder="Or ask whoever knows best, e.g. how many steps should Klein use?" value=${q} onInput=${(e) => setQ(e.target.value)} onKeyDown=${(e) => e.key === "Enter" && ask()} aria-label="question for the crew"/><button class="btn primary" onClick=${ask} disabled=${q.trim().length < 3}>Ask</button></div></div></div>
     ${members && html`<${Strip} label="Which specialists" value=${tier} onPick=${setTier} items=${[{ k: "all", b: "Everyone", s: `${members.filter((m) => m.tier !== "master").length} specialists` }, ...tiers.filter((t) => inTier(t)).map((t) => ({ k: t, b: label[t], s: `${inTier(t)} on the crew` }))]}/>`}
     ${members && tiers.filter((t) => tier === "all" || tier === t).map((t) => { const l = members.filter((m) => m.tier === t); return l.length ? html`<div class="sect crewsect"><h2>${label[t]}</h2></div><div class="crewgrid">${l.map((m) => html`<${CrewCard} key=${m.id} m=${m} state=${state}/>`)}</div>` : null; })}
-    ${!members && !err && html`<p class="small">Loading the crew...</p>`}</div>`;
+    ${!members && !err && html`<${FxSkeleton} label="Loading the crew."/>`}</div>`;
 }
 
 /* ---------- Site builder ---------- */
@@ -82,6 +82,7 @@ export { Studio3D } from "./studio3d.js";
 
 /* ---------- Edit: a real multi-track timeline over your own results ---------- */
 import { Timeline } from "./timeline_ui.js";
+import { FxSkeleton } from "./fx.js";
 export function Edit() {
   const health = useHealth(); const [lib, setLib] = useState(null); const [rendering, setRendering] = useState(false); const [out, setOut] = useState(null); const [err, setErr] = useState("");
   useEffect(() => {
@@ -106,7 +107,7 @@ export function Edit() {
   };
   return html`<div class="lk ed-timeline"><p class="lk-plain">Cut your generated clips together: add clips from your library, drag to move, drag the edges to trim, split at the playhead, then render one finished video. It runs on your machine with ffmpeg.</p>
     ${lib && !lib.length && html`<${Empty} art="edit_art/h3_extend.webp" kicker="The timeline" title=${health && !health.comfy ? "Your clips can't be listed" : "No clips yet"} note="The picture is our own render, not yours."><p>${health && !health.comfy ? "The list of finished clips comes from ComfyUI, and it is not reachable right now. Your files are not gone. Start ComfyUI and they come back on this page." : "Make a video or a song in Create and it shows up here to cut. The final cut runs on ffmpeg on this machine."}</p><div class="lk-acts"><a class="btn primary" href="#create">Go to Create</a><a class="btn" href="#library">Open the Library</a></div><//>`}
-    ${lib === null ? html`<p class="small">Loading your clips...</p>` : html`<${Timeline} library=${lib} onRender=${render} rendering=${rendering}/>`}
+    ${lib === null ? html`<${FxSkeleton} label="Loading your clips."/>` : html`<${Timeline} library=${lib} onRender=${render} rendering=${rendering}/>`}
     ${err && html`<p class="small" style="color:var(--err)">${err}</p>`}
     ${out && html`<div class="card" style="margin-top:14px"><h3>Rendered in ${out.seconds}s</h3><video src=${out.url} controls style="max-width:100%;border-radius:12px"></video><div class="row"><a class="btn small" href=${out.url} download>Download</a></div></div>`}</div>`;
 }
@@ -157,7 +158,7 @@ function DesignReel({ list, open }) {
   const rows = list.map((p) => ({ ...p, art: art.find((a) => a.id === p.id) })).filter((p) => !art.length || p.art), cur = rows[Math.min(at, rows.length - 1)];
   useEffect(() => { const el = reel.current; if (!el || !rows.length) return; const io = new IntersectionObserver((es) => { const v = es.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]; if (v) { setAt(+v.target.dataset.i); setPick(0); } }, { root: el, threshold: [0.55, 0.8] }); el.querySelectorAll(".de-sheet").forEach((x) => io.observe(x)); return () => io.disconnect(); }, [rows.length]);
   const go = (i) => { const el = reel.current, n = el && el.querySelector(`[data-i="${Math.max(0, Math.min(rows.length - 1, i))}"]`); if (n) { n.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", inline: "center", block: "nearest" }); setAt(+n.dataset.i); setPick(0); } };
-  if (!cur) return html`<p class="small">Loading the designers...</p>`;
+  if (!cur) return html`<${FxSkeleton} label="Loading the designers."/>`;
   const frames = framesOf(cur.id, cur.art, sheets), frame = frames[Math.min(pick, frames.length - 1)], views = frames.filter((x) => x.kind !== "choice"), morphs = frames.filter((x) => x.kind === "choice"), group = morphs[0] && morphs[0].group, baseValue = group && cur.art && cur.art.choices[group];
   const scrub = (e) => { if (e.pointerType !== "mouse" || views.length < 2) return; const r = e.currentTarget.getBoundingClientRect(), k = Math.min(views.length - 1, Math.floor(((e.clientX - r.left) / r.width) * views.length)), f = frames.indexOf(views[k]); if (f !== pick) setPick(f); };
   return html`<section class="de-stage film" aria-label="Designers">
@@ -251,7 +252,7 @@ export function Apps() {
     <input class="ap-search" type="search" placeholder="Search every graph by name, family or what it does" aria-label="Search graphs" value=${q} onInput=${(e) => setQ(e.target.value)}/>
     ${[["goal", "Studio apps", G], ["model3d", "3D models", M3], ["tryon", "Try-on", TO], ["motion", "Motion", MO], ["workflow", "World Kit and Virtual Set", W], ["family", "Family graphs", F], ["recipe", "Recipes", R]].map(([k, title, list]) => on(k) && list.length > 0 && html`<section key=${k}><div class="psec"><h3>${title}</h3><span>${list.length}</span></div><div class="appgrid">${(sec === "all" && !q.trim() && !whole[k] ? list.slice(0, APP_PEEK) : list).map((r) => tile(r.art || ((shots.find((x) => x.goal === r.id && x.poster)) || {}).poster, tagOf(r), r.label, r.kind === "runner" || r.kind === "tool" ? `Not a ComfyUI graph. ${r.sub}` : r.cat || r.sub, () => setGraphRow(r), r.key))}</div>${sec === "all" && !q.trim() && !whole[k] && list.length > APP_PEEK && html`<button type="button" class="ap-more" onClick=${() => setWhole({ ...whole, [k]: true })}>Show all ${list.length} in ${title}</button>`}</section>`)}
     ${on("hub") && H.length > 0 && html`<section><div class="psec"><h3>Hub apps</h3><span>${H.length}</span></div><div class="appgrid">${H.map((a) => tile(null, a.runnable ? "Ready" : a.missing_models.length ? `Needs ${a.missing_models.length} file${a.missing_models.length > 1 ? "s" : ""}` : "Needs nodes", a.title, `${a.inputs} input${a.inputs === 1 ? "" : "s"}, ${a.outputs} output${a.outputs === 1 ? "" : "s"}`, () => open(a.id), a.id))}</div></section>`}
-    ${!all && !err && html`<p class="small">Loading every graph...</p>`}${all > 0 && !G.length && !M3.length && !TO.length && !W.length && !R.length && !F.length && !H.length && html`<p class="small">Nothing matches. Try fewer words.</p>`}
+    ${!all && !err && html`<${FxSkeleton} label="Loading every graph."/>`}${all > 0 && !G.length && !M3.length && !TO.length && !W.length && !R.length && !F.length && !H.length && html`<p class="small">Nothing matches. Try fewer words.</p>`}
     ${graphRow && html`<${GraphPanel} row=${graphRow} onClose=${() => setGraphRow(null)}/>`}</div>`; }
   return html`<div class="lk ap-page"><button class="btn small ap-back" onClick=${() => setApp(null)}>All apps</button><${Head}>${app.title}<//>
     <div class="ap-layout"><div class="card"><h3>Inputs</h3>

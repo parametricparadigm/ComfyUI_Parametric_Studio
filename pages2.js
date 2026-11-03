@@ -3,6 +3,7 @@ import { useState, useEffect } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { useModels, DlButton, gbText } from "./models_ui.js";
 import { Empty, Head, Media, Offline, Stage, Stats, useHealth } from "./look.js";
+import { FxSkeleton } from "./fx.js";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const sel = "width:100%;margin-top:3px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px";
 /* the shared download button for one edit tool; reloads the form when the files have arrived */
@@ -14,7 +15,7 @@ export function RunForm({ base, id, title, blurb, art, onBack }) {
   const upload = async (key, f) => { if (!f) return; const fd = new FormData(); fd.append("file", f); try { const r = await api("/api/upload", { method: "POST", body: fd }); setVals((v) => ({ ...v, [key]: r.name })); } catch (e) { setErr(e.message); } };
   const run = async () => { setBusy(true); setErr(""); setRes(null); try { const { job } = await post(`${base}/${id}/run`, { values: vals }); for (let i = 0; i < 900; i++) { await sleep(1500); const s = await api("/api/jobs/" + job); if (s.status === "done") { setRes(s); break; } if (s.status === "error") { setErr(s.error || "failed"); break; } } } catch (e) { setErr(e.message); } setBusy(false); };
   const fetchM = async () => { setMsg("Downloading, this can take a while..."); try { const r = await post(`${base}/${id}/fetch-models`, { confirm: ok }); setMsg(`Saved ${r.saved.length} file(s).`); await load(); } catch (e) { setMsg(e.message); } };
-  if (!d) return html`<div class="lk ed-form"><button class="btn small ed-back" onClick=${onBack}>Back to every edit</button>${err ? html`<${Empty} art=${art && art.poster} kicker="This edit" title=${title || "Can't open it yet"} note=${art ? "The picture is our own render of this edit, not yours." : ""}><p>${blurb}</p><p>The form is read from ComfyUI, so it can't open right now. ${err}.</p><//>` : html`<p class="small">Loading...</p>`}</div>`;
+  if (!d) return html`<div class="lk ed-form"><button class="btn small ed-back" onClick=${onBack}>Back to every edit</button>${err ? html`<${Empty} art=${art && art.poster} kicker="This edit" title=${title || "Can't open it yet"} note=${art ? "The picture is our own render of this edit, not yours." : ""}><p>${blurb}</p><p>The form is read from ComfyUI, so it can't open right now. ${err}.</p><//>` : html`<${FxSkeleton} label="Loading the edit form."/>`}</div>`;
   return html`<div class="lk ed-form"><button class="btn small ed-back" onClick=${onBack}>Back to every edit</button><${Head} sub=${blurb}>${title || d.title}<//>
     <div class="ed-layout"><div class="card"><h3>Inputs</h3>
       ${d.inputs.map((i) => html`<label class="small" style="display:block;margin:10px 0">${i.label}

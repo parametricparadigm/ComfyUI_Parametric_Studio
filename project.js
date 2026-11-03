@@ -1,6 +1,9 @@
 /* Project File: pack a board or recipe runs into one file, or open one and see what this machine is missing. Nothing renders without a click. */
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
+import { FxHero } from "./fx.js";
+
+const IN = ["Graphs", "Seeds", "Model hashes", "Where to get each model", "Pictures, clips and sound, if you tick it"], OUT = ["Model weights", "Your folder paths", "Anything from your home folder"];
 
 const size = (n) => (n == null ? "" : n > 2 ** 30 ? (n / 2 ** 30).toFixed(1) + " GB" : n > 2 ** 20 ? (n / 2 ** 20).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB");
 const board = () => { try { return JSON.parse(localStorage.getItem("shotboard_v1")) || {}; } catch { return {}; } };
@@ -56,7 +59,10 @@ function Opened({ p }) {
 export function ProjectFile() {
   const [opened, setOpened] = useState(null), [err, setErr] = useState(""), [busy, setBusy] = useState(false), [drag, setDrag] = useState(false);
   const open = async (f) => { if (!f) return; setBusy(true); setErr(""); setOpened(null); try { const fd = new FormData(); fd.append("file", f); setOpened(await api("/api/project/open", { method: "POST", body: fd })); } catch (e) { setErr(e.message); } setBusy(false); };
-  return html`<div class="fx"><div class="fx-two"><${Pack}/>
+  return html`<div class="fx">
+    <${FxHero} kicker="One .psproject file" line="Everything to remake it. Nothing private." lede="Pack your Shot Board or finished recipe runs on one machine, open the file on another, and see what that machine has and what it is missing before anything renders."
+      art=${html`<div class="pj-anat"><div class="pj-in"><span class="fx-kick">In the file</span><ul>${IN.map((x) => html`<li key=${x}>${x}</li>`)}</ul></div><div class="pj-out"><span class="fx-kick">Never in the file</span><ul>${OUT.map((x) => html`<li key=${x}>${x}</li>`)}</ul></div></div>`}/>
+    <div class="fx-two"><${Pack}/>
     <section class=${"fx-card pj-drop" + (drag ? " on" : "")} aria-label="Open a project" onDragOver=${(e) => { e.preventDefault(); setDrag(true); }} onDragLeave=${() => setDrag(false)} onDrop=${(e) => { e.preventDefault(); setDrag(false); open(e.dataTransfer.files[0]); }}><span class="fx-kick">Open</span><h2>Open a project file</h2><p>Drop a <code>.psproject</code> here. You see what this machine has and what it is missing, with where to get it. Nothing renders until you ask.</p>
       <label class="fx-go pj-file">${busy ? "Reading" : "Choose a file"}<input type="file" accept=".psproject,.zip" disabled=${busy} onChange=${(e) => open(e.target.files[0])}/></label>
       ${err && html`<div class="fx-note bad" role="alert"><b>Not opened</b><p>${err}</p></div>`}</section></div>

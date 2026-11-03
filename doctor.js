@@ -33,11 +33,14 @@ export function GraphDoctor() {
   const example = async () => { try { const d = await api("/api/doctor/example"); setPng(null); setText(d.text); check({ text: d.text }); } catch (e) { setErr(e.message); } };
   const out = fixed && JSON.stringify(fixed.graph, null, 1);
   return html`<div class="fx">
-    <section class="fx-card" aria-label="Your workflow">
+    <section class="fxh film dx-hero" aria-label="Your workflow">
+      <div class="fxh-text"><span class="fx-kick">How it works</span><ol class="dx-steps"><li><i>1</i><b>Paste or drop a workflow</b></li><li><i>2</i><b>Read what is wrong</b></li><li><i>3</i><b>Tick the fixes you want</b></li><li><i>4</i><b>Get a new copy</b><small>Your original stays as it was.</small></li></ol></div>
+      <div class="dx-in">
       <label class="fx-lab" for="dx-in">Your workflow, as JSON. Canvas files, API files and ComfyUI PNGs all work.</label>
       <div class=${"dx-drop" + (drag ? " on" : "")} onDragOver=${(e) => { e.preventDefault(); setDrag(true); }} onDragLeave=${() => setDrag(false)} onDrop=${(e) => { e.preventDefault(); setDrag(false); onFile(e.dataTransfer.files[0]); }}>
         ${png ? html`<p class="dx-pngname"><b>${png.name}</b>: the graph inside this picture. <button class="btn small" type="button" onClick=${() => { setPng(null); setRes(null); }}>Use text instead</button></p>` : html`<textarea id="dx-in" class="fx-in" rows="12" spellcheck="false" value=${text} onInput=${(e) => setText(e.target.value)} placeholder="Paste here, or drop a .json or .png file"></textarea>`}</div>
       <div class="fx-row"><button class="fx-go" type="button" disabled=${!!busy || (!text.trim() && !png)} onClick=${() => check()}>${busy === "check" ? "Checking" : "Check it"}</button><label class="btn small dx-file">Choose a file<input type="file" accept=".json,.png,application/json,image/png" onChange=${(e) => onFile(e.target.files[0])}/></label><button class="btn small" type="button" onClick=${example}>Try a broken example</button></div>
+      </div>
     </section>
     ${err && html`<div class="fx-note bad" role="alert"><b>No answer</b><p>${err}</p></div>`}
     ${res && html`<section class="fx" aria-label="What the doctor found" aria-live="polite">

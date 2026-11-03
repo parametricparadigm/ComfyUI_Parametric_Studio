@@ -2,6 +2,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { html, api } from "./common.js";
 import { pageTotals } from "./pipelines_logic.js";
+import { FxSkeleton } from "./fx.js";
 
 const fill = (t, n) => String(t || "").replace(/\{(\w+)\}/g, (_, k) => (n[k] == null ? "" : n[k]));
 const TAG = { fact: "What we ran", opinion: "Our opinion", plan: "Our plan" };
@@ -42,7 +43,7 @@ export function Future({ goTab }) {
   const [d, setD] = useState(null), [list, setList] = useState([]), [nums, setNums] = useState({}), [err, setErr] = useState("");
   useEffect(() => { fetch("future_essay.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(setD).catch((e) => setErr(String(e))); api("/api/pipelines").then((x) => setList(x.pipelines)).catch(() => {}); fetch("future_numbers.json").then((r) => r.json()).then(setNums).catch(() => {}); }, []);
   if (err) return html`<p class="lk-plain" role="alert">The essay didn't load: ${err}</p>`;
-  if (!d) return html`<p class="lk-plain">Reading the essay.</p>`;
+  if (!d) return html`<${FxSkeleton} label="Reading the essay."/>`;
   const proofs = {}; list.forEach((p) => { if (p.proof) proofs[p.id] = p.proof; }); const n = { ...nums, ...pageTotals(list) }, order = d.sources.map((s) => s.id), hero = proofs[d.hero.pipeline], fin = hero && hero.final;
   return html`<article class="fu lk">
     <header class="fu-hero film">

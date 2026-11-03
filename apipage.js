@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { useShowcase, LiveMedia } from "./showcase.js";
 import { SECTIONS, callCode, hasGraph, loadRow, matches, sectionOf, useAllGraphs } from "./graph_rows.js";
+import { FxSkeleton } from "./fx.js";
 
 const KIND = { goal: "Studio app", recipe: "Recipe", family: "Family graph", runner: "Runner", tool: "Tool", workflow: "World Kit or Virtual Set graph" };
 const base = () => (location.origin === "null" || window.STUDIO_DEMO ? "http://localhost:8310" : location.origin);
@@ -45,7 +46,7 @@ function GraphBody({ detail }) {
   const steps = (detail && detail.steps) || null, withGraph = steps ? steps.filter((s) => s.graph) : [], cur = steps ? (withGraph[step] ? { format: "api", graph: withGraph[step].graph } : null) : detail, nodes = useMemo(() => nodesOf(cur), [cur]);
   const text = cur && cur.graph ? JSON.stringify(cur.graph, null, 2) : "";
   const copy = async () => { try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch {} };
-  if (!detail) return html`<p class="small">Loading the graph...</p>`;
+  if (!detail) return html`<${FxSkeleton} label="Loading the graph."/>`;
   if (detail.notGraph) return html`<div class="apinotgraph"><b>This one is not a ComfyUI graph.</b><p class="small" style="margin:4px 0 0">It runs as its own program on this machine, so there is no graph to show or to open in ComfyUI. The call above is the way to run it.</p></div>`;
   return html`<div>
     ${steps && html`<div class="chips" style="margin:0 0 8px">${withGraph.map((s, i) => html`<button class=${"chip" + (step === i ? " on" : "")} onClick=${() => setStep(i)}>${i + 1}. ${s.label}</button>`)}</div>`}

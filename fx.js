@@ -1,5 +1,5 @@
 /* Pages that arrive as one file each: studio/feature_<name>.py says what the shell needs, and this loads its script and stylesheet. A page that fails to load is left out, and the rest still work. */
-import { api } from "./common.js";
+import { api, html } from "./common.js";
 
 export async function loadFeaturePages() {
   let pages = [];
@@ -29,3 +29,14 @@ export async function copyText(text) {
 export function saveFile(name, text, type = "application/json") {
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 }
+
+/* The opening panel these pages share: a dark film stage with a kicker, a line, real figures and real pictures. Every figure and picture is passed in from the page's own data; a figure that is not there yet is left out. */
+export const FxStats = ({ items }) => html`<dl class="fxh-stats">${items.filter((x) => x && x[0] != null && x[0] !== "").map(([v, l, tag]) => html`<div key=${l}><dd>${v}</dd><dt>${l}${tag ? html` <span class=${"fx-tag " + tag}>${tag}</span>` : null}</dt></div>`)}</dl>`;
+export const FxHero = ({ kicker, line, lede, stats, art, note, children, cls = "" }) => html`<section class=${"fxh film" + (art ? "" : " fxh-noart") + (cls ? " " + cls : "")}>
+  <div class="fxh-text">${kicker && html`<span class="fx-kick">${kicker}</span>`}${line && html`<p class="fxh-line">${line}</p>`}${lede && html`<p class="fxh-lede">${lede}</p>`}${stats && html`<${FxStats} items=${stats}/>`}${children}</div>
+  ${art && html`<div class="fxh-art">${art}${note && html`<p class="fxh-note">${note}</p>`}</div>`}
+</section>`;
+/* A row of real pictures for a hero: each with its own label. */
+export const FxMosaic = ({ items }) => html`<ul class="fxh-mosaic" style=${{ "--n": items.length }}>${items.map((x, i) => html`<li key=${x.src} class=${i === 0 ? "lead" : ""}><img src=${x.src} alt=${x.alt || ""} loading=${i < 2 ? "eager" : "lazy"} decoding="async"/>${x.label && html`<span>${x.label}</span>`}</li>`)}</ul>`;
+/* A placeholder in the shape of what is coming, instead of "Loading" text. The words stay for screen readers. */
+export const FxSkeleton = ({ label, rows = 3 }) => html`<div class="fx-skel" role="status" aria-live="polite"><span class="fx-sr">${label}</span>${Array.from({ length: rows }, (_, i) => html`<i key=${i} aria-hidden="true"></i>`)}</div>`;

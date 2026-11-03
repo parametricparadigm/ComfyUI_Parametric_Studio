@@ -1,7 +1,7 @@
 // The Music page: every music model in one place, on one original brief. The audio and every number are real and were recorded by scripts/build_music_page.py. Nobody has listened to any of it.
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
-import { copyText, saveFile, said } from "./fx.js";
+import { copyText, saveFile, said, FxSkeleton } from "./fx.js";
 import { searchStyles, cardTags } from "./music_styles_logic.js";
 import { clock, STATE_WORD, STATE_NOTE, sortModels, counts, rendered, lyricWord, bars, featureAt, trackPath, BANDS, versus, FORMS, seconds as suggest, sungLines, sameLineTags, runBody, curlFor, COMMERCIAL } from "./music_logic.js";
 
@@ -96,7 +96,7 @@ function GraphBox({ name }) {
   useEffect(() => { let live = true; setG(null); setErr(""); if (name) api("/api/workflow-graphs/" + encodeURIComponent(name)).then((d) => { if (live) setG(d); }).catch((e) => { if (live) setErr(said(e)); }); return () => { live = false; }; }, [name]);
   if (!name) return html`<p class="small">No ComfyUI graph: this one runs as its own program or through its own pack.</p>`;
   if (err) return html`<p class="fx-err" role="alert">${err}</p>`;
-  if (!g) return html`<p class="small">Reading the graph...</p>`;
+  if (!g) return html`<${FxSkeleton} label="Reading the graph." rows=${2}/>`;
   const nodes = Object.entries(g.graph).map(([id, n]) => [id, n.class_type]);
   return html`<div class="mu-graph"><ol class="mu-nodes">${nodes.map(([id, c]) => html`<li key=${id}><code>${c}</code></li>`)}</ol><p class="small">${nodes.length} nodes. It fills in: ${(g.fills || []).join(", ") || "nothing"}.</p><div class="fx-row"><button class="btn small" onClick=${() => saveFile(name, JSON.stringify(g.graph, null, 1))}>Save the graph</button><a class="btn small" href="#api">See it on the API page</a></div></div>`;
 }
@@ -210,7 +210,7 @@ export function Music({ route }) {
   const sub = String(route || "").split("/")[1] || "";
   useEffect(() => { document.body.classList.toggle("on-music", true); return () => document.body.classList.remove("on-music"); }, []);
   if (err) return html`<div class="fx"><p class="fx-err" role="alert">${err}</p><button class="btn" onClick=${load}>Try again</button></div>`;
-  if (!d) return html`<div class="fx"><p class="small" role="status">Loading the music models...</p></div>`;
+  if (!d) return html`<div class="fx"><${FxSkeleton} label="Loading the music models."/></div>`;
   const models = d.models || []; const cur = sub && models.find((m) => m.id === sub); const x = d.extras || {};
   if (sub && !cur) return html`<div class="fx mu"><p>No music model called that. <a href="#music">All music models</a></p></div>`;
   if (cur) return html`<div class="fx mu"><${Sheet} m=${cur} brief=${d.brief}/></div>`;

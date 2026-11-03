@@ -2,6 +2,7 @@
 import { html, api } from "./common.js";
 import { useState, useEffect, useMemo } from "preact/hooks";
 import { Stage, Stats, Strip } from "./look.js";
+import { FxSkeleton } from "./fx.js";
 const CSS = `
 .pcontrols{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .psearch{width:100%;max-width:520px;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:inherit;font:inherit}
@@ -80,7 +81,7 @@ export function Processes({ goTab }) {
   const readDoc = (p) => api(`/api/processes/${p.id}/doc`).then((x) => { setDoc(x); scrollTo(0, 0); }).catch((e) => setErr(e.message));
   if (Sub) return html`<div class="pr-page"><button class="pbtn" style="margin-bottom:12px" onClick=${() => setSub(null)}>Back to processes</button><${Sub}/></div>`;
   if (doc) return html`<div class="pr-page"><button class="pbtn" style="margin-bottom:12px" onClick=${() => setDoc(null)}>Back to processes</button><div class="pmd" dangerouslySetInnerHTML=${{ __html: md(doc.markdown) }}></div></div>`;
-  if (!d) return html`<p class="small">${err || "Loading the processes..."}</p>`;
+  if (!d) return (err ? html`<p class="small">${err}</p>` : html`<${FxSkeleton} label="Loading the processes." rows=${4}/>`);
   const count = (f) => rows.filter(f).length;
   const ready = shown.filter((p) => p.open).sort((x, y) => "here open near".indexOf(stateOf(x)) - "here open near".indexOf(stateOf(y))), soon = shown.filter((p) => !p.open), opens = count((p) => p.open), cards = (list) => html`<div class="fgrid">${list.map((p) => html`<${Card} key=${p.id} p=${p} kinds=${kinds} art=${artOf(p)} onOpen=${open} onDoc=${readDoc}/>`)}</div>`;
     const lead = rows.filter((p) => p.open && stateOf(p) === "here" && artOf(p)).concat(rows.filter((p) => p.open && stateOf(p) === "open" && artOf(p))).slice(0, 6).map((p) => ({ id: p.id, src: artOf(p), kind: "image", title: p.name, sub: kinds[p.kind] || p.kind, kicker: STATE[stateOf(p)][1] }));

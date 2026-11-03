@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "preact/hooks";
 import { html, api } from "./common.js";
 import { Stage, Stats, Strip } from "./look.js";
+import { FxSkeleton } from "./fx.js";
 
 const KINDS = [["all", "All"], ["image", "Image"], ["video", "Video"], ["audio", "Audio"], ["3d", "3D"], ["llm", "LLM"]];
 const KIND_LABEL = { image: "Image", video: "Video", audio: "Audio", "3d": "3D", llm: "LLM" };
@@ -78,7 +79,7 @@ export function Atlas() {
   useEffect(() => { if (!byEra.length || view !== "timeline") return; const io = new IntersectionObserver((es) => { const v = es.filter((x) => x.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]; if (v) setEra(v.target.dataset.era); }, { rootMargin: "-20% 0px -65% 0px" }); document.querySelectorAll(".atl-era").forEach((el) => io.observe(el)); return () => io.disconnect(); }, [byEra, view]);
   const jump = (id) => { const el = document.getElementById("atlas-era-" + id); if (el) { el.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "start" }); el.focus({ preventScroll: true }); } };
   if (err) return html`<p class="small" style="color:var(--err)">${err}</p>`;
-  if (!data) return html`<p class="small">Loading the atlas...</p>`;
+  if (!data) return html`<${FxSkeleton} label="Loading the atlas."/>`;
   const s = data.stats, renders = data.models.filter((m) => m.renders && m.renders.media && m.renders.media.poster).reverse().map((m) => ({ id: m.id, src: m.renders.media.poster, kind: "image", title: m.name, sub: fmtDate(m.date, m.date_precision) + (m.org ? `, ${m.org}` : ""), kicker: "Rendered in this studio" })).filter((x) => !/chef/.test(x.src)).slice(0, 6);
   return html`<div class="atl lk atl-page">
     <div class="lk-lead"><p class="lk-plain">From the first GANs and VAEs in 2013 to today's open video and image models. Each card says what the model was, why it mattered, its licence, whether this studio runs it, and how well it has been tested here. Dates and licences are read from the named source; anything not checked says so.</p><${Stats} items=${[[s.models, "Models and ideas"], [s.run_here, "Run here"], [s.tested, "Tested here"], [s.rendered_here, "Rendered here"]]}/></div>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { Wipe } from "./prove_wipe.js";
+import { FxHero, FxMosaic, FxSkeleton } from "./fx.js";
 
 const POLL_MS = 2500;
 const short = (h) => (h ? String(h).slice(0, 12) : "none");
@@ -50,7 +51,7 @@ function Prove({ source, id }) {
   }, [proof && proof.id, proof && proof.state]);
   const go = async () => { setBusy(true); setErr(""); try { const d = await post(`/api/prove/recipe/${encodeURIComponent(id)}/start`, { confirm: true }); setProof(await api(`/api/prove/runs/${d.id}`)); } catch (e) { setErr(e.message); } setBusy(false); };
   if (err && !card) return html`<div class="fx"><div class="fx-note bad"><b>Could not open this render</b><p>${err}</p></div><a class="btn" href="#prove">All renders</a></div>`;
-  if (!card) return html`<div class="fx"><p class="small" role="status">Reading the record of this render.</p></div>`;
+  if (!card) return html`<div class="fx"><${FxSkeleton} label="Reading the record of this render."/></div>`;
   const live = proof && proof.card ? proof.card : card;
   return html`<div class="fx">
     <div class="fx-two"><figure class="pv-ours">${card.kind === "video" ? html`<video src=${card.file} poster=${card.poster} controls playsinline preload="metadata" aria-label=${"Our render of " + card.title}></video>` : card.kind === "audio" ? html`<audio src=${card.file} controls preload="none" style="width:100%" aria-label=${"Our render of " + card.title}></audio>` : html`<img src=${card.file} alt=${"Our render of " + card.title}/>`}<figcaption class="small">Our web copy. The original was larger and uncompressed.</figcaption></figure>
@@ -71,8 +72,16 @@ function Prove({ source, id }) {
 function Picker() {
   const [q, setQ] = useState(""), [d, setD] = useState(null), [err, setErr] = useState("");
   useEffect(() => { const t = setTimeout(() => api("/api/prove/renders?limit=36&q=" + encodeURIComponent(q)).then(setD).catch((e) => setErr(e.message)), 180); return () => clearTimeout(t); }, [q]);
-  return html`<div class="fx"><label class="fx-lab">Find a render<input class="fx-in" type="search" value=${q} onInput=${(e) => setQ(e.target.value)} placeholder="oil, loop, music"/></label>
+  const [lead, setLead] = useState(null);
+  useEffect(() => { api("/api/prove/renders?limit=12&q=").then((x) => setLead(x)).catch(() => {}); }, []);
+  const pics = lead ? lead.renders.filter((r) => r.poster).slice(0, 4) : [];
+  return html`<div class="fx">
+    <${FxHero} kicker="Pick one of ours" line="Same graph. Same seed. Your machine." lede="Re-run one of our renders here, then wipe between the two. What differs is listed, not hidden: the files, the graph, the seed and the hardware."
+      stats=${lead ? [[lead.total, "of our renders have their seed on record"]] : null}
+      art=${pics.length > 1 && html`<${FxMosaic} items=${pics.map((r) => ({ src: r.poster, label: r.title }))}/>`} note=${pics.length > 1 ? "Our renders. Pick one below to re-run it." : null}/>
+    <label class="fx-lab">Find a render<input class="fx-in" type="search" value=${q} onInput=${(e) => setQ(e.target.value)} placeholder="oil, loop, music"/></label>
     ${err && html`<div class="fx-note bad" role="alert"><p>${err}</p></div>`}
+    ${!d && !err && html`<${FxSkeleton} label="Reading our renders." rows=${2}/>`}
     ${d && html`<p class="small" role="status">${d.total} of our renders have their seed on record and can be re-run. ${d.renders.length < d.total ? `Showing ${d.renders.length}.` : ""}</p>
     <ul class="pv-pick">${d.renders.map((r) => html`<li key=${r.id}><a href=${"#prove/recipe/" + r.id}>${r.poster ? html`<img src=${r.poster} alt="" loading="lazy" decoding="async"/>` : html`<span class="pv-noart" aria-hidden="true">${r.kind === "audio" ? "♪" : ""}</span>`}<b>${r.title}</b><small>${r.kind}, ${secs(r.seconds)} here</small></a></li>`)}</ul>`}
   </div>`;

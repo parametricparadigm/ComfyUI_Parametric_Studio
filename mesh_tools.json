@@ -1,0 +1,77 @@
+{
+ "about": "Core ComfyUI has its own mesh nodes, so any graph can clean a generated mesh without a node pack. These are the ones a clean-up uses. Load a GLB with Load3DAdvanced, then Get3DComponents gives the mesh.",
+ "core": [
+  {
+   "node": "WeldVertices",
+   "does": "Joins vertices that sit on top of each other. Do this first: the other tools need a welded mesh."
+  },
+  {
+   "node": "DecimateMesh",
+   "does": "Cuts faces down to a budget. The count is a ceiling, and it varied from run to run in our test."
+  },
+  {
+   "node": "RemeshMesh",
+   "does": "Rebuilds the surface evenly from a distance field. Follow it with DecimateMesh for an exact budget."
+  },
+  {
+   "node": "FillHoles",
+   "does": "Closes small, nearly flat holes. Large openings stay open."
+  },
+  {
+   "node": "MeshSmoothNormals",
+   "does": "Smooth shading, with edges sharper than the crease angle kept hard."
+  },
+  {
+   "node": "UnwrapMesh",
+   "does": "Makes UVs for texturing. Seam vertices are duplicated."
+  },
+  {
+   "node": "RotateMesh",
+   "does": "Turns the mesh by Euler angles or a quaternion."
+  },
+  {
+   "node": "MergeMeshes",
+   "does": "Joins meshes into one."
+  },
+  {
+   "node": "GetMeshInfo",
+   "does": "Vertex and face counts and which attributes the mesh has, as text."
+  },
+  {
+   "node": "RenderMesh",
+   "does": "A picture of the mesh: texture, vertex colour, clay, normals or depth."
+  }
+ ],
+ "proof": {
+  "pictures": [
+   {
+    "src": "mesh_tools/before.webp",
+    "alt": "Normals render of the Hunyuan3D sample before clean-up: 181,548 faces, rough fur-like detail."
+   },
+   {
+    "src": "mesh_tools/after.webp",
+    "alt": "The same view after welding, decimating to 6,612 faces and smoothing normals: smooth, with a few flipped triangles on the legs."
+   },
+   {
+    "src": "mesh_tools/after_turned.webp",
+    "alt": "The cleaned mesh turned 45 degrees by RotateMesh, the angle worked out by a maths node."
+   }
+  ],
+  "caption": "Our test, 2 November 2026, on the Hunyuan3D sample from the shelf above: 181,548 faces in, 6,612 out for a budget of 8,000, in 2.5 s on a separate ComfyUI with no internet. The speckles on the legs are flipped triangles the decimation left. The same clean-up run twice more gave 6,547 and 6,588 faces. These pictures come from the twin of the graph below that takes the angle from ComfyMath-NG; the graph below uses core's own ComfyMathExpression. World Kit props carry a hidden collision box, and Get3DComponents merges it into the mesh, so on those RenderMesh drew the box.",
+  "graph": "pack_lab_demos/core_mesh_cleanup.json"
+ },
+ "packs": [
+  {
+   "pack": "PozzettiAndrea/ComfyUI-GeometryPack",
+   "name": "ComfyUI-GeometryPack",
+   "status": "Read, not installed",
+   "why": "It adds what core lacks: booleans, alpha wrap, self-intersection repair, skeletons and surfaces from point clouds. It loads only through its own installer, which pip-installs comfy-env and comfy-3d-viewers and then downloads a separate environment with CGAL and Blender. We did not install it, so we have not run it. GPL-3.0-or-later."
+  },
+  {
+   "pack": "rabanti-github/ComfyMath",
+   "name": "ComfyMath-NG",
+   "status": "Pack Lab only",
+   "why": "64 maths nodes with dropdowns, Vec2/3/4 maths among them. It loaded in Pack Lab, and its value turned the mesh in the third picture. Not part of the studio's install. Apache-2.0."
+  }
+ ]
+}

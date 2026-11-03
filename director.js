@@ -2,6 +2,10 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { html, api, post } from "./common.js";
 import { applyOps, fromSaved, KEY, toSaved } from "./director_logic.js";
+import { FxHero, FxMosaic } from "./fx.js";
+
+/* The Shot Board's own example shoot, the same four takes it shows on a first visit. Our renders, labelled as ours. */
+const TAKES = [["v_h3_chef", "The source clip"], ["reshoot_orbit_take", "Reshoot: orbit right"], ["recast_chef", "Recast"], ["vfx_flood", "VFX: water"]];
 
 const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
 const write = (board) => { try { localStorage.setItem(KEY, JSON.stringify(toSaved(read(), board))); return true; } catch { return false; } };
@@ -31,6 +35,10 @@ export function LiveDirector() {
   const remove = (job) => { const n = applyOps(board, [{ op: "remove", job }]); setBoard(n); write(n); };
   const names = st ? st.transforms : {}; const chosen = Object.keys(board.picked).filter((k) => board.picked[k] && names[k]);
   return html`<div class="fx">
+    <${FxHero} kicker="What it plans" line="Say a job. It lands on the board." lede="Every job and camera move Comfy Prime can put on your Shot Board, from what this studio knows today. The pictures are the Shot Board's own example shoot."
+      stats=${st ? [[Object.keys(st.transforms || {}).length, "jobs it can plan"], [(st.cameras || []).length, "camera moves for a reshoot"]] : null}
+      art=${html`<${FxMosaic} items=${TAKES.map(([id, label]) => ({ src: `showcase/${id}.webp`, label }))}/>`} note="Our renders from the Shot Board example, not yours.">
+      ${st && html`<ul class="ld-know" aria-label="Jobs it knows">${Object.values(st.transforms || {}).map((n) => html`<li key=${n}>${n}</li>`)}</ul>`}<//>
     ${st && !st.model && html`<div class="fx-note warn" role="status"><b>Rules are listening, not the language model</b><p>${st.why}</p></div>`}
     ${err && html`<div class="fx-note bad" role="alert"><p>${err}</p></div>`}
     <div class="fx-two">

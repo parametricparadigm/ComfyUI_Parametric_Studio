@@ -9,3 +9,7 @@
 .pv-wipe input[type=range]{width:100%;min-height:36px;accent-color:var(--a1)}
 .pv-scroll{overflow-x:auto}.pv-steps,.pv-changes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.pv-steps>li{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--line)}.pv-steps details{flex-basis:100%}.pv-changes{margin-top:8px;font-size:13px}.pv-changes small{display:block;color:var(--mut)}
 .pv-pick{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,46%),1fr));gap:10px}.pv-pick a{display:flex;flex-direction:column;gap:5px;height:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);text-decoration:none}.pv-pick a:hover{border-color:var(--a1)}.pv-pick img,.pv-noart{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;background:#050605;display:grid;place-items:center;font-size:30px;color:#f5c518}.pv-pick small{color:var(--mut);font-size:12px}
+.pv-pick a{transition:border-color .15s,transform .15s}
+@media (prefers-reduced-motion:no-preference){.pv-pick a:hover{transform:translateY(-2px)}}
+.pv-pick b{font:800 14px/1.15 var(--display);font-stretch:106%;overflow-wrap:anywhere}
+.pv-noart{background:radial-gradient(110% 90% at 100% 0%,rgba(245,197,24,.15),transparent 62%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 1px,transparent 1px 10px),#050605}
