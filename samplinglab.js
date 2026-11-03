@@ -5,6 +5,7 @@ import { FAMILIES, WHERE, PROOFS, LABELS, LABEL_MEANS, filterEntries, familyCoun
 import { proofPill, place, unproven, useWidth, Wipe, Split, SigmaChart, ABTable } from "./samplinglab_kit.js";
 import { Curves, Bench, Renders } from "./samplinglab_bench.js";
 import { Method } from "./samplinglab_method.js";
+import { Walk } from "./samplinglab_walk.js";
 
 const famWord = Object.fromEntries(FAMILIES);
 const CLEAR = { q: "", family: "all", where: "all", proof: "all", sort: "match" };
@@ -158,7 +159,7 @@ function Credits({ data }) {
 }
 
 /* ---------- the page ---------- */
-const VIEWS = (d, m, r) => [["methods", "Atlas", `${d.entries.length} methods`, ""], ["curves", "Curves", `${m.schedules ? Object.keys(m.schedules).length : 0} model types`, "/curves"], ["bench", "Bench", `${m.solvers ? Object.keys(m.solvers).length : 0} solvers`, "/bench"], ["renders", "Renders", `${(r.renders || []).filter((x) => x.status === "rendered").length} real, wipe them`, "/renders"], ["finds", "Surprises", `${(d.surprises || []).length} found`, "/finds"], ["credits", "Credits", `${(d.credits || []).length} packs`, "/credits"]];
+const VIEWS = (d, m, r) => [["methods", "Atlas", `${d.entries.length} methods`, ""], ["curves", "Curves", `${m.schedules ? Object.keys(m.schedules).length : 0} model types`, "/curves"], ["bench", "Bench", `${m.solvers ? Object.keys(m.solvers).length : 0} solvers`, "/bench"], ["renders", "Renders", `${(r.renders || []).filter((x) => x.status === "rendered").length} real, wipe them`, "/renders"], ["walk", "Walk", "seeds, prompts, steps", "/walk"], ["finds", "Surprises", `${(d.surprises || []).length} found`, "/finds"], ["credits", "Credits", `${(d.credits || []).length} packs`, "/credits"]];
 export function SamplingLab({ route }) {
   const { view, id, rest } = parseRoute(route);
   const [data, setData] = useState(null); const [measures, setM] = useState({}); const [renders, setR] = useState({ renders: [], models: {} }); const [err, setErr] = useState(""); const [f, setF] = useState(CLEAR); const place0 = useRef(0); const saved = useRef(0); const idRef = useRef(id);
@@ -179,6 +180,6 @@ export function SamplingLab({ route }) {
   return html`<div class="sl">
     <nav class="slrack" aria-label="Sampling Lab"><ol>${VIEWS(data, measures, renders).map(([k, l, sub, h], i) => html`<li key=${k}><a class=${at === k ? "on" : ""} aria-current=${at === k ? "page" : null} href=${"#sampling" + h}><i>${i + 1}</i><span><b>${l}</b><small>${sub}</small></span></a></li>`)}</ol></nav>
     ${id ? html`<${Method} key=${id} id=${id} measures=${measures} renders=${renders} data=${data} rows=${rows}/>` : html`
-      ${view === "methods" && html`<${AtlasView} data=${data} measures=${measures} renders=${renders} f=${f} set=${setF} rows=${rows}/>`}${view === "curves" && html`<${Curves} measures=${measures}/>`}${view === "bench" && html`<${Bench} measures=${measures}/>`}${view === "renders" && html`<${Renders} renders=${renders} rest=${rest}/>`}${view === "finds" && html`<${Finds} data=${data} renders=${renders} measures=${measures}/>`}${view === "credits" && html`<${Credits} data=${data}/>`}`}
+      ${view === "methods" && html`<${AtlasView} data=${data} measures=${measures} renders=${renders} f=${f} set=${setF} rows=${rows}/>`}${view === "curves" && html`<${Curves} measures=${measures}/>`}${view === "bench" && html`<${Bench} measures=${measures}/>`}${view === "renders" && html`<${Renders} renders=${renders} rest=${rest}/>`}${view === "walk" && html`<${Walk}/>`}${view === "finds" && html`<${Finds} data=${data} renders=${renders} measures=${measures}/>`}${view === "credits" && html`<${Credits} data=${data}/>`}`}
   </div>`;
 }

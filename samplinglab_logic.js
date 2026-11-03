@@ -83,7 +83,7 @@ export function canRun(e) { const r = e.core_ref || {}; return !!(e.in_core && (
 
 /* ---------- the look: everything below is pure so tests can run it with no browser ---------- */
 const WORDS_LOWER = (s) => String(s || "").toLowerCase();
-export const VIEW_KEYS = ["methods", "curves", "bench", "renders", "finds", "credits"];
+export const VIEW_KEYS = ["methods", "curves", "bench", "renders", "walk", "finds", "credits"];
 /* #sampling, #sampling/curves, #sampling/renders/guidance/a/b, #sampling/<method id> */
 export function parseRoute(route) {
   const p = String(route || "sampling").split("/").slice(1).filter(Boolean);
