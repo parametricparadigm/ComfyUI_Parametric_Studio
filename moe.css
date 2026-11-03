@@ -1,0 +1,69 @@
+/* Inside a mixture of experts (moe.js). Builds on fx.css; colours come from the shared tokens, and the heat scale from moe_logic.js. */
+.moe{--moe-hot:#f5c518;--moe-dim:#0b100d}
+:root[data-theme=light] .moe{--moe-hot:#7a5f00;--moe-dim:#1a221c}
+.moe-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1vw,14px);margin:0}
+.moe-stats div{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.moe-stats dt{font:900 clamp(30px,4vw,56px)/.95 var(--display);font-stretch:80%;color:var(--fx-ink)}
+.moe-stats dd{margin:4px 0 0;font-size:13px;color:var(--mut)}
+@media (max-width:700px){.moe-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.moe-steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px;line-height:1.45}
+.moe-steps b{color:var(--text)}
+
+.moe-chips .chip{min-height:40px;display:inline-flex;align-items:center;gap:6px}
+.moe-chips .chip small{opacity:.7;font-size:11px}
+
+.moe-toks{display:flex;flex-wrap:wrap;gap:4px;padding:10px;background:var(--panel2);border:1px solid var(--line);border-radius:6px}
+.moe-tok{position:relative;min-height:40px;min-width:40px;max-width:100%;padding:6px 8px 10px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--text);font:15px/1.2 ui-monospace,Menlo,Consolas,monospace;cursor:pointer;white-space:pre;overflow:hidden;text-overflow:ellipsis}
+.moe-tok span{display:block;overflow:hidden;text-overflow:ellipsis}
+.moe-tok i{position:absolute;left:4px;right:4px;bottom:3px;height:3px;border-radius:2px;background:var(--a2);transform-origin:left;transform:scaleX(var(--o,0));opacity:.9}
+.moe-tok:hover,.moe-tok.cur{border-color:var(--moe-hot)}
+.moe-tok.cur{box-shadow:inset 0 0 0 1px var(--moe-hot)}
+.moe-tok.on{background:var(--moe-hot);color:#141006;border-color:var(--moe-hot)}
+.moe-tok.on i{background:#141006}
+.moe-tok:focus-visible{outline:2px solid var(--moe-hot);outline-offset:2px}
+
+.moe-tokview{margin-top:4px}
+.moe-fp{margin:0;display:flex;flex-direction:column;gap:6px}
+.moe-fp svg{width:100%;height:auto;aspect-ratio:128/96;display:block;border-radius:4px;cursor:pointer;image-rendering:pixelated}
+.moe-fp-bg{fill:var(--moe-dim)}
+.moe-fp-row{fill:none;stroke:#fff;stroke-width:.35;vector-effect:non-scaling-stroke;opacity:.8}
+.moe-side{display:flex;flex-direction:column;gap:12px}
+.moe-slider{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.moe-slider input{width:100%;min-height:40px;accent-color:var(--a1)}
+
+.moe-dots{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:3px}
+.moe-dots i{aspect-ratio:1;border-radius:50%;background:var(--panel2);border:1px solid var(--line)}
+.moe-dots i.on{background:var(--moe-hot);border-color:var(--moe-hot);opacity:var(--s,1);box-shadow:0 0 8px rgba(245,197,24,.35)}
+.moe-picks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.moe-picks li{display:grid;grid-template-columns:22px 92px minmax(0,1fr) 54px;align-items:center;gap:8px}
+.moe-rank{font:700 12px var(--display);color:var(--mut);text-align:right}
+.moe-bar{height:8px;background:var(--panel2);border-radius:4px;overflow:hidden}
+.moe-bar em{display:block;height:100%;background:var(--grad)}
+.moe-w{text-align:right;font-variant-numeric:tabular-nums}
+
+.moe-heatwrap{display:flex;flex-direction:column;gap:4px}
+.moe-axis{display:flex;justify-content:space-between}
+.moe-heat{width:100%;display:block;border-radius:4px;cursor:crosshair;touch-action:manipulation;background:var(--moe-dim)}
+.moe-heat:focus-visible{outline:2px solid var(--moe-hot);outline-offset:2px}
+.moe-legend{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr) auto;align-items:center;gap:6px}
+.moe-legend i{height:10px;border-radius:3px}
+.moe-legend i:nth-of-type(1){background:linear-gradient(90deg,rgb(11,16,13),rgb(22,74,48),rgb(46,204,113))}
+.moe-legend i:nth-of-type(2){background:linear-gradient(90deg,rgb(46,204,113),rgb(212,175,55),rgb(255,236,170))}
+.moe-cell{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)}
+.moe-nudge .btn{min-width:40px}
+.moe-piece{margin:2px 4px 2px 0;font-family:ui-monospace,Menlo,Consolas,monospace;white-space:pre}
+.moe-piece small{color:var(--mut);margin-left:4px}
+
+.moe-bal,.moe-spec{display:flex;flex-direction:column;gap:8px}
+.moe-balbars{height:70px;display:flex;align-items:flex-end;gap:2px;padding:4px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)}
+.moe-balbars i{flex:1 1 0;min-width:0;background:var(--a2);border-radius:2px 2px 0 0;opacity:.75}
+.moe-balbars i.on{background:var(--moe-hot);opacity:1}
+.moe-link{min-height:40px;padding:6px 10px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--text);font:inherit;cursor:pointer}
+.moe-link:hover{border-color:var(--moe-hot)}
+.moe .fx-table a{color:var(--fx-ink);display:inline-block;padding:8px 0;margin:-8px 0}
+.moe-link{white-space:nowrap}
+.moe-about th{white-space:nowrap;vertical-align:top}
+@media (max-width:520px){.moe-picks li{grid-template-columns:18px 78px minmax(0,1fr) 48px;gap:6px;font-size:13px}.moe .fx-table{font-size:13px}.moe .fx-table th,.moe .fx-table td{padding:6px 4px}}
+/* Phones: each record label sits above its text, not squeezed into a column. */
+@media (max-width:520px){.moe-about tr{display:block;padding:8px 0;border-bottom:1px solid var(--line)}.moe-about th,.moe-about td{display:block;border:0;padding:2px 4px}}
