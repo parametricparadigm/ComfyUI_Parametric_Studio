@@ -35,6 +35,10 @@
    {
     "src": "oneclick_art/relight/golden_hour.webp",
     "label": "Golden hour"
+   },
+   {
+    "src": "oneclick_art/relight/neon_night.webp",
+    "label": "Neon night, on the invented woman from the coverage set (seed 4106, 19.2 s)"
    }
   ],
   "options": {
@@ -54,21 +58,25 @@
     "label": "Inflate, the still"
    },
    {
+    "src": "oneclick_art/effects/marble.webp",
+    "label": "Marble statue, on the invented woman from the coverage set (seed 4105, 21.6 s)"
+   },
+   {
     "src": "oneclick_art/effects/inflate_clip.mp4",
     "poster": "oneclick_art/effects/inflate_clip.webp",
-    "label": "Inflate, still + clip (LTX-2.5)"
+    "label": "Inflate, still + clip (LTX-2.5, 5 s)"
    }
   ],
   "options": {
    "effect": "inflate",
    "output": "still + clip",
-   "seconds": 4
+   "seconds": 5
   },
   "seed": 4103,
-  "seconds": 78.9,
-  "peak_vram_gib": 66.0,
+  "seconds": 69.4,
+  "peak_vram_gib": 38.9,
   "gpu": "one RTX PRO 6000 (96 GB)",
-  "note": "The source is an invented man made with Z-Image Turbo for this example; then inflate, seed 4103. The still took 26.8 s at 28.7 GB on its own; the numbers shown are the still + clip run, where both models stayed loaded. The clip reaches the inflated frame through a dissolve with a visible double image midway, not a true swelling. No person has listened to its sound."
+  "note": "The source is an invented man made with Z-Image Turbo for this example; then inflate, seed 4103, our own render. The still took 26.8 s at 28.7 GB on its own; the numbers shown are the still + clip run, where the graph unloads Qwen before LTX loads (66 GB before that change). The clip starts on the photo and swells into the edit with no cross-fade: a glossy balloon rises from the lap and settles into the puffed jacket. The face drifts a little toward the edited still by the end. No person has listened to its sound."
  },
  "matte": {
   "source": "oneclick_art/matte/source.mp4",
