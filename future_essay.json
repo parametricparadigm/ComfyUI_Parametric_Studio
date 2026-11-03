@@ -1,6 +1,6 @@
 {
- "date": "1 November 2026",
- "open": "We spent today running as many models as we could reach on one graphics card, then chaining them together. This is what we saw, what we think it means, and what we want to build next.",
+ "date": "3 November 2026",
+ "open": "We spent the last days running as many models as we could reach on one graphics card, chaining them together, and looking at every result before we kept it. This is what we saw, what we think it means, and what we want to build next.",
  "hero": {
   "pipeline": "room_century",
   "alt": "One locked shot of a room passing through a hundred years"
@@ -9,7 +9,7 @@
   {
    "id": "learned",
    "no": "01",
-   "title": "What we learned today",
+   "title": "What we learned",
    "blocks": [
     {
      "kind": "fact",
@@ -23,6 +23,15 @@
       "head": "Everything we hold has rendered.",
       "text": "As of {as_of}, all {total} model files on our map have rendered at least once. That shows each one ran, not that each one is good."
      }
+    },
+    {
+     "kind": "fact",
+     "big": "6,635 nodes",
+     "head": "Installed isn't proven.",
+     "text": "On the last night we added 223 node packs to the studio's ComfyUI, after loading every one on a separate test server first. Its list of nodes went from 3,416 to 6,635, with no import failures. Ten more packs were dropped after that test, three because they quietly loaded a second graphics library at start-up. Most of the new nodes have not yet run inside one of our graphs, so they are available, not tested.",
+     "cite": [
+      "packs"
+     ]
     },
     {
      "kind": "fact",
@@ -41,9 +50,37 @@
      "kind": "fact",
      "big": "Finished isn't worked",
      "head": "A job can succeed and prove nothing.",
-     "text": "A neutral test prompt came back from one image model as a grey card saying it was blocked, and the job still reported success. Another family's output was blank. One family's test ran a different family's weights entirely, so we took its pass away. You find these by looking at the picture.",
+     "text": "A neutral test prompt came back from one image model as a grey card saying it was blocked, and the job still reported success. Another family's output was blank, and one ran a different family's weights entirely, so we took its pass away. A finished car commercial carried a real maker's badge on the bonnet, so we threw it out. You find these by looking at the result, not at the job's status.",
      "cite": [
-      "status"
+      "status",
+      "commercials"
+     ]
+    },
+    {
+     "kind": "fact",
+     "big": "Say the words",
+     "head": "A model says what you write, or makes something up.",
+     "text": "Our talking video templates told MiniMax H3 that a person speaks to the camera, but not what they say. It filled the gap with fluent babble. Once each template carried the exact line inside H3's dialogue tag, the greeting card said precisely \"Happy birthday, Sam!\" on the same seed. The fix was in the words, not the model.",
+     "cite": [
+      "recipes"
+     ]
+    },
+    {
+     "kind": "fact",
+     "big": "One switch",
+     "head": "A setting far from the result can break it.",
+     "text": "A half-precision VAE, set once at start-up to save memory, broke LTX's audio encoder, so the DubIt dub could not run on that server. The Dub page now refuses to run on a ComfyUI started that way and says why. We suspected the same switch of garbling H3's speech; it wasn't the cause.",
+     "cite": [
+      "dub"
+     ]
+    },
+    {
+     "kind": "fact",
+     "big": "Third take",
+     "head": "Most fixes go into the brief.",
+     "text": "Our commercials use invented brands only. The first airline take used a name close to a real airline's and drew the attendant's twin; the second painted fake lettering on a sign. The third changed only the words: an invented name, and a walkway with no signs. Every spot shows its flaws beside it.",
+     "cite": [
+      "commercials"
      ]
     },
     {
@@ -54,6 +91,15 @@
      "cite": [
       "status",
       "pipelines"
+     ]
+    },
+    {
+     "kind": "fact",
+     "big": "r = 0.02",
+     "head": "Sound that fits isn't sound that's in sync.",
+     "text": "Our add-sound step gives a silent clip a soundtrack that suits it. We measured whether its sounds land on what happens in the picture, against 2,000 shifted copies of the same track. On both test clips they didn't, any more than chance would. So the page calls it generated ambience, not sound effects, and labels its licence non-commercial.",
+     "cite": [
+      "clipsound"
      ]
     },
     {
@@ -108,8 +154,8 @@
     {
      "kind": "opinion",
      "head": "Graphs outlast apps.",
-     "text": "We think the durable thing is the graph, not the app around it. A graph can be read, checked, changed and handed on. When a better model lands, you swap one node and keep the production.",
-     "basis": "Every stage on the Pipelines page links to the graph that really ran, not a diagram of it.",
+     "text": "We think the durable thing is the graph, not the app around it. A graph can be read, checked, changed and handed on, and opening one is how people learn. When a better model lands, you swap one node and keep the production.",
+     "basis": "Every stage on the Pipelines page links to the graph that really ran, not a diagram of it, and every lesson on Learn ships a graph you can open.",
      "cite": [
       "pipelines"
      ]
@@ -126,13 +172,6 @@
       "pipeline": "room_century",
       "stage": "depth"
      }
-    },
-    {
-     "kind": "opinion",
-     "head": "Teaching becomes part of the tool.",
-     "text": "We think people should be able to open any result and see how it was made, then change it and learn by doing. A tool that hides its graph teaches nothing.",
-     "basis": "",
-     "cite": []
     },
     {
      "kind": "opinion",
@@ -165,7 +204,7 @@
     {
      "kind": "plan",
      "head": "A way in for what we can't reach.",
-     "text": "Work through the files with no route to a graph, and either give each one a real graph or say plainly that it has none."
+     "text": "Work through the model files with no route to a graph, and the node packs that are installed but untried, and either give each one a real graph or say plainly that it has none."
     },
     {
      "kind": "plan",
@@ -220,6 +259,31 @@
    "id": "euai",
    "label": "EU AI Act, Article 50, as published at artificialintelligenceact.eu. This is not legal advice",
    "href": "https://artificialintelligenceact.eu/article/50/"
+  },
+  {
+   "id": "commercials",
+   "label": "Our Commercials page: every spot with its verdict and flaws, from studio/commercial_proof.json",
+   "href": "#commercials"
+  },
+  {
+   "id": "recipes",
+   "label": "Our Recipes page: each render with its prompt, seed and model, from studio/recipe_renders.json",
+   "href": "#recipes"
+  },
+  {
+   "id": "dub",
+   "label": "Our Dub & Voice page and its measured proof, studio/dub_proof.json",
+   "href": "#dub"
+  },
+  {
+   "id": "packs",
+   "label": "Our node-pack install record, 3 November 2026. It names private paths on this machine, so it isn't public; the page shows only its totals. The Pack Lab page lists the packs it proved",
+   "href": "#packlab"
+  },
+  {
+   "id": "clipsound",
+   "label": "Our Captions & Sound page and its measured proof, studio/clipsound_proof.json",
+   "href": "#clipsound"
   }
  ]
 }

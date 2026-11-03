@@ -31,6 +31,35 @@ function Pick({ p, can, warnings, refresh }) {
     ${went && html`<${Tried} pack=${p.pack} onGone=${() => { setWent(false); refresh(); }}/>`}</li>`;
 }
 
+function P51Pack({ p, names, checked }) {
+  return html`<li class="fx-card p51-pack"><div class="fx-row"><a class="p51-repo" href=${p.url} rel="noreferrer noopener" target="_blank">${p.repo}</a>${checked && html`<span class=${"fx-tag " + (p.installed ? "measured" : "warn")}>${p.installed ? "In your ComfyUI" : "Not in your ComfyUI"}</span>`}</div>
+    <p>${p.adds || "No summary."}</p>
+    <dl class="pl-more"><dt>Licence</dt><dd>${p.licence}</dd><dt>Commit</dt><dd><a href=${p.url + "/tree/" + p.commit} rel="noreferrer noopener" target="_blank"><code>${p.commit.slice(0, 10)}</code></a></dd>
+      ${p.folder !== p.pack && html`<dt>Folder</dt><dd><code>${p.folder}</code></dd>`}${p.pip.length > 0 && html`<dt>pip</dt><dd><code>${p.pip.join(" ")}</code>${p.pip_no_deps ? " (without their dependencies)" : ""}</dd>`}
+      ${p.patch && html`<dt>Patch</dt><dd><code>studio/pool51_patches/${p.patch}</code></dd>`}${p.sections.length > 1 && html`<dt>Also in</dt><dd>${p.sections.slice(1).map((x) => x + " " + (names[x] || "")).join("; ")}</dd>`}</dl>
+    ${p.notes.length > 0 && html`<ul class="p51-notes">${p.notes.map((n) => html`<li key=${n}>${n}</li>`)}</ul>`}
+    <details><summary>${p.node_count} ${p.node_count === 1 ? "node" : "nodes"}</summary><p class="small pl-nodes">${p.nodes.join(", ")}</p></details></li>`;
+}
+
+function Pool51() {
+  const [d, setD] = useState(null), [err, setErr] = useState(""), [q, setQ] = useState("");
+  useEffect(() => { api("/api/packlab/pool51").then(setD).catch((e) => setErr(e.message)); }, []);
+  const byName = useMemo(() => (d ? Object.fromEntries(d.packs.map((p) => [p.pack, p])) : {}), [d]);
+  const names = useMemo(() => (d ? Object.fromEntries(d.sections.map((s) => [s.id, s.name])) : {}), [d]);
+  if (err) return html`<section class="fx-card" aria-label="The installed set"><h2>The installed set</h2><p class="fx-err" role="alert">${err}</p></section>`;
+  if (!d) return html`<${FxSkeleton} label="Reading the installed set." rows=${3}/>`;
+  const w = q.trim().toLowerCase(), hit = (p) => !w || (p.repo + " " + (p.adds || "") + " " + p.nodes.join(" ")).toLowerCase().includes(w);
+  const filled = d.sections.filter((s) => s.packs.length).length, nodes = d.packs.reduce((a, p) => a + p.node_count, 0);
+  return html`<section class="p51" aria-labelledby="p51-h"><h2 id="p51-h">The installed set, in 51 sections</h2>
+    <p>${d.about}</p><p class="small">${d.how}</p>
+    <ul class="p51-stats"><li><b>${d.packs.length}</b> packs</li><li><b>${nodes.toLocaleString()}</b> nodes</li><li><b>${filled}</b> of ${d.sections.length} sections</li></ul>
+    <label class="fx-lab">Find a pack or node in the set<input class="fx-in" type="search" value=${q} onInput=${(e) => setQ(e.target.value)} placeholder="film grain, DWPose, sigmas"/></label>
+    <div class="p51-secs">${d.sections.map((s) => { const ps = s.packs.map((k) => byName[k]).filter((p) => p && hit(p)); if (w && !ps.length) return null;
+      return html`<details class="fx-card p51-sec" key=${s.id} open=${!!w}><summary><span class="p51-id">${s.id}</span><span class="p51-name">${s.name}</span><span class="p51-count">${s.packs.length ? s.packs.length + (s.packs.length === 1 ? " pack" : " packs") + ", " + s.nodes + (s.nodes === 1 ? " node" : " nodes") : "no packs"}</span></summary>
+        ${s.packs.length ? html`<ul class="pl-list">${ps.map((p) => html`<${P51Pack} key=${p.pack} p=${p} names=${names} checked=${d.checked_here}/>`)}</ul>` : html`<p class="small">${s.empty_why || "Nothing in this section passed review yet."}</p>`}
+        ${s.also.length > 0 && !w && html`<p class="small">Also useful here: ${s.also.map((k) => (byName[k] || {}).repo || k).join(", ")}.</p>`}</details>`; })}</div></section>`;
+}
+
 export function PackLab() {
   const [d, setD] = useState(null), [err, setErr] = useState(""), [q, setQ] = useState(""), [show, setShow] = useState("install-candidate"), [n, setN] = useState(PAGE);
   const load = () => api("/api/packlab/picks").then(setD).catch((e) => setErr(e.message));
@@ -48,6 +77,7 @@ export function PackLab() {
     <p class="small" role="status">${shown.length} of ${d.picks.length} picks, reviewed ${d.made}.</p>
     <ul class="pl-list">${shown.slice(0, n).map((p) => html`<${Pick} key=${p.pack} p=${p} can=${d.can} warnings=${d.warnings} refresh=${load}/>`)}</ul>
     ${shown.length > n && html`<button class="btn" type="button" onClick=${() => setN(n + PAGE)}>Show more</button>`}
+    <${Pool51}/>
     <section class="fx-card" aria-label="Flagged in review"><h2>Flagged in review</h2><p>${d.flag_note}</p></section>
   </div>`;
 }
