@@ -1,25 +1,25 @@
 {
- "about": "Proof that the LTX-2.3 style-transition LoRA (ltx2.3-transition.safetensors) runs on LTX-2.5 22B distilled int8 in workflows/ltx25_transition_api.json. Clip A is the same-clip source (day); clip B is its day-to-night take. The output is A, a 49-frame bridge from A's last frame to B's first frame, then B: 291 frames at 960x544.",
- "verdict": "Works. The bridge is continuous at both seams, the person stays whole and keeps her clothes, and the light moves from afternoon to moonlit night. Not tested: a run without the LoRA, so how much the LoRA adds over plain first and last frame guidance is not measured.",
+ "about": "Proof that the LTX-2.3 style-transition LoRA (ltx2.3-transition.safetensors) runs on LTX-2.5 22B distilled int8 in workflows/ltx25_transition_api.json. Clip A is the same-clip source (day); clip B is its day-to-night take. The output is A, a 49-frame bridge from A's last frame to B's first frame, then B: 291 frames at 960x544. Re-rendered on 2026-11-02 from the new source clip.",
+ "verdict": "Works. Both seams are continuous, the person stays whole and keeps her clothes, and the light moves from afternoon to night with the lamps coming on. With the extra day-to-night words a moon rises in the bridge and is gone in clip B, so the default prompt is the one shipped. Not tested: a run without the LoRA, so how much the LoRA adds over plain first and last frame guidance is not measured.",
  "renders": [
-  {
-   "name": "transition_day_night",
-   "prompt": "The woman in the red coat walks down the cobblestone street while the sunny afternoon turns into a moonlit night, the lamps come on one by one",
-   "seed": 4242,
-   "graph_hash": "10c0812e28ac",
-   "render_seconds": 79.1,
-   "lane_peak_vram_gib": 38.2,
-   "frames": 291
-  },
   {
    "name": "transition_default",
    "prompt": "(default)",
    "seed": 4242,
-   "graph_hash": "0265925d93f1",
-   "render_seconds": 40.6,
+   "graph_hash": "85d47fe7d46d",
+   "render_seconds": 16.5,
+   "lane_peak_vram_gib": 37.8,
+   "frames": 291
+  },
+  {
+   "name": "transition_day_night",
+   "prompt": "The woman in the red coat stands in the cobblestone street while the sunny afternoon turns into a moonlit night, the lamps come on one by one",
+   "seed": 4242,
+   "graph_hash": "c59a825b61d7",
+   "render_seconds": 28.9,
    "lane_peak_vram_gib": 37.3,
    "frames": 291
   }
  ],
- "shipped": "studio/web/showcase/vfx_same_transition.mp4 (the first render)"
+ "shipped": "studio/web/showcase/vfx_same_transition.mp4 (the default-prompt render)"
 }

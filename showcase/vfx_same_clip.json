@@ -1,10 +1,14 @@
 {
- "about": "Four LTX-2.5 IC-LoRA effects, each run by the Shot Board on the same source clip. The source is itself an LTX-2.5 render of an invented person; no real people, no third-party footage. Times are from one 96 GB RTX PRO 6000, with the lane's models freed before each job, so each time includes loading the models.",
+ "about": "Four LTX-2.5 IC-LoRA effects, each run by the Shot Board on the same source clip. The source is itself an LTX-2.5 render of an invented person; no real people, no third-party footage. Times and VRAM peaks are from one 96 GB RTX PRO 6000, with the lane's models freed before each job, so each time includes loading the models.",
  "source": {
   "file": "studio/web/showcase/vfx_same_src.mp4",
-  "prompt": "A sunny afternoon on a quiet cobblestone street in an old town. A woman in her thirties with short dark hair, wearing a long red wool coat, dark trousers and white sneakers, walks slowly toward the camera down the middle of the street with her hands in her coat pockets. Pale stone houses with green wooden shutters, potted plants by the doors, no signs and no lettering anywhere. Bright natural daylight, clear blue sky, soft shadows on the cobblestones. The camera is locked off at eye level, wide shot. Photorealistic, natural colours. Quiet street ambience, footsteps, no music, no speech.",
-  "seed": 20261102,
-  "goal": "video_ltx"
+  "prompt": "A sunny afternoon. Pale stone houses with green wooden shutters and potted plants by the doors line a quiet cobblestone street in an old town; no signs and no lettering anywhere. Bright natural daylight, clear blue sky, soft shadows on the cobblestones. In a medium-wide full-body shot, a woman in her thirties with short dark hair, wearing a long red wool coat, dark trousers and white sneakers, takes a few slow steps diagonally toward the camera, then stops in the middle of the street and looks to her left, her hands in her coat pockets. Her whole body stays in frame from head to shoes, with space above her head; she stays at a medium distance and never comes close to the camera. The camera is locked off at chest height and does not move. Photorealistic, natural colours, sharp focus, natural face with steady features. Quiet street ambience, footsteps, no music, no speech.",
+  "negative": "worst quality, inconsistent motion, blurry, jittery, distorted, watermark, text, deformed face, smeared face",
+  "seed": 110331,
+  "goal": "video_ltx graph (workflows/ltx25_core_t2v_api.json) queued at 1920x1088, 121 frames; the Shot Board's input is a Lanczos scale to 960x544",
+  "render_seconds": 53.7,
+  "lane_peak_vram_gib": 38.8,
+  "picked": "Replaced the first source clip, whose face smeared as she walked toward the camera. 16 candidates were rendered (8 at 960x544, 4 at 1280x704, 4 at 1920x1088) and every frame's face was checked at full size; at 960x544 every face smeared or ghosted in some frames. This 1920x1088 take keeps her whole body in frame from head to shoes in every frame, at a medium distance, hands in pockets, and the face stays steady while she walks and turns her head."
  },
  "pairs": [
   {
@@ -24,8 +28,8 @@
    },
    "scene": "a sunny cobblestone street between pale stone houses with green shutters",
    "seed": 7301,
-   "graph_hash": "b5e27b16483d",
-   "render_seconds": 32.1,
+   "graph_hash": "100f3bd76637",
+   "render_seconds": 33.2,
    "lane_peak_vram_gib": 38.5
   },
   {
@@ -45,8 +49,8 @@
    },
    "scene": "a sunny cobblestone street between pale stone houses with green shutters",
    "seed": 7301,
-   "graph_hash": "b0118f56bf05",
-   "render_seconds": 33.1,
+   "graph_hash": "3827d6d1bdd2",
+   "render_seconds": 38.5,
    "lane_peak_vram_gib": 38.5
   },
   {
@@ -65,8 +69,8 @@
    },
    "scene": "a sunny cobblestone street between pale stone houses with green shutters",
    "seed": 7301,
-   "graph_hash": "fa1d8b3153f7",
-   "render_seconds": 36.0,
+   "graph_hash": "f24b6bcbdb3c",
+   "render_seconds": 28.7,
    "lane_peak_vram_gib": 38.5
   },
   {
@@ -85,8 +89,8 @@
    },
    "scene": "a sunny cobblestone street between pale stone houses with green shutters",
    "seed": 7301,
-   "graph_hash": "ef31a2d24cbd",
-   "render_seconds": 36.7,
+   "graph_hash": "61347a9cd56f",
+   "render_seconds": 31.9,
    "lane_peak_vram_gib": 38.5
   },
   {
@@ -105,8 +109,8 @@
    },
    "scene": "a sunny cobblestone street between pale stone houses with green shutters",
    "seed": 7301,
-   "graph_hash": "ef31a2d24cbd",
-   "render_seconds": 36.7,
+   "graph_hash": "61347a9cd56f",
+   "render_seconds": 31.9,
    "lane_peak_vram_gib": 38.5,
    "cutout_mov": "not shipped (ProRes 4444 is large); made by the Shot Board's Make the cutout button"
   }
@@ -206,7 +210,8 @@
    "48 GB": "yes, measured: 38.5 GiB peak with everything resident (39.5 GiB at 1280x704)",
    "24 GB": "likely, measured under an emulated budget: 19.6 GiB peak including the Gemma load; not run on a real 24 GB card",
    "16 GB": "not shown: under a 14 GiB budget the peak reached 19.6 GiB while Gemma loaded. With the prompt encoding cached it stayed at 10.4 GiB, but every new prompt needs Gemma, so 16 GB is not claimed"
-  }
+  },
+  "note": "Runs measured on the first source clip, which had the same size and length (960x544, 121 frames). The re-render of the four effects on the new clip peaked at the same 38.5 GiB each at standard quality."
  },
  "vae_comparison": {
   "what": "The same four jobs (same seed and settings, so the sampling is identical) decoded with the convolutional video VAE we ship (ltx-2.5-video-vae-conv-bf16) and with Lightricks' diffusion decoder (ltx-2.5-video-vae-bf16, 1.47 GB, LTX-2.x Community License). Models freed before each job; one gate reservation; 960x544, 121 frames.",
@@ -281,6 +286,7 @@
     }
    }
   },
-  "verdict": "Kept the conv decoder as the default and did not add a best-quality option. Side by side the frames are near-identical: the diffusion decoder is slightly smoother (less fine stone and mortar detail, a little less flicker), takes 1-6 s more to decode, and peaks about 1.2 GiB higher (39.7 vs 38.5 GiB). It is not clearly better on this clip."
+  "verdict": "Kept the conv decoder as the default and did not add a best-quality option. Side by side the frames are near-identical: the diffusion decoder is slightly smoother (less fine stone and mortar detail, a little less flicker), takes 1-6 s more to decode, and peaks about 1.2 GiB higher (39.7 vs 38.5 GiB). It is not clearly better on this clip.",
+  "note": "Measured on the first source clip (same size, length, seeds and settings); not repeated on the new clip."
  }
 }

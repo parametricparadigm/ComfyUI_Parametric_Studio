@@ -7,7 +7,7 @@ const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const seekable = (url) => url + "#t=0.1";
 // Real renders that ship with the studio, two example shoots. Every take in a shoot was made from that shoot's source clip.
 const EXAMPLES = [
-  { id: "vfx", tab: "LTX-2.5 VFX", source: "vfx_same_src", about: "Example source clip: a woman in a red coat walks down a sunny street", takes: [
+  { id: "vfx", tab: "LTX-2.5 VFX", source: "vfx_same_src", about: "Example source clip: a woman in a red coat walks down a sunny street, stops and looks around", takes: [
     { id: "vfx_same_water", label: "VFX: water", note: "From this clip" },
     { id: "vfx_same_night", label: "VFX: day to night", note: "From this clip" },
     { id: "vfx_same_plate", label: "VFX: clean plate", note: "From this clip" },

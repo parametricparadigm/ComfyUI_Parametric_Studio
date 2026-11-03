@@ -517,16 +517,33 @@
 "h": 360
 },
 {
+"id": "vfx_same_transition",
+"goal": "ltx_transition",
+"kind": "video",
+"prompt": "Transition from the source clip into its night take, with the transition goal's default prompt (no words added)",
+"options": {
+"aspect": "auto",
+"seconds": 2
+},
+"seconds": 16.5,
+"peak_vram_gib": 37.8,
+"src": "showcase/vfx_same_transition.mp4",
+"poster": "showcase/vfx_same_transition.webp",
+"w": 960,
+"h": 544
+},
+{
 "id": "vfx_same_src",
 "goal": "video_ltx",
 "kind": "video",
-"prompt": "Source clip, made for this example with LTX-2.5 text to video: a woman in a red coat walks down a sunny cobblestone street",
+"prompt": "Source clip, made for this example with LTX-2.5 text to video at 1920x1088 and scaled to 960x544: a woman in a red coat walks a few steps down a sunny cobblestone street, stops and looks around",
 "options": {
 "aspect": "16:9",
-"seconds": 5
+"seconds": 5,
+"size": "1920x1088"
 },
-"seconds": 26.6,
-"peak_vram_gib": 38.4,
+"seconds": 53.7,
+"peak_vram_gib": 38.8,
 "src": "showcase/vfx_same_src.mp4",
 "poster": "showcase/vfx_same_src.webp",
 "w": 960,
@@ -544,7 +561,7 @@
 "effect": "water",
 "intensity": "natural"
 },
-"seconds": 32.1,
+"seconds": 33.2,
 "peak_vram_gib": 38.5,
 "src": "showcase/vfx_same_water.mp4",
 "poster": "showcase/vfx_same_water.webp",
@@ -563,7 +580,7 @@
 "effect": "day_to_night",
 "intensity": "strong"
 },
-"seconds": 33.1,
+"seconds": 38.5,
 "peak_vram_gib": 38.5,
 "src": "showcase/vfx_same_night.mp4",
 "poster": "showcase/vfx_same_night.webp",
@@ -581,7 +598,7 @@
 "quality": "standard",
 "effect": "clean_plate"
 },
-"seconds": 36.0,
+"seconds": 28.7,
 "peak_vram_gib": 38.5,
 "src": "showcase/vfx_same_plate.mp4",
 "poster": "showcase/vfx_same_plate.webp",
@@ -599,7 +616,7 @@
 "quality": "standard",
 "effect": "matte"
 },
-"seconds": 36.7,
+"seconds": 31.9,
 "peak_vram_gib": 38.5,
 "src": "showcase/vfx_same_matte.mp4",
 "poster": "showcase/vfx_same_matte.webp",
@@ -617,26 +634,10 @@
 "quality": "standard",
 "effect": "matte"
 },
-"seconds": 36.7,
+"seconds": 31.9,
 "peak_vram_gib": 38.5,
 "src": "showcase/vfx_same_cutout.mp4",
 "poster": "showcase/vfx_same_cutout.webp",
-"w": 960,
-"h": 544
-},
-{
-"id": "vfx_same_transition",
-"goal": "ltx_transition",
-"kind": "video",
-"prompt": "Transition from the source clip into its night take: The woman in the red coat walks down the cobblestone street while the sunny afternoon turns into a moonlit night, the lamps come on one by one",
-"options": {
-"aspect": "auto",
-"seconds": 2
-},
-"seconds": 79.1,
-"peak_vram_gib": 38.2,
-"src": "showcase/vfx_same_transition.mp4",
-"poster": "showcase/vfx_same_transition.webp",
 "w": 960,
 "h": 544
 }
